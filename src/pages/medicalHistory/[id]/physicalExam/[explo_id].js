@@ -63,7 +63,10 @@ const index = () => {
               {" "}
               <ExplorationPatientCard patientID={explo_id} />
             </Grid>
-            <Grid item={4}> </Grid>
+            <Grid item={4}>
+              {" "}
+              <ExplorationPatientCard patientID={explo_id} />
+            </Grid>
           </Grid>
         </Paper>
       </Container>
