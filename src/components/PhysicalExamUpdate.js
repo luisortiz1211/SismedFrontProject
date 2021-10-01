@@ -1,9 +1,9 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
 import Loading from "@/components/Loading";
-import { useAuth } from "@/lib/auth";
-import { Physicalexams } from "@/lib/physicalexam";
-import { fetcher } from "@/lib/utils";
+import { useAuth } from "src/contexts/auth";
+import { Physicalexams } from "src/api/physicalexam";
+import { fetcher } from "src/api/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Fade } from "@material-ui/core";
 import { FormControl, MenuItem, Select } from "@material-ui/core/";

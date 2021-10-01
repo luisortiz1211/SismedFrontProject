@@ -1,6 +1,6 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import Routes from "@/constants/routes";
-import { Familyhistories } from "@/lib/familyhistory";
+import { Familyhistories } from "src/api/familyhistory";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Fade } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";

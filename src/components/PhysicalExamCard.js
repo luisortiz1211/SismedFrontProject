@@ -1,5 +1,5 @@
 import Loading from "@/components/Loading";
-import { fetcher } from "@/lib/utils";
+import { fetcher } from "src/api/utils";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";

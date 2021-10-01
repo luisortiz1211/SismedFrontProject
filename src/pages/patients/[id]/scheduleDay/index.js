@@ -4,7 +4,7 @@ import Layout from "@/components/Layoutmain";
 import Loading from "@/components/Loading";
 import ScheduleDayUser from "@/components/ScheduleDayUser";
 import Title from "@/components/Title";
-import { fetcher } from "@/lib/utils";
+import { fetcher } from "src/api/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";

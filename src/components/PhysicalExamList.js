@@ -1,5 +1,5 @@
 import Loading from "@/components/Loading";
-import { fetcher } from "@/lib/utils";
+import { fetcher } from "src/api/utils";
 import Collapse from "@material-ui/core/Collapse";
 import Container from "@material-ui/core/Container";
 import List from "@material-ui/core/List";

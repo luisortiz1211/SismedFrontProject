@@ -1,6 +1,6 @@
 import Appbar from "@/components/AppBar";
 import Footer from "@/components/Footer";
-import { AuthProvider } from "@/lib/auth";
+import { AuthProvider } from "src/contexts/auth";
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import Head from "next/head";
 import PropTypes from "prop-types";

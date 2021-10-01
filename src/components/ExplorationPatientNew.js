@@ -1,7 +1,7 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import Routes from "@/constants/routes";
-import { useAuth } from "@/lib/auth";
-import { Explorationpatients } from "@/lib/explorationpatient";
+import { useAuth } from "src/contexts/auth";
+import { Explorationpatients } from "src/api/explorationpatient";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Fade } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -20,7 +20,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { Scheduledays } from "@/lib/scheduleday";
+import { Scheduledays } from "src/api/scheduleday";
 
 const useStyles = makeStyles((theme) => ({
   root: {

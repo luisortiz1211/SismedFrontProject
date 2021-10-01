@@ -3,10 +3,10 @@ import ChargeInformation from "@/components/ChargeInformation";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
-import { Scheduledays } from "@/lib/scheduleday";
-import { Scheduleusers } from "@/lib/scheduleuser";
+import { Scheduledays } from "src/api/scheduleday";
+import { Scheduleusers } from "src/api/scheduleuser";
 
-import { fetcher } from "@/lib/utils";
+import { fetcher } from "src/api/utils";
 import {
   Backdrop,
   Box,

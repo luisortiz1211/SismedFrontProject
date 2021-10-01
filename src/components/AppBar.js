@@ -1,4 +1,4 @@
-import { useAuth } from "@/lib/auth";
+import { useAuth } from "src/contexts/auth";
 import {
   AppBar,
   Box,

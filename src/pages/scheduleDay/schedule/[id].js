@@ -4,7 +4,7 @@ import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
 import Routes from "@/constants/routes";
-import { fetcher } from "@/lib/utils";
+import { fetcher } from "src/api/utils";
 import {
   Backdrop,
   Box,
@@ -25,8 +25,8 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useSWR from "swr";
-import { Scheduledays } from "@/lib/scheduleday";
-import { Scheduleusers } from "@/lib/scheduleuser";
+import { Scheduledays } from "src/api/scheduleday";
+import { Scheduleusers } from "src/api/scheduleuser";
 
 const useStyles = makeStyles((theme) => ({
   root: {

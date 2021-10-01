@@ -2,7 +2,7 @@ import AnnounTitle from "@/components/AnnounTitle";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Title from "@/components/Title";
 import Routes from "@/constants/routes";
-import { Patients } from "@/lib/patient";
+import { Patients } from "src/api/patient";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Fade, Paper } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";

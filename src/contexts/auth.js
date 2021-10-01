@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import api from "./api";
+import api from "../api/api";
 import cookie from "js-cookie";
 import translateMessage from "../constants/messages";
 

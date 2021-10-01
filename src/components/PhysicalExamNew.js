@@ -1,7 +1,7 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import Routes from "@/constants/routes";
-import { useAuth } from "@/lib/auth";
-import { Physicalexams } from "@/lib/physicalexam";
+import { useAuth } from "src/contexts/auth";
+import { Physicalexams } from "src/api/physicalexam";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Fade } from "@material-ui/core";
 import { FormControl, MenuItem, Select } from "@material-ui/core/";

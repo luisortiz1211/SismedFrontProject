@@ -4,8 +4,8 @@ import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
 import Routes from "@/constants/routes";
-import { Users } from "@/lib/user";
-import { fetcher } from "@/lib/utils";
+import { Users } from "src/api/user";
+import { fetcher } from "src/api/utils";
 import {
   Button,
   Container,

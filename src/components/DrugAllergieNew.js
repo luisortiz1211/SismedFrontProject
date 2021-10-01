@@ -1,5 +1,5 @@
 import AnnounTitle from "@/components/AnnounTitle";
-import { Drugallergies } from "@/lib/drugallergies";
+import { Drugallergies } from "src/api/drugallergies";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Fade } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";

@@ -1,5 +1,5 @@
 import withoutAuth from "@/hocs/withoutAuth";
-import { useAuth } from "@/lib/auth";
+import { useAuth } from "src/contexts/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Box, Link as MuiLink } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";

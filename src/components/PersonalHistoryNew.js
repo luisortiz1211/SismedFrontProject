@@ -1,6 +1,6 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import Routes from "@/constants/routes";
-import { Personalhistories } from "@/lib/personalhistory";
+import { Personalhistories } from "src/api/personalhistory";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Fade } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";

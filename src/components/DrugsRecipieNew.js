@@ -1,5 +1,5 @@
 import AnnounTitle from "@/components/AnnounTitle";
-import { Drugsrecipies } from "@/lib/drugsrecipies";
+import { Drugsrecipies } from "src/api/drugsrecipies";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Fade } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";

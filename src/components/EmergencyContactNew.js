@@ -1,6 +1,6 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import Routes from "@/constants/routes";
-import { Emergencycontacts } from "@/lib/emergencycontact";
+import { Emergencycontacts } from "src/api/emergencycontact";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Fade } from "@material-ui/core";
 import {

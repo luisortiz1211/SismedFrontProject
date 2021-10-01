@@ -1,7 +1,7 @@
 import ChargeInformation from "@/components/ChargeInformation";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
-import { fetcher } from "@/lib/utils";
+import { fetcher } from "src/api/utils";
 import { Button, CssBaseline, Grid } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";

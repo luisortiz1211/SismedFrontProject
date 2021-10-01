@@ -1,4 +1,4 @@
-import api from "@/lib/api";
+import api from "src/api/api";
 export const fetcher = async (url) => {
   const response = await api.get(
     `${process.env.NEXT_PUBLIC_API_BASE_URL}${url}`

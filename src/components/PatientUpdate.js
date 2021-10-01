@@ -1,8 +1,8 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
 import Loading from "@/components/Loading";
-import { Patients } from "@/lib/patient";
-import { fetcher } from "@/lib/utils";
+import { Patients } from "src/api/patient";
+import { fetcher } from "src/api/utils";
 import { Fade } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
