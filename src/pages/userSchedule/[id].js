@@ -98,55 +98,19 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     padding: "40px",
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-    backgroundColor: theme.palette.tertiary.main,
-  },
-  textField: {
-    paddingBottom: "15px",
-    color: "#414A4F",
-  },
-
-  formControl: {
-    minWidth: 300,
-    paddingBottom: "15px",
-    color: "#414A4F",
-    paddingRight: "10px",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  mpaper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   button: {
     margin: theme.spacing(3),
   },
-  rightIcon: {
-    marginLeft: theme.spacing(2),
-  },
-  btn: {
-    display: "flex",
-    justifyAlign: "right",
+  btnadd: {
     color: "#092435",
     backgroundColor: "#fff",
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#fff",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
   btnedit: {
-    display: "flex",
-    justifyAlign: "right",
     color: "#092435",
     backgroundColor: "#60CCD9",
     textTransform: "none",
@@ -241,9 +205,9 @@ const index = () => {
                             <Button
                               variant="outlined"
                               size="small"
-                              className={classes.btn}
+                              className={classes.btnadd}
+                              startIcon={<AddIcon />}
                             >
-                              <AddIcon />
                               Añadir
                             </Button>
                           </Link>
@@ -260,18 +224,12 @@ const index = () => {
                 {data.data
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
-                    const colorLine = row.schedule_id;
                     return (
                       <TableRow
                         hover
                         role="checkbox"
-                        //  tabIndex={-1}
+                        tabIndex={-1}
                         key={row.id}
-                        /* style={
-                          colorLine % 2 == 0
-                            ? { backgroundColor: "#BBF0E8" }
-                            : { backgroundColor: "#fff" }
-                        } */
                       >
                         {columns.map((column) => {
                           const value = row[column.id];
@@ -295,6 +253,7 @@ const index = () => {
                                 >
                                   <Grid item>
                                     <Link
+                                      //es el numero de id en horarios usuarios
                                       href={`/userSchedule/scheduleupdate/${row.schedule_id}`}
                                     >
                                       <Button

@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { Scheduledays } from "src/api/scheduleday";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,6 +67,15 @@ const useStyles = makeStyles((theme) => ({
   rightIcon: {
     marginLeft: theme.spacing(2),
   },
+  btnsave: {
+    backgroundColor: "#60CCD9",
+    color: "#092435",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
+  },
 }));
 const schema = yup.object().shape({
   /*  ci: yup.number().required("Confirme su número de cédula"),
@@ -83,7 +93,7 @@ const schema = yup.object().shape({
   parish: yup.string().required("Defina nombre del empleo"), */
 });
 
-export default function PhysicalExamNew({ props }) {
+export default function PhysicalExamNew({ pid }) {
   const classes = useStyles();
   const { user } = useAuth();
   const router = useRouter();
@@ -109,6 +119,24 @@ export default function PhysicalExamNew({ props }) {
     setOpen(false);
   };
 
+  const handleRegisterDay = async () => {
+    try {
+      await Scheduledays.update(`${id}`, {
+        scheduleDayState: "registrado",
+      });
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.message);
+        console.log(error.response);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    }
+  };
+
   const onSubmit = async (formData) => {
     setUserInfo(null);
     setResult("Sending data...");
@@ -116,7 +144,8 @@ export default function PhysicalExamNew({ props }) {
     try {
       const userData = {
         ...formData,
-        patient_id: id,
+        patient_id: pid,
+        schedule_day: id,
       };
       const response = await Physicalexams.create(userData);
       console.log("Examen fisico registrado", response);
@@ -194,7 +223,7 @@ export default function PhysicalExamNew({ props }) {
               <TextField
                 id="patient_id"
                 name="patient_id"
-                label="N° de usuario"
+                label="Registrado por"
                 className={classes.textField}
                 defaultValue={user.id}
                 //required
@@ -347,8 +376,8 @@ export default function PhysicalExamNew({ props }) {
                   <Select
                     id="tobacco"
                     {...register("tobacco", { required: true })}
+                    defaultChecked={"0"}
                   >
-                    <MenuItem value={``}></MenuItem>
                     <MenuItem value={`1`}>Si</MenuItem>
                     <MenuItem value={`0`}>No</MenuItem>
                   </Select>
@@ -368,8 +397,11 @@ export default function PhysicalExamNew({ props }) {
                   variant="outlined"
                   className={classes.textField}
                 >
-                  <Select id="drugs" {...register("drugs", { required: true })}>
-                    <MenuItem value={``}></MenuItem>
+                  <Select
+                    id="drugs"
+                    {...register("drugs", { required: true })}
+                    defaultChecked={"0"}
+                  >
                     <MenuItem value={`1`}>Si</MenuItem>
                     <MenuItem value={`0`}>No</MenuItem>
                   </Select>
@@ -392,8 +424,8 @@ export default function PhysicalExamNew({ props }) {
                   <Select
                     id="alcohol"
                     {...register("alcohol", { required: true })}
+                    defaultChecked={"0"}
                   >
-                    <MenuItem value={``}></MenuItem>
                     <MenuItem value={`1`}>Si</MenuItem>
                     <MenuItem value={`0`}>No</MenuItem>
                   </Select>
@@ -416,8 +448,8 @@ export default function PhysicalExamNew({ props }) {
                   <Select
                     id="apetiteChanges"
                     {...register("apetiteChanges", { required: true })}
+                    defaultChecked={"0"}
                   >
-                    <MenuItem value={``}></MenuItem>
                     <MenuItem value={`1`}>Si</MenuItem>
                     <MenuItem value={`0`}>No</MenuItem>
                   </Select>
@@ -440,8 +472,8 @@ export default function PhysicalExamNew({ props }) {
                   <Select
                     id="dreamChanges"
                     {...register("dreamChanges", { required: true })}
+                    defaultChecked={"0"}
                   >
-                    <MenuItem value={``}></MenuItem>
                     <MenuItem value={`1`}>Si</MenuItem>
                     <MenuItem value={`0`}>No</MenuItem>
                   </Select>
@@ -470,7 +502,7 @@ export default function PhysicalExamNew({ props }) {
               <TextField
                 id="currentCondition"
                 name="currentCondition"
-                label="Sintomas actuales"
+                label="Síntomas actuales"
                 className={classes.textField}
                 defaultValue=""
                 required
@@ -531,12 +563,11 @@ export default function PhysicalExamNew({ props }) {
               <Button
                 variant="contained"
                 type="submit"
-                style={{
-                  backgroundColor: "#60CCD9",
-                  color: "#092435",
-                  width: "80vh",
+                className={classes.btnsave}
+                onClick={() => {
+                  handleOpen();
+                  handleRegisterDay();
                 }}
-                onClick={handleOpen}
                 startIcon={<SaveIcon />}
               >
                 Guardar examen
@@ -560,17 +591,21 @@ export default function PhysicalExamNew({ props }) {
           >
             <Fade in={open}>
               <div className={classes.mpaper}>
-                <h2 id="transition-modal-title">Examen agregado con éxito</h2>
-                <Button
-                  variant="contained"
-                  type="submit"
-                  size="small"
-                  onClick={handleClose}
-                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                  className={classes.upgrade}
-                >
-                  Aceptar
-                </Button>
+                <h2 id="transition-modal-title">
+                  Examen agregado con éxito, puede continuar con la atención
+                </h2>
+                <Link href={`/scheduleDay/schedule`}>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    size="small"
+                    onClick={handleClose}
+                    style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                    className={classes.upgrade}
+                  >
+                    Aceptar
+                  </Button>
+                </Link>
               </div>
             </Fade>
           </Modal>

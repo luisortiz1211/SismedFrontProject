@@ -1,8 +1,7 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
 import Loading from "@/components/Loading";
-import { Patients } from "src/api/patient";
-import { fetcher } from "src/api/utils";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Fade } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
@@ -16,13 +15,41 @@ import SaveIcon from "@mui/icons-material/Save";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Patients } from "src/api/patient";
+import { fetcher } from "src/api/utils";
 import useSWR from "swr";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  name: yup.string().required("Ingrese nombre del paciente"),
+  lastname: yup.string().required("Ingresa el apellido del paciente"),
+  employment: yup.string().required("Ingresa un empleo del paciente"),
+  email: yup
+    .string()
+    .email("Ingresa un correo válido")
+    .required("Ingresa el correo electrónico del paciente"),
+  movil: yup
+    .string()
+    .length(10, "Deben ser 10 dígitos")
+    .required()
+    .matches(/^[0-9]+$/, "Ingrese solo números, exactamente 10 dígitos")
+    .max(10, "Deben ser 10 dígitos"),
+  landline: yup
+    .string()
+    .length(10, "Deben ser 10 dígitos")
+    .required()
+    .matches(/^[0-9]+$/, "Ingrese solo números, exactamente 10 dígitos")
+    .max(10, "Deben ser 10 dígitos"),
+  address: yup
+    .string()
+    .length(100, "Permitido 100 cacarteres")
+    .required("Ingrese la dirección"),
+  nationality: yup.string().required("Ingrese el país de origen"),
+  city: yup.string().required("Ingrese la ciudad de residencia"),
+  parish: yup.string().required("Ingrese la provincia"),
+});
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    //height: "auto",
-    //padding: "15px",
-  },
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -35,16 +62,6 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     paddingBottom: "15px",
     color: "#414A4F",
-  },
-
-  formControl: {
-    minWidth: 300,
-    paddingBottom: "15px",
-    color: "#414A4F",
-    paddingRight: "10px",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
   },
   mpaper: {
     backgroundColor: theme.palette.background.paper,
@@ -60,8 +77,14 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(3),
   },
-  rightIcon: {
-    marginLeft: theme.spacing(2),
+
+  btnView: {
+    backgroundColor: "#60CCD9",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
   },
 }));
 
@@ -70,7 +93,10 @@ export default function PatientsInformation({ patientID }) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { register, control, handleSubmit } = useForm();
+  const { register, control, handleSubmit } = useForm({
+    // resolver: yupResolver(schema),
+  });
+
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -115,19 +141,20 @@ export default function PatientsInformation({ patientID }) {
   if (error)
     return (
       <div>
-        <ChargeInformation />
+        <ChargeInformation component={"span"} />
       </div>
     );
   if (!data)
     return (
       <div>
-        <Loading />
+        <Loading component={"span"} />
       </div>
     );
 
   return (
-    <Container component={"span"} variant={"body2"}>
+    <Container variant={"body2"}>
       <form
+        component={"span"}
         className={classes.root}
         noValidate
         autoComplete="off"
@@ -450,11 +477,8 @@ export default function PatientsInformation({ patientID }) {
             <Button
               variant="contained"
               type="submit"
-              style={{
-                backgroundColor: "#60CCD9",
-                color: "#092435",
-                width: "80vh",
-              }}
+              className={classes.btnView}
+              fullWidth
               onClick={handleOpen}
               startIcon={<SaveIcon />}
             >

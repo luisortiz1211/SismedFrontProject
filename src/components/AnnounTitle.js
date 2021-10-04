@@ -12,8 +12,10 @@ export default function AnnounTitle({ children }) {
         justifyContent="flex-start"
         alignItems="center"
         spacing={1}
+        style={{ position: "relative", left: "10px" }}
       >
         <Grid item>
+          {" "}
           <h6>
             {"   _"}
             {children}

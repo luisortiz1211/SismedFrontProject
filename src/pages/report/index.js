@@ -1,15 +1,12 @@
-import DrugAllergieList from "@/components/DrugAllergieList";
-import EmergencyContactList from "@/components/EmergencyContactList";
-import ExplorationPatientList from "@/components/ExplorationPatientList";
-import FamilyHistoryList from "@/components/FamilyHistoryList";
 import LayoutSecondary from "@/components/LayoutSecondary";
-import PatientsInformation from "@/components/PatientUpdate";
-import PersonalHistoryList from "@/components/PersonalHistoryList";
+import PatientAdd from "@/components/PatientAdd";
+import PatientCancel from "@/components/PatientCancel";
+import PatientWait from "@/components/PatientWait";
 import Title from "@/components/Title";
 import { Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
@@ -85,8 +82,8 @@ const patientDetails = ({ props }) => {
   return (
     <LayoutSecondary>
       <Container maxWidth="lg">
-        <Title component={"span"}>
-          <AssignmentIndIcon
+        <Title>
+          <AnalyticsIcon
             style={{
               color: "#092435",
               fontSize: 35,
@@ -94,7 +91,7 @@ const patientDetails = ({ props }) => {
               top: "6px",
             }}
           />
-          Historia médica (Datos personales)
+          Reporte de atención
         </Title>
         <Paper elevation={6} style={{ padding: "10px", margin: "20px" }}>
           <Container>
@@ -110,35 +107,20 @@ const patientDetails = ({ props }) => {
                   allowScrollButtonsMobile
                   aria-label="scrollable auto tabs example"
                 >
-                  <Tab label="Datos" {...a11yProps(0)} />
-                  <Tab label="Contactos" {...a11yProps(1)} />
-                  <Tab label="APP" {...a11yProps(2)} />
-                  <Tab label="APF" {...a11yProps(3)} />
-                  <Tab label="Alergias" {...a11yProps(4)} />
-                  <Tab label="Exploración" {...a11yProps(5)} />
+                  <Tab label="Pendientes" {...a11yProps(0)} />
+                  <Tab label="Atendido" {...a11yProps(1)} />
+                  <Tab label="Cancelado" {...a11yProps(2)} />
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
-                <PatientsInformation patientID={id} />
+                <PatientWait />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <EmergencyContactList patientID={id} />
+                <PatientAdd />
               </TabPanel>
 
               <TabPanel value={value} index={2}>
-                <PersonalHistoryList patientID={id} />
-              </TabPanel>
-
-              <TabPanel value={value} index={3}>
-                <FamilyHistoryList patientID={id} />
-              </TabPanel>
-
-              <TabPanel value={value} index={4}>
-                <DrugAllergieList patientID={id} />
-              </TabPanel>
-
-              <TabPanel value={value} index={5}>
-                <ExplorationPatientList patientID={id} />
+                <PatientCancel />
               </TabPanel>
             </Box>
           </Container>

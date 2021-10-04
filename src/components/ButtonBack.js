@@ -8,22 +8,21 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   btnvolver: {
-    backgroundColor: "#BBF0E8",
+    backgroundColor: "#60CCD9",
     color: "#092435",
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#fff",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
   btninicio: {
     backgroundColor: "#092435",
     color: "#fff",
-    margin: "5px",
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#ffffff",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
 }));
@@ -38,6 +37,7 @@ export default function ButtonBack() {
       direction="row"
       justifyContent="space-between"
       alignItems="center"
+      spacing={1}
     >
       <Grid item>
         {" "}
@@ -45,11 +45,6 @@ export default function ButtonBack() {
           variant="contained"
           type="button"
           size="small"
-          /*  style={{
-            backgroundColor: "#BBF0E8",
-            color: "#092435",
-            textTransform: "none",
-          }} */
           className={classes.btnvolver}
           onClick={() => router.back()}
         >
@@ -63,12 +58,6 @@ export default function ButtonBack() {
             variant="contained"
             type="button"
             size="small"
-            /*     style={{
-              backgroundColor: "#092435",
-              color: "#fff",
-              margin: "5px",
-              textTransform: "none",
-            }} */
             className={classes.btninicio}
           >
             {" "}

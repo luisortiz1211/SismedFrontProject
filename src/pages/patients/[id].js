@@ -1,4 +1,6 @@
 import ChargeInformation from "@/components/ChargeInformation";
+import withoutAuth from "@/hocs/withoutAuth";
+
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
@@ -25,10 +27,6 @@ import useSWR from "swr";
 import AnnounTitle from "@/components/AnnounTitle";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    //height: "auto",
-    //padding: "15px",
-  },
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -43,15 +41,6 @@ const useStyles = makeStyles((theme) => ({
     color: "#414A4F",
   },
 
-  formControl: {
-    minWidth: 300,
-    paddingBottom: "15px",
-    color: "#414A4F",
-    paddingRight: "10px",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
   mpaper: {
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
@@ -66,23 +55,21 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(3),
   },
-  rightIcon: {
-    marginLeft: theme.spacing(2),
-  },
+
   btnCancel: {
     backgroundColor: "#003D59",
     color: "#BBF0E8",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#092435",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
   btnAgn: {
-    backgroundColor: "#BBF0E8",
+    backgroundColor: "#4A92A8",
     color: "#092435",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#092435",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
   btnUpdate: {
@@ -90,8 +77,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#092435",
 
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#092435",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
 }));
@@ -106,6 +93,9 @@ const patientDetails = ({ props }) => {
 
   const handleOpen = () => {
     setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const onSubmit = async (patient) => {
@@ -176,7 +166,7 @@ const patientDetails = ({ props }) => {
               onSubmit={handleSubmit(onSubmit)}
             >
               <AnnounTitle>
-                Antes de agendar actualice los datos, si es necesario
+                Antes de agendar actualice los datos, si es necesario.
               </AnnounTitle>
               <Grid
                 container
@@ -579,31 +569,22 @@ const patientDetails = ({ props }) => {
                     <h2 id="transition-modal-title">
                       Datos actualizados con éxito
                     </h2>
-                    <Link href={`${Routes.PATIENTS}`}>
-                      <Button
-                        variant="contained"
-                        type="submit"
-                        size="small"
-                        style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                        className={classes.upgrade}
-                      >
-                        Aceptar
-                      </Button>
-                    </Link>
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      size="small"
+                      onClick={handleClose}
+                      style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                      className={classes.upgrade}
+                    >
+                      Aceptar
+                    </Button>
                   </div>
                 </Fade>
               </Modal>
             </form>
           </Container>
         </Paper>
-        {/* <EmergencyContactList patientID={data.patient_id} />
-        <DrugAllergies patientID={data.patient_id} />
-        <FamilyHistories patientID={data.patient_id} />
-        <PersonalHistories patientID={data.patient_id} />
-        <PhysicalExams patientID={data.patient_id} />
-        <ExplorationPatients patientID={data.patient_id} />
-        <DrugsRecipies patientID={data.patient_id} />
-            <ImageRecipies patientID={data.patient_id} />*/}
       </Container>
     </LayoutSecondary>
   );

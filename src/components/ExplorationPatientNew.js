@@ -67,6 +67,15 @@ const useStyles = makeStyles((theme) => ({
   rightIcon: {
     marginLeft: theme.spacing(2),
   },
+  btnexplo: {
+    backgroundColor: "#60CCD9",
+    color: "#092435",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
+  },
 }));
 const schema = yup.object().shape({
   /*  ci: yup.number().required("Confirme su número de cédula"),
@@ -88,7 +97,7 @@ export default function ExplorationPatientNew({ examID }) {
   const { user } = useAuth();
   const classes = useStyles();
   const router = useRouter();
-  const { id, exam_id } = router.query;
+  const { id, pid, exam_id } = router.query;
   const {
     register,
     reset,
@@ -109,10 +118,11 @@ export default function ExplorationPatientNew({ examID }) {
   const handleClose = () => {
     setOpen(false);
   };
-
   const handleRegisterDay = async () => {
     try {
-      await Scheduledays.update(`${id}`, { scheduleDayState: "atendido" });
+      await Scheduledays.update(`${id}`, {
+        scheduleDayState: "atendido",
+      });
     } catch (error) {
       if (error.response) {
         alert(error.response.message);
@@ -134,7 +144,7 @@ export default function ExplorationPatientNew({ examID }) {
       const userData = {
         ...formData,
         physicalExam_id: exam_id,
-        patient_id: id,
+        patient_id: pid,
       };
       const response = await Explorationpatients.create(userData);
       console.log("Nueva exploración registrado", response);
@@ -578,11 +588,7 @@ export default function ExplorationPatientNew({ examID }) {
                 variant="contained"
                 type="submit"
                 fullWidth
-                style={{
-                  backgroundColor: "#60CCD9",
-                  color: "#092435",
-                  //width: "80vh",
-                }}
+                className={classes.btnexplo}
                 onClick={() => {
                   handleOpen();
                   handleRegisterDay();
@@ -618,8 +624,7 @@ export default function ExplorationPatientNew({ examID }) {
                   type="submit"
                   size="small"
                   onClick={handleClose}
-                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                  className={classes.upgrade}
+                  className={classes.btnexplo}
                 >
                   Aceptar
                 </Button>

@@ -14,6 +14,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import Routes from "../constants/routes";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -21,19 +22,6 @@ const useStyles = makeStyles((theme) => ({
     height: 30,
     padding: 5,
     backgroundColor: "#60CCD9",
-  },
-  colorAvatar: {
-    color: "#fff",
-    backgroundColor: "#60CCD9",
-  },
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
   },
   logo: {
     display: "none",
@@ -61,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Appbar = () => {
   const classes = useStyles();
-  const { user, logout, login } = useAuth();
+  const { user, logout } = useAuth();
 
   const handleLogout = async () => {
     logout();
@@ -86,7 +74,10 @@ const Appbar = () => {
             <Box
               className={classes.logo}
               edge="star"
-              style={{ filter: "invert(100%)", color: "#fffff" }}
+              style={{
+                filter: "invert(100%)",
+                color: "#fffff",
+              }}
             >
               <Link href="/login">
                 <MuiLink>
@@ -117,10 +108,10 @@ const Appbar = () => {
                   </Grid>
 
                   <Grid item style={{ paddingRight: "50px" }}>
-                    <Typography>{user.name}</Typography>
+                    <Typography component={"span"}>{user.name}</Typography>
                   </Grid>
                   <Grid item>
-                    <Link href="/login">
+                    <Link href={Routes.LOGIN}>
                       <Button
                         onClick={handleLogout}
                         color="inherit"

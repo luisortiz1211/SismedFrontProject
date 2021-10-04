@@ -23,6 +23,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useSWR from "swr";
 import DomainVerificationIcon from "@mui/icons-material/DomainVerification";
+import { Scheduledays } from "@/api/scheduleday";
 
 const columns = [
   {
@@ -150,6 +151,15 @@ const useStyles = makeStyles((theme) => ({
   rightIcon: {
     marginLeft: theme.spacing(2),
   },
+  btnexplo: {
+    backgroundColor: "#60CCD9",
+    color: "#092435",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
+  },
 }));
 
 const index = () => {
@@ -232,12 +242,11 @@ const index = () => {
                 {data.data
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
-                    const colorLine = row.schedule_id;
                     return (
                       <TableRow
                         hover
                         role="checkbox"
-                        //  tabIndex={-1}
+                        tabIndex={-1}
                         key={row.id}
                       >
                         {columns.map((column) => {
@@ -254,10 +263,11 @@ const index = () => {
                                   direction="row"
                                   alignItems="center"
                                   justifyContent="center"
+                                  spacing={2}
                                 >
                                   <Grid item>
                                     <Link
-                                      href={`/explorationPatient/${row.patient_id}`}
+                                      href={`/reviewAttention/${row.schedule_day}/patient/${row.patient_id}`}
                                     >
                                       <Button
                                         variant="outlined"
@@ -267,9 +277,7 @@ const index = () => {
                                             "cancelado" ||
                                           row.scheduleDayState === "atendido"
                                         }
-                                        style={{
-                                          background: "#60CCD9",
-                                        }}
+                                        className={classes.btnexplo}
                                       >
                                         <DomainVerificationIcon />
                                       </Button>

@@ -1,8 +1,13 @@
+import DrugAllergieNew from "@/components/DrugAllergieNew";
 import DrugsRecipieNew from "@/components/DrugsRecipieNew";
+import EmergencyContactNew from "@/components/EmergencyContactNew";
 import ExplorationPatientNew from "@/components/ExplorationPatientNew";
+import FamilyHistoryNew from "@/components/FamilyHistoryNew";
 import ImageRecipieNew from "@/components/ImageRecipieNew";
 import LayoutSecondary from "@/components/LayoutSecondary";
-import PhysicalExamUpdate from "@/components/PhysicalExamUpdate";
+import PatientsInformation from "@/components/PatientUpdate";
+import PersonalHistoryNew from "@/components/PersonalHistoryNew";
+import PhysicalExamNew from "@/components/PhysicalExamNew";
 import Title from "@/components/Title";
 import { Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
@@ -60,7 +65,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     padding: "40px",
   },
-
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+    backgroundColor: theme.palette.secondary.main,
+  },
   textField: {
     paddingBottom: "15px",
     color: "#414A4F",
@@ -70,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
 const patientDetails = ({ props }) => {
   const classes = useStyles();
   const router = useRouter();
-  const { id, exam_id } = router.query;
+  const { id, patient_id } = router.query;
 
   const [value, setValue] = useState(0);
 
@@ -101,39 +109,47 @@ const patientDetails = ({ props }) => {
                   indicatorColor="primary"
                   textColor="primary"
                   variant="fullWidth"
-                  scrollButtons="auto"
+                  scrollButtons
                   allowScrollButtonsMobile
                   aria-label="scrollable auto tabs example"
                 >
-                  <Tab label="Examen físico" {...a11yProps(0)} />
-                  <Tab label="Exploración" {...a11yProps(1)} />
-                  <Tab label="Imagenes" {...a11yProps(2)} />
-                  <Tab label="Medicamentos" {...a11yProps(3)} />
+                  <Tab label="Datos" {...a11yProps(0)} />
+                  <Tab label="Contactos" {...a11yProps(1)} />
+                  <Tab label="APP" {...a11yProps(2)} />
+                  <Tab label="APF" {...a11yProps(3)} />
+                  <Tab label="Alergias" {...a11yProps(4)} />
+                  <Tab label="Examen físico" {...a11yProps(5)} />
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
-                <PhysicalExamUpdate examID={exam_id} />
+                <PatientsInformation
+                  patientID={patient_id}
+                  component={"span"}
+                  variant={"body2"}
+                />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <ExplorationPatientNew examID={exam_id} />
+                <EmergencyContactNew />
               </TabPanel>
+
               <TabPanel value={value} index={2}>
-                <ImageRecipieNew examID={exam_id} />
+                <PersonalHistoryNew />
               </TabPanel>
+
               <TabPanel value={value} index={3}>
-                <DrugsRecipieNew examID={exam_id} />
+                <FamilyHistoryNew />
+              </TabPanel>
+
+              <TabPanel value={value} index={4}>
+                <DrugAllergieNew />
+              </TabPanel>
+
+              <TabPanel value={value} index={5}>
+                <PhysicalExamNew pid={patient_id} />
               </TabPanel>
             </Box>
           </Container>
         </Paper>
-        {/* <EmergencyContactList patientID={data.patient_id} />
-        <DrugAllergies patientID={data.patient_id} />
-        <FamilyHistories patientID={data.patient_id} />
-        <PersonalHistories patientID={data.patient_id} />
-        <PhysicalExams patientID={data.patient_id} />
-        <ExplorationPatients patientID={data.patient_id} />
-        <DrugsRecipies patientID={data.patient_id} />
-            <ImageRecipies patientID={data.patient_id} />*/}
       </Container>
     </LayoutSecondary>
   );

@@ -22,12 +22,6 @@ import useSWR from "swr";
 import * as yup from "yup";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
-const schema = yup.object().shape({
-  /* ci: yup.number().required("Confirme su número de cédula"),
-    name: yup.string().required("Ingrese su nombre"),
-    lastName: yup.string().required("Ingrese su apellido"),
-   */
-});
 const columns = [
   {
     id: "created_at",
@@ -159,11 +153,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const index = () => {
+const PatientAdd = () => {
   const classes = useStyles();
   const router = useRouter();
-  const { id, user_id } = router.query;
-
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -176,8 +168,8 @@ const index = () => {
     setPage(0);
   };
 
-  const { data, error } = useSWR(`/schedule_days`, fetcher);
-  console.log("Citas agenda", data);
+  const { data, error } = useSWR(`/schedule_days/filter/state2`, fetcher);
+  console.log("Pacientes atendido", data);
   if (error)
     return (
       <div>
@@ -195,108 +187,65 @@ const index = () => {
     <Layout>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Title>
-          {" "}
-          <ListAltIcon
-            style={{
-              color: "#092435",
-              fontSize: 35,
-              position: "relative",
-              top: "6px",
-            }}
-          />{" "}
-          Pacientes agendados
-        </Title>
-        <Paper
-          elevation={6}
-          style={{ margin: "20px" }}
-          sx={{ width: "100%", overflow: "hidden" }}
-        >
-          <AnnounTitle>Registrar o cancelar agendamiento</AnnounTitle>
+        <TableContainer className={classes.container}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{
+                      minWidth: column.minWidth,
+                      backgroundColor: column.backgroundColor,
+                      fontSize: column.fontSize,
+                    }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
 
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{
-                        minWidth: column.minWidth,
-                        backgroundColor: column.backgroundColor,
-                        fontSize: column.fontSize,
-                      }}
+            <TableBody>
+              {data.data
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      //  tabIndex={-1}
+                      key={row.id}
                     >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {data.data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        //  tabIndex={-1}
-                        key={row.id}
-                      >
-                        {columns.map((array) => {
-                          const value = row[array.id];
-                          return (
-                            <TableCell key={array.id} align={array.align}>
-                              {array.id === "botonSelect" &&
-                              array.label == "" ? (
-                                <Grid
-                                  container
-                                  direction="row"
-                                  alignItems="center"
-                                  justifyContent="center"
-                                >
-                                  <Grid item>
-                                    <Link
-                                      href={`/scheduleDay/schedule/${row.schedule_id}`}
-                                    >
-                                      <Button
-                                        variant="outlined"
-                                        size="small"
-                                        className={classes.btn}
-                                        endIcon={<KeyboardArrowRightIcon />}
-                                      >
-                                        Continuar
-                                      </Button>
-                                    </Link>
-                                  </Grid>
-                                </Grid>
-                              ) : (
-                                value
-                              )}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            labelRowsPerPage="Horarios:"
-            rowsPerPageOptions={[10, 20, 50]}
-            component="div"
-            count={columns.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
+                      {columns.map((array) => {
+                        const value = row[array.id];
+                        return (
+                          <TableCell key={array.id} align={array.align}>
+                            {array.id === "botonSelect" && array.label == "_"
+                              ? value
+                              : value}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          labelRowsPerPage="Pacientes:"
+          rowsPerPageOptions={[10, 20, 50]}
+          component="div"
+          count={columns.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </Container>
     </Layout>
   );
 };
-export default index;
+export default PatientAdd;

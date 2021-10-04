@@ -88,7 +88,7 @@ export default function StickyFooter() {
                 filter: "invert(100%)",
                 color: "#fffff",
                 position: "relative",
-                left: "4px",
+                left: "15px",
               }}
             >
               <Link href="/login">

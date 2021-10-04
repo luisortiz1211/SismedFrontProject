@@ -73,7 +73,7 @@ const columns = [
   },
   {
     id: "currentCondition",
-    label: "Sintomas",
+    label: "Síntomas",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
     align: "center",
@@ -161,7 +161,7 @@ const useStyles = makeStyles((theme) => ({
 const index = () => {
   const classes = useStyles();
   const router = useRouter();
-  const { id } = router.query;
+  const { id, sid } = router.query;
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -174,9 +174,9 @@ const index = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  const { data, error } = useSWR(`/patients/${id}/physical_exams`, fetcher);
+  const { data, error } = useSWR(`/patients/${sid}/physical_exams`, fetcher);
   console.log("Examenes físicos del paciente", data);
+
   if (error)
     return (
       <div>
@@ -236,7 +236,6 @@ const index = () => {
                 {data.data
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
-                    const colorLine = row.schedule_id;
                     return (
                       <TableRow
                         hover
@@ -261,7 +260,8 @@ const index = () => {
                                 >
                                   <Grid item>
                                     <Link
-                                      href={`/explorationPatient/${id}/patientExam/${row.physicalExam_id}`}
+                                      //href={`/explorationPatient/${id}/patientExam/${row.physicalExam_id}`}
+                                      href={`/scheduleDay/${row.schedule_day}/patient/${row.patient_id}/physicExam/${row.physicalExam_id}`}
                                     >
                                       <Button
                                         variant="outlined"

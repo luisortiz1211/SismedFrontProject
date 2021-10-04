@@ -29,10 +29,6 @@ import { useForm } from "react-hook-form";
 import useSWR from "swr";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    //height: "auto",
-    //padding: "15px",
-  },
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -53,9 +49,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#414A4F",
     paddingRight: "10px",
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+
   mpaper: {
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
@@ -70,8 +64,23 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(3),
   },
-  rightIcon: {
-    marginLeft: theme.spacing(2),
+  btncancel: {
+    backgroundColor: "#003D59",
+    color: "#BBF0E8",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
+  },
+  btnacept: {
+    backgroundColor: "#60CCD9",
+    color: "#092435",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
   },
 }));
 
@@ -249,7 +258,6 @@ const userDetails = () => {
                       id="availableStatus"
                       label="Estado"
                       name="availableStatus"
-                      fullWidth
                       {...register("availableStatus", { required: true })}
                       defaultValue={data.availableStatus}
                     >
@@ -370,10 +378,7 @@ const userDetails = () => {
                   <Link href={`${Routes.HOME}`}>
                     <Button
                       fullWidth
-                      style={{
-                        backgroundColor: "#003D59",
-                        color: "#BBF0E8",
-                      }}
+                      className={classes.btncancel}
                       variant="contained"
                     >
                       Cancelar
@@ -397,7 +402,7 @@ const userDetails = () => {
                     variant="contained"
                     type="submit"
                     fullWidth
-                    style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                    className={classes.btnacept}
                     onClick={handleOpen}
                   >
                     Aceptar

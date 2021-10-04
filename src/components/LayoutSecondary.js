@@ -1,7 +1,7 @@
 export default function LayoutSecondary({ children }) {
   return (
     <>
-      <main>{children}</main>
+      <main component={"span"}>{children}</main>
       <style jsx>
         {`
           div {

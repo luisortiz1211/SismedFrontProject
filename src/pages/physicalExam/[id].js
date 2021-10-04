@@ -150,14 +150,6 @@ const patientDetails = ({ props }) => {
             </Box>
           </Container>
         </Paper>
-        {/* <EmergencyContactList patientID={data.patient_id} />
-        <DrugAllergies patientID={data.patient_id} />
-        <FamilyHistories patientID={data.patient_id} />
-        <PersonalHistories patientID={data.patient_id} />
-        <PhysicalExams patientID={data.patient_id} />
-        <ExplorationPatients patientID={data.patient_id} />
-        <DrugsRecipies patientID={data.patient_id} />
-            <ImageRecipies patientID={data.patient_id} />*/}
       </Container>
     </LayoutSecondary>
   );

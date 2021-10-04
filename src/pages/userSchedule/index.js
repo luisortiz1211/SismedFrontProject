@@ -97,8 +97,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   btn: {
-    display: "flex",
-    justifyAlign: "right",
     color: "#092435",
     backgroundColor: "#60CCD9",
     textTransform: "none",
@@ -172,7 +170,6 @@ const index = () => {
                       style={{
                         minWidth: column.minWidth,
                         backgroundColor: column.backgroundColor,
-                        fontWeight: column.fontWeight,
                       }}
                     >
                       {column.label}
@@ -226,6 +223,7 @@ const index = () => {
                                         variant="outlined"
                                         size="small"
                                         className={classes.btn}
+                                        disabled={row.availableStatus === 0}
                                       >
                                         <ManageSearchIcon />
                                       </Button>

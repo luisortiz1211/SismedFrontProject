@@ -17,10 +17,6 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    //height: "auto",
-    //padding: "15px",
-  },
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -64,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const schema = yup.object().shape({
   drugName: yup.string().required("Ingrese el medicamento"),
-  drugSymptom: yup.string().required("Ingrese los sintomas"),
+  drugSymptom: yup.string().required("Ingrese los síntomas"),
   drugRemark: yup.string().required("Ingrese algun comentario"),
 });
 
@@ -149,7 +145,6 @@ export default function DrugAllergieNew({ props }) {
                 label="# Historia Clínica"
                 className={classes.textField}
                 defaultValue={id}
-                //required
                 disabled
                 variant="outlined"
                 InputProps={{
@@ -192,7 +187,7 @@ export default function DrugAllergieNew({ props }) {
               <TextField
                 id="drugSymptom"
                 name="drugSymptom"
-                label="Sintomas"
+                label="Síntomas"
                 className={classes.textField}
                 defaultValue=""
                 required

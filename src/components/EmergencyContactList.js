@@ -13,16 +13,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useSWR from "swr";
+import ChargeInformation from "./ChargeInformation";
 
 const columns = [
-  /*   {
-    id: "id",
-    label: "N°",
-    minWidth: 20,
-    backgroundColor: "#BBF0E8",
-    align: "center",
-    fontSize: "16px",
-  }, */
   {
     id: "nameContact",
     label: "Nombre de contacto",
@@ -163,13 +156,19 @@ export default function EmergencyContactList({ patientID }) {
     `/patients/${patientID}/emergency_contacts`,
     fetcher
   );
-  if (error) return <div> No se puede mostrar los contactos del paciente</div>;
+  if (error)
+    return (
+      <div>
+        {" "}
+        <ChargeInformation />
+      </div>
+    );
   if (!data) return <Loading />;
   return (
     <Container maxWidth="lg" direction="row">
       <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
+        <Table component="span" stickyHeader aria-label="sticky table">
+          <TableHead component="span">
             <TableRow>
               {columns.map((column) => (
                 <TableCell
@@ -209,18 +208,12 @@ export default function EmergencyContactList({ patientID }) {
             </TableRow>
           </TableHead>
 
-          <TableBody>
+          <TableBody component="span">
             {data.data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                const colorLine = row.schedule_id;
                 return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    //  tabIndex={-1}
-                    key={row.id}
-                  >
+                  <TableRow hover role="checkbox" key={row.id}>
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (

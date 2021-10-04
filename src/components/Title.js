@@ -13,8 +13,8 @@ export default function Title({ children }) {
         spacing={1}
         style={{ paddingTop: "10px" }}
       >
-        <Grid item md={6}>
-          <h1>
+        <Grid item md={6} component={"span"}>
+          <h1 component={"span"}>
             {"  "}
             {children}
           </h1>

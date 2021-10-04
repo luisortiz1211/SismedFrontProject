@@ -83,6 +83,14 @@ const useStyles = makeStyles((theme) => ({
   button: {
     fontSize: "10px",
   },
+  btnedit: {
+    background: "#60CCD9",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
+  },
 }));
 
 const index = () => {
@@ -148,7 +156,6 @@ const index = () => {
                       style={{
                         minWidth: column.minWidth,
                         backgroundColor: column.backgroundColor,
-                        fontWeight: 400,
                       }}
                     >
                       {column.label}
@@ -209,12 +216,12 @@ const index = () => {
                                     >
                                       <Button
                                         variant="outlined"
-                                        size="medium"
-                                        style={{
-                                          background: "#60CCD9",
-                                        }}
+                                        size="small"
+                                        className={classes.btnedit}
+                                        startIcon={<BorderColorIcon />}
                                       >
-                                        <BorderColorIcon />
+                                        {" "}
+                                        Editar
                                       </Button>
                                     </Link>
                                   </Grid>

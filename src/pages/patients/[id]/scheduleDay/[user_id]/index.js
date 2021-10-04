@@ -1,3 +1,4 @@
+import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
 import Layout from "@/components/Layoutmain";
 import Loading from "@/components/Loading";
@@ -101,40 +102,19 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     padding: "40px",
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-    backgroundColor: theme.palette.primary.main,
-  },
-  textField: {
-    paddingBottom: "15px",
-    color: "#414A4F",
-  },
 
-  formControl: {
-    minWidth: 300,
-    paddingBottom: "15px",
-    color: "#414A4F",
-    paddingRight: "10px",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  mpaper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   button: {
     margin: theme.spacing(3),
   },
-  rightIcon: {
-    marginLeft: theme.spacing(2),
+
+  btnasign: {
+    textTransform: "none",
+    background: "#60CCD9",
+    color: "#092435",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
   },
 }));
 
@@ -191,6 +171,10 @@ const index = () => {
           elevation={6}
           style={{ margin: "20px" }}
         >
+          <AnnounTitle>
+            Seleccione un horario para la cita del paciente
+          </AnnounTitle>
+
           <TableContainer className={classes.container}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
@@ -215,7 +199,6 @@ const index = () => {
                 {data.data
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => {
-                    const colorLine = row.schedule_id;
                     return (
                       <TableRow
                         hover
@@ -246,12 +229,11 @@ const index = () => {
                                     >
                                       <Button
                                         variant="outlined"
-                                        size="medium"
-                                        style={{
-                                          background: "#60CCD9",
-                                        }}
+                                        size="small"
+                                        className={classes.btnasign}
+                                        endIcon={<AssignmentTurnedInIcon />}
+                                        disabled={row.availableStatus === 1}
                                       >
-                                        <AssignmentTurnedInIcon />
                                         Asignar
                                       </Button>
                                     </Link>

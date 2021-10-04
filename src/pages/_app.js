@@ -1,7 +1,8 @@
 import Appbar from "@/components/AppBar";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "src/contexts/auth";
-import { CssBaseline, ThemeProvider } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import Head from "next/head";
 import PropTypes from "prop-types";
 import React from "react";
@@ -20,7 +21,7 @@ export default function App(props) {
   }, []);
 
   return (
-    <>
+    <React.Fragment>
       <Head>
         <title>SISMED</title>
         <meta
@@ -37,7 +38,7 @@ export default function App(props) {
           <Footer />
         </ThemeProvider>
       </AuthProvider>
-    </>
+    </React.Fragment>
   );
 }
 App.propTypes = {

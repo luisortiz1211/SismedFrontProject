@@ -58,9 +58,7 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  root2: {
-    flexGrow: 1,
-  },
+
   button: {
     margin: theme.spacing(1),
   },
@@ -74,9 +72,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "15px",
     color: "#414A4F",
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+
   mpaper: {
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
@@ -89,21 +85,21 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   btnCancel: {
-    backgroundColor: "#003D59",
+    backgroundColor: "#092435",
     color: "#BBF0E8",
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#092435",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
   btnEdit: {
-    backgroundColor: "#BBF0E8",
-    color: "#092435",
+    backgroundColor: "#4A92A8",
+    color: "#BBF0E8",
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#fff",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
   btnSave: {
@@ -111,8 +107,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#092435",
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#fff",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
 }));
@@ -170,28 +166,14 @@ const index = ({ props }) => {
       console.log(error.config);
     }
   };
+  // actualizar a registrado para ingresar datos médicos
+
   // cancelar horario en schedule_user
   const handleCancelUser = async () => {
     try {
       await Scheduleusers.update(`${data.schedule_id}`, {
         availableStatus: 0,
       });
-    } catch (error) {
-      if (error.response) {
-        alert(error.response.message);
-        console.log(error.response);
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
-      console.log(error.config);
-    }
-  };
-  // actualizar a registrado para ingresar datos médicos
-  const handleRegisterDay = async () => {
-    try {
-      await Scheduledays.update(`${id}`, { scheduleDayState: "registrado" });
     } catch (error) {
       if (error.response) {
         alert(error.response.message);
@@ -270,7 +252,7 @@ const index = ({ props }) => {
                   onSubmit={handleSubmit(onSubmit)}
                 >
                   <AnnounTitle>
-                    Seleccione Atender para continuar con la atención.
+                    Seleccione examinar para continuar con la atención.
                   </AnnounTitle>
                   <Grid
                     container
@@ -307,6 +289,9 @@ const index = ({ props }) => {
                         className={classes.textField}
                         variant="outlined"
                         {...register("scheduleTime")}
+                        InputProps={{
+                          readOnly: true,
+                        }}
                       />
                     </Grid>
                     <Grid item md={2} sm={2} xs={12}>
@@ -318,6 +303,9 @@ const index = ({ props }) => {
                         className={classes.textField}
                         variant="outlined"
                         {...register("userAssigned")}
+                        InputProps={{
+                          readOnly: true,
+                        }}
                       />
                     </Grid>
                     <Grid item md={3} sm={3} xs={12}>
@@ -329,6 +317,9 @@ const index = ({ props }) => {
                         className={classes.textField}
                         variant="outlined"
                         //{...register("scheduleDayState")}
+                        InputProps={{
+                          readOnly: true,
+                        }}
                       />
                     </Grid>
                     <Grid item md={2} sm={2} xs={12}>
@@ -340,6 +331,9 @@ const index = ({ props }) => {
                         className={classes.textField}
                         variant="outlined"
                         {...register("patient_id")}
+                        InputProps={{
+                          readOnly: true,
+                        }}
                       />
                     </Grid>
 
@@ -377,7 +371,7 @@ const index = ({ props }) => {
                           </Button>
                         </Link>
                       </Grid>
-                      {data.scheduleDayState !== "cancelado" ? (
+                      {data.scheduleDayState === "pendiente" ? (
                         <>
                           {" "}
                           <Grid
@@ -417,14 +411,15 @@ const index = ({ props }) => {
                               justifyContent: "center",
                             }}
                           >
-                            <Link href={`/physicalExam/${data.patient_id}`}>
+                            <Link
+                              href={`/physicalExam/${data.schedule_day}/patient/${data.patient_id}`}
+                            >
                               <Button
                                 variant="contained"
                                 type="submit"
                                 fullWidth
                                 className={classes.btnSave}
                                 onClick={() => {
-                                  handleRegisterDay();
                                   handleCancelUser();
                                 }}
                               >
@@ -434,7 +429,7 @@ const index = ({ props }) => {
                           </Grid>
                         </>
                       ) : (
-                        "Cita cancelada agendar nuevamente"
+                        "Cita cancelada o registrada, agendar nuevamente"
                       )}
                     </Grid>
                   </Grid>

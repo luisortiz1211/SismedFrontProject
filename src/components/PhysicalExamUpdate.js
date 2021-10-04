@@ -23,10 +23,6 @@ import useSWR from "swr";
 import * as yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    //height: "auto",
-    //padding: "15px",
-  },
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -47,9 +43,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#414A4F",
     paddingRight: "10px",
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+
   mpaper: {
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
@@ -64,8 +58,14 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(3),
   },
-  rightIcon: {
-    marginLeft: theme.spacing(2),
+  btnexplo: {
+    backgroundColor: "#60CCD9",
+    color: "#092435",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
   },
 }));
 const schema = yup.object().shape({
@@ -136,7 +136,6 @@ export default function PhysicalExamUpdate({ examID }) {
       console.error(error.config);
     }
   };
-
   const { data, error } = useSWR(`/physical_exams/${examID}`, fetcher);
   console.log("información del examen", data);
 
@@ -500,7 +499,7 @@ export default function PhysicalExamUpdate({ examID }) {
               <TextField
                 id="currentCondition"
                 name="currentCondition"
-                label="Sintomas actuales"
+                label="Síntomas actuales"
                 className={classes.textField}
                 defaultValue={data.currentCondition}
                 required
@@ -564,10 +563,7 @@ export default function PhysicalExamUpdate({ examID }) {
                 variant="contained"
                 type="submit"
                 fullWidth
-                style={{
-                  backgroundColor: "#60CCD9",
-                  color: "#092435",
-                }}
+                className={classes.btnexplo}
                 onClick={handleOpen}
                 startIcon={<SaveIcon />}
               >
@@ -600,8 +596,7 @@ export default function PhysicalExamUpdate({ examID }) {
                   type="submit"
                   size="small"
                   onClick={handleClose}
-                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                  className={classes.upgrade}
+                  className={classes.btnexplo}
                 >
                   Aceptar
                 </Button>

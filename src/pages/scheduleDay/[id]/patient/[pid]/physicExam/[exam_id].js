@@ -1,10 +1,8 @@
-import DrugAllergieList from "@/components/DrugAllergieList";
-import EmergencyContactList from "@/components/EmergencyContactList";
-import ExplorationPatientList from "@/components/ExplorationPatientList";
-import FamilyHistoryList from "@/components/FamilyHistoryList";
+import DrugsRecipieNew from "@/components/DrugsRecipieNew";
+import ExplorationPatientNew from "@/components/ExplorationPatientNew";
+import ImageRecipieNew from "@/components/ImageRecipieNew";
 import LayoutSecondary from "@/components/LayoutSecondary";
-import PatientsInformation from "@/components/PatientUpdate";
-import PersonalHistoryList from "@/components/PersonalHistoryList";
+import PhysicalExamUpdate from "@/components/PhysicalExamUpdate";
 import Title from "@/components/Title";
 import { Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
@@ -31,7 +29,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component={"span"}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -48,7 +46,7 @@ function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
     "aria-controls": `full-width-tabpanel-${index}`,
-    //backgroundColor: "#60CCD9",
+    backgroundColor: "#60CCD9",
   };
 }
 
@@ -62,10 +60,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     padding: "40px",
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-    backgroundColor: theme.palette.secondary.main,
-  },
+
   textField: {
     paddingBottom: "15px",
     color: "#414A4F",
@@ -75,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 const patientDetails = ({ props }) => {
   const classes = useStyles();
   const router = useRouter();
-  const { id } = router.query;
+  const { id, exam_id } = router.query;
 
   const [value, setValue] = useState(0);
 
@@ -85,7 +80,7 @@ const patientDetails = ({ props }) => {
   return (
     <LayoutSecondary>
       <Container maxWidth="lg">
-        <Title component={"span"}>
+        <Title>
           <AssignmentIndIcon
             style={{
               color: "#092435",
@@ -94,7 +89,7 @@ const patientDetails = ({ props }) => {
               top: "6px",
             }}
           />
-          Historia médica (Datos personales)
+          Datos clínicos del paciente
         </Title>
         <Paper elevation={6} style={{ padding: "10px", margin: "20px" }}>
           <Container>
@@ -106,39 +101,27 @@ const patientDetails = ({ props }) => {
                   indicatorColor="primary"
                   textColor="primary"
                   variant="fullWidth"
-                  scrollButtons
+                  scrollButtons="auto"
                   allowScrollButtonsMobile
                   aria-label="scrollable auto tabs example"
                 >
-                  <Tab label="Datos" {...a11yProps(0)} />
-                  <Tab label="Contactos" {...a11yProps(1)} />
-                  <Tab label="APP" {...a11yProps(2)} />
-                  <Tab label="APF" {...a11yProps(3)} />
-                  <Tab label="Alergias" {...a11yProps(4)} />
-                  <Tab label="Exploración" {...a11yProps(5)} />
+                  <Tab label="Examen físico" {...a11yProps(0)} />
+                  <Tab label="Exploración" {...a11yProps(1)} />
+                  <Tab label="Imagenes" {...a11yProps(2)} />
+                  <Tab label="Medicamentos" {...a11yProps(3)} />
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
-                <PatientsInformation patientID={id} />
+                <PhysicalExamUpdate examID={exam_id} />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <EmergencyContactList patientID={id} />
+                <ExplorationPatientNew examID={exam_id} />
               </TabPanel>
-
               <TabPanel value={value} index={2}>
-                <PersonalHistoryList patientID={id} />
+                <ImageRecipieNew examID={exam_id} />
               </TabPanel>
-
               <TabPanel value={value} index={3}>
-                <FamilyHistoryList patientID={id} />
-              </TabPanel>
-
-              <TabPanel value={value} index={4}>
-                <DrugAllergieList patientID={id} />
-              </TabPanel>
-
-              <TabPanel value={value} index={5}>
-                <ExplorationPatientList patientID={id} />
+                <DrugsRecipieNew examID={exam_id} />
               </TabPanel>
             </Box>
           </Container>

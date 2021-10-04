@@ -38,17 +38,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
-
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  root2: {
-    flexGrow: 1,
-  },
   button: {
     margin: theme.spacing(1),
     color: "#60CCD9",
@@ -103,9 +92,6 @@ const First = () => {
                       className={classes.button}
                       variant="contained"
                       color="primary"
-                      /*   style={{
-                        color: "#60CCD9",
-                      }} */
                     >
                       <Grid
                         container
@@ -127,9 +113,6 @@ const First = () => {
                       className={classes.button}
                       variant="contained"
                       color="primary"
-                      /*   style={{
-                        color: "#60CCD9",
-                      }} */
                     >
                       <Grid
                         container
@@ -152,9 +135,6 @@ const First = () => {
                     <Button
                       className={classes.button}
                       variant="contained"
-                      /*   style={{
-                        color: "#60CCD9",
-                      }} */
                       color="primary"
                     >
                       <Grid
@@ -182,9 +162,6 @@ const First = () => {
                     <Button
                       className={classes.button}
                       variant="contained"
-                      /*  style={{
-                        color: "#60CCD9",
-                      }} */
                       color="primary"
                     >
                       <Grid
@@ -208,9 +185,6 @@ const First = () => {
                     <Button
                       className={classes.button}
                       variant="contained"
-                      /*   style={{
-                        color: "#60CCD9",
-                      }} */
                       color="primary"
                     >
                       <Grid
@@ -234,9 +208,6 @@ const First = () => {
                     <Button
                       className={classes.button}
                       variant="contained"
-                      /*    style={{
-                        color: "#60CCD9",
-                      }} */
                       color="primary"
                     >
                       <Grid

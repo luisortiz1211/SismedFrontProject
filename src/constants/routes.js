@@ -1,8 +1,5 @@
 const publicRoutes = {
   LOGIN: "/login",
-  // REGISTER: "/register",
-  // PATIENTS: "/patients",
-  // ABOUT: "/about",
 };
 
 const privateRoutes = {
@@ -21,11 +18,6 @@ const privateRoutes = {
   SCHEDULEDAY: "/scheduleDay",
   SCHEDULEUSER: "/userSchedule",
   MEDICALHISTORY: "/medicalHistory",
-
-  // PATIENT_ID: "/patient/:id",
-
-  // USERS: "/@usuarios",
-  // USERS_ID: `/usuario/:id`,
 };
 
 const Routes = {

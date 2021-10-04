@@ -58,9 +58,7 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  root2: {
-    flexGrow: 1,
-  },
+
   button: {
     margin: theme.spacing(1),
   },
@@ -74,9 +72,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "15px",
     color: "#414A4F",
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+
   mpaper: {
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
@@ -93,17 +89,17 @@ const useStyles = makeStyles((theme) => ({
     color: "#BBF0E8",
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#092435",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
   btnEdit: {
-    backgroundColor: "#BBF0E8",
-    color: "#092435",
+    backgroundColor: "#4A92A8",
+    color: "#fff",
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#fff",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
   btnSave: {
@@ -111,8 +107,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#092435",
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#fff",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
 }));
@@ -123,15 +119,18 @@ const index = ({ props }) => {
   const router = useRouter();
   const { id } = router.query;
   const [open, setOpen] = useState(false);
+
   const [opendel, setDel] = useState(false);
 
   const handleChange = (event) => {
     setAge(event.target.value);
   };
-  const [value, setValue] = useState();
 
   const handleOpen = () => {
     setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const onSubmit = async (schedule) => {
@@ -139,7 +138,7 @@ const index = ({ props }) => {
       await Scheduleusers.update(`${id}`, {
         startTime: schedule.startTime,
         finishTime: schedule.finishTime,
-        availableStatus: 1,
+        availableStatus: 0,
       });
     } catch (error) {
       if (error.response) {
@@ -153,12 +152,11 @@ const index = ({ props }) => {
     }
   };
   const handleDelete = async () => {
-    setDel(true);
     try {
       await Scheduleusers.deleteSchedule(`${id}`);
     } catch (error) {
       if (error.response) {
-        alert(error.response.message);
+        //alert(error.response.message);
         console.log(error.response);
       } else if (error.request) {
         console.log(error.request);
@@ -241,6 +239,7 @@ const index = ({ props }) => {
                     direction="row"
                     justifyContent="space-around"
                     alignItems="center"
+                    spacing={1}
                     style={{
                       paddingBottom: "15px",
                       paddingTop: "20px",
@@ -320,49 +319,58 @@ const index = ({ props }) => {
                           </Button>
                         </Link>
                       </Grid>
-                      <Grid
-                        item
-                        md={3}
-                        xs={12}
-                        style={{
-                          padding: "10px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Link href={`${Routes.SCHEDULEUSER}/${data.user_id}`}>
-                          <Button
-                            className={classes.btnEdit}
-                            variant="contained"
-                            fullWidth
-                            onClick={handleDelete}
+
+                      {data.availableStatus === 0 ? (
+                        <>
+                          <Grid
+                            item
+                            md={3}
+                            xs={12}
+                            style={{
+                              padding: "10px",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
                           >
-                            Eliminar
-                          </Button>
-                        </Link>
-                      </Grid>
-                      <Grid
-                        item
-                        md={3}
-                        xs={12}
-                        style={{
-                          padding: "10px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Button
-                          variant="contained"
-                          type="submit"
-                          fullWidth
-                          className={classes.btnSave}
-                          onClick={handleOpen}
-                        >
-                          Actualizar
-                        </Button>
-                      </Grid>
+                            <Link
+                              href={`${Routes.SCHEDULEUSER}/${data.user_id}`}
+                            >
+                              <Button
+                                className={classes.btnEdit}
+                                variant="contained"
+                                fullWidth
+                                onClick={handleDelete}
+                              >
+                                Eliminar
+                              </Button>
+                            </Link>
+                          </Grid>
+                          <Grid
+                            item
+                            md={3}
+                            xs={12}
+                            style={{
+                              padding: "10px",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <Button
+                              variant="contained"
+                              type="submit"
+                              fullWidth
+                              className={classes.btnSave}
+                              onClick={handleOpen}
+                            >
+                              Actualizar
+                            </Button>
+                          </Grid>
+                        </>
+                      ) : (
+                        "No se puede modificar o eliminar el horario"
+                      )}
                     </Grid>
                   </Grid>
 
@@ -370,14 +378,14 @@ const index = ({ props }) => {
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
                     className={classes.modal}
-                    open={(open, opendel)}
+                    open={open}
                     closeAfterTransition
                     BackdropComponent={Backdrop}
                     BackdropProps={{
                       timeout: 500,
                     }}
                   >
-                    <Fade in={(open, opendel)}>
+                    <Fade in={open}>
                       <div className={classes.mpaper}>
                         <h2 id="transition-modal-title">
                           Cambios realizados con éxito
@@ -392,6 +400,7 @@ const index = ({ props }) => {
                               color: "#092435",
                             }}
                             className={classes.upgrade}
+                            onClick={handleClose}
                           >
                             Aceptar
                           </Button>

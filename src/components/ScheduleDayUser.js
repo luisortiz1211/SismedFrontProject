@@ -139,6 +139,15 @@ const useStyles = makeStyles((theme) => ({
   rightIcon: {
     marginLeft: theme.spacing(2),
   },
+  btnschedule: {
+    textTransform: "none",
+    background: "#60CCD9",
+    color: "#092435",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
+  },
 }));
 
 //mostrar lista de usuarios para agendamiento
@@ -206,17 +215,7 @@ export default function ScheduleDayUser() {
               .map((row) => {
                 const colorLine = row.id;
                 return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={row.id}
-                    /*       style={
-                      colorLine % 2 == 0
-                        ? { backgroundColor: "#BBF0E8" }
-                        : { backgroundColor: "" }
-                    } */
-                  >
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                     {columns.map((array) => {
                       const value = row[array.id];
                       return row.roleUser === "ROLE_MEDIC" ? (
@@ -244,11 +243,10 @@ export default function ScheduleDayUser() {
                                 >
                                   <Button
                                     variant="outlined"
-                                    size="medium"
-                                    style={{
-                                      background: "#60CCD9",
-                                    }}
-                                    startIcon={<ScheduleSendIcon />}
+                                    size="small"
+                                    className={classes.btnschedule}
+                                    endIcon={<ScheduleSendIcon />}
+                                    disabled={row.availableStatus === 0}
                                   >
                                     Ver horario
                                   </Button>

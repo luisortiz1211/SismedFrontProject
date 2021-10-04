@@ -17,6 +17,7 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import Image from "next/image";
 import React from "react";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -140,7 +141,7 @@ const index = () => {
                 >
                   <Grid
                     item
-                    md={5}
+                    md={4}
                     xs={12}
                     style={{
                       padding: "10px",
@@ -179,7 +180,47 @@ const index = () => {
                   </Grid>
                   <Grid
                     item
-                    md={5}
+                    md={4}
+                    xs={12}
+                    style={{
+                      padding: "10px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Grid container justifyContent="center">
+                      <Grid item md={6} sm={3} xs={3}>
+                        {" "}
+                        <Link href={`/report`}>
+                          <Button
+                            className={classes.button}
+                            variant="contained"
+                            style={{
+                              color: "#60CCD9",
+                            }}
+                            color="primary"
+                          >
+                            <Grid
+                              container
+                              style={{ textAlign: "center" }}
+                              alignItems="center"
+                              justifyContent="center"
+                            >
+                              <Grid item>
+                                <AnalyticsIcon style={{ fontSize: 80 }} />
+                              </Grid>
+                              <Grid item>Reporte Atención</Grid>
+                            </Grid>
+                          </Button>
+                        </Link>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid
+                    item
+                    md={4}
                     xs={12}
                     style={{
                       padding: "10px",

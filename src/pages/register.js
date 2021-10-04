@@ -28,7 +28,6 @@ import withAuth from "../hocs/withAuth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    //height: "auto",
     padding: "15px",
   },
   grow: {
@@ -51,10 +50,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.tertiary.main,
-  },
+
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -74,9 +70,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(3),
   },
-  rightIcon: {
-    marginLeft: theme.spacing(2),
-  },
+
   submit: {
     margin: theme.spacing(3, 0, 2),
     backgroundColor: theme.palette.tertiary.main,
@@ -97,33 +91,27 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "15px",
     color: "#414A4F",
   },
-  appBar: {
-    position: "relative",
-  },
+
   formControl: {
     color: "#414A4F",
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+
   btncancel: {
     background: "#092435",
     color: "#BBF0E8",
-    margin: "5px",
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#092435",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
   btnacept: {
     background: "#60CCD9",
     color: "#092435",
-    margin: "5px",
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#092435",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
 }));
@@ -181,7 +169,7 @@ const Register = () => {
       const response = await doregister(userData);
       console.log("Nuevo usuario registrado", response);
       setResult("User properly register");
-      reset();
+      //reset();
     } catch (error) {
       if (response) {
         if (error.response) {

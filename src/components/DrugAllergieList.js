@@ -13,16 +13,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useSWR from "swr";
+import ChargeInformation from "./ChargeInformation";
 
 const columns = [
-  /*   {
-    id: "drugAllergies_id",
-    label: "N°",
-    minWidth: 20,
-    backgroundColor: "#BBF0E8",
-    align: "center",
-    fontSize: "16px",
-  }, */
   {
     id: "created_at",
     label: "Fecha registro",
@@ -41,7 +34,7 @@ const columns = [
   },
   {
     id: "drugSymptom",
-    label: "Sintomas",
+    label: "Síntomas",
     minWidth: 15,
     backgroundColor: "#BBF0E8",
     align: "center",
@@ -155,7 +148,13 @@ export default function DrugAllergies({ patientID }) {
     fetcher
   );
   //console.log("emergencyContacts", data);
-  if (error) return <div> No se puede mostrar las alergias del paciente</div>;
+  if (error)
+    return (
+      <div>
+        {" "}
+        <ChargeInformation />
+      </div>
+    );
   if (!data) return <Loading />;
 
   return (
@@ -206,14 +205,8 @@ export default function DrugAllergies({ patientID }) {
             {data.data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                const colorLine = row.schedule_id;
                 return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    //  tabIndex={-1}
-                    key={row.id}
-                  >
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (

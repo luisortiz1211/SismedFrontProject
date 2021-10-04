@@ -217,6 +217,7 @@ const index = () => {
                                         style={{
                                           background: "#60CCD9",
                                         }}
+                                        disabled={row.availableStatus === 0}
                                       >
                                         <ManageSearchIcon />
                                       </Button>

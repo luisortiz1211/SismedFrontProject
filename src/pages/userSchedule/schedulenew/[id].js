@@ -105,10 +105,10 @@ const index = ({ props }) => {
     try {
       await Scheduleusers.create(`${id}`, {
         user_id: id,
-        //userDay: schedule.userDay,
-        //startTime: schedule.startTime,
-        //finishTime: schedule.finishTime,
-        availableStatus: 1,
+        userDay: schedule.userDay,
+        startTime: schedule.startTime,
+        finishTime: schedule.finishTime,
+        availableStatus: 0,
       });
     } catch (error) {
       if (error.response) {

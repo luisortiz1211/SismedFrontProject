@@ -1,9 +1,6 @@
 import Loading from "@/components/Loading";
-import { fetcher } from "src/api/utils";
-import { Button, Fade, Grid } from "@material-ui/core";
-import Backdrop from "@material-ui/core/Backdrop";
+import { Button, Grid } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
-import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -11,21 +8,17 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import ManageSearchIcon from "@mui/icons-material/ManageSearch";
+import TablePagination from "@material-ui/core/TablePagination";
+
+import { Paper } from "@material-ui/core";
+
+import FindInPageIcon from "@mui/icons-material/FindInPage";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { fetcher } from "src/api/utils";
 import useSWR from "swr";
-import PhysicalExamCard from "./PhysicalExamCard";
 
 const columns = [
-  /*   {
-    id: "explorationPatient_id",
-    label: "N°",
-    minWidth: 20,
-    backgroundColor: "#BBF0E8",
-    align: "center",
-    fontSize: "16px",
-  }, */
   {
     id: "created_at",
     label: "Fecha ingreso",
@@ -61,7 +54,7 @@ const columns = [
   },
   {
     id: "botonSelect",
-    label: "",
+    label: "_",
     minWidth: 50,
     backgroundColor: "#BBF0E8",
     align: "center",
@@ -164,7 +157,7 @@ export default function ExplorationPatients({ patientID }) {
   // render data
   return (
     <Container maxWidth="lg" direction="row">
-      <TableContainer className={classes.container}>
+      <TableContainer component="div" className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -194,12 +187,7 @@ export default function ExplorationPatients({ patientID }) {
                     hover
                     role="checkbox"
                     tabIndex={-2}
-                    key={row.patient_id}
-                    style={
-                      colorLine % 2 == 0
-                        ? { backgroundColor: "#BBF0E8" }
-                        : { backgroundColor: "#fff" }
-                    }
+                    key={row.explorationPatient_id}
                   >
                     {" "}
                     <>
@@ -212,8 +200,9 @@ export default function ExplorationPatients({ patientID }) {
                               : value}
 
                             {column.id === "botonSelect" &&
-                            column.label == "" ? (
+                            column.label == "_" ? (
                               <Grid
+                                component={"span"}
                                 container
                                 direction="row"
                                 alignItems="center"
@@ -225,8 +214,9 @@ export default function ExplorationPatients({ patientID }) {
                                     variant="outlined"
                                     size="small"
                                     className={classes.btnview}
+                                    startIcon={<FindInPageIcon />}
                                   >
-                                    <ManageSearchIcon /> Ver
+                                    Historia
                                   </Button>
                                 </Grid>
                               </Grid>
@@ -243,6 +233,16 @@ export default function ExplorationPatients({ patientID }) {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        labelRowsPerPage="Pacientes:"
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={data.meta}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </Container>
   );
 }

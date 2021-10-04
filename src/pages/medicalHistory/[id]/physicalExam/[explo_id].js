@@ -1,16 +1,17 @@
 import AnnounTitle from "@/components/AnnounTitle";
+import DrugsRecipieCard from "@/components/DrugsRecicipeCard";
+import ExplorationPatientCard from "@/components/ExplorationPatientCard";
+import ImageRecipieCard from "@/components/ImageRecipieCard";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import PhysicalExamCard from "@/components/PhysicalExamCard";
-import ExplorationPatientCard from "@/components/ExplorationPatientCard";
-
 import Title from "@/components/Title";
+import { Grid } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
-import React from "react";
 import { useRouter } from "next/router";
-import { Grid } from "@material-ui/core";
+import React from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -42,30 +43,38 @@ const index = () => {
           {"  "}Historial de atención
         </Title>
         <Paper elevation={6} style={{ margin: "20px" }}>
-          <AnnounTitle>
-            Se muestra los sintomas de atención y resultados
-          </AnnounTitle>
+          <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <AnnounTitle>
+              Se muestra los síntomas de atención y resultados
+            </AnnounTitle>
+          </Grid>
           <Grid
             container
             direction="row"
             justifyContent="space-around"
             alignItems="stretch"
+            spacing={2}
           >
-            <Grid item={4}>
+            <Grid item>
               {" "}
               <PhysicalExamCard patientID={explo_id} />
             </Grid>
-            <Grid item={4}>
+            <Grid item>
               {" "}
               <ExplorationPatientCard patientID={explo_id} />
             </Grid>
-            <Grid item={4}>
+            <Grid item>
               {" "}
-              <ExplorationPatientCard patientID={explo_id} />
+              <DrugsRecipieCard patientID={explo_id} />
             </Grid>
-            <Grid item={4}>
+            <Grid item>
               {" "}
-              <ExplorationPatientCard patientID={explo_id} />
+              <ImageRecipieCard patientID={explo_id} />
             </Grid>
           </Grid>
         </Paper>

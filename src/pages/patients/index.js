@@ -29,7 +29,7 @@ const columns = [
     label: "N°",
     minWidth: 5,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "16px",
   },
   {
@@ -37,7 +37,7 @@ const columns = [
     label: "Nombres",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "16px",
   },
   {
@@ -45,7 +45,7 @@ const columns = [
     label: "Apellidos",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "16px",
   },
   {
@@ -53,7 +53,7 @@ const columns = [
     label: "Sexo",
     minWidth: 60,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "16px",
   },
   {
@@ -61,7 +61,7 @@ const columns = [
     label: "Estado",
     minWidth: 50,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "16px",
   },
   {
@@ -69,7 +69,7 @@ const columns = [
     label: "Email",
     minWidth: 80,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "16px",
   },
   {
@@ -77,7 +77,7 @@ const columns = [
     label: "Movil",
     minWidth: 80,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "16px",
   },
 
@@ -86,7 +86,7 @@ const columns = [
     label: "Dirección",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "16px",
   },
   {
@@ -94,7 +94,7 @@ const columns = [
     label: "",
     minWidth: 50,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "16px",
   },
 ];
@@ -115,8 +115,8 @@ const useStyles = makeStyles({
     margin: "5px",
     textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#ffffff",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
   btnagn: {
@@ -214,10 +214,6 @@ const index = () => {
                               variant="outlined"
                               size="small"
                               className={classes.btnnew}
-                              /*      style={{
-                                background: "#ffff",
-                                color: "#092435",
-                              }} */
                             >
                               Nuevo
                               <AddIcon />
@@ -291,9 +287,6 @@ const index = () => {
                                         <Button
                                           variant="outlined"
                                           size="small"
-                                          /* style={{
-                                            background: "#60CCD9",
-                                          }} */
                                           className={classes.btnagn}
                                           endIcon={<SendIcon />}
                                         >

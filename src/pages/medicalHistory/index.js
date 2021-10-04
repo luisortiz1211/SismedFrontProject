@@ -1,8 +1,8 @@
+import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
-import { fetcher } from "src/api/utils";
 import { Button, Grid } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
@@ -15,11 +15,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import SendIcon from "@mui/icons-material/Send";
 import Link from "next/link";
 import React, { useState } from "react";
+import { fetcher } from "src/api/utils";
 import useSWR from "swr";
-import AnnounTitle from "@/components/AnnounTitle";
-import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 
 const columns = [
   {
@@ -27,7 +27,7 @@ const columns = [
     label: "N°",
     minWidth: 5,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "17px",
   },
   {
@@ -35,7 +35,7 @@ const columns = [
     label: "Nombres",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "17px",
   },
   {
@@ -43,7 +43,7 @@ const columns = [
     label: "Apellidos",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "17px",
   },
   {
@@ -51,7 +51,7 @@ const columns = [
     label: "Sexo",
     minWidth: 60,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "17px",
   },
   {
@@ -59,7 +59,7 @@ const columns = [
     label: "Estado",
     minWidth: 50,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "17px",
   },
   {
@@ -67,7 +67,7 @@ const columns = [
     label: "Email",
     minWidth: 80,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "17px",
   },
   {
@@ -75,16 +75,15 @@ const columns = [
     label: "Movil",
     minWidth: 80,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "17px",
   },
-
   {
     id: "address",
     label: "Dirección",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "17px",
   },
   {
@@ -92,15 +91,15 @@ const columns = [
     label: "Ciudad",
     minWidth: 80,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "17px",
   },
   {
     id: "botonSelect",
-    label: "",
+    label: "_",
     minWidth: 50,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
     fontSize: "17px",
   },
 ];
@@ -111,9 +110,16 @@ const useStyles = makeStyles({
   container: {
     maxHeight: 440,
   },
-
   button: {
     fontSize: "10px",
+  },
+  btnView: {
+    backgroundColor: "#60CCD9",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
   },
 });
 
@@ -132,7 +138,7 @@ const index = () => {
   };
 
   const { data, error } = useSWR(`/patients`, fetcher);
-  console.log("lista de pacientes", data);
+  console.log("lista de pacientes en el sistema", data);
   if (error)
     return (
       <div>
@@ -194,11 +200,6 @@ const index = () => {
                         role="checkbox"
                         tabIndex={-2}
                         key={row.patient_id}
-                        style={
-                          colorLine % 2 == 0
-                            ? { backgroundColor: "#BBF0E8" }
-                            : { backgroundColor: "#fff" }
-                        }
                       >
                         {" "}
                         <>
@@ -225,7 +226,7 @@ const index = () => {
                                   : value}
 
                                 {column.id === "botonSelect" &&
-                                column.label == "" ? (
+                                column.label == "_" ? (
                                   <Grid
                                     container
                                     direction="row"
@@ -234,7 +235,6 @@ const index = () => {
                                   >
                                     <Grid item>
                                       <Link
-                                        // Ver historial medico del paciente cambiar
                                         href={`/medicalHistory/${row.patient_id}`}
                                         as={`/medicalHistory/${row.patient_id}`}
                                         key={row.patient_id}
@@ -242,13 +242,12 @@ const index = () => {
                                       >
                                         <Button
                                           variant="outlined"
-                                          size="medium"
-                                          style={{
-                                            background: "#60CCD9",
-                                          }}
-                                          href={``}
+                                          size="small"
+                                          fullWidth
+                                          className={classes.btnView}
+                                          endIcon={<SendIcon />}
                                         >
-                                          <ManageSearchIcon /> Ver
+                                          Ver
                                         </Button>
                                       </Link>
                                     </Grid>
@@ -267,6 +266,7 @@ const index = () => {
             </Table>
           </TableContainer>
           <TablePagination
+            labelRowsPerPage="Pacientes:"
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
             count={data.meta.total}

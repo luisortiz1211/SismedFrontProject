@@ -58,9 +58,7 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  root2: {
-    flexGrow: 1,
-  },
+
   button: {
     margin: theme.spacing(1),
   },
@@ -74,9 +72,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "15px",
     color: "#414A4F",
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+
   mpaper: {
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
@@ -87,6 +83,25 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  btnasign: {
+    textTransform: "none",
+    background: "#60CCD9",
+    color: "#092435",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
+  },
+  btncancel: {
+    backgroundColor: "#092435",
+    color: "#60CCD9",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
   },
 }));
 
@@ -104,6 +119,9 @@ const index = ({ props }) => {
 
   const handleOpen = () => {
     setOpen(true);
+  };
+  const handleclose = () => {
+    setOpen(false);
   };
 
   const onSubmit = async (formData) => {
@@ -239,9 +257,9 @@ const index = ({ props }) => {
                         defaultValue={data.userDay}
                         className={classes.textField}
                         variant="outlined"
-                        /*   InputProps={{
+                        InputProps={{
                           readOnly: true,
-                        }} */
+                        }}
                         {...register("scheduleDay")}
                       />
                     </Grid>
@@ -255,7 +273,6 @@ const index = ({ props }) => {
                         }
                         className={classes.textField}
                         variant="outlined"
-                        //{...register("availableStatus")}
                         InputProps={{
                           readOnly: true,
                         }}
@@ -269,9 +286,9 @@ const index = ({ props }) => {
                         defaultValue={data.startTime}
                         className={classes.textField}
                         variant="outlined"
-                        /* InputProps={{
+                        InputProps={{
                           readOnly: true,
-                        }} */
+                        }}
                         {...register("scheduleTime")}
                       />
                     </Grid>
@@ -283,7 +300,6 @@ const index = ({ props }) => {
                         defaultValue={data.finishTime}
                         className={classes.textField}
                         variant="outlined"
-                        //{...register("finishTime")}
                         InputProps={{
                           readOnly: true,
                         }}
@@ -319,10 +335,7 @@ const index = ({ props }) => {
                           passHref
                         >
                           <Button
-                            style={{
-                              backgroundColor: "#003D59",
-                              color: "#BBF0E8",
-                            }}
+                            className={classes.btncancel}
                             variant="contained"
                             fullWidth
                           >
@@ -330,31 +343,7 @@ const index = ({ props }) => {
                           </Button>
                         </Link>
                       </Grid>
-                      {/*   <Grid
-                        item
-                        md={3}
-                        xs={12}
-                        style={{
-                          padding: "10px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Link href={`${Routes.SCHEDULEUSER}/${data.user_id}`}>
-                          <Button
-                            style={{
-                              backgroundColor: "#BBF0E8",
-                              color: "#092435",
-                            }}
-                            variant="contained"
-                            fullWidth
-                            onClick={handleDelete}
-                          >
-                            Eliminar
-                          </Button>
-                        </Link>
-                      </Grid> */}
+
                       {data.availableStatus === 0 ? (
                         <Grid
                           item
@@ -371,12 +360,11 @@ const index = ({ props }) => {
                             variant="contained"
                             type="submit"
                             fullWidth
-                            style={{
-                              backgroundColor: "#60CCD9",
-                              color: "#092435",
+                            className={classes.btnasign}
+                            onClick={() => {
+                              handleSchedule();
+                              handleOpen();
                             }}
-                            //onClick={handleSchedule}
-                            onClick={handleSchedule}
                           >
                             Agendar cita
                           </Button>
@@ -412,7 +400,8 @@ const index = ({ props }) => {
                               backgroundColor: "#60CCD9",
                               color: "#092435",
                             }}
-                            className={classes.upgrade}
+                            className={(classes.upgrade, classes.btnasign)}
+                            onclick={handleclose}
                           >
                             Aceptar
                           </Button>

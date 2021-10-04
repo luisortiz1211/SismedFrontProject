@@ -4,7 +4,7 @@ import Title from "@/components/Title";
 import Routes from "@/constants/routes";
 import { Patients } from "src/api/patient";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CssBaseline, Fade, Paper } from "@material-ui/core";
+import { CssBaseline, Fade, Paper, MenuItem } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
@@ -21,6 +21,8 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -162,6 +164,7 @@ const index = ({ props }) => {
                   direction="row"
                   justifyContent="space-around"
                   alignItems="center"
+                  spacing={1}
                   style={{
                     backgroundColor: "#BBF0E8",
                     paddingBottom: "10px",
@@ -216,6 +219,7 @@ const index = ({ props }) => {
                   direction="row"
                   justifyContent="space-around"
                   alignItems="center"
+                  spacing={1}
                   style={{
                     backgroundColor: "#FFFFFF",
                     paddingBottom: "10px",
@@ -224,28 +228,39 @@ const index = ({ props }) => {
                   }}
                 >
                   <Grid item lg={3} sm={4} xs={12}>
-                    <TextField
-                      id="sex"
-                      name="sex"
+                    <FormControl
+                      variant="outlined"
                       label="Sexo"
                       className={classes.textField}
-                      defaultValue=""
-                      required
-                      variant="outlined"
-                      {...register("sex")}
-                    />
+                    >
+                      <Select
+                        id="sex"
+                        {...register("sex", { required: true })}
+                        defaultValue={"1"}
+                      >
+                        <MenuItem value={`1`}>Masculino</MenuItem>
+                        <MenuItem value={`2`}>Femenino</MenuItem>
+                      </Select>
+                    </FormControl>
                   </Grid>
                   <Grid item lg={3} sm={4} xs={12}>
-                    <TextField
-                      id="civilStatus"
-                      name="civilStatus"
-                      label="Estado civil"
-                      required
-                      className={classes.textField}
-                      defaultValue=""
+                    <FormControl
                       variant="outlined"
-                      {...register("civilStatus")}
-                    />
+                      label="Estado civil"
+                      className={classes.textField}
+                    >
+                      <Select
+                        id="civilStatus"
+                        {...register("civilStatus", { required: true })}
+                        defaultValue={"1"}
+                      >
+                        <MenuItem value={`1`}>Soltero</MenuItem>
+                        <MenuItem value={`2`}>Casado</MenuItem>
+                        <MenuItem value={`3`}>Divorciado</MenuItem>
+                        <MenuItem value={`4`}>Union libre</MenuItem>
+                        <MenuItem value={`5`}>Montepio</MenuItem>
+                      </Select>
+                    </FormControl>
                   </Grid>
                   <Grid item lg={3} sm={4} xs={12}>
                     <TextField
@@ -269,6 +284,7 @@ const index = ({ props }) => {
                   direction="row"
                   justifyContent="space-around"
                   alignItems="center"
+                  spacing={1}
                   style={{
                     backgroundColor: "#BBF0E8",
                     paddingBottom: "10px",
@@ -322,6 +338,7 @@ const index = ({ props }) => {
                   direction="row"
                   justifyContent="space-around"
                   alignItems="center"
+                  spacing={1}
                   style={{
                     backgroundColor: "#FFFFFF",
                     paddingBottom: "10px",
@@ -375,6 +392,7 @@ const index = ({ props }) => {
                   direction="row"
                   justifyContent="space-around"
                   alignItems="center"
+                  spacing={1}
                   style={{
                     backgroundColor: "#BBF0E8",
                     paddingBottom: "20px",

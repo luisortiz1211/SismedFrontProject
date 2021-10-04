@@ -13,19 +13,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useSWR from "swr";
+import ChargeInformation from "./ChargeInformation";
 
 const columns = [
-  /*   {
-    id: "personalHistory_id",
-    label: "N°",
-    minWidth: 20,
-    backgroundColor: "#BBF0E8",
-    align: "center",
-    fontSize: "16px",
-  }, */
   {
     id: "created_at",
-    label: "Fecha ingreso",
+    label: "Fecha registro",
     minWidth: 20,
     backgroundColor: "#BBF0E8",
     align: "center",
@@ -34,7 +27,7 @@ const columns = [
 
   {
     id: "nameCondition",
-    label: "antecedente",
+    label: "Antecedente",
     minWidth: 15,
     backgroundColor: "#BBF0E8",
     align: "center",
@@ -88,41 +81,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     padding: "40px",
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  textField: {
-    paddingBottom: "15px",
-    color: "#414A4F",
-  },
-
-  formControl: {
-    minWidth: 300,
-    paddingBottom: "15px",
-    color: "#414A4F",
-    paddingRight: "10px",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  mpaper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   button: {
     margin: theme.spacing(3),
   },
-  rightIcon: {
-    marginLeft: theme.spacing(2),
-  },
+
   btnew: {
     textTransform: "none",
     background: "#60CCD9",
@@ -154,9 +116,13 @@ export default function PersonalHistories({ patientID }) {
     `/patients/${patientID}/personal_histories`,
     fetcher
   );
-  //console.log("emergencyContacts", data);
+
   if (error)
-    return <div> No se puede mostrar los antecedentes del paciente</div>;
+    return (
+      <div>
+        <ChargeInformation />
+      </div>
+    );
   if (!data) return <Loading />;
   return (
     <Container maxWidth="lg" direction="row">
@@ -206,7 +172,6 @@ export default function PersonalHistories({ patientID }) {
             {data.data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                const colorLine = row.schedule_id;
                 return (
                   <TableRow
                     hover
