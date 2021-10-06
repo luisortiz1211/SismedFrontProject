@@ -31,15 +31,6 @@ const useStyles = makeStyles((theme) => ({
     color: "#414A4F",
   },
 
-  formControl: {
-    minWidth: 300,
-    paddingBottom: "15px",
-    color: "#414A4F",
-    paddingRight: "10px",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
   mpaper: {
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
@@ -54,14 +45,27 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(3),
   },
-  rightIcon: {
-    marginLeft: theme.spacing(2),
+
+  btnadd: {
+    backgroundColor: "#60CCD9",
+    color: "#092435",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
   },
 }));
 const schema = yup.object().shape({
   drugName: yup.string().required("Ingrese el medicamento"),
-  drugSymptom: yup.string().required("Ingrese los síntomas"),
-  drugRemark: yup.string().required("Ingrese algun comentario"),
+  drugSymptom: yup
+    .string()
+    .required("Ingrese los efectos provocados")
+    .max(100, "Máximo 100 caracteres"),
+  drugRemark: yup
+    .string()
+    .required("Ingrese comentario")
+    .max(100, "Máximo 100 caracteres"),
 });
 
 export default function DrugAllergieNew({ props }) {
@@ -163,6 +167,7 @@ export default function DrugAllergieNew({ props }) {
                 required
                 variant="outlined"
                 {...register("drugName")}
+                helperText={errors.drugName?.message}
               />
             </Grid>
           </Grid>{" "}
@@ -193,6 +198,7 @@ export default function DrugAllergieNew({ props }) {
                 required
                 variant="outlined"
                 {...register("drugSymptom")}
+                helperText={errors.drugSymptom?.message}
               />
             </Grid>
             <Grid item lg={6} sm={6} xs={12}>
@@ -205,6 +211,7 @@ export default function DrugAllergieNew({ props }) {
                 required
                 variant="outlined"
                 {...register("drugRemark")}
+                helperText={errors.drugRemark?.message}
               />
             </Grid>
           </Grid>
@@ -238,11 +245,8 @@ export default function DrugAllergieNew({ props }) {
               <Button
                 variant="contained"
                 type="submit"
-                style={{
-                  backgroundColor: "#60CCD9",
-                  color: "#092435",
-                  width: "80vh",
-                }}
+                fullWidth
+                className={classes.btnadd}
                 onClick={handleOpen}
                 startIcon={<SaveIcon />}
               >

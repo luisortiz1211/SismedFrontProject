@@ -78,19 +78,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const schema = yup.object().shape({
-  /*  ci: yup.number().required("Confirme su número de cédula"),
-  name: yup.string().required("Ingrese su nombre"),
-  lastName: yup.string().required("Ingrese su apellido"),
-  civilStatus: yup.number().required("Defina el sexo"),
-  birthay: yup.string().required("Ingrese su fecha de nacimiento"),
-  employment: yup.string().required("Defina nombre del empleo"),
-  email: yup.string().email("Ingrese un email").required("Confirme el email"),
-  movil: yup.number().required("Confirme número telefonico"),
-  landline: yup.number().required("Confirme número fijo"),
-  address: yup.string().required("Defina nombre del empleo"),
-  nationality: yup.string().required("Defina nombre del empleo"),
-  city: yup.string().required("Defina nombre del empleo"),
-  parish: yup.string().required("Defina nombre del empleo"), */
+  headExplo: yup.string().max(200, "Máximo 200 caracteres"),
+  chestExplo: yup.string().max(200, "Máximo 200 caracteres"),
+  extremitiesExplo: yup.string().max(200, "Máximo 200 caracteres"),
+  neckExplo: yup.string().max(200, "Máximo 200 caracteres"),
+  stomachExplo: yup.string().max(200, "Máximo 200 caracteres"),
+  genitalsExplo: yup.string().max(200, "Máximo 200 caracteres"),
+  forecastExplo: yup.string().max(200, "Máximo 200 caracteres"),
+  diagnosisExplo: yup.string().max(200, "Máximo 200 caracteres"),
+  treatmentExplo: yup.string().max(200, "Máximo 200 caracteres"),
+  commentExplo: yup.string().max(200, "Máximo 200 caracteres"),
 });
 
 export default function ExplorationPatientNew({ examID }) {
@@ -187,7 +184,7 @@ export default function ExplorationPatientNew({ examID }) {
             }}
           >
             {" "}
-            <Grid item lg={3} sm={4} xs={12}>
+            <Grid item md={4} xs={12}>
               <TextField
                 id="id"
                 name="id"
@@ -203,13 +200,13 @@ export default function ExplorationPatientNew({ examID }) {
                 {...register("patient_id")}
               />
             </Grid>
-            <Grid item lg={3} sm={4} xs={12}>
+            <Grid item md={4} xs={12}>
               <TextField
                 id="date"
                 name="date"
                 label="Fecha de ingreso"
                 className={classes.textField}
-                defaultValue={new Date()}
+                defaultValue={new Date().toISOString().slice(0, 10)}
                 variant="outlined"
                 //required
                 disabled
@@ -219,7 +216,7 @@ export default function ExplorationPatientNew({ examID }) {
                 //{...register("date")}
               />
             </Grid>
-            <Grid item lg={3} sm={4} xs={12}>
+            <Grid item md={4} xs={12}>
               <TextField
                 id="physicalExam_id"
                 name="patient_id"
@@ -253,78 +250,45 @@ export default function ExplorationPatientNew({ examID }) {
               color: "#092435",
             }}
           >
-            <Grid item lg={3} sm={4} xs={12}>
+            <Grid item md={6} xs={12}>
               <Grid
                 container
                 direction="row"
                 justifyContent="space-around"
                 alignItems="center"
               >
-                <TextareaAutosize
+                <TextField
                   id="headExplo"
                   name="headExplo"
-                  placeholder="Revisión de cabeza"
+                  label="Revisión de cabeza"
                   className={classes.textField}
-                  defaultValue=""
+                  defaultValue="Inspección de área normal"
+                  placeholder="Campo vacio no permitido"
                   required
                   variant="outlined"
-                  style={{
-                    width: 400,
-                    height: 50,
-                    borderColor: "#BDBDBD",
-                    borderRadius: 2,
-                  }}
                   {...register("headExplo")}
+                  helperText={errors.headExplo?.message}
                 />
               </Grid>
             </Grid>
-            <Grid item lg={3} sm={4} xs={12}>
+            <Grid item md={6} xs={12}>
               <Grid
                 container
                 direction="row"
                 justifyContent="space-around"
                 alignItems="center"
               >
-                <TextareaAutosize
+                <TextField
                   id="chestExplo"
                   name="chestExplo"
-                  placeholder="Revisión de pecho"
+                  label="Revisión de pecho"
                   className={classes.textField}
-                  defaultValue=""
+                  defaultValue="Inspección de área normal"
+                  placeholder="Campo vacio no permitido"
                   required
                   variant="outlined"
-                  style={{
-                    width: 400,
-                    height: 50,
-                    borderColor: "#BDBDBD",
-                    borderRadius: 2,
-                  }}
                   {...register("chestExplo")}
-                />
-              </Grid>
-            </Grid>
-            <Grid item lg={3} sm={4} xs={12}>
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-              >
-                <TextareaAutosize
-                  id="extremitiesExplo"
-                  name="extremitiesExplo"
-                  placeholder="Revisiones extremidades"
-                  className={classes.textField}
-                  defaultValue=""
-                  required
-                  variant="outlined"
-                  style={{
-                    width: 400,
-                    height: 50,
-                    borderColor: "#BDBDBD",
-                    borderRadius: 2,
-                  }}
-                  {...register("extremitiesExplo")}
+                  helperText={errors.chestExplo?.message}
                 />
               </Grid>
             </Grid>
@@ -339,220 +303,232 @@ export default function ExplorationPatientNew({ examID }) {
             justifyContent="space-around"
             alignItems="center"
             spacing={2}
-            style={{
-              backgroundColor: "#FFFFFF",
-              paddingBottom: "10px",
-              paddingTop: "15px",
-              color: "#092435",
-            }}
-          >
-            <Grid item lg={3} sm={4} xs={12}>
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-              >
-                <TextareaAutosize
-                  id="neckExplo"
-                  name="neckExplo"
-                  placeholder="Revisión de cuello"
-                  className={classes.textField}
-                  defaultValue=""
-                  required
-                  variant="outlined"
-                  style={{
-                    width: 400,
-                    height: 50,
-                    borderColor: "#BDBDBD",
-                    borderRadius: 2,
-                  }}
-                  {...register("neckExplo")}
-                />
-              </Grid>
-            </Grid>
-            <Grid item lg={3} sm={4} xs={12}>
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-              >
-                <TextareaAutosize
-                  id="stomachExplo"
-                  name="stomachExplo"
-                  placeholder="Revisión de cuello"
-                  className={classes.textField}
-                  defaultValue=""
-                  required
-                  variant="outlined"
-                  style={{
-                    width: 400,
-                    height: 50,
-                    borderColor: "#BDBDBD",
-                    borderRadius: 2,
-                  }}
-                  {...register("stomachExplo")}
-                />
-              </Grid>
-            </Grid>
-            <Grid item lg={3} sm={4} xs={12}>
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-              >
-                <TextareaAutosize
-                  id="genitalsExplo"
-                  name="genitalsExplo"
-                  placeholder="Revisión genitales"
-                  className={classes.textField}
-                  defaultValue=""
-                  required
-                  variant="outlined"
-                  style={{
-                    width: 400,
-                    height: 50,
-                    borderColor: "#BDBDBD",
-                    borderRadius: 2,
-                  }}
-                  {...register("genitalsExplo")}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Divider
-            light
-            style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-          />
-          <Grid
-            container
-            direction="row"
-            justifyContent="space-around"
-            alignItems="center"
-            spacing={2}
-            style={{
-              backgroundColor: "#FFFFFF",
-              paddingBottom: "10px",
-              paddingTop: "15px",
-              color: "#092435",
-            }}
-          >
-            <Grid item lg={3} sm={4} xs={12}>
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-              >
-                <TextareaAutosize
-                  id="forecastExplo"
-                  name="forecastExplo"
-                  placeholder="Pronostico"
-                  className={classes.textField}
-                  defaultValue=""
-                  required
-                  variant="outlined"
-                  style={{
-                    width: 400,
-                    height: 50,
-                    borderColor: "#BDBDBD",
-                    borderRadius: 2,
-                  }}
-                  {...register("forecastExplo")}
-                />
-              </Grid>
-            </Grid>
-            <Grid item lg={3} sm={4} xs={12}>
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-              >
-                <TextareaAutosize
-                  id="diagnosisExplo"
-                  name="diagnosisExplo"
-                  placeholder="Diagnostico"
-                  className={classes.textField}
-                  defaultValue=""
-                  required
-                  variant="outlined"
-                  style={{
-                    width: 400,
-                    height: 50,
-                    borderColor: "#BDBDBD",
-                    borderRadius: 2,
-                  }}
-                  {...register("diagnosisExplo")}
-                />
-              </Grid>
-            </Grid>
-            <Grid item lg={3} sm={4} xs={12}>
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-              >
-                <TextareaAutosize
-                  id="treatmentExplo"
-                  name="treatmentExplo"
-                  placeholder="Tratamiento"
-                  className={classes.textField}
-                  defaultValue=""
-                  required
-                  variant="outlined"
-                  style={{
-                    width: 400,
-                    height: 50,
-                    borderColor: "#BDBDBD",
-                    borderRadius: 2,
-                  }}
-                  {...register("treatmentExplo")}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Divider
-            light
-            style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-          />
-          <Grid
-            container
-            direction="row"
-            justifyContent="space-around"
-            alignItems="center"
             style={{
               backgroundColor: "#BBF0E8",
+              paddingBottom: "10px",
+              paddingTop: "15px",
+              color: "#092435",
+            }}
+          >
+            <Grid item md={6} xs={12}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+              >
+                <TextField
+                  id="extremitiesExplo"
+                  name="extremitiesExplo"
+                  label="Revisión en extremidades"
+                  className={classes.textField}
+                  defaultValue="Inspección de área normal"
+                  placeholder="Campo vacio no permitido"
+                  required
+                  variant="outlined"
+                  {...register("extremitiesExplo")}
+                  helperText={errors.extremitiesExplo?.message}
+                />
+              </Grid>
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+              >
+                <TextField
+                  id="neckExplo"
+                  name="neckExplo"
+                  label="Revisión de cuello"
+                  className={classes.textField}
+                  defaultValue="Inspección de área normal"
+                  placeholder="Campo vacio no permitido"
+                  required
+                  variant="outlined"
+                  {...register("neckExplo")}
+                  helperText={errors.neckExplo?.message}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Divider
+            light
+            style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+          />
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            spacing={2}
+            style={{
+              backgroundColor: "#FFFFFF",
+              paddingBottom: "10px",
+              paddingTop: "15px",
+              color: "#092435",
+            }}
+          >
+            <Grid item md={6} xs={12}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+              >
+                <TextField
+                  id="stomachExplo"
+                  name="stomachExplo"
+                  label="Revisión de cuello"
+                  className={classes.textField}
+                  defaultValue="Inspección de área normal"
+                  placeholder="Campo vacio no permitido"
+                  required
+                  variant="outlined"
+                  {...register("stomachExplo")}
+                  helperText={errors.stomachExplo?.message}
+                />
+              </Grid>
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+              >
+                <TextField
+                  id="genitalsExplo"
+                  name="genitalsExplo"
+                  label="Revisión genitales"
+                  className={classes.textField}
+                  defaultValue="Inspección de área normal"
+                  placeholder="Campo vacio no permitido"
+                  required
+                  variant="outlined"
+                  {...register("genitalsExplo")}
+                  helperText={errors.genitalsExplo?.message}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Divider
+            light
+            style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+          />
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            spacing={2}
+            style={{
+              backgroundColor: "#BBF0E8",
+              paddingBottom: "10px",
+              paddingTop: "15px",
+              color: "#092435",
+            }}
+          >
+            <Grid item md={6} xs={12}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+              >
+                <TextField
+                  id="forecastExplo"
+                  name="forecastExplo"
+                  label="Pronostico"
+                  className={classes.textField}
+                  defaultValue="Inspección de área normal"
+                  placeholder="Campo vacio no permitido"
+                  required
+                  {...register("forecastExplo")}
+                  helperText={errors.forecastExplo?.message}
+                />
+              </Grid>
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+              >
+                <TextField
+                  id="diagnosisExplo"
+                  name="diagnosisExplo"
+                  label="Diagnostico"
+                  className={classes.textField}
+                  defaultValue="Inspección de área normal"
+                  placeholder="Campo vacio no permitido"
+                  required
+                  variant="outlined"
+                  {...register("diagnosisExplo")}
+                  helperText={errors.diagnosisExplo?.message}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Divider
+            light
+            style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+          />
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            spacing={2}
+            style={{
+              backgroundColor: "#ffff",
               paddingBottom: "20px",
               paddingTop: "15px",
               color: "#092435",
             }}
           >
-            <Grid item lg={3} sm={4} xs={12}>
+            <Grid item md={6} xs={12}>
               <Grid
                 container
                 direction="row"
                 justifyContent="space-around"
                 alignItems="center"
               >
-                <TextareaAutosize
-                  id="commentExplo"
-                  name="commentExplo"
-                  placeholder="Comentarios"
+                <TextField
+                  id="treatmentExplo"
+                  name="treatmentExplo"
+                  label="Tratamiento"
                   className={classes.textField}
-                  defaultValue=""
+                  defaultValue="Inspección de área normal"
+                  placeholder="Campo vacio no permitido"
                   required
                   variant="outlined"
-                  style={{
-                    width: 400,
-                    height: 50,
-                    borderColor: "#BDBDBD",
-                    borderRadius: 2,
-                  }}
+                  {...register("treatmentExplo")}
+                  helperText={errors.treatmentExplo?.message}
+                />
+              </Grid>
+            </Grid>
+
+            <Grid item md={6} xs={12}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+              >
+                <TextField
+                  id="commentExplo"
+                  name="commentExplo"
+                  label="Comentarios"
+                  className={classes.textField}
+                  defaultValue="Inspección de área normal"
+                  placeholder="Campo vacio no permitido"
+                  required
+                  variant="outlined"
                   {...register("commentExplo")}
+                  helperText={errors.commentExplo?.message}
                 />
               </Grid>
             </Grid>

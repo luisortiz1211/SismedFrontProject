@@ -20,6 +20,7 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Link from "next/link";
 import React, { useState } from "react";
 import useSWR from "swr";
+import withAuth from "@/hocs/withAuth";
 
 const columns = [
   {
@@ -253,4 +254,4 @@ const index = () => {
     </LayoutSecondary>
   );
 };
-export default index;
+export default withAuth(index);

@@ -15,7 +15,8 @@ export const useAuth = () => {
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
-  return context;
+  //return context;
+  return useContext(AuthContext);
 };
 
 function useAuthProvider() {
@@ -46,21 +47,13 @@ function useAuthProvider() {
       return response;
     } catch (error) {
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        //alert(error.response.data.message);
         console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        //console.log(error.response.status);
+        //console.log(error.response.headers);
         return Promise.reject(error.response);
-        // return error.response;
       } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
         console.log(error.request);
       } else {
-        // Something happened in setting up the request that triggered an Error
         console.log("Error", error.message);
       }
       console.log(error.config);
@@ -74,11 +67,7 @@ function useAuthProvider() {
       return response;
     } catch (error) {
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        //alert(translateMessage(error.response.data.message));
-        //alert(error.response.data.message);
-        console.log(error.response.data);
+        console.log("errores", error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
         return error.response;
@@ -104,27 +93,7 @@ function useAuthProvider() {
   }
 
   const sendPasswordResetEmail = async (email) => {
-    // try {
     await api.post("/forgot-password", { email });
-    // } catch (error) {
-    //   if (error.response) {
-    //     // The request was made and the server responded with a status code
-    //     // that falls out of the range of 2xx
-    //     console.log(error.response.data);
-    //     console.log(error.response.status);
-    //     console.log(error.response.headers);
-    //     return error.response;
-    //   } else if (error.request) {
-    //     // The request was made but no response was received
-    //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-    //     // http.ClientRequest in node.js
-    //     console.log(error.request);
-    //   } else {
-    //     // Something happened in setting up the request that triggered an Error
-    //     console.log("Error", error.message);
-    //   }
-    //   console.log(error.config);
-    // }
   };
 
   const confirmPasswordReset = async (
@@ -140,25 +109,6 @@ function useAuthProvider() {
       password_confirmation,
       token,
     });
-    // } catch (error) {
-    //   if (error.response) {
-    //     // The request was made and the server responded with a status code
-    //     // that falls out of the range of 2xx
-    //     console.log(error.response.data);
-    //     console.log(error.response.status);
-    //     console.log(error.response.headers);
-    //     return error.response;
-    //   } else if (error.request) {
-    //     // The request was made but no response was received
-    //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-    //     // http.ClientRequest in node.js
-    //     console.log(error.request);
-    //   } else {
-    //     // Something happened in setting up the request that triggered an Error
-    //     console.log("Error", error.message);
-    //   }
-    //   console.log(error.config);
-    // }
   };
 
   async function getAuthenticatedUser() {
@@ -170,17 +120,11 @@ function useAuthProvider() {
     } catch (error) {
       handleUser(false);
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        //alert(error.response.data.message);
         console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        //console.log(error.response.status);
+        //console.log(error.response.headers);
         return error.response;
       } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
         console.log(error.request);
       } else {
         // Something happened in setting up the request that triggered an Error
@@ -191,7 +135,7 @@ function useAuthProvider() {
   }
 
   useEffect(() => {
-    console.log("RENDER AUTH", user);
+    //console.log("RENDER AUTH", user);
     try {
       getAuthenticatedUser();
     } catch (error) {

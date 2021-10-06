@@ -22,6 +22,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useSWR from "swr";
+import { useAuth } from "src/contexts/auth";
 
 const columns = [
   {
@@ -125,6 +126,7 @@ const index = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
+  const { user } = useAuth();
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -173,7 +175,9 @@ const index = () => {
           elevation={6}
           style={{ margin: "20px" }}
         >
-          <AnnounTitle>Agregar un horario al usuario</AnnounTitle>
+          <AnnounTitle>
+            Horarios establecidos en el usuario (Agregar y modificar){" "}
+          </AnnounTitle>
 
           <TableContainer className={classes.container}>
             <Table stickyHeader aria-label="sticky table">
@@ -190,28 +194,32 @@ const index = () => {
                       }}
                     >
                       {column.label}
-                      {column.id === "botonSelect" ? (
-                        <Grid
-                          container
-                          direction="row"
-                          alignItems="center"
-                          justifyContent="center"
-                        >
-                          <Link
-                            href={`/userSchedule/schedulenew/${id}/`}
-                            as={`/userSchedule/schedulenew/${id}/`}
-                            passHref
+                      {user.roleUser === "ROLE_ADMIN" ? (
+                        column.id === "botonSelect" ? (
+                          <Grid
+                            container
+                            direction="row"
+                            alignItems="center"
+                            justifyContent="center"
                           >
-                            <Button
-                              variant="outlined"
-                              size="small"
-                              className={classes.btnadd}
-                              startIcon={<AddIcon />}
+                            <Link
+                              href={`/userSchedule/schedulenew/${id}/`}
+                              as={`/userSchedule/schedulenew/${id}/`}
+                              passHref
                             >
-                              Añadir
-                            </Button>
-                          </Link>
-                        </Grid>
+                              <Button
+                                variant="outlined"
+                                size="small"
+                                className={classes.btnadd}
+                                startIcon={<AddIcon />}
+                              >
+                                Añadir
+                              </Button>
+                            </Link>
+                          </Grid>
+                        ) : (
+                          "_"
+                        )
                       ) : (
                         ""
                       )}
@@ -229,7 +237,7 @@ const index = () => {
                         hover
                         role="checkbox"
                         tabIndex={-1}
-                        key={row.id}
+                        key={row.schedule_id}
                       >
                         {columns.map((column) => {
                           const value = row[column.id];
@@ -243,29 +251,33 @@ const index = () => {
                                   : value
                                 : value}
 
-                              {column.id === "botonSelect" &&
-                              column.label == "" ? (
-                                <Grid
-                                  container
-                                  direction="row"
-                                  alignItems="center"
-                                  justifyContent="center"
-                                >
-                                  <Grid item>
-                                    <Link
-                                      //es el numero de id en horarios usuarios
-                                      href={`/userSchedule/scheduleupdate/${row.schedule_id}`}
-                                    >
-                                      <Button
-                                        variant="outlined"
-                                        size="small"
-                                        className={classes.btnedit}
+                              {user.roleUser === "ROLE_ADMIN" ? (
+                                column.id === "botonSelect" &&
+                                column.label == "" ? (
+                                  <Grid
+                                    container
+                                    direction="row"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                  >
+                                    <Grid item>
+                                      <Link
+                                        //es el numero de id en horarios usuarios
+                                        href={`/userSchedule/scheduleupdate/${row.schedule_id}`}
                                       >
-                                        <BorderColorIcon />
-                                      </Button>
-                                    </Link>
+                                        <Button
+                                          variant="outlined"
+                                          size="small"
+                                          className={classes.btnedit}
+                                        >
+                                          <BorderColorIcon />
+                                        </Button>
+                                      </Link>
+                                    </Grid>
                                   </Grid>
-                                </Grid>
+                                ) : (
+                                  ""
+                                )
                               ) : (
                                 ""
                               )}

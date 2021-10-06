@@ -6,13 +6,14 @@ import LayoutSecondary from "@/components/LayoutSecondary";
 import PatientsInformation from "@/components/PatientUpdate";
 import PersonalHistoryList from "@/components/PersonalHistoryList";
 import Title from "@/components/Title";
+import withAuth from "@/hocs/withAuth";
 import { Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import BallotIcon from "@material-ui/icons/Ballot";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
+import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
@@ -31,7 +32,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component={"span"}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -48,13 +49,12 @@ function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
     "aria-controls": `full-width-tabpanel-${index}`,
-    //backgroundColor: "#60CCD9",
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "auto",
+    width: "auto",
     //padding: "15px",
   },
   form: {
@@ -86,7 +86,7 @@ const patientDetails = ({ props }) => {
     <LayoutSecondary>
       <Container maxWidth="lg">
         <Title component={"span"}>
-          <AssignmentIndIcon
+          <BallotIcon
             style={{
               color: "#092435",
               fontSize: 35,
@@ -94,7 +94,7 @@ const patientDetails = ({ props }) => {
               top: "6px",
             }}
           />
-          Historia médica (Datos personales)
+          Historia clínica (Información)
         </Title>
         <Paper elevation={6} style={{ padding: "10px", margin: "20px" }}>
           <Container>
@@ -105,17 +105,21 @@ const patientDetails = ({ props }) => {
                   onChange={handleChange}
                   indicatorColor="primary"
                   textColor="primary"
-                  variant="fullWidth"
+                  variant="scrollable"
                   scrollButtons
-                  allowScrollButtonsMobile
-                  aria-label="scrollable auto tabs example"
+                  aria-label="visible arrows tabs example"
+                  sx={{
+                    [`& .${tabsClasses.scrollButtons}`]: {
+                      "&.Mui-disabled": { opacity: 0.9 },
+                    },
+                  }}
                 >
                   <Tab label="Datos" {...a11yProps(0)} />
                   <Tab label="Contactos" {...a11yProps(1)} />
                   <Tab label="APP" {...a11yProps(2)} />
                   <Tab label="APF" {...a11yProps(3)} />
                   <Tab label="Alergias" {...a11yProps(4)} />
-                  <Tab label="Exploración" {...a11yProps(5)} />
+                  <Tab label="REV" {...a11yProps(5)} />
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
@@ -147,4 +151,4 @@ const patientDetails = ({ props }) => {
     </LayoutSecondary>
   );
 };
-export default patientDetails;
+export default withAuth(patientDetails);

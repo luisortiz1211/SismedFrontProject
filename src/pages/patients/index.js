@@ -1,8 +1,8 @@
+import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
-import { fetcher } from "src/api/utils";
 import { Button, Grid } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
@@ -19,9 +19,10 @@ import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import SendIcon from "@mui/icons-material/Send";
 import Link from "next/link";
 import React, { useState } from "react";
+import { fetcher } from "src/api/utils";
 import useSWR from "swr";
-import AnnounTitle from "@/components/AnnounTitle";
-import { fontSize } from "@mui/system";
+import Search from "@/components/Search";
+import { useAuth } from "src/contexts/auth";
 
 const columns = [
   {
@@ -134,6 +135,7 @@ const useStyles = makeStyles({
 const index = () => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
+  const { user } = useAuth();
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
@@ -269,34 +271,38 @@ const index = () => {
                                     : "Montepio"
                                   : value}
 
-                                {column.id === "botonSelect" &&
-                                column.label == "" ? (
-                                  <Grid
-                                    container
-                                    direction="row"
-                                    alignItems="center"
-                                    justifyContent="center"
-                                  >
-                                    <Grid item>
-                                      <Link
-                                        href={`/patients/${row.patient_id}`}
-                                        as={`/patients/${row.patient_id}`}
-                                        key={row.patient_id}
-                                        passHref
-                                      >
-                                        <Button
-                                          variant="outlined"
-                                          size="small"
-                                          className={classes.btnagn}
-                                          endIcon={<SendIcon />}
+                                {user.roleUser !== "ROLE_ADMIN" ? (
+                                  column.id === "botonSelect" &&
+                                  column.label == "" ? (
+                                    <Grid
+                                      container
+                                      direction="row"
+                                      alignItems="center"
+                                      justifyContent="center"
+                                    >
+                                      <Grid item>
+                                        <Link
+                                          href={`/patients/${row.patient_id}`}
+                                          as={`/patients/${row.patient_id}`}
+                                          key={row.patient_id}
+                                          passHref
                                         >
-                                          Agendar
-                                        </Button>
-                                      </Link>
+                                          <Button
+                                            variant="outlined"
+                                            size="small"
+                                            className={classes.btnagn}
+                                            endIcon={<SendIcon />}
+                                          >
+                                            Agendar
+                                          </Button>
+                                        </Link>
+                                      </Grid>
                                     </Grid>
-                                  </Grid>
+                                  ) : (
+                                    ""
+                                  )
                                 ) : (
-                                  ""
+                                  "-"
                                 )}
                               </TableCell>
                             );

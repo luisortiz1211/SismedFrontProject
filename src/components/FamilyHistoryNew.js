@@ -1,6 +1,4 @@
 import AnnounTitle from "@/components/AnnounTitle";
-import Routes from "@/constants/routes";
-import { Familyhistories } from "src/api/familyhistory";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Fade } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -12,11 +10,11 @@ import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import SaveIcon from "@mui/icons-material/Save";
-import ScheduleIcon from "@mui/icons-material/Schedule";
-import Link from "next/link";
+import InputAdornment from "@mui/material/InputAdornment";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Familyhistories } from "src/api/familyhistory";
 import * as yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,15 +36,6 @@ const useStyles = makeStyles((theme) => ({
     color: "#414A4F",
   },
 
-  formControl: {
-    minWidth: 300,
-    paddingBottom: "15px",
-    color: "#414A4F",
-    paddingRight: "10px",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
   mpaper: {
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
@@ -61,14 +50,27 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(3),
   },
-  rightIcon: {
-    marginLeft: theme.spacing(2),
+  btnadd: {
+    backgroundColor: "#60CCD9",
+    color: "#092435",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
   },
 }));
 const schema = yup.object().shape({
   nameCondition: yup.string().required("Confirme el nombre del antecedente"),
-  yearCondition: yup.string().required("Tiempo del padecimiento"),
-  commentCondition: yup.string().required("Comentario adicional"),
+  yearCondition: yup
+    .string()
+    .required("Ingrese solo el número de años")
+    .matches(/^[0-9]+$/, "Ingrese solo números")
+    .max(2, "Máximo 2 dígitos"),
+  commentCondition: yup
+    .string()
+    .required("Ingrese máximo 100 caracteres")
+    .max(100, "Máximo 100 caracteres"),
 });
 
 export default function FamilyHistoryNew({ props }) {
@@ -168,6 +170,7 @@ export default function FamilyHistoryNew({ props }) {
                 required
                 variant="outlined"
                 {...register("nameCondition")}
+                helperText={errors.nameCondition?.message}
               />
             </Grid>
           </Grid>{" "}
@@ -198,6 +201,12 @@ export default function FamilyHistoryNew({ props }) {
                 required
                 variant="outlined"
                 {...register("yearCondition")}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">Años</InputAdornment>
+                  ),
+                }}
+                helperText={errors.yearCondition?.message}
               />
             </Grid>
             <Grid item lg={6} sm={6} xs={12}>
@@ -210,6 +219,7 @@ export default function FamilyHistoryNew({ props }) {
                 required
                 variant="outlined"
                 {...register("commentCondition")}
+                helperText={errors.commentCondition?.message}
               />
             </Grid>
           </Grid>
@@ -231,6 +241,7 @@ export default function FamilyHistoryNew({ props }) {
           >
             <Grid
               item
+              md={3}
               xs={12}
               style={{
                 padding: "10px",
@@ -242,11 +253,8 @@ export default function FamilyHistoryNew({ props }) {
               <Button
                 variant="contained"
                 type="submit"
-                style={{
-                  backgroundColor: "#60CCD9",
-                  color: "#092435",
-                  width: "80vh",
-                }}
+                fullWidth
+                className={classes.btnadd}
                 onClick={handleOpen}
                 startIcon={<SaveIcon />}
               >

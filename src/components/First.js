@@ -15,6 +15,7 @@ import Link from "next/link";
 import React from "react";
 import Routes from "../constants/routes";
 import withAuth from "./../hocs/withAuth";
+import { useAuth } from "src/contexts/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
 const First = () => {
   const classes = useStyles();
+  const { user } = useAuth();
 
   return (
     <div>
@@ -86,8 +88,7 @@ const First = () => {
             <div className={classes.paper}>
               <Grid container justifyContent="space-around">
                 <Grid item md={2} xs={6}>
-                  {" "}
-                  <Link href={Routes.USERS}>
+                  <Link href={Routes.PATIENTS}>
                     <Button
                       className={classes.button}
                       variant="contained"
@@ -99,14 +100,17 @@ const First = () => {
                         alignItems="center"
                         justifyContent="center"
                       >
-                        <Grid item>
-                          <AssignmentIcon style={{ fontSize: 80 }} />
+                        <Grid item md={12}>
+                          <SearchIcon style={{ fontSize: 80 }} />
                         </Grid>
-                        <Grid item>Usuario SISMED</Grid>
+                        <Grid item md={12}>
+                          Buscar paciente
+                        </Grid>
                       </Grid>
                     </Button>
                   </Link>
                 </Grid>
+
                 <Grid item md={2} xs={6}>
                   <Link href={Routes.MEDICALHISTORY}>
                     <Button
@@ -130,8 +134,37 @@ const First = () => {
                     </Button>
                   </Link>
                 </Grid>
+                {user.roleUser === "ROLE_ADMIN" ? (
+                  <Grid item md={2} xs={6}>
+                    {" "}
+                    <Link href={Routes.USERS}>
+                      <Button
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                      >
+                        <Grid
+                          container
+                          style={{ textAlign: "center" }}
+                          alignItems="center"
+                          justifyContent="center"
+                        >
+                          <Grid item>
+                            <AssignmentIcon style={{ fontSize: 80 }} />
+                          </Grid>
+                          <Grid item>Usuario SISMED</Grid>
+                        </Grid>
+                      </Button>
+                    </Link>
+                  </Grid>
+                ) : (
+                  <Grid item md={2} xs={6}></Grid>
+                )}
+              </Grid>
+
+              <Grid container justifyContent="space-around">
                 <Grid item md={2} xs={6}>
-                  <Link href={Routes.PATIENTS}>
+                  <Link href={Routes.SCHEDULEDAY}>
                     <Button
                       className={classes.button}
                       variant="contained"
@@ -144,18 +177,16 @@ const First = () => {
                         justifyContent="center"
                       >
                         <Grid item md={12}>
-                          <SearchIcon style={{ fontSize: 80 }} />
+                          <DateRangeIcon style={{ fontSize: 80 }} />
                         </Grid>
                         <Grid item md={12}>
-                          Buscar paciente
+                          Agenda Pacientes
                         </Grid>
                       </Grid>
                     </Button>
                   </Link>
                 </Grid>
-              </Grid>
 
-              <Grid container justifyContent="space-around">
                 <Grid item md={2} xs={6}>
                   {" "}
                   <Link href={Routes.SCHEDULEUSER}>
@@ -180,52 +211,34 @@ const First = () => {
                     </Button>
                   </Link>
                 </Grid>
-                <Grid item md={2} xs={6}>
-                  <Link href={Routes.SCHEDULEDAY}>
-                    <Button
-                      className={classes.button}
-                      variant="contained"
-                      color="primary"
-                    >
-                      <Grid
-                        container
-                        style={{ textAlign: "center" }}
-                        alignItems="center"
-                        justifyContent="center"
+
+                {user.roleUser === "ROLE_ADMIN" ? (
+                  <Grid item md={2} xs={6}>
+                    <Link href={Routes.REGISTER}>
+                      <Button
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
                       >
-                        <Grid item md={12}>
-                          <DateRangeIcon style={{ fontSize: 80 }} />
+                        <Grid
+                          container
+                          style={{ textAlign: "center" }}
+                          alignItems="center"
+                          justifyContent="center"
+                        >
+                          <Grid item md={12}>
+                            <SupervisorAccountIcon style={{ fontSize: 80 }} />
+                          </Grid>
+                          <Grid item md={12}>
+                            Crear cuenta
+                          </Grid>
                         </Grid>
-                        <Grid item md={12}>
-                          Agenda Pacientes
-                        </Grid>
-                      </Grid>
-                    </Button>
-                  </Link>
-                </Grid>
-                <Grid item md={2} xs={6}>
-                  <Link href={Routes.REGISTER}>
-                    <Button
-                      className={classes.button}
-                      variant="contained"
-                      color="primary"
-                    >
-                      <Grid
-                        container
-                        style={{ textAlign: "center" }}
-                        alignItems="center"
-                        justifyContent="center"
-                      >
-                        <Grid item md={12}>
-                          <SupervisorAccountIcon style={{ fontSize: 80 }} />
-                        </Grid>
-                        <Grid item md={12}>
-                          Crear cuenta
-                        </Grid>
-                      </Grid>
-                    </Button>
-                  </Link>
-                </Grid>
+                      </Button>
+                    </Link>
+                  </Grid>
+                ) : (
+                  <Grid item md={2} xs={6}></Grid>
+                )}
               </Grid>
             </div>
           </Grid>

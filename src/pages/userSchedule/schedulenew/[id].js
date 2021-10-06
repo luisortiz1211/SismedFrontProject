@@ -15,6 +15,9 @@ import {
   Grid,
   Modal,
   TextField,
+  FormControl,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
@@ -27,6 +30,14 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useSWR from "swr";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import SaveIcon from "@mui/icons-material/Save";
+
+const schema = yup.object().shape({
+  startTime: yup.string().required("Ingrese la hora de inicio"),
+  finishTime: yup.string().required("Ingrese la hora de final del turno"),
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,17 +99,43 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
+  btnSave: {
+    backgroundColor: "#60CCD9",
+    color: "#092435",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
+  },
+  btnCancel: {
+    backgroundColor: "#003D59",
+    color: "#BBF0E8",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
+  },
 }));
 
 const index = ({ props }) => {
   const classes = useStyles();
-  const { register, handleSubmit, control } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm({ resolver: yupResolver(schema) });
   const router = useRouter();
   const { id } = router.query;
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const onSubmit = async (schedule) => {
@@ -194,6 +231,7 @@ const index = ({ props }) => {
                       direction="row"
                       justifyContent="space-around"
                       alignItems="center"
+                      spacing={2}
                       style={{
                         paddingBottom: "15px",
                         paddingTop: "20px",
@@ -201,25 +239,37 @@ const index = ({ props }) => {
                       }}
                     >
                       <Grid item md={4} sm={3} xs={12}>
-                        <TextField
-                          id="userDay"
-                          name="userDay"
-                          label="Día"
-                          defaultValue={data.userDay}
-                          className={classes.textField}
+                        <FormControl
                           variant="outlined"
-                          {...register("userDay")}
-                        />
+                          label="Día"
+                          fullWidth
+                          className={classes.textField}
+                        >
+                          <Select
+                            id="userDay"
+                            {...register("userDay")}
+                            defaultValue="Lunes"
+                          >
+                            <MenuItem value={`Lunes`}>Lunes</MenuItem>
+                            <MenuItem value={`Martes`}>Martes</MenuItem>
+                            <MenuItem value={`Miercoles`}>Miercoles</MenuItem>
+                            <MenuItem value={`Jueves`}>Jueves</MenuItem>
+                            <MenuItem value={`Viernes`}>Viernes</MenuItem>
+                            <MenuItem value={`Sabado`}>Sabado</MenuItem>
+                          </Select>
+                        </FormControl>
                       </Grid>
                       <Grid item md={4} sm={3} xs={12}>
                         <TextField
                           id="startTime"
                           name="startTime"
                           label="Hora inicio"
-                          defaultValue={data.startTime}
+                          defaultValue=""
                           className={classes.textField}
                           variant="outlined"
+                          placeholder="ej. 12:30"
                           {...register("startTime")}
+                          helperText={errors.startTime?.message}
                         />
                       </Grid>
                       <Grid item md={4} sm={3} xs={12}>
@@ -227,10 +277,12 @@ const index = ({ props }) => {
                           id="finishTime"
                           name="finishTime"
                           label="Hora final"
-                          defaultValue={data.finishTime}
+                          defaultValue=""
                           className={classes.textField}
                           variant="outlined"
+                          placeholder="ej. 12:30"
                           {...register("finishTime")}
+                          helperText={errors.finishTime?.message}
                         />
                       </Grid>
 
@@ -259,10 +311,7 @@ const index = ({ props }) => {
                         >
                           <Link href={`${Routes.SCHEDULEUSER}/${id}`}>
                             <Button
-                              style={{
-                                backgroundColor: "#003D59",
-                                color: "#BBF0E8",
-                              }}
+                              className={classes.btnCancel}
                               variant="contained"
                               fullWidth
                             >
@@ -285,11 +334,9 @@ const index = ({ props }) => {
                             variant="contained"
                             type="submit"
                             fullWidth
-                            style={{
-                              backgroundColor: "#60CCD9",
-                              color: "#092435",
-                            }}
+                            className={classes.btnSave}
                             onClick={handleOpen}
+                            startIcon={<SaveIcon />}
                           >
                             Guardar cambios
                           </Button>
@@ -316,20 +363,20 @@ const index = ({ props }) => {
                           <h2 id="transition-modal-title">
                             Se añadio un nuevo horario con éxito
                           </h2>
-                          <Link href={`${Routes.SCHEDULEUSER}/${id}`}>
-                            <Button
-                              variant="contained"
-                              type="submit"
-                              size="small"
-                              style={{
-                                backgroundColor: "#60CCD9",
-                                color: "#092435",
-                              }}
-                              className={classes.upgrade}
-                            >
-                              Aceptar
-                            </Button>
-                          </Link>
+
+                          <Button
+                            variant="contained"
+                            type="submit"
+                            size="small"
+                            style={{
+                              backgroundColor: "#60CCD9",
+                              color: "#092435",
+                            }}
+                            onClick={handleClose}
+                            className={classes.upgrade}
+                          >
+                            Aceptar
+                          </Button>
                         </div>
                       </Fade>
                     </Modal>

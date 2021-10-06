@@ -12,7 +12,7 @@ import {
   Modal,
 } from "@material-ui/core/";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
+import { TextField, FormControl, Select, MenuItem } from "@material-ui/core";
 import SaveIcon from "@mui/icons-material/Save";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import Link from "next/link";
@@ -46,9 +46,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#414A4F",
     paddingRight: "10px",
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+
   mpaper: {
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
@@ -63,16 +61,31 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(3),
   },
-  rightIcon: {
-    marginLeft: theme.spacing(2),
+
+  btnadd: {
+    backgroundColor: "#60CCD9",
+    color: "#092435",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
   },
 }));
 const schema = yup.object().shape({
   nameContact: yup.string().required("Ingrese el nombre de contacto"),
-  movil: yup.number().required("Confirme número celular"),
-  landline: yup.number().required("Confirme número telefonico"),
-  relationShip: yup.string().required("Defina el parentesco"),
-  bloodType: yup.string().required("Ingrese el tipo de sangre"),
+  movil: yup
+    .string()
+    .length(9, "Deben ser 10 dígitos")
+    .required()
+    .matches(/^[0-9]+$/, "Ingrese solo números, exactamente 9 dígitos")
+    .max(9, "Deben ser 10 dígitos"),
+  landline: yup
+    .string()
+    .length(8, "Deben ser 10 dígitos")
+    .required()
+    .matches(/^[0-9]+$/, "Ingrese solo números, exactamente 8 dígitos")
+    .max(8, "Deben ser 10 dígitos"),
 });
 
 export default function EmergencyContactNew({ props }) {
@@ -173,6 +186,8 @@ export default function EmergencyContactNew({ props }) {
                 required
                 variant="outlined"
                 {...register("nameContact")}
+                helperText={errors.nameContact?.message}
+                //placeholder="Kale Diane Frank "
               />
             </Grid>
             <Grid item lg={4} sm={4} xs={12}>
@@ -185,6 +200,8 @@ export default function EmergencyContactNew({ props }) {
                 required
                 variant="outlined"
                 {...register("movil")}
+                helperText={errors.movil?.message}
+                //placeholder="Telf: 99935855"
               />
             </Grid>
           </Grid>{" "}
@@ -215,31 +232,60 @@ export default function EmergencyContactNew({ props }) {
                 defaultValue=""
                 variant="outlined"
                 {...register("landline")}
+                helperText={errors.landline?.message}
+                //placeholder="Telf: 22687555"
               />
             </Grid>
             <Grid item lg={4} sm={4} xs={12}>
-              <TextField
-                id="relationShip"
-                name="relationShip"
+              <FormControl
+                variant="outlined"
                 label="Parentesco"
-                className={classes.textField}
-                defaultValue=""
-                required
+                fullWidth
                 variant="outlined"
-                {...register("relationShip")}
-              />
+                className={classes.textField}
+              >
+                <Select
+                  id="relationShip"
+                  {...register("relationShip")}
+                  defaultValue="Padre/Madre"
+                >
+                  <MenuItem value={`Suegro/Suegra`}>Suegro/Suegra</MenuItem>
+                  <MenuItem value={`Padre/Madre`}>Padre/Madre</MenuItem>
+                  <MenuItem value={`Hijo/Hija`}>Hijo/Hija</MenuItem>
+                  <MenuItem value={`Yerno/Nuera`}>Yerno/Nuera</MenuItem>
+                  <MenuItem value={`Abuelo/Abuela`}>Abuelo/Abuela</MenuItem>
+                  <MenuItem value={`Hermano/Hermana`}>Hermano/Hermana</MenuItem>
+                  <MenuItem value={`Nieto/Nieta`}>Nieto/Nieta</MenuItem>
+                  <MenuItem value={`Cuñado/Cuñada`}>Cuñado/Cuñada</MenuItem>
+                  <MenuItem value={`Tío/Tía`}>Tío/Tía</MenuItem>
+                  <MenuItem value={`Sobrino/Sobrina`}>Sobrino/Sobrina</MenuItem>
+                  <MenuItem value={`Primos`}>Primos</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item lg={4} sm={4} xs={12}>
-              <TextField
-                id="bloodType"
-                name="bloodType"
-                label="Tipo de sangre"
-                required
-                className={classes.textField}
-                defaultValue=""
+              <FormControl
                 variant="outlined"
-                {...register("bloodType")}
-              />
+                label="Tipo de sangre"
+                fullWidth
+                variant="outlined"
+                className={classes.textField}
+              >
+                <Select
+                  id="bloodType"
+                  {...register("bloodType")}
+                  defaultValue="O positivo"
+                >
+                  <MenuItem value={`O negativo`}>O negativo</MenuItem>
+                  <MenuItem value={`O positivo`}>O positivo</MenuItem>
+                  <MenuItem value={`A negativo`}>A negativo</MenuItem>
+                  <MenuItem value={`A positivo`}>A positivo</MenuItem>
+                  <MenuItem value={`B negativo`}>B negativo</MenuItem>
+                  <MenuItem value={`B positivo`}>B positivo</MenuItem>
+                  <MenuItem value={`AB negativo`}>AB negativo</MenuItem>
+                  <MenuItem value={`AB positivo`}>AB positivo</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
           </Grid>
           <Divider
@@ -272,11 +318,8 @@ export default function EmergencyContactNew({ props }) {
               <Button
                 variant="contained"
                 type="submit"
-                style={{
-                  backgroundColor: "#60CCD9",
-                  color: "#092435",
-                  width: "80vh",
-                }}
+                fullWidth
+                className={classes.btnadd}
                 onClick={handleOpen}
                 startIcon={<SaveIcon />}
               >

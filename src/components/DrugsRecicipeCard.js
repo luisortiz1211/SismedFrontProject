@@ -33,13 +33,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function DrugsRecipieCard({ patientID }) {
   const classes = useStyles();
-  const router = useRouter();
-  const { id } = router.query;
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
 
   const { data, error } = useSWR(`/drugs_recipies/${patientID}`, fetcher);
   //console.log("Receta del paciente", data);
@@ -50,7 +43,7 @@ export default function DrugsRecipieCard({ patientID }) {
     <Card sx={{ maxWidth: "auto" }}>
       <CardActionArea className={classes.fontcolor}>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="span">
+          <Typography gutterBottom variant="h5" component="div">
             Medicación prescrita según exploración
           </Typography>
 
@@ -61,7 +54,7 @@ export default function DrugsRecipieCard({ patientID }) {
               justifyContent="center"
               alignItems="center"
             >
-              <Grid item xs={3}>
+              <Grid item xs={5}>
                 <Item
                   style={{
                     display: "flex",
@@ -81,12 +74,12 @@ export default function DrugsRecipieCard({ patientID }) {
                   </Typography>
                 </Item>
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={7}>
                 <Item>
                   <p>{data.coddrug}</p>
                 </Item>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={5}>
                 <Item
                   style={{
                     display: "flex",
@@ -100,17 +93,17 @@ export default function DrugsRecipieCard({ patientID }) {
                     color="#092435"
                   >
                     <p style={{ position: "relative", left: "30px" }}>
-                      nameDrugRecipie :{" "}
+                      Medicamento :{" "}
                     </p>
                   </Typography>
                 </Item>
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={7}>
                 <Item>
                   <p>{data.nameDrugRecipie}</p>
                 </Item>
               </Grid>{" "}
-              <Grid item xs={3}>
+              <Grid item xs={5}>
                 <Item
                   style={{
                     display: "flex",
@@ -130,12 +123,12 @@ export default function DrugsRecipieCard({ patientID }) {
                   </Typography>
                 </Item>
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={7}>
                 <Item>
                   <p>{data.user_id}</p>
                 </Item>
               </Grid>{" "}
-              <Grid item xs={3}>
+              <Grid item xs={5}>
                 <Item
                   style={{
                     display: "flex",
@@ -154,7 +147,7 @@ export default function DrugsRecipieCard({ patientID }) {
                   </Typography>
                 </Item>
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={7}>
                 <Item>
                   <p>{data.created_at}</p>
                 </Item>

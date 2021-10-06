@@ -61,21 +61,24 @@ const useStyles = makeStyles((theme) => ({
   rightIcon: {
     marginLeft: theme.spacing(2),
   },
+  btnsave: {
+    backgroundColor: "#60CCD9",
+    color: "#092435",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
+  },
 }));
 const schema = yup.object().shape({
-  /* ci: yup.number().required("Confirme su número de cédula"),
-  name: yup.string().required("Ingrese su nombre"),
-  lastName: yup.string().required("Ingrese su apellido"),
-  civilStatus: yup.number().required("Defina el sexo"),
-  birthay: yup.string().required("Ingrese su fecha de nacimiento"),
-  employment: yup.string().required("Defina nombre del empleo"),
-  email: yup.string().email("Ingrese un email").required("Confirme el email"),
-  movil: yup.number().required("Confirme número telefonico"),
-  landline: yup.number().required("Confirme número fijo"),
-  address: yup.string().required("Defina nombre del empleo"),
-  nationality: yup.string().required("Defina nombre del empleo"),
-  city: yup.string().required("Defina nombre del empleo"),
-  parish: yup.string().required("Defina nombre del empleo"), */
+  coddrug: yup
+    .string()
+    .required("Ingrese la cantidad ")
+    .matches(/^[0-9]+$/, "Ingrese solo números"),
+  nameDrugRecipie: yup
+    .string()
+    .required("Ingrese el nombre del pedido de imagen"),
 });
 
 export default function DrugsRecipieNew({ props }) {
@@ -175,6 +178,7 @@ export default function DrugsRecipieNew({ props }) {
                 required
                 variant="outlined"
                 {...register("coddrug")}
+                helperText={errors.coddrug?.message}
               />
             </Grid>
             <Grid item md={7} sm={5} xs={12}>
@@ -187,6 +191,7 @@ export default function DrugsRecipieNew({ props }) {
                 required
                 variant="outlined"
                 {...register("nameDrugRecipie")}
+                helperText={errors.nameDrugRecipie?.message}
               />
             </Grid>
           </Grid>{" "}
@@ -222,10 +227,7 @@ export default function DrugsRecipieNew({ props }) {
                 variant="contained"
                 type="submit"
                 fullWidth
-                style={{
-                  backgroundColor: "#60CCD9",
-                  color: "#092435",
-                }}
+                className={classes.btnsave}
                 onClick={handleOpen}
                 startIcon={<SaveIcon />}
               >

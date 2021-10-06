@@ -20,6 +20,8 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
+import SearchBar from "material-ui-search-bar";
+import BallotIcon from "@material-ui/icons/Ballot";
 
 const columns = [
   {
@@ -128,6 +130,9 @@ const index = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const [rows, setRows] = useState(columns);
+  const [searched, setSearched] = useState("");
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -152,11 +157,23 @@ const index = () => {
       </div>
     );
 
+  const requestSearch = (searchedVal) => {
+    const filteredRows = data.data.filter((row) => {
+      return row.name.toLowerCase().includes(searchedVal.toLowerCase());
+    });
+    setRows(filteredRows);
+  };
+
+  const cancelSearch = () => {
+    setSearched("");
+    requestSearch(searched);
+  };
+
   return (
     <LayoutSecondary>
       <Container maxWidth="lg">
         <Title>
-          <PeopleOutlineIcon
+          <BallotIcon
             style={{
               color: "#092435",
               fontSize: 35,
@@ -164,11 +181,19 @@ const index = () => {
               top: "6px",
             }}
           />{" "}
-          {"  "}Historia médica
+          {"  "}Historia clínica
         </Title>
         <Paper elevation={6} style={{ margin: "20px" }}>
+          <SearchBar
+            onChange={() => console.log("onChange")}
+            onRequestSearch={() => console.log("onRequestSearch")}
+            style={{
+              margin: "0 auto",
+              maxWidth: 800,
+            }}
+            //buscar paciente en construcción
+          />
           <AnnounTitle>Visualizar la historia médica del paciente</AnnounTitle>
-
           <TableContainer className={classes.container}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
@@ -269,7 +294,7 @@ const index = () => {
             labelRowsPerPage="Pacientes:"
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={data.meta.total}
+            count={data.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

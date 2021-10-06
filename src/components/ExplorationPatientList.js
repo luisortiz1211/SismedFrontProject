@@ -156,7 +156,7 @@ export default function ExplorationPatients({ patientID }) {
   if (!data) return <Loading />;
   // render data
   return (
-    <Container maxWidth="lg" direction="row">
+    <Paper direction="row">
       <TableContainer component="div" className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -243,6 +243,6 @@ export default function ExplorationPatients({ patientID }) {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </Container>
+    </Paper>
   );
 }

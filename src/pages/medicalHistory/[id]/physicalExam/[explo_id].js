@@ -11,6 +11,8 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import { useRouter } from "next/router";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import BallotIcon from "@material-ui/icons/Ballot";
 import React from "react";
 
 const useStyles = makeStyles({
@@ -32,7 +34,7 @@ const index = () => {
     <LayoutSecondary>
       <Container maxWidth="lg">
         <Title>
-          <PeopleOutlineIcon
+          <BallotIcon
             style={{
               color: "#092435",
               fontSize: 35,
@@ -40,7 +42,7 @@ const index = () => {
               top: "6px",
             }}
           />{" "}
-          {"  "}Historial de atención
+          {"  "}Historia clínica
         </Title>
         <Paper elevation={6} style={{ margin: "20px" }}>
           <Grid
@@ -50,7 +52,7 @@ const index = () => {
             alignItems="center"
           >
             <AnnounTitle>
-              Se muestra los síntomas de atención y resultados
+              Sintomas y resultados de evaluación médica
             </AnnounTitle>
           </Grid>
           <Grid
@@ -68,11 +70,11 @@ const index = () => {
               {" "}
               <ExplorationPatientCard patientID={explo_id} />
             </Grid>
-            <Grid item>
+            <Grid item md={6}>
               {" "}
               <DrugsRecipieCard patientID={explo_id} />
             </Grid>
-            <Grid item>
+            <Grid item md={6}>
               {" "}
               <ImageRecipieCard patientID={explo_id} />
             </Grid>

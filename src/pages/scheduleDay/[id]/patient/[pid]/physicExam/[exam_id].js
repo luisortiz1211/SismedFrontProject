@@ -4,13 +4,14 @@ import ImageRecipieNew from "@/components/ImageRecipieNew";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import PhysicalExamUpdate from "@/components/PhysicalExamUpdate";
 import Title from "@/components/Title";
+import withAuth from "@/hocs/withAuth";
 import { Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
+import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
@@ -46,7 +47,6 @@ function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
     "aria-controls": `full-width-tabpanel-${index}`,
-    backgroundColor: "#60CCD9",
   };
 }
 
@@ -60,7 +60,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     padding: "40px",
   },
-
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+    backgroundColor: theme.palette.secondary.main,
+  },
   textField: {
     paddingBottom: "15px",
     color: "#414A4F",
@@ -70,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 const patientDetails = ({ props }) => {
   const classes = useStyles();
   const router = useRouter();
-  const { id, exam_id } = router.query;
+  const { id, pid, exam_id } = router.query;
 
   const [value, setValue] = useState(0);
 
@@ -89,7 +92,7 @@ const patientDetails = ({ props }) => {
               top: "6px",
             }}
           />
-          Datos clínicos del paciente
+          Revisión médica
         </Title>
         <Paper elevation={6} style={{ padding: "10px", margin: "20px" }}>
           <Container>
@@ -100,12 +103,16 @@ const patientDetails = ({ props }) => {
                   onChange={handleChange}
                   indicatorColor="primary"
                   textColor="primary"
-                  variant="fullWidth"
-                  scrollButtons="auto"
-                  allowScrollButtonsMobile
-                  aria-label="scrollable auto tabs example"
+                  variant="scrollable"
+                  scrollButtons
+                  aria-label="visible arrows tabs example"
+                  sx={{
+                    [`& .${tabsClasses.scrollButtons}`]: {
+                      "&.Mui-disabled": { opacity: 0.9 },
+                    },
+                  }}
                 >
-                  <Tab label="Examen físico" {...a11yProps(0)} />
+                  <Tab label="Exm físico" {...a11yProps(0)} />
                   <Tab label="Exploración" {...a11yProps(1)} />
                   <Tab label="Imagenes" {...a11yProps(2)} />
                   <Tab label="Medicamentos" {...a11yProps(3)} />
@@ -130,4 +137,4 @@ const patientDetails = ({ props }) => {
     </LayoutSecondary>
   );
 };
-export default patientDetails;
+export default withAuth(patientDetails);

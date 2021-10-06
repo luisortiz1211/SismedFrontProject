@@ -69,19 +69,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const schema = yup.object().shape({
-  /*  ci: yup.number().required("Confirme su número de cédula"),
-  name: yup.string().required("Ingrese su nombre"),
-  lastName: yup.string().required("Ingrese su apellido"),
-  civilStatus: yup.number().required("Defina el sexo"),
-  birthay: yup.string().required("Ingrese su fecha de nacimiento"),
-  employment: yup.string().required("Defina nombre del empleo"),
-  email: yup.string().email("Ingrese un email").required("Confirme el email"),
-  movil: yup.number().required("Confirme número telefonico"),
-  landline: yup.number().required("Confirme número fijo"),
-  address: yup.string().required("Defina nombre del empleo"),
-  nationality: yup.string().required("Defina nombre del empleo"),
-  city: yup.string().required("Defina nombre del empleo"),
-  parish: yup.string().required("Defina nombre del empleo"), */
+  heartRate: yup
+    .string()
+    .required("Ingrese el ritmo cardiaco ")
+    .matches(/^[0-9]+$/, "Ingrese solo números"),
+
+  bloodPleasure: yup.string().required("Ingrese la presión arterial"),
+  temp: yup.string().required("Ingrese la temperatura"),
+  weight: yup.string().required("Ingrese el peso"),
+  height: yup.string().required("Ingrese la estatura"),
+  idealWeight: yup.string().required("Ingrese el diámetro de cintura"),
+
+  currentCondition: yup
+    .string()
+    .required("Ingrese los sintomas actuales")
+    .max(100, "Máximo 100 caracteres"),
+  comment: yup
+    .string()
+    .required("Ingrese algún detalle adicional")
+    .max(100, "Máximo 100 caracteres"),
+  currentDrug: yup
+    .string()
+    .required("Ingrese si tomo algún medicamento")
+    .max(100, "Máximo 100 caracteres"),
 });
 
 export default function PhysicalExamUpdate({ examID }) {
@@ -109,7 +119,7 @@ export default function PhysicalExamUpdate({ examID }) {
 
   const onSubmit = async (physicalExam) => {
     try {
-      await Physicalexams.update(`${id}`, {
+      await Physicalexams.update(`${examID}`, {
         physicalExam: physicalExam.heartRate,
         bloodPleasure: physicalExam.bloodPleasure,
         weight: physicalExam.weight,
@@ -254,6 +264,7 @@ export default function PhysicalExamUpdate({ examID }) {
                 required
                 variant="outlined"
                 {...register("heartRate")}
+                helperText={errors.heartRate?.message}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
@@ -266,6 +277,7 @@ export default function PhysicalExamUpdate({ examID }) {
                 required
                 variant="outlined"
                 {...register("bloodPleasure")}
+                helperText={errors.bloodPleasure?.message}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
@@ -278,6 +290,7 @@ export default function PhysicalExamUpdate({ examID }) {
                 required
                 variant="outlined"
                 {...register("temp")}
+                helperText={errors.temp?.message}
               />
             </Grid>
           </Grid>
@@ -308,6 +321,7 @@ export default function PhysicalExamUpdate({ examID }) {
                 defaultValue={data.weight}
                 variant="outlined"
                 {...register("weight")}
+                helperText={errors.weight?.message}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
@@ -320,6 +334,7 @@ export default function PhysicalExamUpdate({ examID }) {
                 required
                 variant="outlined"
                 {...register("height")}
+                helperText={errors.height?.message}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
@@ -332,6 +347,7 @@ export default function PhysicalExamUpdate({ examID }) {
                 required
                 variant="outlined"
                 {...register("idealWeight")}
+                helperText={errors.idealWeight?.message}
               />
             </Grid>
           </Grid>
@@ -505,6 +521,7 @@ export default function PhysicalExamUpdate({ examID }) {
                 required
                 variant="outlined"
                 {...register("currentCondition")}
+                helperText={errors.currentCondition?.message}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
@@ -517,6 +534,7 @@ export default function PhysicalExamUpdate({ examID }) {
                 required
                 variant="outlined"
                 {...register("comment")}
+                helperText={errors.comment?.message}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
@@ -528,6 +546,7 @@ export default function PhysicalExamUpdate({ examID }) {
                 defaultValue={data.currentDrug}
                 variant="outlined"
                 {...register("currentDrug")}
+                helperText={errors.currentDrug?.message}
               />
             </Grid>
           </Grid>

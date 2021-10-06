@@ -3,7 +3,6 @@ import ChargeInformation from "@/components/ChargeInformation";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
-import { fetcher } from "src/api/utils";
 import { Button, CssBaseline, Grid } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
@@ -15,15 +14,14 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import AddIcon from "@material-ui/icons/Add";
-import BorderColorIcon from "@material-ui/icons/BorderColor";
+import DomainVerificationIcon from "@mui/icons-material/DomainVerification";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { fetcher } from "src/api/utils";
+import { useAuth } from "src/contexts/auth";
 import useSWR from "swr";
-import DomainVerificationIcon from "@mui/icons-material/DomainVerification";
-import { Scheduledays } from "@/api/scheduleday";
 
 const columns = [
   {
@@ -166,6 +164,7 @@ const index = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
+  const { user } = useAuth();
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -256,34 +255,38 @@ const index = () => {
                               {column.id && typeof value === "number"
                                 ? value
                                 : value}{" "}
-                              {column.id === "botonSelect" &&
-                              column.label == "_" ? (
-                                <Grid
-                                  container
-                                  direction="row"
-                                  alignItems="center"
-                                  justifyContent="center"
-                                  spacing={2}
-                                >
-                                  <Grid item>
-                                    <Link
-                                      href={`/reviewAttention/${row.schedule_day}/patient/${row.patient_id}`}
-                                    >
-                                      <Button
-                                        variant="outlined"
-                                        size="small"
-                                        disabled={
-                                          row.scheduleDayState ===
-                                            "cancelado" ||
-                                          row.scheduleDayState === "atendido"
-                                        }
-                                        className={classes.btnexplo}
+                              {user.roleUser === "ROLE_MEDIC" ? (
+                                column.id === "botonSelect" &&
+                                column.label == "_" ? (
+                                  <Grid
+                                    container
+                                    direction="row"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                    spacing={2}
+                                  >
+                                    <Grid item>
+                                      <Link
+                                        href={`/reviewAttention/${row.schedule_day}/patient/${row.patient_id}`}
                                       >
-                                        <DomainVerificationIcon />
-                                      </Button>
-                                    </Link>
+                                        <Button
+                                          variant="outlined"
+                                          size="small"
+                                          disabled={
+                                            row.scheduleDayState ===
+                                              "cancelado" ||
+                                            row.scheduleDayState === "atendido"
+                                          }
+                                          className={classes.btnexplo}
+                                        >
+                                          <DomainVerificationIcon />
+                                        </Button>
+                                      </Link>
+                                    </Grid>
                                   </Grid>
-                                </Grid>
+                                ) : (
+                                  ""
+                                )
                               ) : (
                                 ""
                               )}

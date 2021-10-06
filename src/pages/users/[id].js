@@ -252,12 +252,11 @@ const userDetails = () => {
                     label="Estado"
                     name="availableStatus"
                     variant="outlined"
+                    fullWidth
                     className={classes.textField}
                   >
                     <Select
-                      id="availableStatus"
                       label="Estado"
-                      name="availableStatus"
                       {...register("availableStatus", { required: true })}
                       defaultValue={data.availableStatus}
                     >

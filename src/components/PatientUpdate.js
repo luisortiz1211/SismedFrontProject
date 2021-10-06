@@ -1,7 +1,6 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
 import Loading from "@/components/Loading";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Fade } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
@@ -19,10 +18,11 @@ import { Patients } from "src/api/patient";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const schema = yup.object().shape({
   name: yup.string().required("Ingrese nombre del paciente"),
-  lastname: yup.string().required("Ingresa el apellido del paciente"),
+  lastName: yup.string().required("Ingresa el apellido del paciente"),
   employment: yup.string().required("Ingresa un empleo del paciente"),
   email: yup
     .string()
@@ -30,20 +30,21 @@ const schema = yup.object().shape({
     .required("Ingresa el correo electrónico del paciente"),
   movil: yup
     .string()
-    .length(10, "Deben ser 10 dígitos")
+    .length(9, "Deben ser 9 dígitos")
     .required()
-    .matches(/^[0-9]+$/, "Ingrese solo números, exactamente 10 dígitos")
-    .max(10, "Deben ser 10 dígitos"),
+    .matches(/^[0-9]+$/, "Ingrese solo números, exactamente 9 dígitos")
+    .max(9, "Deben ser 9 dígitos"),
   landline: yup
     .string()
-    .length(10, "Deben ser 10 dígitos")
+    .length(8, "Deben ser 8 dígitos")
     .required()
-    .matches(/^[0-9]+$/, "Ingrese solo números, exactamente 10 dígitos")
-    .max(10, "Deben ser 10 dígitos"),
+    .matches(/^[0-9]+$/, "Ingrese solo números, exactamente 8 dígitos")
+    .max(8, "Deben ser 10 dígitos"),
   address: yup
     .string()
-    .length(100, "Permitido 100 cacarteres")
-    .required("Ingrese la dirección"),
+
+    .required("Ingrese la dirección")
+    .max(50, "maximo 50 caracteres"),
   nationality: yup.string().required("Ingrese el país de origen"),
   city: yup.string().required("Ingrese la ciudad de residencia"),
   parish: yup.string().required("Ingrese la provincia"),
@@ -93,8 +94,13 @@ export default function PatientsInformation({ patientID }) {
   const router = useRouter();
   const { id } = router.query;
 
-  const { register, control, handleSubmit } = useForm({
-    // resolver: yupResolver(schema),
+  const {
+    register,
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(schema),
   });
 
   const [open, setOpen] = useState(false);
@@ -202,6 +208,8 @@ export default function PatientsInformation({ patientID }) {
               required
               variant="outlined"
               {...register("name")}
+              helperText={errors.name?.message}
+              placeholder={data.name}
             />
           </Grid>
           <Grid item lg={3} sm={4} xs={12}>
@@ -214,6 +222,8 @@ export default function PatientsInformation({ patientID }) {
               className={classes.textField}
               variant="outlined"
               {...register("lastName")}
+              helperText={errors.lastName?.message}
+              placeholder={data.lastName}
             />
           </Grid>
         </Grid>{" "}
@@ -265,7 +275,9 @@ export default function PatientsInformation({ patientID }) {
               required
               className={classes.textField}
               variant="outlined"
-              // {...register("civilStatus")}
+              InputProps={{
+                readOnly: true,
+              }}
             />
           </Grid>
           <Grid item lg={3} sm={4} xs={12}>
@@ -274,11 +286,9 @@ export default function PatientsInformation({ patientID }) {
               name="birthay"
               label="Fecha nacimiento"
               defaultValue={data.birthay}
-              //required
               disabled
               className={classes.textField}
               variant="outlined"
-              //{...register("birthay")}
             />
           </Grid>
         </Grid>
@@ -309,6 +319,8 @@ export default function PatientsInformation({ patientID }) {
               className={classes.textField}
               variant="outlined"
               {...register("employment")}
+              helperText={errors.employment?.message}
+              placeholder={data.employment}
             />
           </Grid>
           <Grid item lg={3} sm={4} xs={12}>
@@ -321,6 +333,8 @@ export default function PatientsInformation({ patientID }) {
               className={classes.textField}
               variant="outlined"
               {...register("email")}
+              helperText={errors.email?.message}
+              placeholder={data.email}
             />
           </Grid>
           <Grid item lg={3} sm={4} xs={12}>
@@ -333,6 +347,7 @@ export default function PatientsInformation({ patientID }) {
               className={classes.textField}
               variant="outlined"
               {...register("movil")}
+              helperText={errors.movil?.message}
             />
           </Grid>
         </Grid>
@@ -363,6 +378,7 @@ export default function PatientsInformation({ patientID }) {
               className={classes.textField}
               variant="outlined"
               {...register("landline")}
+              helperText={errors.landline?.message}
             />
           </Grid>
           <Grid item lg={3} sm={4} xs={12}>
@@ -375,6 +391,8 @@ export default function PatientsInformation({ patientID }) {
               className={classes.textField}
               variant="outlined"
               {...register("address")}
+              helperText={errors.address?.message}
+              placeholder={data.address}
             />
           </Grid>
           <Grid item lg={3} sm={4} xs={12}>
@@ -387,6 +405,8 @@ export default function PatientsInformation({ patientID }) {
               className={classes.textField}
               variant="outlined"
               {...register("nationality")}
+              helperText={errors.nationality?.message}
+              placeholder={data.nationality}
             />
           </Grid>
         </Grid>
@@ -417,6 +437,8 @@ export default function PatientsInformation({ patientID }) {
               className={classes.textField}
               variant="outlined"
               {...register("city")}
+              helperText={errors.city?.message}
+              placeholder={data.city}
             />
           </Grid>
           <Grid item lg={3} sm={4} xs={12}>
@@ -429,6 +451,8 @@ export default function PatientsInformation({ patientID }) {
               className={classes.textField}
               variant="outlined"
               {...register("parish")}
+              helperText={errors.parish?.message}
+              placeholder={data.parish}
             />
           </Grid>
           <Grid item lg={3} sm={4} xs={12}>
@@ -456,6 +480,7 @@ export default function PatientsInformation({ patientID }) {
           direction="row"
           justifyContent="space-around"
           alignItems="center"
+          spacing={2}
           style={{
             backgroundColor: "#FFFFFF",
             paddingBottom: "10px",

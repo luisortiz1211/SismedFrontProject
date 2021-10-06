@@ -1,7 +1,5 @@
 import AnnounTitle from "@/components/AnnounTitle";
-import Routes from "@/constants/routes";
-import { useAuth } from "src/contexts/auth";
-import { Physicalexams } from "src/api/physicalexam";
+import withAuth from "@/hocs/withAuth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Fade } from "@material-ui/core";
 import { FormControl, MenuItem, Select } from "@material-ui/core/";
@@ -14,13 +12,15 @@ import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import SaveIcon from "@mui/icons-material/Save";
-import ScheduleIcon from "@mui/icons-material/Schedule";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
+import { Physicalexams } from "src/api/physicalexam";
 import { Scheduledays } from "src/api/scheduleday";
+import { useAuth } from "src/contexts/auth";
+import * as yup from "yup";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,9 +47,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#414A4F",
     paddingRight: "10px",
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+
   mpaper: {
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
@@ -64,9 +62,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(3),
   },
-  rightIcon: {
-    marginLeft: theme.spacing(2),
-  },
+
   btnsave: {
     backgroundColor: "#60CCD9",
     color: "#092435",
@@ -78,22 +74,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const schema = yup.object().shape({
-  /*  ci: yup.number().required("Confirme su número de cédula"),
-  name: yup.string().required("Ingrese su nombre"),
-  lastName: yup.string().required("Ingrese su apellido"),
-  civilStatus: yup.number().required("Defina el sexo"),
-  birthay: yup.string().required("Ingrese su fecha de nacimiento"),
-  employment: yup.string().required("Defina nombre del empleo"),
-  email: yup.string().email("Ingrese un email").required("Confirme el email"),
-  movil: yup.number().required("Confirme número telefonico"),
-  landline: yup.number().required("Confirme número fijo"),
-  address: yup.string().required("Defina nombre del empleo"),
-  nationality: yup.string().required("Defina nombre del empleo"),
-  city: yup.string().required("Defina nombre del empleo"),
-  parish: yup.string().required("Defina nombre del empleo"), */
+  heartRate: yup
+    .string()
+    .required("Ingrese el ritmo cardiaco ")
+    .matches(/^[0-9]+$/, "Ingrese solo números"),
+
+  bloodPleasure: yup.string().required("Ingrese la presión arterial"),
+  temp: yup.string().required("Ingrese la temperatura"),
+  weight: yup.string().required("Ingrese el peso"),
+  height: yup.string().required("Ingrese la estatura"),
+  idealWeight: yup.string().required("Ingrese el diámetro de cintura"),
+
+  currentCondition: yup
+    .string()
+    .required("Ingrese los sintomas actuales")
+    .max(100, "Máximo 100 caracteres"),
+  comment: yup
+    .string()
+    .required("Ingrese algún detalle adicional")
+    .max(100, "Máximo 100 caracteres"),
+  currentDrug: yup
+    .string()
+    .required("Ingrese si tomo algún medicamento")
+    .max(100, "Máximo 100 caracteres"),
 });
 
-export default function PhysicalExamNew({ pid }) {
+const PhysicalExamNew = ({ pid }) => {
   const classes = useStyles();
   const { user } = useAuth();
   const router = useRouter();
@@ -200,7 +206,7 @@ export default function PhysicalExamNew({ pid }) {
                 InputProps={{
                   readOnly: true,
                 }}
-                {...register("patient_id")}
+                //{...register("patient_id")}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
@@ -210,7 +216,6 @@ export default function PhysicalExamNew({ pid }) {
                 label="Fecha de ingreso"
                 className={classes.textField}
                 defaultValue={new Date()}
-                //required
                 variant="outlined"
                 disabled
                 InputProps={{
@@ -226,13 +231,11 @@ export default function PhysicalExamNew({ pid }) {
                 label="Registrado por"
                 className={classes.textField}
                 defaultValue={user.id}
-                //required
                 disabled
                 variant="outlined"
                 InputProps={{
                   readOnly: true,
                 }}
-                //{...register("patient_id")}
               />
             </Grid>
           </Grid>{" "}
@@ -257,36 +260,52 @@ export default function PhysicalExamNew({ pid }) {
               <TextField
                 id="heartRate"
                 name="heartRate"
-                label="Ritmo cardiaco"
+                label="Ritmo cardiaco-lpm"
                 className={classes.textField}
                 defaultValue=""
                 required
                 variant="outlined"
+                placeholder="89"
                 {...register("heartRate")}
+                /*       InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">lpm</InputAdornment>
+                  ),
+                }} */
+                helperText={errors.heartRate?.message}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
               <TextField
                 id="bloodPleasure"
                 name="bloodPleasure"
-                label="Presión arterial"
+                label="Presión arterial-mgHg"
                 className={classes.textField}
                 defaultValue=""
                 required
                 variant="outlined"
+                placeholder="155/95"
                 {...register("bloodPleasure")}
+                /* InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">mgHg</InputAdornment>
+                  ),
+                }} */
+                helperText={errors.bloodPleasure?.message}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
               <TextField
                 id="temp"
                 name="temp"
-                label="Temperatura"
+                label="Temperatura - g°"
                 className={classes.textField}
                 defaultValue=""
                 required
+                placeholder="38"
                 variant="outlined"
                 {...register("temp")}
+                helperText={errors.temp?.message}
               />
             </Grid>
           </Grid>
@@ -311,36 +330,42 @@ export default function PhysicalExamNew({ pid }) {
               <TextField
                 id="weight"
                 name="weight"
-                label="Peso"
+                label="Peso - kg"
                 required
                 className={classes.textField}
                 defaultValue=""
+                placeholder="71.5"
                 variant="outlined"
                 {...register("weight")}
+                helperText={errors.weight?.message}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
               <TextField
                 id="height"
                 name="height"
-                label="Estatura"
+                label="Estatura - cm"
                 className={classes.textField}
                 defaultValue=""
                 required
+                placeholder="175.5"
                 variant="outlined"
                 {...register("height")}
+                helperText={errors.height?.message}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
               <TextField
                 id="idealWeight"
                 name="idealWeight"
-                label="Cintura"
+                label="Masa corporal"
                 className={classes.textField}
                 defaultValue=""
                 required
+                placeholder="21.5"
                 variant="outlined"
                 {...register("idealWeight")}
+                helperText={errors.idealWeight?.message}
               />
             </Grid>
           </Grid>
@@ -376,7 +401,7 @@ export default function PhysicalExamNew({ pid }) {
                   <Select
                     id="tobacco"
                     {...register("tobacco", { required: true })}
-                    defaultChecked={"0"}
+                    defaultValue={`0`}
                   >
                     <MenuItem value={`1`}>Si</MenuItem>
                     <MenuItem value={`0`}>No</MenuItem>
@@ -400,7 +425,7 @@ export default function PhysicalExamNew({ pid }) {
                   <Select
                     id="drugs"
                     {...register("drugs", { required: true })}
-                    defaultChecked={"0"}
+                    defaultValue={`0`}
                   >
                     <MenuItem value={`1`}>Si</MenuItem>
                     <MenuItem value={`0`}>No</MenuItem>
@@ -424,7 +449,7 @@ export default function PhysicalExamNew({ pid }) {
                   <Select
                     id="alcohol"
                     {...register("alcohol", { required: true })}
-                    defaultChecked={"0"}
+                    defaultValue={`0`}
                   >
                     <MenuItem value={`1`}>Si</MenuItem>
                     <MenuItem value={`0`}>No</MenuItem>
@@ -448,7 +473,7 @@ export default function PhysicalExamNew({ pid }) {
                   <Select
                     id="apetiteChanges"
                     {...register("apetiteChanges", { required: true })}
-                    defaultChecked={"0"}
+                    defaultValue={`0`}
                   >
                     <MenuItem value={`1`}>Si</MenuItem>
                     <MenuItem value={`0`}>No</MenuItem>
@@ -472,7 +497,7 @@ export default function PhysicalExamNew({ pid }) {
                   <Select
                     id="dreamChanges"
                     {...register("dreamChanges", { required: true })}
-                    defaultChecked={"0"}
+                    defaultValue={`0`}
                   >
                     <MenuItem value={`1`}>Si</MenuItem>
                     <MenuItem value={`0`}>No</MenuItem>
@@ -508,6 +533,7 @@ export default function PhysicalExamNew({ pid }) {
                 required
                 variant="outlined"
                 {...register("currentCondition")}
+                helperText={errors.currentCondition?.message}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
@@ -520,6 +546,7 @@ export default function PhysicalExamNew({ pid }) {
                 required
                 variant="outlined"
                 {...register("comment")}
+                helperText={errors.comment?.message}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
@@ -530,6 +557,7 @@ export default function PhysicalExamNew({ pid }) {
                 className={classes.textField}
                 variant="outlined"
                 {...register("currentDrug")}
+                helperText={errors.currentDrug?.message}
               />
             </Grid>
           </Grid>
@@ -563,6 +591,7 @@ export default function PhysicalExamNew({ pid }) {
               <Button
                 variant="contained"
                 type="submit"
+                fullWidth
                 className={classes.btnsave}
                 onClick={() => {
                   handleOpen();
@@ -594,18 +623,17 @@ export default function PhysicalExamNew({ pid }) {
                 <h2 id="transition-modal-title">
                   Examen agregado con éxito, puede continuar con la atención
                 </h2>
-                <Link href={`/scheduleDay/schedule`}>
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    size="small"
-                    onClick={handleClose}
-                    style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                    className={classes.upgrade}
-                  >
-                    Aceptar
-                  </Button>
-                </Link>
+
+                <Button
+                  variant="contained"
+                  type="submit"
+                  size="small"
+                  onClick={handleClose}
+                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                  className={classes.upgrade}
+                >
+                  Aceptar
+                </Button>
               </div>
             </Fade>
           </Modal>
@@ -613,4 +641,5 @@ export default function PhysicalExamNew({ pid }) {
       </Container>
     </CssBaseline>
   );
-}
+};
+export default withAuth(PhysicalExamNew);

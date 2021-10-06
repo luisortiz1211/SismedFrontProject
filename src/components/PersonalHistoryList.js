@@ -35,7 +35,7 @@ const columns = [
   },
   {
     id: "yearCondition",
-    label: "Tiempo afectado",
+    label: "Tiempo afectado (años)",
     minWidth: 15,
     backgroundColor: "#BBF0E8",
     align: "center",

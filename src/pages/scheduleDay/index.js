@@ -18,6 +18,8 @@ import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import Image from "next/image";
 import React from "react";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
+import withAuth from "@/hocs/withAuth";
+import { useAuth } from "src/contexts/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
 
 const index = () => {
   const classes = useStyles();
+  const { user } = useAuth();
 
   return (
     <Layout>
@@ -189,33 +192,37 @@ const index = () => {
                       justifyContent: "center",
                     }}
                   >
-                    <Grid container justifyContent="center">
-                      <Grid item md={6} sm={3} xs={3}>
-                        {" "}
-                        <Link href={`/report`}>
-                          <Button
-                            className={classes.button}
-                            variant="contained"
-                            style={{
-                              color: "#60CCD9",
-                            }}
-                            color="primary"
-                          >
-                            <Grid
-                              container
-                              style={{ textAlign: "center" }}
-                              alignItems="center"
-                              justifyContent="center"
+                    {user.roleUser !== "ROLE_ASSISTENT" ? (
+                      <Grid container justifyContent="center">
+                        <Grid item md={6} sm={3} xs={3}>
+                          {" "}
+                          <Link href={`/attentions`}>
+                            <Button
+                              className={classes.button}
+                              variant="contained"
+                              style={{
+                                color: "#60CCD9",
+                              }}
+                              color="primary"
                             >
-                              <Grid item>
-                                <AnalyticsIcon style={{ fontSize: 80 }} />
+                              <Grid
+                                container
+                                style={{ textAlign: "center" }}
+                                alignItems="center"
+                                justifyContent="center"
+                              >
+                                <Grid item>
+                                  <LocalHospitalIcon style={{ fontSize: 80 }} />
+                                </Grid>
+                                <Grid item>Atención pacientes</Grid>
                               </Grid>
-                              <Grid item>Reporte Atención</Grid>
-                            </Grid>
-                          </Button>
-                        </Link>
+                            </Button>
+                          </Link>
+                        </Grid>
                       </Grid>
-                    </Grid>
+                    ) : (
+                      ""
+                    )}
                   </Grid>
 
                   <Grid
@@ -229,33 +236,37 @@ const index = () => {
                       justifyContent: "center",
                     }}
                   >
-                    <Grid container justifyContent="center">
-                      <Grid item md={6} sm={3} xs={3}>
-                        {" "}
-                        <Link href={`/attentions`}>
-                          <Button
-                            className={classes.button}
-                            variant="contained"
-                            style={{
-                              color: "#60CCD9",
-                            }}
-                            color="primary"
-                          >
-                            <Grid
-                              container
-                              style={{ textAlign: "center" }}
-                              alignItems="center"
-                              justifyContent="center"
+                    {user.roleUser === "ROLE_ADMIN" ? (
+                      <Grid container justifyContent="center">
+                        <Grid item md={6} sm={3} xs={3}>
+                          {" "}
+                          <Link href={`/report`}>
+                            <Button
+                              className={classes.button}
+                              variant="contained"
+                              style={{
+                                color: "#60CCD9",
+                              }}
+                              color="primary"
                             >
-                              <Grid item>
-                                <LocalHospitalIcon style={{ fontSize: 80 }} />
+                              <Grid
+                                container
+                                style={{ textAlign: "center" }}
+                                alignItems="center"
+                                justifyContent="center"
+                              >
+                                <Grid item>
+                                  <AnalyticsIcon style={{ fontSize: 80 }} />
+                                </Grid>
+                                <Grid item>Reporte Atención</Grid>
                               </Grid>
-                              <Grid item>Atención pacientes</Grid>
-                            </Grid>
-                          </Button>
-                        </Link>
+                            </Button>
+                          </Link>
+                        </Grid>
                       </Grid>
-                    </Grid>
+                    ) : (
+                      ""
+                    )}
                   </Grid>
                 </Grid>
               </div>
@@ -266,4 +277,4 @@ const index = () => {
     </Layout>
   );
 };
-export default index;
+export default withAuth(index);

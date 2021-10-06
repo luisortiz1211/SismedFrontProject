@@ -1,14 +1,12 @@
 import DrugAllergieNew from "@/components/DrugAllergieNew";
-import DrugsRecipieNew from "@/components/DrugsRecipieNew";
 import EmergencyContactNew from "@/components/EmergencyContactNew";
-import ExplorationPatientNew from "@/components/ExplorationPatientNew";
 import FamilyHistoryNew from "@/components/FamilyHistoryNew";
-import ImageRecipieNew from "@/components/ImageRecipieNew";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import PatientsInformation from "@/components/PatientUpdate";
 import PersonalHistoryNew from "@/components/PersonalHistoryNew";
 import PhysicalExamNew from "@/components/PhysicalExamNew";
 import Title from "@/components/Title";
+import withAuth from "@/hocs/withAuth";
 import { Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
@@ -51,7 +49,6 @@ function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
     "aria-controls": `full-width-tabpanel-${index}`,
-    backgroundColor: "#60CCD9",
   };
 }
 
@@ -65,10 +62,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     padding: "40px",
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-    backgroundColor: theme.palette.secondary.main,
-  },
+
   textField: {
     paddingBottom: "15px",
     color: "#414A4F",
@@ -87,7 +81,7 @@ const patientDetails = ({ props }) => {
   };
   return (
     <LayoutSecondary>
-      <Container maxWidth="lg">
+      <Container>
         <Title>
           <AssignmentIndIcon
             style={{
@@ -97,7 +91,7 @@ const patientDetails = ({ props }) => {
               top: "6px",
             }}
           />
-          Datos clínicos del paciente
+          Registro de examen físico
         </Title>
         <Paper elevation={6} style={{ padding: "10px", margin: "20px" }}>
           <Container>
@@ -154,4 +148,4 @@ const patientDetails = ({ props }) => {
     </LayoutSecondary>
   );
 };
-export default patientDetails;
+export default withAuth(patientDetails);

@@ -27,6 +27,15 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import useSWR from "swr";
+import SaveIcon from "@mui/icons-material/Save";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object().shape({
+  startTime: yup.string().required("Ingrese la hora de inicio"),
+  finishTime: yup.string().required("Ingrese la hora de final del turno"),
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -115,7 +124,12 @@ const useStyles = makeStyles((theme) => ({
 
 const index = ({ props }) => {
   const classes = useStyles();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({ resolver: yupResolver(schema) });
+
   const router = useRouter();
   const { id } = router.query;
   const [open, setOpen] = useState(false);
@@ -268,7 +282,9 @@ const index = ({ props }) => {
                         defaultValue={data.startTime}
                         className={classes.textField}
                         variant="outlined"
+                        placeholder="ej. 12:30"
                         {...register("startTime")}
+                        helperText={errors.startTime?.message}
                       />
                     </Grid>
                     <Grid item md={4} sm={3} xs={12}>
@@ -279,7 +295,9 @@ const index = ({ props }) => {
                         defaultValue={data.finishTime}
                         className={classes.textField}
                         variant="outlined"
+                        placeholder="ej. 12:30"
                         {...register("finishTime")}
+                        helperText={errors.finishTime?.message}
                       />
                     </Grid>
                     <Divider
@@ -341,6 +359,7 @@ const index = ({ props }) => {
                                 variant="contained"
                                 fullWidth
                                 onClick={handleDelete}
+                                startIcon={<DeleteForeverIcon />}
                               >
                                 Eliminar
                               </Button>
@@ -363,6 +382,7 @@ const index = ({ props }) => {
                               fullWidth
                               className={classes.btnSave}
                               onClick={handleOpen}
+                              startIcon={<SaveIcon />}
                             >
                               Actualizar
                             </Button>

@@ -33,13 +33,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function ImageRecipieCard({ patientID }) {
   const classes = useStyles();
-  const router = useRouter();
-  const { id } = router.query;
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
 
   const { data, error } = useSWR(`/image_recipies/${patientID}`, fetcher);
   //console.log("Pedido de imagen paciente", data);
@@ -62,7 +55,7 @@ export default function ImageRecipieCard({ patientID }) {
               justifyContent="center"
               alignItems="center"
             >
-              <Grid item xs={3}>
+              <Grid item xs={5}>
                 <Item
                   style={{
                     display: "flex",
@@ -82,12 +75,12 @@ export default function ImageRecipieCard({ patientID }) {
                   </Typography>
                 </Item>
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={7}>
                 <Item>
                   <p>{data.codimage}</p>
                 </Item>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={5}>
                 <Item
                   style={{
                     display: "flex",
@@ -106,12 +99,12 @@ export default function ImageRecipieCard({ patientID }) {
                   </Typography>
                 </Item>
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={7}>
                 <Item>
                   <p>{data.nameImageRecipie}</p>
                 </Item>
               </Grid>{" "}
-              <Grid item xs={3}>
+              <Grid item xs={5}>
                 <Item
                   style={{
                     display: "flex",
@@ -131,12 +124,12 @@ export default function ImageRecipieCard({ patientID }) {
                   </Typography>
                 </Item>
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={7}>
                 <Item>
                   <p>{data.user_id}</p>
                 </Item>
               </Grid>{" "}
-              <Grid item xs={3}>
+              <Grid item xs={5}>
                 <Item
                   style={{
                     display: "flex",
@@ -155,7 +148,7 @@ export default function ImageRecipieCard({ patientID }) {
                   </Typography>
                 </Item>
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={7}>
                 <Item>
                   <p>{data.created_at}</p>
                 </Item>

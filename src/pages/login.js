@@ -51,10 +51,12 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: theme.palette.tertiary.main,
+    backgroundColor: "#60CCD9",
+    color: "#092435",
+    textTransform: "none",
     "&:hover": {
-      backgroundColor: "#4A92A8",
-      color: "#ffffff",
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
     },
   },
   textField: {

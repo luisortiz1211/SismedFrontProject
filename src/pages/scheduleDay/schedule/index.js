@@ -21,13 +21,9 @@ import React, { useState } from "react";
 import useSWR from "swr";
 import * as yup from "yup";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { useAuth } from "src/contexts/auth";
+import withAuth from "@/hocs/withAuth";
 
-const schema = yup.object().shape({
-  /* ci: yup.number().required("Confirme su número de cédula"),
-    name: yup.string().required("Ingrese su nombre"),
-    lastName: yup.string().required("Ingrese su apellido"),
-   */
-});
 const columns = [
   {
     id: "created_at",
@@ -163,6 +159,7 @@ const index = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id, user_id } = router.query;
+  const { user } = useAuth();
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -257,20 +254,24 @@ const index = () => {
                                   alignItems="center"
                                   justifyContent="center"
                                 >
-                                  <Grid item>
-                                    <Link
-                                      href={`/scheduleDay/schedule/${row.schedule_id}`}
-                                    >
-                                      <Button
-                                        variant="outlined"
-                                        size="small"
-                                        className={classes.btn}
-                                        endIcon={<KeyboardArrowRightIcon />}
+                                  {user.roleUser !== "ROLE_MEDIC" ? (
+                                    <Grid item>
+                                      <Link
+                                        href={`/scheduleDay/schedule/${row.schedule_id}`}
                                       >
-                                        Continuar
-                                      </Button>
-                                    </Link>
-                                  </Grid>
+                                        <Button
+                                          variant="outlined"
+                                          size="small"
+                                          className={classes.btn}
+                                          endIcon={<KeyboardArrowRightIcon />}
+                                        >
+                                          Continuar
+                                        </Button>
+                                      </Link>
+                                    </Grid>
+                                  ) : (
+                                    ""
+                                  )}
                                 </Grid>
                               ) : (
                                 value
@@ -288,7 +289,7 @@ const index = () => {
             labelRowsPerPage="Horarios:"
             rowsPerPageOptions={[10, 20, 50]}
             component="div"
-            count={columns.length}
+            count={data.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -299,4 +300,4 @@ const index = () => {
     </Layout>
   );
 };
-export default index;
+export default withAuth(index);

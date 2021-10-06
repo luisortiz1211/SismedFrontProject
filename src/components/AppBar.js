@@ -20,7 +20,9 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     width: 30,
     height: 30,
-    padding: 5,
+    //padding: 5,
+    fontSize: "15px",
+    color: "#092435",
     backgroundColor: "#60CCD9",
   },
   logo: {
@@ -47,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const Appbar = () => {
+export default function Appbar() {
   const classes = useStyles();
   const { user, logout } = useAuth();
 
@@ -101,7 +103,15 @@ const Appbar = () => {
                   alignItems="center"
                 >
                   <Grid item>
-                    <Avatar className={classes.avatar}>A</Avatar>
+                    <Avatar className={classes.avatar}>
+                      {user.roleUser === "ROLE_ADMIN"
+                        ? "AD"
+                        : user.roleUser === "ROLE_ASSISTENT"
+                        ? "AS"
+                        : user.roleUser === "ROLE_MEDIC"
+                        ? "MD"
+                        : "U"}
+                    </Avatar>
                   </Grid>
                   <Grid item>
                     <MoreVertIcon style={{ color: "#60CCD9" }} />
@@ -132,5 +142,4 @@ const Appbar = () => {
       </AppBar>
     </>
   );
-};
-export default Appbar;
+}

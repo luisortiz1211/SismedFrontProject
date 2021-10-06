@@ -9,13 +9,15 @@ import PatientsInformation from "@/components/PatientUpdate";
 import PersonalHistoryNew from "@/components/PersonalHistoryNew";
 import PhysicalExamNew from "@/components/PhysicalExamNew";
 import Title from "@/components/Title";
+import withAuth from "@/hocs/withAuth";
 import { Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import BallotIcon from "@material-ui/icons/Ballot";
+
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
+import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
@@ -51,13 +53,12 @@ function a11yProps(index) {
   return {
     id: `full-width-tab-${index}`,
     "aria-controls": `full-width-tabpanel-${index}`,
-    backgroundColor: "#60CCD9",
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "auto",
+    height: "100%",
     //padding: "15px",
   },
   form: {
@@ -65,10 +66,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     padding: "40px",
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-    backgroundColor: theme.palette.secondary.main,
-  },
+
   textField: {
     paddingBottom: "15px",
     color: "#414A4F",
@@ -87,9 +85,9 @@ const patientDetails = ({ props }) => {
   };
   return (
     <LayoutSecondary>
-      <Container maxWidth="lg">
+      <Container>
         <Title>
-          <AssignmentIndIcon
+          <BallotIcon
             style={{
               color: "#092435",
               fontSize: 35,
@@ -97,7 +95,9 @@ const patientDetails = ({ props }) => {
               top: "6px",
             }}
           />
-          Datos clínicos del paciente
+          Historia clínica (Nuevo)
+          {/*   Ingreso desde historia medica para añadir sin cita
+           */}
         </Title>
         <Paper elevation={6} style={{ padding: "10px", margin: "20px" }}>
           <Container>
@@ -108,17 +108,20 @@ const patientDetails = ({ props }) => {
                   onChange={handleChange}
                   indicatorColor="primary"
                   textColor="primary"
-                  variant="fullWidth"
+                  variant="scrollable"
                   scrollButtons
-                  allowScrollButtonsMobile
-                  aria-label="scrollable auto tabs example"
+                  aria-label="visible arrows tabs example"
+                  sx={{
+                    [`& .${tabsClasses.scrollButtons}`]: {
+                      "&.Mui-disabled": { opacity: 0.9 },
+                    },
+                  }}
                 >
                   <Tab label="Datos" {...a11yProps(0)} />
                   <Tab label="Contactos" {...a11yProps(1)} />
                   <Tab label="APP" {...a11yProps(2)} />
                   <Tab label="APF" {...a11yProps(3)} />
                   <Tab label="Alergias" {...a11yProps(4)} />
-                  <Tab label="Examen físico" {...a11yProps(5)} />
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
@@ -143,10 +146,6 @@ const patientDetails = ({ props }) => {
               <TabPanel value={value} index={4}>
                 <DrugAllergieNew />
               </TabPanel>
-
-              <TabPanel value={value} index={5}>
-                <PhysicalExamNew />
-              </TabPanel>
             </Box>
           </Container>
         </Paper>
@@ -154,4 +153,4 @@ const patientDetails = ({ props }) => {
     </LayoutSecondary>
   );
 };
-export default patientDetails;
+export default withAuth(patientDetails);
