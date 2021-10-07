@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RegisterExam = ({ props }) => {
+const RegisterExam = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id, patient_id } = router.query;

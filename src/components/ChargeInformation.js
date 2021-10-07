@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ChargeInformation() {
+const ChargeInformation = () => {
   const classes = useStyles();
   return (
     <>
@@ -81,4 +81,5 @@ export default function ChargeInformation() {
       </Paper>
     </>
   );
-}
+};
+export default ChargeInformation;

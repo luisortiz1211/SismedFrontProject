@@ -20,12 +20,6 @@ import React, { useState } from "react";
 import useSWR from "swr";
 import * as yup from "yup";
 
-const schema = yup.object().shape({
-  /* ci: yup.number().required("Confirme su número de cédula"),
-    name: yup.string().required("Ingrese su nombre"),
-    lastName: yup.string().required("Ingrese su apellido"),
-   */
-});
 const columns = [
   {
     id: "id",
@@ -125,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ScheduleDaySelect() {
+const ScheduleDaySelect = () => {
   const classes = useStyles();
 
   const [page, setPage] = useState(0);
@@ -295,4 +289,5 @@ export default function ScheduleDaySelect() {
       </Container>
     </Layout>
   );
-}
+};
+export default ScheduleDaySelect;

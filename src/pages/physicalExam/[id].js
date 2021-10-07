@@ -14,7 +14,6 @@ import { Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import BallotIcon from "@material-ui/icons/Ballot";
-
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs, { tabsClasses } from "@mui/material/Tabs";
@@ -73,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HistoryNew = ({ props }) => {
+const HistoryNew = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
