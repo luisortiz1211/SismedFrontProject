@@ -103,7 +103,7 @@ export default function DrugAllergieNew({ props }) {
         patient_id: id,
       };
       const response = await Drugallergies.create(userData);
-      console.log("Nuevo alergia registrada", response);
+      //console.log("Nuevo alergia registrada", response);
       setResult("Allergie properly register");
       reset();
     } catch (error) {

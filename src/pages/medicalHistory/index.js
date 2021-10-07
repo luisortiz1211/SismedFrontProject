@@ -142,7 +142,7 @@ const MedicalHistoryDetails = () => {
   };
 
   const { data, error } = useSWR(`/patients`, fetcher);
-  console.log("lista de pacientes en el sistema", data);
+  //console.log("lista de pacientes en el sistema", data);
   if (error)
     return (
       <div>

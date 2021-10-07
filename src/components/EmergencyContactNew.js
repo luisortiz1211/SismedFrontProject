@@ -122,7 +122,7 @@ export default function EmergencyContactNew() {
         patient_id: id,
       };
       const response = await Emergencycontacts.create(contactData);
-      console.log("Nuevo contacto registrado", response);
+      //console.log("Nuevo contacto registrado", response);
       setResult("Contact properly added");
       reset();
     } catch (error) {

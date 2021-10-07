@@ -166,7 +166,7 @@ const ScheduleDayUser = () => {
   };
 
   const { data, error } = useSWR(`/users`, fetcher);
-  console.log("listas de medicos para agendamiento", data);
+  //console.log("listas de medicos para agendamiento", data);
   if (error)
     return (
       <div>

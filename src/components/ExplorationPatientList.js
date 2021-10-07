@@ -150,7 +150,7 @@ export default function ExplorationPatients({ patientID }) {
     `/patients/${patientID}/exploration_patients`,
     fetcher
   );
-  console.log("exploraciones del paciente", data);
+  //console.log("exploraciones del paciente", data);
   if (error)
     return <div> No se puede mostrar las exploraciones del paciente</div>;
   if (!data) return <Loading />;

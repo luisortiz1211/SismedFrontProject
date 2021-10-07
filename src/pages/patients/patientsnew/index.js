@@ -132,7 +132,7 @@ const PatientNew = ({ props }) => {
         ...formData,
       };
       const response = await Patients.create(userData);
-      console.log("Nuevo paciente registrado", response);
+      //      console.log("Nuevo paciente registrado", response);
       setResult("User properly register");
       reset();
     } catch (error) {

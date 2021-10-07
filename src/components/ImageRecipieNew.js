@@ -118,7 +118,7 @@ export default function ImageRecipieNew({ props }) {
         exploration_id: exam_id,
       };
       const response = await Imagerecipies.create(userData);
-      console.log("Nuevo examen registrado", response);
+      //console.log("Nuevo examen registrado", response);
       setResult("New exam register");
       reset();
     } catch (error) {

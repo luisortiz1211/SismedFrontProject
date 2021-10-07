@@ -187,7 +187,7 @@ const RegisterCancel = () => {
   };
 
   const { data, error } = useSWR(`/schedule_days/${id}`, fetcher);
-  console.log("horario de agenda", data);
+  //console.log("horario de agenda", data);
   if (error)
     return (
       <div>

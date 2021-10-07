@@ -166,7 +166,7 @@ const Register = () => {
         ...formData,
       };
       const response = await doregister(userData);
-      console.log("Nuevo usuario registrado", response);
+      //console.log("Nuevo usuario registrado", response);
       setResult("User properly register");
       //reset();
     } catch (error) {

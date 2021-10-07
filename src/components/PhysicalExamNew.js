@@ -154,7 +154,7 @@ const PhysicalExamNew = ({ pid }) => {
         schedule_day: id,
       };
       const response = await Physicalexams.create(userData);
-      console.log("Examen fisico registrado", response);
+      //console.log("Examen fisico registrado", response);
       setResult("Physical exam register");
       reset();
     } catch (error) {

@@ -162,7 +162,7 @@ const PatientAdd = () => {
   };
 
   const { data, error } = useSWR(`/schedule_days/filter/state2`, fetcher);
-  console.log("Pacientes atendido", data);
+  //console.log("Pacientes atendido", data);
   if (error)
     return (
       <div>

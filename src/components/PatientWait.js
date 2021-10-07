@@ -169,7 +169,7 @@ const PatientWait = () => {
   };
 
   const { data, error } = useSWR(`/schedule_days/filter/state1`, fetcher);
-  console.log("Pacientes pendiente", data);
+  //console.log("Pacientes pendiente", data);
   if (error)
     return (
       <div>

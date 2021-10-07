@@ -117,7 +117,7 @@ export default function DrugsRecipieNew({ props }) {
         patient_id: id,
       };
       const response = await Drugsrecipies.create(userData);
-      console.log("Nuevo medicamento registrado", response);
+      //console.log("Nuevo medicamento registrado", response);
       setResult("New recipie register");
       reset();
     } catch (error) {

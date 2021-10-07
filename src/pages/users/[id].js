@@ -121,7 +121,7 @@ const UserDetails = () => {
     }
   };
   const { data, error } = useSWR(`/users/${id}`, fetcher);
-  console.log("userDetails", data);
+  // console.log("userDetails", data);
 
   if (error)
     return (

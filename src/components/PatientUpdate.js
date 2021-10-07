@@ -142,7 +142,7 @@ const PatientsInformation = ({ patientID }) => {
     }
   };
   const { data, error } = useSWR(`/patients/${patientID}`, fetcher);
-  console.log("información del paciente", data);
+  //console.log("información del paciente", data);
 
   if (error)
     return (

@@ -179,7 +179,7 @@ const AttentionsDetails = () => {
   };
 
   const { data, error } = useSWR(`/users/${id}/schedule_days`, fetcher);
-  console.log("Lista pacientes asignados", data);
+  //console.log("Lista pacientes asignados", data);
   if (error)
     return (
       <div>

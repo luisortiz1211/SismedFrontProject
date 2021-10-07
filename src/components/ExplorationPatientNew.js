@@ -144,7 +144,7 @@ export default function ExplorationPatientNew({ examID }) {
         patient_id: pid,
       };
       const response = await Explorationpatients.create(userData);
-      console.log("Nueva exploración registrado", response);
+      //console.log("Nueva exploración registrado", response);
       setResult("Exploration patient properly register");
       reset();
     } catch (error) {

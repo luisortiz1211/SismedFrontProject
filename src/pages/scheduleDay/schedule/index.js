@@ -173,7 +173,7 @@ const PatientShift = () => {
   };
 
   const { data, error } = useSWR(`/schedule_days`, fetcher);
-  console.log("Citas agenda", data);
+  //console.log("Citas agenda", data);
   if (error)
     return (
       <div>

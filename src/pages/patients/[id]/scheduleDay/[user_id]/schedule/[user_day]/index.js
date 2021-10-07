@@ -135,7 +135,7 @@ const ShiftSelect = () => {
         schedule_id: user_day,
       };
       const response = await Scheduledays.create(userData);
-      console.log("Nueva cita registrada", response);
+      //console.log("Nueva cita registrada", response);
       setResult("Date properly register");
       //alert("Cita asignada ");
     } catch (error) {
@@ -169,7 +169,7 @@ const ShiftSelect = () => {
   };
 
   const { data, error } = useSWR(`/schedule_users/${user_day}`, fetcher);
-  console.log("horario para agendar", data);
+  //console.log("horario para agendar", data);
   if (error)
     return (
       <div>

@@ -38,19 +38,12 @@ const useStyles = makeStyles((theme) => ({
 const MedicalSchedule = () => {
   const classes = useStyles();
   const router = useRouter();
-  const {
-    register,
-    reset,
-    formState: { errors },
-    handleSubmit,
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  const { register, reset, handleSubmit } = useForm();
 
   const [open, setOpen] = useState(false);
 
   const { data, error } = useSWR(`/users`, fetcher);
-  console.log("listas de medicos", data);
+  //console.log("listas de medicos", data);
   if (error)
     return (
       <div>

@@ -122,7 +122,7 @@ const ScheduleMedic = () => {
   };
 
   const { data, error } = useSWR(`/users`, fetcher);
-  console.log("listas de medicos", data);
+  //console.log("listas de medicos", data);
   if (error)
     return (
       <div>

@@ -129,7 +129,7 @@ const ScheduleShift = () => {
   };
 
   const { data, error } = useSWR(`/users/${user_id}}/schedule_users`, fetcher);
-  console.log("Horarios médico", data);
+  //console.log("Horarios médico", data);
   if (error)
     return (
       <div>

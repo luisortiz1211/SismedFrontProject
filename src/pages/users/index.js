@@ -108,7 +108,7 @@ const UserList = () => {
   };
 
   const { data, error } = useSWR(`/users`, fetcher);
-  console.log("lista de usuarios", data);
+  //console.log("lista de usuarios", data);
   if (error)
     return (
       <div>

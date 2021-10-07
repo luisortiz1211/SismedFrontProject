@@ -182,7 +182,7 @@ const ScheduleUpdate = () => {
   };
 
   const { data, error } = useSWR(`/schedule_users/${id}`, fetcher);
-  console.log("horarios por usuario", data);
+  //console.log("horarios por usuario", data);
   if (error)
     return (
       <div>

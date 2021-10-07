@@ -175,7 +175,7 @@ const ReviewAttention = () => {
     setPage(0);
   };
   const { data, error } = useSWR(`/patients/${sid}/physical_exams`, fetcher);
-  console.log("Examenes físicos del paciente", data);
+  //console.log("Examenes físicos del paciente", data);
 
   if (error)
     return (

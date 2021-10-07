@@ -107,7 +107,7 @@ export default function PersonalHistoryNew({ props }) {
         patient_id: id,
       };
       const response = await Personalhistories.create(userData);
-      console.log("Nuevo antecedente registrado", response);
+      //console.log("Nuevo antecedente registrado", response);
       setResult("Condition properly register");
       reset();
     } catch (error) {

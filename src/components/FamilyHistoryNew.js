@@ -108,7 +108,7 @@ export default function FamilyHistoryNew({ props }) {
         patient_id: id,
       };
       const response = await Familyhistories.create(userData);
-      console.log("Antecente familiar registrado", response);
+      //console.log("Antecente familiar registrado", response);
       setResult("Family condition properly register");
       reset();
     } catch (error) {
