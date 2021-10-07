@@ -4,8 +4,6 @@ import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
 import Routes from "@/constants/routes";
-import { Users } from "src/api/user";
-import { fetcher } from "src/api/utils";
 import {
   Button,
   Container,
@@ -26,6 +24,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Users } from "src/api/user";
+import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 
 const useStyles = makeStyles((theme) => ({

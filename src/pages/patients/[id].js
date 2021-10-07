@@ -1,12 +1,9 @@
+import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
-import withoutAuth from "@/hocs/withoutAuth";
-
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
 import Routes from "@/constants/routes";
-import { Patients } from "src/api/patient";
-import { fetcher } from "src/api/utils";
 import { Fade, Paper } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
@@ -23,8 +20,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Patients } from "src/api/patient";
+import { fetcher } from "src/api/utils";
 import useSWR from "swr";
-import AnnounTitle from "@/components/AnnounTitle";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -83,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PatientDetails = ({ props }) => {
+const PatientDetails = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;

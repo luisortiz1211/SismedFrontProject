@@ -1,9 +1,6 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
 import Loading from "@/components/Loading";
-import { useAuth } from "src/contexts/auth";
-import { Physicalexams } from "src/api/physicalexam";
-import { fetcher } from "src/api/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Fade } from "@material-ui/core";
 import { FormControl, MenuItem, Select } from "@material-ui/core/";
@@ -19,6 +16,9 @@ import SaveIcon from "@mui/icons-material/Save";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Physicalexams } from "src/api/physicalexam";
+import { fetcher } from "src/api/utils";
+import { useAuth } from "src/contexts/auth";
 import useSWR from "swr";
 import * as yup from "yup";
 
@@ -94,7 +94,7 @@ const schema = yup.object().shape({
     .max(100, "Máximo 100 caracteres"),
 });
 
-export default function PhysicalExamUpdate({ examID }) {
+const PhysicalExamUpdate = ({ examID }) => {
   const classes = useStyles();
   const { user } = useAuth();
   const router = useRouter();
@@ -626,4 +626,5 @@ export default function PhysicalExamUpdate({ examID }) {
       </Container>
     </CssBaseline>
   );
-}
+};
+export default PhysicalExamUpdate;

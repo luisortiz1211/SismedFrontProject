@@ -3,19 +3,15 @@ import ChargeInformation from "@/components/ChargeInformation";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
-import { Scheduledays } from "src/api/scheduleday";
-import { Scheduleusers } from "src/api/scheduleuser";
-
-import { fetcher } from "src/api/utils";
 import {
   Backdrop,
   Box,
   Button,
   CssBaseline,
+  Fade,
   Grid,
   Modal,
   TextField,
-  Fade,
 } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
@@ -26,6 +22,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Scheduledays } from "src/api/scheduleday";
+import { Scheduleusers } from "src/api/scheduleuser";
+import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 
 const useStyles = makeStyles((theme) => ({
@@ -105,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ShiftSelect = ({ props }) => {
+const ShiftSelect = () => {
   const classes = useStyles();
   const { register, control, handleSubmit } = useForm();
   const router = useRouter();

@@ -14,14 +14,13 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import BallotIcon from "@material-ui/icons/Ballot";
 import SendIcon from "@mui/icons-material/Send";
+import SearchBar from "material-ui-search-bar";
 import Link from "next/link";
 import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
-import SearchBar from "material-ui-search-bar";
-import BallotIcon from "@material-ui/icons/Ballot";
 
 const columns = [
   {

@@ -3,8 +3,6 @@ import ChargeInformation from "@/components/ChargeInformation";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
-import Routes from "@/constants/routes";
-import { fetcher } from "src/api/utils";
 import {
   Backdrop,
   Box,
@@ -24,9 +22,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import useSWR from "swr";
 import { Scheduledays } from "src/api/scheduleday";
 import { Scheduleusers } from "src/api/scheduleuser";
+import { fetcher } from "src/api/utils";
+import useSWR from "swr";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -113,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RegisterCancel = ({ props }) => {
+const RegisterCancel = () => {
   const classes = useStyles();
   const { register, handleSubmit } = useForm();
   const router = useRouter();

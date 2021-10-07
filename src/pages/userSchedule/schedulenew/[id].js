@@ -4,35 +4,35 @@ import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
 import Routes from "@/constants/routes";
-import { Scheduleusers } from "src/api/scheduleuser";
-import { fetcher } from "src/api/utils";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Backdrop,
   Box,
   Button,
   CssBaseline,
   Fade,
-  Grid,
-  Modal,
-  TextField,
   FormControl,
-  Select,
+  Grid,
   MenuItem,
+  Modal,
+  Select,
+  TextField,
 } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
+import SaveIcon from "@mui/icons-material/Save";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Scheduleusers } from "src/api/scheduleuser";
+import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import SaveIcon from "@mui/icons-material/Save";
 
 const schema = yup.object().shape({
   startTime: yup.string().required("Ingrese la hora de inicio"),
@@ -119,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ScheduleNew = ({ props }) => {
+const ScheduleNew = () => {
   const classes = useStyles();
   const {
     register,

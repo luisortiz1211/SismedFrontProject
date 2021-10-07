@@ -127,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export default function DrugAllergies({ patientID }) {
+const DrugAllergies = ({ patientID }) => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
@@ -225,4 +225,5 @@ export default function DrugAllergies({ patientID }) {
       </TableContainer>
     </Container>
   );
-}
+};
+export default DrugAllergies;

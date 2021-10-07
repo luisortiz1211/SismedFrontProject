@@ -3,7 +3,6 @@ import ChargeInformation from "@/components/ChargeInformation";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
-import { fetcher } from "src/api/utils";
 import { Button, CssBaseline, Grid } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
@@ -19,6 +18,7 @@ import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Link from "next/link";
 import React, { useState } from "react";
+import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 
 const columns = [

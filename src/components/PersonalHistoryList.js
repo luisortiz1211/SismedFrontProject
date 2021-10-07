@@ -1,5 +1,4 @@
 import Loading from "@/components/Loading";
-import { fetcher } from "src/api/utils";
 import { Button, Grid } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,6 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import ChargeInformation from "./ChargeInformation";
 
@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersonalHistories({ patientID }) {
+const PersonalHistories = ({ patientID }) => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
@@ -197,4 +197,5 @@ export default function PersonalHistories({ patientID }) {
       </TableContainer>
     </Container>
   );
-}
+};
+export default PersonalHistories;

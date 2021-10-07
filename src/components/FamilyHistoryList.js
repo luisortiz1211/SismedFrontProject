@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export default function FamilyHistories({ patientID }) {
+const FamilyHistories = ({ patientID }) => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
@@ -200,4 +200,5 @@ export default function FamilyHistories({ patientID }) {
       </TableContainer>
     </Container>
   );
-}
+};
+export default FamilyHistories;

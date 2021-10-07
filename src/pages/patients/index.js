@@ -20,9 +20,8 @@ import SendIcon from "@mui/icons-material/Send";
 import Link from "next/link";
 import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
-import useSWR from "swr";
-import Search from "@/components/Search";
 import { useAuth } from "src/contexts/auth";
+import useSWR from "swr";
 
 const columns = [
   {

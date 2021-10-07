@@ -1,6 +1,7 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
 import Loading from "@/components/Loading";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Fade } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
@@ -18,7 +19,6 @@ import { Patients } from "src/api/patient";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 const schema = yup.object().shape({
   name: yup.string().required("Ingrese nombre del paciente"),
@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PatientsInformation({ patientID }) {
+const PatientsInformation = ({ patientID }) => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
@@ -545,4 +545,5 @@ export default function PatientsInformation({ patientID }) {
       </form>
     </Container>
   );
-}
+};
+export default PatientsInformation;

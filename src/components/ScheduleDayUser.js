@@ -1,6 +1,5 @@
 import ChargeInformation from "@/components/ChargeInformation";
 import Loading from "@/components/Loading";
-import { fetcher } from "src/api/utils";
 import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -14,15 +13,9 @@ import ScheduleSendIcon from "@mui/icons-material/ScheduleSend";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { fetcher } from "src/api/utils";
 import useSWR from "swr";
-import * as yup from "yup";
 
-const schema = yup.object().shape({
-  /* ci: yup.number().required("Confirme su número de cédula"),
-    name: yup.string().required("Ingrese su nombre"),
-    lastName: yup.string().required("Ingrese su apellido"),
-   */
-});
 const columns = [
   {
     id: "id",
@@ -151,7 +144,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //mostrar lista de usuarios para agendamiento
-export default function ScheduleDayUser() {
+const ScheduleDayUser = () => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -279,4 +272,5 @@ export default function ScheduleDayUser() {
       />
     </>
   );
-}
+};
+export default ScheduleDayUser;

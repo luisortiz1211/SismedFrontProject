@@ -135,7 +135,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EmergencyContactList({ patientID }) {
+const EmergencyContactList = ({ patientID }) => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
@@ -232,4 +232,5 @@ export default function EmergencyContactList({ patientID }) {
       </TableContainer>
     </Container>
   );
-}
+};
+export default EmergencyContactList;

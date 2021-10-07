@@ -4,7 +4,6 @@ import Layout from "@/components/Layoutmain";
 import Loading from "@/components/Loading";
 import ScheduleDayUser from "@/components/ScheduleDayUser";
 import Title from "@/components/Title";
-import { fetcher } from "src/api/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
@@ -13,8 +12,8 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { fetcher } from "src/api/utils";
 import useSWR from "swr";
-import * as yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MedicalSchedule = (props) => {
+const MedicalSchedule = () => {
   const classes = useStyles();
   const router = useRouter();
   const {
