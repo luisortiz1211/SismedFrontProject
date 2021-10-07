@@ -241,7 +241,6 @@ export default function EmergencyContactNew() {
                 variant="outlined"
                 label="Parentesco"
                 fullWidth
-                variant="outlined"
                 className={classes.textField}
               >
                 <Select
@@ -268,7 +267,6 @@ export default function EmergencyContactNew() {
                 variant="outlined"
                 label="Tipo de sangre"
                 fullWidth
-                variant="outlined"
                 className={classes.textField}
               >
                 <Select

@@ -41,7 +41,6 @@ const ChargeInformation = () => {
                 component="span"
                 variant="h3"
                 gutterBottom
-                component="div"
                 style={{ color: "#092435" }}
               >
                 Página no encontrada
@@ -50,7 +49,6 @@ const ChargeInformation = () => {
                 component="span"
                 variant="h6"
                 gutterBottom
-                component="div"
                 style={{ color: "#092435" }}
               >
                 Lo sentimos, la página que buscaba no se encuentra aquí. El
