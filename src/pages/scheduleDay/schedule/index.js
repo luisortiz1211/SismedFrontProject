@@ -155,7 +155,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const index = () => {
+const PatientShift = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id, user_id } = router.query;
@@ -300,4 +300,4 @@ const index = () => {
     </Layout>
   );
 };
-export default withAuth(index);
+export default withAuth(PatientShift);

@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const index = () => {
+const Attentions = () => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -254,4 +254,4 @@ const index = () => {
     </LayoutSecondary>
   );
 };
-export default withAuth(index);
+export default withAuth(Attentions);

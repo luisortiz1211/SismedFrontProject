@@ -132,7 +132,7 @@ const useStyles = makeStyles({
   },
 });
 
-const index = () => {
+const PatientsList = () => {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const { user } = useAuth();
@@ -302,7 +302,7 @@ const index = () => {
                                     ""
                                   )
                                 ) : (
-                                  "-"
+                                  ""
                                 )}
                               </TableCell>
                             );
@@ -329,4 +329,4 @@ const index = () => {
     </LayoutSecondary>
   );
 };
-export default index;
+export default PatientsList;

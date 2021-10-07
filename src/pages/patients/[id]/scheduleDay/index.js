@@ -16,12 +16,6 @@ import { useForm } from "react-hook-form";
 import useSWR from "swr";
 import * as yup from "yup";
 
-const schema = yup.object().shape({
-  /* ci: yup.number().required("Confirme su número de cédula"),
-  name: yup.string().required("Ingrese su nombre"),
-  lastName: yup.string().required("Ingrese su apellido"),
- */
-});
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "auto",
@@ -42,10 +36,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const index = (props) => {
+const MedicalSchedule = (props) => {
   const classes = useStyles();
   const router = useRouter();
-  const { id } = router.query;
   const {
     register,
     reset,
@@ -102,4 +95,4 @@ const index = (props) => {
     </Layout>
   );
 };
-export default index;
+export default MedicalSchedule;

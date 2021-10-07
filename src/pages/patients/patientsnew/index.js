@@ -98,7 +98,7 @@ const schema = yup.object().shape({
   parish: yup.string().required("Defina nombre del empleo"),
 });
 
-const index = ({ props }) => {
+const PatientNew = ({ props }) => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
@@ -584,4 +584,4 @@ const index = ({ props }) => {
     </LayoutSecondary>
   );
 };
-export default index;
+export default PatientNew;

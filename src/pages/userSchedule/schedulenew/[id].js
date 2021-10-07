@@ -119,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const index = ({ props }) => {
+const ScheduleNew = ({ props }) => {
   const classes = useStyles();
   const {
     register,
@@ -390,4 +390,4 @@ const index = ({ props }) => {
     </>
   );
 };
-export default index;
+export default ScheduleNew;

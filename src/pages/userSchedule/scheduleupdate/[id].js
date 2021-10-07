@@ -122,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const index = ({ props }) => {
+const ScheduleUpdate = ({ props }) => {
   const classes = useStyles();
   const {
     register,
@@ -437,4 +437,4 @@ const index = ({ props }) => {
     </LayoutSecondary>
   );
 };
-export default index;
+export default ScheduleUpdate;

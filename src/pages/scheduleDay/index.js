@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const index = () => {
+const AttentionPatient = () => {
   const classes = useStyles();
   const { user } = useAuth();
 
@@ -214,7 +214,7 @@ const index = () => {
                                 <Grid item>
                                   <LocalHospitalIcon style={{ fontSize: 80 }} />
                                 </Grid>
-                                <Grid item>Atención de pacientes</Grid>
+                                <Grid item>Atención pacientes</Grid>
                               </Grid>
                             </Button>
                           </Link>
@@ -277,4 +277,4 @@ const index = () => {
     </Layout>
   );
 };
-export default withAuth(index);
+export default withAuth(AttentionPatient);

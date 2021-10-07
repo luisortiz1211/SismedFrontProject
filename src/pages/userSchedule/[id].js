@@ -122,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const index = () => {
+const ScheduleDayMedic = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
@@ -305,4 +305,4 @@ const index = () => {
     </LayoutSecondary>
   );
 };
-export default index;
+export default ScheduleDayMedic;

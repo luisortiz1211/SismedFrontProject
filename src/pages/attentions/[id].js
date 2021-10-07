@@ -160,7 +160,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const index = () => {
+const AttentionsDetails = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
@@ -196,7 +196,7 @@ const index = () => {
   return (
     <LayoutSecondary>
       <CssBaseline />
-      <Container maxWidth="lg" direction="row">
+      <Container direction="row">
         <Title>
           <LibraryBooksIcon
             style={{
@@ -314,4 +314,4 @@ const index = () => {
     </LayoutSecondary>
   );
 };
-export default index;
+export default AttentionsDetails;

@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-const index = () => {
+const MedicalHistory = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id, explo_id } = router.query;
@@ -84,4 +84,4 @@ const index = () => {
     </LayoutSecondary>
   );
 };
-export default index;
+export default MedicalHistory;

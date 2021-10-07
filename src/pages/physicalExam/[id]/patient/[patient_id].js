@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const patientDetails = ({ props }) => {
+const RegisterExam = ({ props }) => {
   const classes = useStyles();
   const router = useRouter();
   const { id, patient_id } = router.query;
@@ -148,4 +148,4 @@ const patientDetails = ({ props }) => {
     </LayoutSecondary>
   );
 };
-export default withAuth(patientDetails);
+export default withAuth(RegisterExam);

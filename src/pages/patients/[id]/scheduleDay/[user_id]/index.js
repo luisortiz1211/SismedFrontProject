@@ -22,12 +22,6 @@ import React, { useState } from "react";
 import useSWR from "swr";
 import * as yup from "yup";
 
-const schema = yup.object().shape({
-  /* ci: yup.number().required("Confirme su número de cédula"),
-    name: yup.string().required("Ingrese su nombre"),
-    lastName: yup.string().required("Ingrese su apellido"),
-   */
-});
 const columns = [
   {
     id: "schedule_id",
@@ -118,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const index = () => {
+const ScheduleShift = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id, user_id } = router.query;
@@ -266,4 +260,4 @@ const index = () => {
     </Layout>
   );
 };
-export default index;
+export default ScheduleShift;

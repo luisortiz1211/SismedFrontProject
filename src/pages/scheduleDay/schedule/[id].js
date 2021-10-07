@@ -113,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const index = ({ props }) => {
+const RegisterCancel = ({ props }) => {
   const classes = useStyles();
   const { register, handleSubmit } = useForm();
   const router = useRouter();
@@ -476,4 +476,4 @@ const index = ({ props }) => {
     </LayoutSecondary>
   );
 };
-export default index;
+export default RegisterCancel;

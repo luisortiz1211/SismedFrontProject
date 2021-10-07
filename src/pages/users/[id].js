@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const userDetails = () => {
+const UserDetails = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
@@ -454,4 +454,4 @@ const userDetails = () => {
     </LayoutSecondary>
   );
 };
-export default userDetails;
+export default UserDetails;

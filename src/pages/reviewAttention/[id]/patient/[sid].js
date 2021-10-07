@@ -158,7 +158,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const index = () => {
+const ReviewAttention = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id, sid } = router.query;
@@ -302,4 +302,4 @@ const index = () => {
     </LayoutSecondary>
   );
 };
-export default index;
+export default ReviewAttention;

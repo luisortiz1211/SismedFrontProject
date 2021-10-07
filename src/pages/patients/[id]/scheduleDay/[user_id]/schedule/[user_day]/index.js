@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const index = ({ props }) => {
+const ShiftSelect = ({ props }) => {
   const classes = useStyles();
   const { register, control, handleSubmit } = useForm();
   const router = useRouter();
@@ -418,4 +418,4 @@ const index = ({ props }) => {
     </LayoutSecondary>
   );
 };
-export default index;
+export default ShiftSelect;
