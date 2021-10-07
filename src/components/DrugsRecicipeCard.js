@@ -76,7 +76,7 @@ export default function DrugsRecipieCard({ patientID }) {
               </Grid>
               <Grid item xs={7}>
                 <Item>
-                  <p>{data.coddrug}</p>
+                  <p style={{ color: "#4A92A8" }}>{data.coddrug + "unidad"}</p>
                 </Item>
               </Grid>
               <Grid item xs={5}>
@@ -100,7 +100,7 @@ export default function DrugsRecipieCard({ patientID }) {
               </Grid>
               <Grid item xs={7}>
                 <Item>
-                  <p>{data.nameDrugRecipie}</p>
+                  <p style={{ color: "#4A92A8" }}>{data.nameDrugRecipie}</p>
                 </Item>
               </Grid>{" "}
               <Grid item xs={5}>
@@ -125,7 +125,7 @@ export default function DrugsRecipieCard({ patientID }) {
               </Grid>
               <Grid item xs={7}>
                 <Item>
-                  <p>{data.user_id}</p>
+                  <p style={{ color: "#4A92A8" }}>{data.user_id}</p>
                 </Item>
               </Grid>{" "}
               <Grid item xs={5}>

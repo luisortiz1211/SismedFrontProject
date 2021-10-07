@@ -84,7 +84,7 @@ export default function PhysicalExamCard({ patientID }) {
               </Grid>
               <Grid item md={3} xs={6}>
                 <Item>
-                  <p>{data.heartRate + " ml"}</p>
+                  <p style={{ color: "#4A92A8" }}>{data.heartRate + "  lpm"}</p>
                 </Item>
               </Grid>
               <Grid item md={3} xs={6}>
@@ -109,7 +109,9 @@ export default function PhysicalExamCard({ patientID }) {
               </Grid>
               <Grid item md={3} xs={6}>
                 <Item>
-                  <p>{data.bloodPleasure + " ml"}</p>
+                  <p style={{ color: "#4A92A8" }}>
+                    {data.bloodPleasure + "  mmHg"}
+                  </p>
                 </Item>
               </Grid>
               <Grid item md={3} xs={6}>
@@ -133,7 +135,7 @@ export default function PhysicalExamCard({ patientID }) {
               </Grid>
               <Grid item md={3} xs={6}>
                 <Item>
-                  <p>{data.weight + " ml"}</p>
+                  <p style={{ color: "#4A92A8" }}>{data.weight + "  kg"}</p>
                 </Item>
               </Grid>{" "}
               <Grid item md={3} xs={6}>
@@ -157,7 +159,7 @@ export default function PhysicalExamCard({ patientID }) {
               </Grid>
               <Grid item md={3} xs={6}>
                 <Item>
-                  <p>{data.height + " ml"}</p>
+                  <p style={{ color: "#4A92A8" }}>{data.height + "  cm"}</p>
                 </Item>
               </Grid>{" "}
               <Grid item md={3} xs={6}>
@@ -182,7 +184,9 @@ export default function PhysicalExamCard({ patientID }) {
               </Grid>
               <Grid item md={3} xs={6}>
                 <Item>
-                  <p>{data.idealWeight + " ml"}</p>
+                  <p style={{ color: "#4A92A8" }}>
+                    {data.idealWeight + "  cm"}
+                  </p>
                 </Item>
               </Grid>{" "}
               <Grid item md={3} xs={6}>
@@ -207,7 +211,7 @@ export default function PhysicalExamCard({ patientID }) {
               </Grid>
               <Grid item md={3} xs={6}>
                 <Item>
-                  <p>{data.temp + " ml"}</p>
+                  <p style={{ color: "#4A92A8" }}>{data.temp + "  °C"}</p>
                 </Item>
               </Grid>{" "}
               <Grid item md={3} xs={6}>
@@ -231,7 +235,9 @@ export default function PhysicalExamCard({ patientID }) {
               </Grid>
               <Grid item md={3} xs={6}>
                 <Item>
-                  <p>{data.tobacco == "false" ? "No" : "Si"}</p>
+                  <p style={{ color: "#4A92A8" }}>
+                    {data.tobacco == "false" ? "No" : "Si"}
+                  </p>
                 </Item>
               </Grid>{" "}
               <Grid item md={3} xs={6}>
@@ -255,7 +261,9 @@ export default function PhysicalExamCard({ patientID }) {
               </Grid>
               <Grid item md={3} xs={6}>
                 <Item>
-                  <p>{data.alcohol === 0 ? "No" : "Si"}</p>
+                  <p style={{ color: "#4A92A8" }}>
+                    {data.alcohol === 0 ? "No" : "Si"}
+                  </p>
                 </Item>
               </Grid>
               <Grid item md={3} xs={6}>
@@ -280,7 +288,9 @@ export default function PhysicalExamCard({ patientID }) {
               </Grid>
               <Grid item md={3} xs={6}>
                 <Item>
-                  <p>{data.drugs === 0 ? "No" : "Si"}</p>
+                  <p style={{ color: "#4A92A8" }}>
+                    {data.drugs === 0 ? "No" : "Si"}
+                  </p>
                 </Item>
               </Grid>{" "}
               <Grid item md={3} xs={6}>
@@ -305,7 +315,9 @@ export default function PhysicalExamCard({ patientID }) {
               </Grid>
               <Grid item md={3} xs={6}>
                 <Item>
-                  <p>{data.apetiteChanges === 0 ? "No" : "Si"}</p>
+                  <p style={{ color: "#4A92A8" }}>
+                    {data.apetiteChanges === 0 ? "No" : "Si"}
+                  </p>
                 </Item>
               </Grid>{" "}
               <Grid item md={3} xs={6}>
@@ -329,7 +341,9 @@ export default function PhysicalExamCard({ patientID }) {
               </Grid>
               <Grid item md={3} xs={6}>
                 <Item>
-                  <p>{data.dreamChanges === 0 ? "No" : "Si"}</p>
+                  <p style={{ color: "#4A92A8" }}>
+                    {data.dreamChanges === 0 ? "No" : "Si"}
+                  </p>
                 </Item>
               </Grid>{" "}
               <Grid item md={3} xs={6}>
@@ -353,7 +367,7 @@ export default function PhysicalExamCard({ patientID }) {
               </Grid>
               <Grid item md={3} xs={6}>
                 <Item>
-                  <p>{data.created_at}</p>
+                  <p style={{ color: "#4A92A8" }}>{data.created_at}</p>
                 </Item>
               </Grid>
               <Grid item xs={12}>
@@ -384,7 +398,13 @@ export default function PhysicalExamCard({ patientID }) {
                     justifyContent: "left",
                   }}
                 >
-                  <p style={{ position: "relative", left: "30px" }}>
+                  <p
+                    style={{
+                      position: "relative",
+                      left: "30px",
+                      color: "#4A92A8",
+                    }}
+                  >
                     {data.currentCondition}
                   </p>
                 </Item>
@@ -418,7 +438,13 @@ export default function PhysicalExamCard({ patientID }) {
                     justifyContent: "left",
                   }}
                 >
-                  <p style={{ position: "relative", left: "30px" }}>
+                  <p
+                    style={{
+                      position: "relative",
+                      left: "30px",
+                      color: "#4A92A8",
+                    }}
+                  >
                     {data.comment}
                   </p>
                 </Item>
@@ -452,7 +478,13 @@ export default function PhysicalExamCard({ patientID }) {
                     justifyContent: "left",
                   }}
                 >
-                  <p style={{ position: "relative", left: "30px" }}>
+                  <p
+                    style={{
+                      position: "relative",
+                      left: "30px",
+                      color: "#4A92A8",
+                    }}
+                  >
                     {data.currentDrug}
                   </p>
                 </Item>

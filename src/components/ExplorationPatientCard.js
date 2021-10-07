@@ -88,7 +88,13 @@ export default function ExplorationPatientCard({ patientID }) {
                     justifyContent: "left",
                   }}
                 >
-                  <p style={{ position: "relative", left: "30px" }}>
+                  <p
+                    style={{
+                      position: "relative",
+                      left: "30px",
+                      color: "#4A92A8",
+                    }}
+                  >
                     {data.headExplo}
                   </p>
                 </Item>
@@ -122,7 +128,13 @@ export default function ExplorationPatientCard({ patientID }) {
                     justifyContent: "left",
                   }}
                 >
-                  <p style={{ position: "relative", left: "30px" }}>
+                  <p
+                    style={{
+                      position: "relative",
+                      left: "30px",
+                      color: "#4A92A8",
+                    }}
+                  >
                     {data.chestExplo}
                   </p>
                 </Item>
@@ -156,7 +168,13 @@ export default function ExplorationPatientCard({ patientID }) {
                     justifyContent: "left",
                   }}
                 >
-                  <p style={{ position: "relative", left: "30px" }}>
+                  <p
+                    style={{
+                      position: "relative",
+                      left: "30px",
+                      color: "#4A92A8",
+                    }}
+                  >
                     {data.extremitiesExplo}
                   </p>
                 </Item>
@@ -190,7 +208,13 @@ export default function ExplorationPatientCard({ patientID }) {
                     justifyContent: "left",
                   }}
                 >
-                  <p style={{ position: "relative", left: "30px" }}>
+                  <p
+                    style={{
+                      position: "relative",
+                      left: "30px",
+                      color: "#4A92A8",
+                    }}
+                  >
                     {data.stomachExplo}
                   </p>
                 </Item>
@@ -224,7 +248,13 @@ export default function ExplorationPatientCard({ patientID }) {
                     justifyContent: "left",
                   }}
                 >
-                  <p style={{ position: "relative", left: "30px" }}>
+                  <p
+                    style={{
+                      position: "relative",
+                      left: "30px",
+                      color: "#4A92A8",
+                    }}
+                  >
                     {data.genitalsExplo}
                   </p>
                 </Item>
@@ -258,7 +288,13 @@ export default function ExplorationPatientCard({ patientID }) {
                     justifyContent: "left",
                   }}
                 >
-                  <p style={{ position: "relative", left: "30px" }}>
+                  <p
+                    style={{
+                      position: "relative",
+                      left: "30px",
+                      color: "#4A92A8",
+                    }}
+                  >
                     {data.forecastExplo}
                   </p>
                 </Item>
@@ -292,7 +328,13 @@ export default function ExplorationPatientCard({ patientID }) {
                     justifyContent: "left",
                   }}
                 >
-                  <p style={{ position: "relative", left: "30px" }}>
+                  <p
+                    style={{
+                      position: "relative",
+                      left: "30px",
+                      color: "#4A92A8",
+                    }}
+                  >
                     {data.diagnosisExplo}
                   </p>
                 </Item>
@@ -326,7 +368,13 @@ export default function ExplorationPatientCard({ patientID }) {
                     justifyContent: "left",
                   }}
                 >
-                  <p style={{ position: "relative", left: "30px" }}>
+                  <p
+                    style={{
+                      position: "relative",
+                      left: "30px",
+                      color: "#4A92A8",
+                    }}
+                  >
                     {data.treatmentExplo}
                   </p>
                 </Item>
@@ -360,7 +408,13 @@ export default function ExplorationPatientCard({ patientID }) {
                     justifyContent: "left",
                   }}
                 >
-                  <p style={{ position: "relative", left: "30px" }}>
+                  <p
+                    style={{
+                      position: "relative",
+                      left: "30px",
+                      color: "#4A92A8",
+                    }}
+                  >
                     {data.commentExplo}
                   </p>
                 </Item>
@@ -394,7 +448,13 @@ export default function ExplorationPatientCard({ patientID }) {
                     justifyContent: "left",
                   }}
                 >
-                  <p style={{ position: "relative", left: "30px" }}>
+                  <p
+                    style={{
+                      position: "relative",
+                      left: "30px",
+                      color: "#4A92A8",
+                    }}
+                  >
                     {data.created_at}
                   </p>
                 </Item>

@@ -77,7 +77,7 @@ export default function ImageRecipieCard({ patientID }) {
               </Grid>
               <Grid item xs={7}>
                 <Item>
-                  <p>{data.codimage}</p>
+                  <p style={{ color: "#4A92A8" }}>{data.codimage}</p>
                 </Item>
               </Grid>
               <Grid item xs={5}>
@@ -101,7 +101,7 @@ export default function ImageRecipieCard({ patientID }) {
               </Grid>
               <Grid item xs={7}>
                 <Item>
-                  <p>{data.nameImageRecipie}</p>
+                  <p style={{ color: "#4A92A8" }}>{data.nameImageRecipie}</p>
                 </Item>
               </Grid>{" "}
               <Grid item xs={5}>
@@ -126,7 +126,7 @@ export default function ImageRecipieCard({ patientID }) {
               </Grid>
               <Grid item xs={7}>
                 <Item>
-                  <p>{data.user_id}</p>
+                  <p style={{ color: "#4A92A8" }}>{data.user_id}</p>
                 </Item>
               </Grid>{" "}
               <Grid item xs={5}>
@@ -150,7 +150,7 @@ export default function ImageRecipieCard({ patientID }) {
               </Grid>
               <Grid item xs={7}>
                 <Item>
-                  <p>{data.created_at}</p>
+                  <p style={{ color: "#4A92A8" }}>{data.created_at}</p>
                 </Item>
               </Grid>{" "}
             </Grid>

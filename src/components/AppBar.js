@@ -20,11 +20,25 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     width: 30,
     height: 30,
-    //padding: 5,
     fontSize: "15px",
     color: "#092435",
     backgroundColor: "#60CCD9",
   },
+  avatar1: {
+    width: 30,
+    height: 30,
+    fontSize: "135x",
+    color: "#092435",
+    backgroundColor: "#4A92A8",
+  },
+  avatar2: {
+    width: 30,
+    height: 30,
+    fontSize: "15px",
+    color: "#092435",
+    backgroundColor: "#BBF0E8",
+  },
+
   logo: {
     display: "none",
     padding: 8,
@@ -103,15 +117,15 @@ export default function Appbar() {
                   alignItems="center"
                 >
                   <Grid item>
-                    <Avatar className={classes.avatar}>
-                      {user.roleUser === "ROLE_ADMIN"
-                        ? "AD"
-                        : user.roleUser === "ROLE_ASSISTENT"
-                        ? "AS"
-                        : user.roleUser === "ROLE_MEDIC"
-                        ? "MD"
-                        : "U"}
-                    </Avatar>
+                    {user.roleUser === "ROLE_ADMIN" ? (
+                      <Avatar className={classes.avatar}>AD</Avatar>
+                    ) : user.roleUser === "ROLE_ASSISTENT" ? (
+                      <Avatar className={classes.avatar1}>AS</Avatar>
+                    ) : user.roleUser === "ROLE_MEDIC" ? (
+                      <Avatar className={classes.avatar2}>MD</Avatar>
+                    ) : (
+                      "U"
+                    )}
                   </Grid>
                   <Grid item>
                     <MoreVertIcon style={{ color: "#60CCD9" }} />

@@ -137,6 +137,12 @@ export default function ExplorationPatients({ patientID }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const { data, error } = useSWR(
+    `/patients/${patientID}/exploration_patients`,
+    fetcher
+  );
+  //console.log("exploraciones del paciente", data);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -146,11 +152,6 @@ export default function ExplorationPatients({ patientID }) {
     setPage(0);
   };
 
-  const { data, error } = useSWR(
-    `/patients/${patientID}/exploration_patients`,
-    fetcher
-  );
-  //console.log("exploraciones del paciente", data);
   if (error)
     return <div> No se puede mostrar las exploraciones del paciente</div>;
   if (!data) return <Loading />;

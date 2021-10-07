@@ -14,13 +14,14 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import BallotIcon from "@material-ui/icons/Ballot";
+import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import SendIcon from "@mui/icons-material/Send";
-import SearchBar from "material-ui-search-bar";
 import Link from "next/link";
 import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
+import SearchBar from "material-ui-search-bar";
+import BallotIcon from "@material-ui/icons/Ballot";
 
 const columns = [
   {
@@ -132,6 +133,9 @@ const MedicalHistoryDetails = () => {
   const [rows, setRows] = useState(columns);
   const [searched, setSearched] = useState("");
 
+  const { data, error } = useSWR(`/patients`, fetcher);
+  console.log("lista de pacientes en el sistema", data);
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -140,9 +144,6 @@ const MedicalHistoryDetails = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  const { data, error } = useSWR(`/patients`, fetcher);
-  //console.log("lista de pacientes en el sistema", data);
   if (error)
     return (
       <div>

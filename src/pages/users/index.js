@@ -98,6 +98,8 @@ const UserList = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const { data, error } = useSWR(`/users`, fetcher);
+  //console.log("lista de usuarios", data);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -107,8 +109,6 @@ const UserList = () => {
     setPage(0);
   };
 
-  const { data, error } = useSWR(`/users`, fetcher);
-  //console.log("lista de usuarios", data);
   if (error)
     return (
       <div>
@@ -240,7 +240,7 @@ const UserList = () => {
           </TableContainer>
           <TablePagination
             labelRowsPerPage="Usuarios:"
-            rowsPerPageOptions={[10, 25, 100]}
+            rowsPerPageOptions={[10, 25]}
             component="div"
             count={columns.length}
             rowsPerPage={rowsPerPage}
