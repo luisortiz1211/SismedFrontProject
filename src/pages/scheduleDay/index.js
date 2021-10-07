@@ -214,7 +214,7 @@ const index = () => {
                                 <Grid item>
                                   <LocalHospitalIcon style={{ fontSize: 80 }} />
                                 </Grid>
-                                <Grid item>Atención pacientes</Grid>
+                                <Grid item>Atención de pacientes</Grid>
                               </Grid>
                             </Button>
                           </Link>
