@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PatientDetails = ({ props }) => {
+const PatientDetails = () => {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;

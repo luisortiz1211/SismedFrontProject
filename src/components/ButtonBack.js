@@ -53,7 +53,7 @@ export default function ButtonBack() {
         </Button>
       </Grid>
       <Grid item>
-        <Link href={Routes.HOME}>
+        <Link href={Routes.HOME} passHref>
           <Button
             variant="contained"
             type="button"

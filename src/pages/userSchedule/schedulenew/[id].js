@@ -210,7 +210,12 @@ const ScheduleNew = ({ props }) => {
                       display={{ xs: "none", sm: "block" }}
                       style={{ padding: "10px" }}
                     >
-                      <Image src="/logosismed2.png" width={150} height={150} />
+                      <Image
+                        src="/logosismed2.png"
+                        alt="Sismed"
+                        width={150}
+                        height={150}
+                      />
                     </Box>
                   </Grid>
                 </Grid>
@@ -309,7 +314,7 @@ const ScheduleNew = ({ props }) => {
                             justifyContent: "center",
                           }}
                         >
-                          <Link href={`${Routes.SCHEDULEUSER}/${id}`}>
+                          <Link href={`${Routes.SCHEDULEUSER}/${id}`} passHref>
                             <Button
                               className={classes.btnCancel}
                               variant="contained"

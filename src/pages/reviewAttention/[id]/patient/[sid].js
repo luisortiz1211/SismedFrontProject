@@ -260,8 +260,8 @@ const ReviewAttention = () => {
                                 >
                                   <Grid item>
                                     <Link
-                                      //href={`/explorationPatient/${id}/patientExam/${row.physicalExam_id}`}
                                       href={`/scheduleDay/${row.schedule_day}/patient/${row.patient_id}/physicExam/${row.physicalExam_id}`}
+                                      passHref
                                     >
                                       <Button
                                         variant="outlined"

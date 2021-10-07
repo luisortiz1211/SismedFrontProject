@@ -374,7 +374,7 @@ const UserDetails = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Link href={`${Routes.HOME}`}>
+                  <Link href={`${Routes.HOME}`} passHref>
                     <Button
                       fullWidth
                       className={classes.btncancel}
@@ -433,7 +433,7 @@ const UserDetails = () => {
                         "  " +
                         "modificado con éxito"}
                     </h2>
-                    <Link href={`${Routes.USERS}`}>
+                    <Link href={`${Routes.USERS}`} passHref>
                       <Button
                         variant="contained"
                         type="submit"

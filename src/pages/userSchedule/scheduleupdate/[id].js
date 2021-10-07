@@ -231,7 +231,12 @@ const ScheduleUpdate = ({ props }) => {
                     display={{ xs: "none", sm: "block" }}
                     style={{ padding: "10px" }}
                   >
-                    <Image src="/logosismed2.png" width={150} height={150} />
+                    <Image
+                      src="/logosismed2.png"
+                      alt="Sismed"
+                      width={150}
+                      height={150}
+                    />
                   </Box>
                 </Grid>
               </Grid>
@@ -327,7 +332,7 @@ const ScheduleUpdate = ({ props }) => {
                           justifyContent: "center",
                         }}
                       >
-                        <Link href={`/userSchedule/${data.user_id}`}>
+                        <Link href={`/userSchedule/${data.user_id}`} passHref>
                           <Button
                             variant="contained"
                             fullWidth
@@ -353,6 +358,7 @@ const ScheduleUpdate = ({ props }) => {
                           >
                             <Link
                               href={`${Routes.SCHEDULEUSER}/${data.user_id}`}
+                              passHref
                             >
                               <Button
                                 className={classes.btnEdit}
@@ -410,7 +416,10 @@ const ScheduleUpdate = ({ props }) => {
                         <h2 id="transition-modal-title">
                           Cambios realizados con éxito
                         </h2>
-                        <Link href={`${Routes.SCHEDULEUSER}/${data.user_id}`}>
+                        <Link
+                          href={`${Routes.SCHEDULEUSER}/${data.user_id}`}
+                          passHref
+                        >
                           <Button
                             variant="contained"
                             type="submit"

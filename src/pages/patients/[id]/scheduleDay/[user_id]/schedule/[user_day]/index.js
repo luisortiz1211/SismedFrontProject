@@ -219,7 +219,12 @@ const ShiftSelect = ({ props }) => {
                     display={{ xs: "none", sm: "block" }}
                     style={{ padding: "10px" }}
                   >
-                    <Image src="/logosismed2.png" width={150} height={150} />
+                    <Image
+                      src="/logosismed2.png"
+                      alt="Sismed"
+                      width={150}
+                      height={150}
+                    />
                   </Box>
                 </Grid>
               </Grid>
@@ -391,7 +396,7 @@ const ShiftSelect = ({ props }) => {
                         <h2 id="transition-modal-title">
                           Cita asignada con éxito
                         </h2>
-                        <Link href={`/patients/${id}/scheduleDay`}>
+                        <Link href={`/patients/${id}/scheduleDay`} passHref>
                           <Button
                             variant="contained"
                             type="submit"

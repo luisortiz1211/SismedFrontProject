@@ -415,7 +415,7 @@ const Register = () => {
                   justifyContent: "center",
                 }}
               >
-                <Link href={`${Routes.HOME}`}>
+                <Link href={`${Routes.HOME}`} passHref>
                   <Button
                     className={classes.btncancel}
                     variant="contained"

@@ -264,6 +264,7 @@ const ScheduleDayMedic = () => {
                                       <Link
                                         //es el numero de id en horarios usuarios
                                         href={`/userSchedule/scheduleupdate/${row.schedule_id}`}
+                                        passHref
                                       >
                                         <Button
                                           variant="outlined"

@@ -81,7 +81,7 @@ export default function Appbar() {
                 color: "#fffff",
               }}
             >
-              <Link href="/login">
+              <Link href="/login" passHref>
                 <MuiLink>
                   <Image
                     src="/logosismed1.png"
@@ -121,7 +121,7 @@ export default function Appbar() {
                     <Typography component={"span"}>{user.name}</Typography>
                   </Grid>
                   <Grid item>
-                    <Link href={Routes.LOGIN}>
+                    <Link href={Routes.LOGIN} passHref>
                       <Button
                         onClick={handleLogout}
                         color="inherit"

@@ -91,7 +91,7 @@ export default function StickyFooter() {
                 left: "11px",
               }}
             >
-              <Link href="/login">
+              <Link href="/login" passHref>
                 <MuiLink>
                   <Image
                     src="/logosismed1.png"

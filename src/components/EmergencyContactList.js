@@ -189,7 +189,7 @@ export default function EmergencyContactList({ patientID }) {
                       justifyContent="center"
                     >
                       <Grid item>
-                        <Link href={`/physicalExam/${id}`}>
+                        <Link href={`/physicalExam/${id}`} passHref>
                           <Button
                             variant="outlined"
                             size="small"

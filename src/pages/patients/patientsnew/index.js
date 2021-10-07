@@ -507,7 +507,7 @@ const PatientNew = ({ props }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Link href={`${Routes.PATIENTS}`}>
+                  <Link href={`${Routes.PATIENTS}`} passHref>
                     <Button
                       className={classes.btncancelar}
                       fullWidth

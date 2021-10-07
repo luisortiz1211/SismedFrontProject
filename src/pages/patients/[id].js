@@ -490,7 +490,7 @@ const PatientDetails = ({ props }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Link href={`${Routes.PATIENTS}`}>
+                  <Link href={`${Routes.PATIENTS}`} passHref>
                     <Button
                       fullWidth
                       className={classes.btnCancel}

@@ -258,6 +258,7 @@ const PatientShift = () => {
                                     <Grid item>
                                       <Link
                                         href={`/scheduleDay/schedule/${row.schedule_id}`}
+                                        passHref
                                       >
                                         <Button
                                           variant="outlined"

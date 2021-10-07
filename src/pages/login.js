@@ -156,7 +156,12 @@ const Login = () => {
                   display={{ xs: "none", sm: "block" }}
                   style={{ padding: "10px" }}
                 >
-                  <Image src="/logosismed2.png" width={150} height={150} />
+                  <Image
+                    src="/logosismed2.png"
+                    alt="Sismed"
+                    width={150}
+                    height={150}
+                  />
                 </Box>
               </Grid>
             </Grid>
@@ -241,7 +246,7 @@ const Login = () => {
                 </Button>
                 <Grid container>
                   <Grid item style={{ color: "#414A4F" }}>
-                    <Link href="#" passHref>
+                    <Link href="/login" passHref>
                       <MuiLink>Olvido su contraseña?</MuiLink>
                     </Link>
                   </Grid>

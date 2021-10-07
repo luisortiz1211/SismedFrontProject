@@ -78,7 +78,12 @@ const First = () => {
                   display={{ xs: "none", sm: "block" }}
                   style={{ padding: "10px" }}
                 >
-                  <Image src="/logosismed2.png" width={150} height={150} />
+                  <Image
+                    src="/logosismed2.png"
+                    alt="Sismed"
+                    width={150}
+                    height={150}
+                  />
                 </Box>
               </Grid>
             </Grid>
@@ -88,7 +93,7 @@ const First = () => {
             <div className={classes.paper}>
               <Grid container justifyContent="space-around">
                 <Grid item md={2} xs={6}>
-                  <Link href={Routes.PATIENTS}>
+                  <Link href={Routes.PATIENTS} passHref>
                     <Button
                       className={classes.button}
                       variant="contained"
@@ -112,7 +117,7 @@ const First = () => {
                 </Grid>
 
                 <Grid item md={2} xs={6}>
-                  <Link href={Routes.MEDICALHISTORY}>
+                  <Link href={Routes.MEDICALHISTORY} passHref>
                     <Button
                       className={classes.button}
                       variant="contained"
@@ -137,7 +142,7 @@ const First = () => {
                 {user.roleUser === "ROLE_ADMIN" ? (
                   <Grid item md={2} xs={6}>
                     {" "}
-                    <Link href={Routes.USERS}>
+                    <Link href={Routes.USERS} passHref>
                       <Button
                         className={classes.button}
                         variant="contained"
@@ -164,7 +169,7 @@ const First = () => {
 
               <Grid container justifyContent="space-around">
                 <Grid item md={2} xs={6}>
-                  <Link href={Routes.SCHEDULEDAY}>
+                  <Link href={Routes.SCHEDULEDAY} passHref>
                     <Button
                       className={classes.button}
                       variant="contained"
@@ -189,7 +194,7 @@ const First = () => {
 
                 <Grid item md={2} xs={6}>
                   {" "}
-                  <Link href={Routes.SCHEDULEUSER}>
+                  <Link href={Routes.SCHEDULEUSER} passHref>
                     <Button
                       className={classes.button}
                       variant="contained"
@@ -214,7 +219,7 @@ const First = () => {
 
                 {user.roleUser === "ROLE_ADMIN" ? (
                   <Grid item md={2} xs={6}>
-                    <Link href={Routes.REGISTER}>
+                    <Link href={Routes.REGISTER} passHref>
                       <Button
                         className={classes.button}
                         variant="contained"

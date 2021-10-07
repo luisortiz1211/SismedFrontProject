@@ -1,9 +1,10 @@
 import React from "react";
+import Image from "next/image";
 
 const Logo = () => {
   return (
     <>
-      <img alt="Logo" src="/public/logosismed1.png" {...props} />
+      <Image alt="Logo" src="/public/logosismed1.png" {...props} />
     </>
   );
 };

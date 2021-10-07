@@ -123,7 +123,12 @@ const AttentionPatient = () => {
                     display={{ xs: "none", sm: "block" }}
                     style={{ padding: "10px" }}
                   >
-                    <Image src="/logosismed2.png" width={150} height={150} />
+                    <Image
+                      src="/logosismed2.png"
+                      alt="Sismed"
+                      width={150}
+                      height={150}
+                    />
                   </Box>
                 </Grid>
               </Grid>
@@ -156,7 +161,7 @@ const AttentionPatient = () => {
                     <Grid container justifyContent="center">
                       <Grid item md={6} sm={3} xs={3}>
                         {" "}
-                        <Link href={`/scheduleDay/schedule`}>
+                        <Link href={`/scheduleDay/schedule`} passHref>
                           <Button
                             className={classes.button}
                             variant="contained"
@@ -196,7 +201,7 @@ const AttentionPatient = () => {
                       <Grid container justifyContent="center">
                         <Grid item md={6} sm={3} xs={3}>
                           {" "}
-                          <Link href={`/attentions`}>
+                          <Link href={`/attentions`} passHref>
                             <Button
                               className={classes.button}
                               variant="contained"
@@ -240,7 +245,7 @@ const AttentionPatient = () => {
                       <Grid container justifyContent="center">
                         <Grid item md={6} sm={3} xs={3}>
                           {" "}
-                          <Link href={`/report`}>
+                          <Link href={`/report`} passHref>
                             <Button
                               className={classes.button}
                               variant="contained"

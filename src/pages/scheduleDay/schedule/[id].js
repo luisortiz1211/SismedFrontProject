@@ -237,7 +237,12 @@ const RegisterCancel = ({ props }) => {
                     display={{ xs: "none", sm: "block" }}
                     style={{ padding: "10px" }}
                   >
-                    <Image src="/logosismed2.png" width={150} height={150} />
+                    <Image
+                      src="/logosismed2.png"
+                      alt="Sismed"
+                      width={150}
+                      height={150}
+                    />
                   </Box>
                 </Grid>
               </Grid>
@@ -361,7 +366,7 @@ const RegisterCancel = ({ props }) => {
                           justifyContent: "center",
                         }}
                       >
-                        <Link href={`/scheduleDay/schedule/`}>
+                        <Link href={`/scheduleDay/schedule/`} passHref>
                           <Button
                             className={classes.btnEdit}
                             variant="contained"
@@ -413,6 +418,7 @@ const RegisterCancel = ({ props }) => {
                           >
                             <Link
                               href={`/physicalExam/${data.schedule_day}/patient/${data.patient_id}`}
+                              passHref
                             >
                               <Button
                                 variant="contained"
@@ -450,7 +456,7 @@ const RegisterCancel = ({ props }) => {
                         <h2 id="transition-modal-title">
                           Cita cancelada, horario habilitado en agenda médica.
                         </h2>
-                        <Link href={`/scheduleDay/schedule`}>
+                        <Link href={`/scheduleDay/schedule`} passHref>
                           <Button
                             variant="contained"
                             type="submit"

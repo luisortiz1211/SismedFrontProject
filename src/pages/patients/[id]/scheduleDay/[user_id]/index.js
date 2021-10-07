@@ -220,6 +220,7 @@ const ScheduleShift = () => {
                                   <Grid item>
                                     <Link
                                       href={`/patients/${id}/scheduleDay/${user_id}/schedule/${row.schedule_id}`}
+                                      passHref
                                     >
                                       <Button
                                         variant="outlined"
