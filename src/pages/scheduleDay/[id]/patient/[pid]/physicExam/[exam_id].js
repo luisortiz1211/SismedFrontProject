@@ -137,4 +137,4 @@ const MedicalReview = ({ props }) => {
     </LayoutSecondary>
   );
 };
-export default withAuth(MedicalReview);
+export default MedicalReview;

@@ -123,7 +123,7 @@ const RegisterExam = () => {
                 />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <EmergencyContactNew />
+                <EmergencyContactNew patientID={id} />
               </TabPanel>
 
               <TabPanel value={value} index={2}>
@@ -148,4 +148,4 @@ const RegisterExam = () => {
     </LayoutSecondary>
   );
 };
-export default withAuth(RegisterExam);
+export default RegisterExam;

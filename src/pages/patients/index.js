@@ -269,23 +269,22 @@ const PatientsList = () => {
                                     ? "Unión libre"
                                     : "Montepio"
                                   : value}
-
-                                {user.roleUser !== "ROLE_ADMIN" ? (
-                                  column.id === "botonSelect" &&
-                                  column.label == "" ? (
-                                    <Grid
-                                      container
-                                      direction="row"
-                                      alignItems="center"
-                                      justifyContent="center"
+                                <Grid
+                                  container
+                                  direction="row"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                >
+                                  <Grid item>
+                                    <Link
+                                      href={`/patients/${row.patient_id}`}
+                                      as={`/patients/${row.patient_id}`}
+                                      key={row.patient_id}
+                                      passHref
                                     >
-                                      <Grid item>
-                                        <Link
-                                          href={`/patients/${row.patient_id}`}
-                                          as={`/patients/${row.patient_id}`}
-                                          key={row.patient_id}
-                                          passHref
-                                        >
+                                      {user.roleUser === "ROLE_ASSISTENT" ? (
+                                        column.id === "botonSelect" &&
+                                        column.label == "" ? (
                                           <Button
                                             variant="outlined"
                                             size="small"
@@ -294,15 +293,15 @@ const PatientsList = () => {
                                           >
                                             Agendar
                                           </Button>
-                                        </Link>
-                                      </Grid>
-                                    </Grid>
-                                  ) : (
-                                    ""
-                                  )
-                                ) : (
-                                  ""
-                                )}
+                                        ) : (
+                                          ""
+                                        )
+                                      ) : (
+                                        ""
+                                      )}
+                                    </Link>
+                                  </Grid>
+                                </Grid>
                               </TableCell>
                             );
                           })}

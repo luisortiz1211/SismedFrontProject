@@ -150,14 +150,13 @@ const ShiftSelect = () => {
     }
   };
   const handleSchedule = async (schedule_day) => {
-    setOpen(true);
     try {
       await Scheduleusers.update(`${user_day}`, {
         availableStatus: 1,
       });
     } catch (error) {
       if (error.response) {
-        alert(error.response.message);
+        // alert(error.response.message);
         console.log(error.response);
       } else if (error.request) {
         console.log(error.request);

@@ -121,6 +121,7 @@ const UserDetails = () => {
     try {
       await Users.update(`${id}`, {
         availableStatus: user.availableStatus,
+        email: user.email,
       });
     } catch (error) {
       if (error.response) {

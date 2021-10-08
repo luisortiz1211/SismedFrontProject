@@ -88,7 +88,7 @@ const schema = yup.object().shape({
     .max(8, "Deben ser 10 dígitos"),
 });
 
-export default function EmergencyContactNew() {
+export default function EmergencyContactNew({ patientID }) {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;

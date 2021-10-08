@@ -253,4 +253,4 @@ const Attentions = () => {
     </LayoutSecondary>
   );
 };
-export default withAuth(Attentions);
+export default Attentions;

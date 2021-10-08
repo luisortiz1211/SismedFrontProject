@@ -194,18 +194,18 @@ const ScheduleDayMedic = () => {
                       }}
                     >
                       {column.label}
-                      {user.roleUser === "ROLE_ADMIN" ? (
-                        column.id === "botonSelect" ? (
-                          <Grid
-                            container
-                            direction="row"
-                            alignItems="center"
-                            justifyContent="center"
-                          >
-                            <Link
-                              href={`/userSchedule/schedulenew/${id}/`}
-                              as={`/userSchedule/schedulenew/${id}/`}
-                            >
+                      <Grid
+                        container
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        <Link
+                          href={`/userSchedule/schedulenew/${id}/`}
+                          as={`/userSchedule/schedulenew/${id}/`}
+                        >
+                          {user.roleUser === "ROLE_ADMIN" ? (
+                            column.id === "botonSelect" ? (
                               <Button
                                 variant="outlined"
                                 size="small"
@@ -214,14 +214,14 @@ const ScheduleDayMedic = () => {
                               >
                                 Añadir
                               </Button>
-                            </Link>
-                          </Grid>
-                        ) : (
-                          ""
-                        )
-                      ) : (
-                        ""
-                      )}
+                            ) : (
+                              ""
+                            )
+                          ) : (
+                            ""
+                          )}
+                        </Link>
+                      </Grid>
                     </TableCell>
                   ))}
                 </TableRow>
@@ -248,21 +248,21 @@ const ScheduleDayMedic = () => {
                                   : "Asignado"
                                 : value}
 
-                              {user.roleUser === "ROLE_ADMIN" ? (
-                                column.id === "botonSelect" &&
-                                column.label == "" ? (
-                                  <Grid
-                                    container
-                                    direction="row"
-                                    alignItems="center"
-                                    justifyContent="center"
+                              <Grid
+                                container
+                                direction="row"
+                                alignItems="center"
+                                justifyContent="center"
+                              >
+                                <Grid item>
+                                  <Link
+                                    //es el numero de id en horarios usuarios
+                                    href={`/userSchedule/scheduleupdate/${row.schedule_id}`}
+                                    passHref
                                   >
-                                    <Grid item>
-                                      <Link
-                                        //es el numero de id en horarios usuarios
-                                        href={`/userSchedule/scheduleupdate/${row.schedule_id}`}
-                                        passHref
-                                      >
+                                    {user.roleUser === "ROLE_ADMIN" ? (
+                                      column.id === "botonSelect" &&
+                                      column.label == "" ? (
                                         <Button
                                           variant="outlined"
                                           size="small"
@@ -270,15 +270,15 @@ const ScheduleDayMedic = () => {
                                         >
                                           <BorderColorIcon />
                                         </Button>
-                                      </Link>
-                                    </Grid>
-                                  </Grid>
-                                ) : (
-                                  ""
-                                )
-                              ) : (
-                                ""
-                              )}
+                                      ) : (
+                                        ""
+                                      )
+                                    ) : (
+                                      ""
+                                    )}
+                                  </Link>
+                                </Grid>
+                              </Grid>
                             </TableCell>
                           );
                         })}

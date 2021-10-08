@@ -253,12 +253,12 @@ const PatientShift = () => {
                                   alignItems="center"
                                   justifyContent="center"
                                 >
-                                  {user.roleUser !== "ROLE_MEDIC" ? (
-                                    <Grid item>
-                                      <Link
-                                        href={`/scheduleDay/schedule/${row.schedule_id}`}
-                                        passHref
-                                      >
+                                  <Grid item>
+                                    <Link
+                                      href={`/scheduleDay/schedule/${row.schedule_id}`}
+                                      passHref
+                                    >
+                                      {user.roleUser !== "ROLE_MEDIC" ? (
                                         <Button
                                           variant="outlined"
                                           size="small"
@@ -267,11 +267,11 @@ const PatientShift = () => {
                                         >
                                           Continuar
                                         </Button>
-                                      </Link>
-                                    </Grid>
-                                  ) : (
-                                    ""
-                                  )}
+                                      ) : (
+                                        ""
+                                      )}
+                                    </Link>
+                                  </Grid>
                                 </Grid>
                               ) : (
                                 value

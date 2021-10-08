@@ -159,7 +159,6 @@ const EmergencyContactList = ({ patientID }) => {
   if (error)
     return (
       <div>
-        {" "}
         <ChargeInformation />
       </div>
     );

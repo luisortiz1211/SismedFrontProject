@@ -204,7 +204,7 @@ const ScheduleShift = () => {
                           return (
                             <TableCell key={array.id} align={array.align}>
                               {array.id === "availableStatus"
-                                ? row.availableStatus === 0
+                                ? row.availableStatus === false
                                   ? "Disponible"
                                   : "Asignado"
                                 : value}

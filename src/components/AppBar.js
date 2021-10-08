@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
   avatar1: {
     width: 30,
     height: 30,
-    fontSize: "135x",
+    fontSize: "14x",
     color: "#092435",
-    backgroundColor: "#4A92A8",
+    backgroundColor: "#fff",
   },
   avatar2: {
     width: 30,

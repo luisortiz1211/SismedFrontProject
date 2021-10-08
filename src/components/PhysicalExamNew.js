@@ -642,4 +642,4 @@ const PhysicalExamNew = ({ pid }) => {
     </CssBaseline>
   );
 };
-export default withAuth(PhysicalExamNew);
+export default PhysicalExamNew;

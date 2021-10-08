@@ -151,4 +151,4 @@ const PatientDetails = () => {
     </LayoutSecondary>
   );
 };
-export default withAuth(PatientDetails);
+export default PatientDetails;
