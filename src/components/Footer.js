@@ -79,7 +79,7 @@ const StickyFooter = () => {
   const classes = useStyles();
 
   return (
-    <>
+    <React.Fragment>
       <CssBaseline />
       <footer className={classes.footer}>
         <Grid
@@ -132,10 +132,10 @@ const StickyFooter = () => {
             </Typography>
           </Grid>
         </Grid>
-        <Copyright />
-        <Copyright1 />
       </footer>
-    </>
+      <Copyright />
+      <Copyright1 />
+    </React.Fragment>
   );
 };
 export default StickyFooter;
