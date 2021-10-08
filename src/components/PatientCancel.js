@@ -150,6 +150,8 @@ const PatientWait = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const { data, error } = useSWR(`/schedule_days/filter/state3`, fetcher);
+  //console.log("Pacientes cancelado", data);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -158,9 +160,6 @@ const PatientWait = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  const { data, error } = useSWR(`/schedule_days/filter/state3`, fetcher);
-  //console.log("Pacientes cancelado", data);
   if (error)
     return (
       <div>
@@ -203,12 +202,7 @@ const PatientWait = () => {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      //  tabIndex={-1}
-                      key={row.id}
-                    >
+                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                       {columns.map((array) => {
                         const value = row[array.id];
                         return (

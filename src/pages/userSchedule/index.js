@@ -194,13 +194,12 @@ const ScheduleMedic = () => {
                           const value = row[array.id];
                           return row.roleUser === "ROLE_MEDIC" ? (
                             <TableCell key={array.id} align={array.align}>
-                              {array.id && typeof value === "number"
-                                ? array.id === "availableStatus"
-                                  ? row.availableStatus === 0
-                                    ? "Desactivado"
-                                    : "Activo"
-                                  : value
-                                : value && array.id === "roleUser"
+                              {array.id === "availableStatus"
+                                ? row.availableStatus === false
+                                  ? "Desactivado"
+                                  : "Activo"
+                                : ""}
+                              {array.id === "roleUser"
                                 ? row.roleUser === "ROLE_MEDIC"
                                   ? "Médico"
                                   : "No asignado"
@@ -223,7 +222,7 @@ const ScheduleMedic = () => {
                                         variant="outlined"
                                         size="small"
                                         className={classes.btn}
-                                        disabled={row.availableStatus === 0}
+                                        disabled={row.availableStatus === false}
                                       >
                                         <ManageSearchIcon />
                                       </Button>

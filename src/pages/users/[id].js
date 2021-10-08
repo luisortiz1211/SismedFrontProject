@@ -27,6 +27,12 @@ import { useForm } from "react-hook-form";
 import { Users } from "src/api/user";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object().shape({
+  email: yup.string().email("Ingrese un email").required("Confirme el email"),
+});
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -89,7 +95,14 @@ const UserDetails = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { register, control, handleSubmit } = useForm();
+  const {
+    register,
+    formState: { errors },
+    control,
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const [open, setOpen] = useState(false);
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -240,28 +253,27 @@ const UserDetails = () => {
                     defaultValue={data.email}
                     className={classes.textField}
                     variant="outlined"
-                    //{...register("email")}
-                    InputProps={{
+                    {...register("email")}
+                    helperText={errors.email?.message}
+                    /*   InputProps={{
                       readOnly: true,
-                    }}
+                    }} */
                   />
                 </Grid>
                 <Grid item lg={3} sm={4} xs={12}>
                   <FormControl
-                    id="availableStatus"
                     label="Estado"
-                    name="availableStatus"
                     variant="outlined"
                     fullWidth
                     className={classes.textField}
                   >
                     <Select
-                      label="Estado"
+                      id="availableStatus"
                       {...register("availableStatus", { required: true })}
-                      defaultValue={data.availableStatus}
+                      defaultValue="1"
                     >
-                      <MenuItem value={`1`}>ACTIVO</MenuItem>
-                      <MenuItem value={`0`}>DESACTIVADO</MenuItem>
+                      <MenuItem value={`1`}>Activo</MenuItem>
+                      <MenuItem value={`0`}>Desactivado</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -433,17 +445,17 @@ const UserDetails = () => {
                         "  " +
                         "modificado con éxito"}
                     </h2>
-                    <Link href={`${Routes.USERS}`} passHref>
-                      <Button
-                        variant="contained"
-                        type="submit"
-                        size="small"
-                        style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                        className={classes.upgrade}
-                      >
-                        Aceptar
-                      </Button>
-                    </Link>
+
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      size="small"
+                      style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                      className={classes.upgrade}
+                      onClick={handleClose}
+                    >
+                      Aceptar
+                    </Button>
                   </div>
                 </Fade>
               </Modal>

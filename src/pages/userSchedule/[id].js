@@ -205,7 +205,6 @@ const ScheduleDayMedic = () => {
                             <Link
                               href={`/userSchedule/schedulenew/${id}/`}
                               as={`/userSchedule/schedulenew/${id}/`}
-                              passHref
                             >
                               <Button
                                 variant="outlined"
@@ -218,7 +217,7 @@ const ScheduleDayMedic = () => {
                             </Link>
                           </Grid>
                         ) : (
-                          "_"
+                          ""
                         )
                       ) : (
                         ""
@@ -243,12 +242,10 @@ const ScheduleDayMedic = () => {
                           const value = row[column.id];
                           return (
                             <TableCell key={column.id} align={column.align}>
-                              {column.id && typeof value === "number"
-                                ? column.id === "availableStatus"
-                                  ? row.availableStatus === 0
-                                    ? "Disponible"
-                                    : "Asignado"
-                                  : value
+                              {column.id === "availableStatus"
+                                ? row.availableStatus === false
+                                  ? "Disponible"
+                                  : "Asignado"
                                 : value}
 
                               {user.roleUser === "ROLE_ADMIN" ? (

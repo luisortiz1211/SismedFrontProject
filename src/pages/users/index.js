@@ -27,49 +27,56 @@ const columns = [
     label: "N°",
     minWidth: 10,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
+    fontSize: "16px",
   },
   {
     id: "name",
     label: "Nombres",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
+    fontSize: "16px",
   },
   {
     id: "lastName",
     label: "Apellido",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
+    fontSize: "16px",
   },
   {
     id: "email",
     label: "Correo",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
+    fontSize: "16px",
   },
   {
     id: "availableStatus",
     label: "Estado",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
+    fontSize: "16px",
   },
   {
     id: "roleUser",
     label: "Tipo",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
+    fontSize: "16px",
   },
   {
     id: "botonSelect",
     label: "",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
-    align: "left",
+    align: "center",
+    fontSize: "16px",
   },
 ];
 const useStyles = makeStyles((theme) => ({
@@ -99,7 +106,7 @@ const UserList = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const { data, error } = useSWR(`/users`, fetcher);
-  //console.log("lista de usuarios", data);
+  console.log("lista de usuarios", data);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -156,6 +163,7 @@ const UserList = () => {
                       style={{
                         minWidth: column.minWidth,
                         backgroundColor: column.backgroundColor,
+                        fontSize: column.fontSize,
                       }}
                     >
                       {column.label}
@@ -185,13 +193,7 @@ const UserList = () => {
                           const value = row[column.id];
                           return (
                             <TableCell key={column.id} align={column.align}>
-                              {column.id && typeof value === "number"
-                                ? column.id === "availableStatus"
-                                  ? row.availableStatus === 0
-                                    ? "Desactivado"
-                                    : "Activo"
-                                  : value
-                                : value && column.id === "roleUser"
+                              {column.id === "roleUser"
                                 ? row.roleUser === "ROLE_MEDIC"
                                   ? "Médico"
                                   : row.roleUser === "ROLE_ASSISTENT"
@@ -200,6 +202,12 @@ const UserList = () => {
                                   ? "Administrador"
                                   : "No asignado"
                                 : value}
+
+                              {column.id === "availableStatus"
+                                ? row.availableStatus === false
+                                  ? "Desactivado"
+                                  : "Activo"
+                                : ""}
 
                               {column.label == "" ? (
                                 <Grid
