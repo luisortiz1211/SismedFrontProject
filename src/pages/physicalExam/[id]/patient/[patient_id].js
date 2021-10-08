@@ -6,7 +6,6 @@ import PatientsInformation from "@/components/PatientUpdate";
 import PersonalHistoryNew from "@/components/PersonalHistoryNew";
 import PhysicalExamNew from "@/components/PhysicalExamNew";
 import Title from "@/components/Title";
-import withAuth from "@/hocs/withAuth";
 import { Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";

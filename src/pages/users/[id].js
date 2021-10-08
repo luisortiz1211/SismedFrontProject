@@ -213,6 +213,7 @@ const UserDetails = () => {
                     InputProps={{
                       readOnly: true,
                     }}
+                    {...register("name")}
                   />
                 </Grid>
                 <Grid item lg={3} sm={4} xs={12}>
@@ -226,6 +227,7 @@ const UserDetails = () => {
                     InputProps={{
                       readOnly: true,
                     }}
+                    {...register("lastName")}
                   />
                 </Grid>
               </Grid>{" "}
@@ -256,9 +258,6 @@ const UserDetails = () => {
                     variant="outlined"
                     {...register("email")}
                     helperText={errors.email?.message}
-                    /*   InputProps={{
-                      readOnly: true,
-                    }} */
                   />
                 </Grid>
                 <Grid item lg={3} sm={4} xs={12}>

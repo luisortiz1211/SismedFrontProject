@@ -291,7 +291,7 @@ const ReviewAttention = () => {
             labelRowsPerPage="Examenes:"
             rowsPerPageOptions={[10, 20, 50]}
             component="div"
-            count={columns.length}
+            count={data.data.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

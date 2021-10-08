@@ -278,9 +278,9 @@ const ScheduleDaySelect = () => {
           </TableContainer>
           <TablePagination
             labelRowsPerPage="Usuarios:"
-            rowsPerPageOptions={[7, 10, 25]}
+            rowsPerPageOptions={[10, 25]}
             component="div"
-            count={columns.length}
+            count={data.data.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

@@ -221,9 +221,9 @@ const PatientWait = () => {
         </TableContainer>
         <TablePagination
           labelRowsPerPage="Pacientes:"
-          rowsPerPageOptions={[10, 20, 50]}
+          rowsPerPageOptions={[10, 20]}
           component="div"
-          count={columns.length}
+          count={data.data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

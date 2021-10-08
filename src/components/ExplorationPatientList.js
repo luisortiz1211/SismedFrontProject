@@ -236,9 +236,9 @@ export default function ExplorationPatients({ patientID }) {
       </TableContainer>
       <TablePagination
         labelRowsPerPage="Pacientes:"
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[10, 25]}
         component="div"
-        count={data.meta}
+        count={data.data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

@@ -11,7 +11,13 @@ function Copyright() {
   const classes = useStyles();
   return (
     <div
-      style={{ backgroundColor: "#60CCD9", padding: "8px", color: "#092435" }}
+      style={{
+        backgroundColor: "#60CCD9",
+        padding: "8px",
+        color: "#092435",
+        display: "flex",
+        justifyContent: "center",
+      }}
     >
       <Typography variant="body2" align="center">
         {"Copyright © "}
@@ -27,7 +33,13 @@ function Copyright1() {
   const classes = useStyles();
   return (
     <div
-      style={{ backgroundColor: "#092435", padding: "5px", color: "#60CCD9" }}
+      style={{
+        backgroundColor: "#092435",
+        padding: "5px",
+        color: "#60CCD9",
+        display: "flex",
+        justifyContent: "center",
+      }}
     >
       <Typography variant="subtitle2" align="center">
         {"Desarrollado por Luis Ortiz "}
@@ -63,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 // Footer
-export default function StickyFooter() {
+const StickyFooter = () => {
   const classes = useStyles();
 
   return (
@@ -120,9 +132,10 @@ export default function StickyFooter() {
             </Typography>
           </Grid>
         </Grid>
+        <Copyright />
+        <Copyright1 />
       </footer>
-      <Copyright />
-      <Copyright1 />
     </>
   );
-}
+};
+export default StickyFooter;
