@@ -188,7 +188,7 @@ const Attentions = () => {
                           return row.roleUser === "ROLE_MEDIC" ? (
                             <TableCell key={array.id} align={array.align}>
                               {array.id === "availableStatus"
-                                ? row.availableStatus === 0
+                                ? row.availableStatus === false
                                   ? "Desactivado"
                                   : "Activo"
                                 : ""}
