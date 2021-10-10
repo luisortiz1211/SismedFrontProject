@@ -99,7 +99,7 @@ const Login = () => {
     //console.log("data", data);
     try {
       const userData = await login(data);
-      //console.log("userActive", userData);
+      console.log("userActive", userData);
     } catch (error) {
       if (error.response) {
         // The request was made and the server responded with a status code

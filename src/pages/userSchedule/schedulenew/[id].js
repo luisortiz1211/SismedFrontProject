@@ -159,7 +159,7 @@ const ScheduleNew = () => {
     }
   };
 
-  const { data, error } = useSWR(`/users/${id}/schedule_users/`, fetcher);
+  const { data, error } = useSWR(`/users/${id}/schedule_users`, fetcher);
   console.log("Nuevo horario", data);
   if (error)
     return (
