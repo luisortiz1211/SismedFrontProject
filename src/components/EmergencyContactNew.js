@@ -76,16 +76,16 @@ const schema = yup.object().shape({
   nameContact: yup.string().required("Ingrese el nombre de contacto"),
   movil: yup
     .string()
-    .length(9, "Deben ser 10 dígitos")
+    .length(9, "Deben ser 9 dígitos")
     .required()
     .matches(/^[0-9]+$/, "Ingrese solo números, exactamente 9 dígitos")
-    .max(9, "Deben ser 10 dígitos"),
+    .max(9, "Deben ser 9 dígitos"),
   landline: yup
     .string()
-    .length(8, "Deben ser 10 dígitos")
+    .length(8, "Deben ser 8 dígitos")
     .required()
     .matches(/^[0-9]+$/, "Ingrese solo números, exactamente 8 dígitos")
-    .max(8, "Deben ser 10 dígitos"),
+    .max(8, "Deben ser 8 dígitos"),
 });
 
 export default function EmergencyContactNew({ patientID }) {
