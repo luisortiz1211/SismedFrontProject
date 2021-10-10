@@ -5,7 +5,7 @@ async function getEmergencyContact(id) {
 }
 
 async function create(data, id) {
-  return await api.post(`patients/${id}/emergency_contacts/`, data);
+  return await api.post(`/patients/${id}/emergency_contacts`, data);
 }
 
 async function update(id, data) {

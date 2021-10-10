@@ -255,7 +255,7 @@ const PatientShift = () => {
                                 >
                                   <Grid item>
                                     <Link
-                                      href={`/scheduleDay/schedule/${row.schedule_id}`}
+                                      href={`/scheduleDay/schedule/${row.schedule_day}`}
                                       passHref
                                     >
                                       {user.roleUser !== "ROLE_MEDIC" ? (

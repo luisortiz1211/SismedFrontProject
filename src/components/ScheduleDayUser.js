@@ -213,13 +213,12 @@ const ScheduleDayUser = () => {
                       const value = row[array.id];
                       return row.roleUser === "ROLE_MEDIC" ? (
                         <TableCell key={array.id} align={array.align}>
-                          {array.id && typeof value === "number"
-                            ? array.id === "availableStatus"
-                              ? row.availableStatus === 0
-                                ? "Desactivado"
-                                : "Activo"
-                              : value
-                            : value && array.id === "roleUser"
+                          {array.id === "availableStatus"
+                            ? row.availableStatus === false
+                              ? "Desactivado"
+                              : "Activo"
+                            : ""}
+                          {array.id === "roleUser"
                             ? row.roleUser === "ROLE_MEDIC"
                               ? "Médico"
                               : "No asignado"
@@ -230,8 +229,8 @@ const ScheduleDayUser = () => {
                               <Grid item>
                                 <Link
                                   //direccionar para asignar un horario a un paciente
-                                  href={`/patients/${id}/scheduleDay/${row.id}/`}
-                                  as={`/patients/${id}/scheduleDay/${row.id}/`}
+                                  href={`/patients/${id}/scheduleDay/${row.id}`}
+                                  as={`/patients/${id}/scheduleDay/${row.id}`}
                                   passHref
                                 >
                                   <Button
@@ -239,7 +238,7 @@ const ScheduleDayUser = () => {
                                     size="small"
                                     className={classes.btnschedule}
                                     endIcon={<ScheduleSendIcon />}
-                                    disabled={row.availableStatus === 0}
+                                    disabled={row.availableStatus === false}
                                   >
                                     Ver horario
                                   </Button>

@@ -343,7 +343,7 @@ const ScheduleUpdate = () => {
                         </Link>
                       </Grid>
 
-                      {data.availableStatus === 0 ? (
+                      {data.availableStatus === false ? (
                         <>
                           <Grid
                             item

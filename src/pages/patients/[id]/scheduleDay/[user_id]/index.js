@@ -128,7 +128,7 @@ const ScheduleShift = () => {
     setPage(0);
   };
 
-  const { data, error } = useSWR(`/users/${user_id}}/schedule_users`, fetcher);
+  const { data, error } = useSWR(`/users/${user_id}/schedule_users`, fetcher);
   //console.log("Horarios médico", data);
   if (error)
     return (
@@ -226,7 +226,7 @@ const ScheduleShift = () => {
                                         size="small"
                                         className={classes.btnasign}
                                         endIcon={<AssignmentTurnedInIcon />}
-                                        disabled={row.availableStatus === 1}
+                                        disabled={row.availableStatus === true}
                                       >
                                         Asignar
                                       </Button>

@@ -341,7 +341,7 @@ export default function ExplorationPatientNew({ examID }) {
                 <TextField
                   id="neckExplo"
                   name="neckExplo"
-                  label="Revisión de cuello"
+                  label="Revisión de tórax"
                   className={classes.textField}
                   defaultValue="Inspección de área normal"
                   placeholder="Campo vacio no permitido"

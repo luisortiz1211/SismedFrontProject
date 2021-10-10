@@ -183,11 +183,6 @@ const UserList = () => {
                         role="checkbox"
                         tabIndex={-1}
                         key={row.id}
-                        style={
-                          colorLine % 2 == 0
-                            ? { backgroundColor: "#BBF0E8" }
-                            : { backgroundColor: "" }
-                        }
                       >
                         {columns.map((column) => {
                           const value = row[column.id];

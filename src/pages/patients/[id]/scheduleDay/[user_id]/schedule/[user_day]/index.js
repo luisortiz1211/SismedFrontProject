@@ -272,7 +272,9 @@ const ShiftSelect = () => {
                         name="availableStatus"
                         label="Estado"
                         defaultValue={
-                          data.availableStatus === 0 ? "Disponible" : "Asignado"
+                          data.availableStatus === false
+                            ? "Disponible"
+                            : "Asignado"
                         }
                         className={classes.textField}
                         variant="outlined"
@@ -347,7 +349,7 @@ const ShiftSelect = () => {
                         </Link>
                       </Grid>
 
-                      {data.availableStatus === 0 ? (
+                      {data.availableStatus === false ? (
                         <Grid
                           item
                           md={3}

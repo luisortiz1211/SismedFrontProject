@@ -5,7 +5,7 @@ async function getPersonalHistory(id) {
 }
 
 async function create(data, id) {
-  return await api.post(`/patients/${id}/personal_histories/`, data);
+  return await api.post(`/patients/${id}/personal_histories`, data);
 }
 
 async function update(id, data) {

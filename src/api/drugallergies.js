@@ -5,7 +5,7 @@ async function getDrugAllergie(id) {
 }
 
 async function create(data, id) {
-  return await api.post(`patients/${id}/drug_allergies/`, data);
+  return await api.post(`/patients/${id}/drug_allergies`, data);
 }
 
 async function update(id, data) {
