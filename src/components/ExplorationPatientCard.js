@@ -45,7 +45,7 @@ export default function ExplorationPatientCard({ patientID }) {
   };
 
   const { data, error } = useSWR(`/exploration_patients/${patientID}`, fetcher);
-  //console.log("exploracion del paciente", data);
+  console.log("exploracion del paciente", data);
   if (error)
     return <div> No se puede mostrar el examen físico o no contiene </div>;
   if (!data) return <Loading />;

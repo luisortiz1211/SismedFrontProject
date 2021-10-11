@@ -35,7 +35,7 @@ export default function DrugsRecipieCard({ patientID }) {
   const classes = useStyles();
 
   const { data, error } = useSWR(`/drugs_recipies/${patientID}`, fetcher);
-  //console.log("Receta del paciente", data);
+  console.log("Receta del paciente", data);
   if (error) return <div> No se puede mostrar medicamentos o no contiene </div>;
   if (!data) return <Loading />;
 

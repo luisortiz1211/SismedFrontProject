@@ -117,7 +117,7 @@ const FamilyHistories = ({ patientID }) => {
     `/patients/${patientID}/family_histories`,
     fetcher
   );
-  //console.log("emergencyContacts", data);
+  console.log("emergencyContacts", data);
   if (error)
     return (
       <div>

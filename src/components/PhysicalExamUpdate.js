@@ -222,11 +222,11 @@ const PhysicalExamUpdate = ({ examID }) => {
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
               <TextField
-                id="user_id"
-                name="user_id"
-                label="Registrado por"
+                id="physicalExam_id"
+                name="physicalExam_id"
+                label="#Examen físico"
                 className={classes.textField}
-                defaultValue={data.user_id}
+                defaultValue={data.physicalExam_id}
                 //required
                 disabled
                 variant="outlined"

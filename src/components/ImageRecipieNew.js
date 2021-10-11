@@ -82,7 +82,7 @@ const schema = yup.object().shape({
   nameImageRecipie: yup.string().required("Ingrese el nombre del medicamento"),
 });
 
-export default function ImageRecipieNew({ props }) {
+export default function ImageRecipieNew({ examID, pid }) {
   const classes = useStyles();
   const router = useRouter();
   const { id, exam_id } = router.query;
@@ -115,10 +115,10 @@ export default function ImageRecipieNew({ props }) {
       const userData = {
         ...formData,
         patient_id: id,
-        exploration_id: exam_id,
+        exploration_id: examID,
       };
       const response = await Imagerecipies.create(userData);
-      //console.log("Nuevo examen registrado", response);
+      console.log("Nuevo examen registrado", response);
       setResult("New exam register");
       reset();
     } catch (error) {
@@ -163,9 +163,9 @@ export default function ImageRecipieNew({ props }) {
               <TextField
                 id="id"
                 name="id"
-                label="# Historia clínica"
+                label="# Exploración"
                 className={classes.textField}
-                defaultValue={id}
+                defaultValue={examID}
                 //required
                 variant="outlined"
                 disabled

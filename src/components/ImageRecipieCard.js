@@ -35,7 +35,7 @@ export default function ImageRecipieCard({ patientID }) {
   const classes = useStyles();
 
   const { data, error } = useSWR(`/image_recipies/${patientID}`, fetcher);
-  //console.log("Pedido de imagen paciente", data);
+  console.log("Pedido de imagen paciente", data);
   if (error)
     return <div> No se puede mostrar pedido de imagen o no contiene </div>;
   if (!data) return <Loading />;

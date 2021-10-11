@@ -71,10 +71,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MedicalReview = ({ props }) => {
+const MedicalImage = ({ props }) => {
   const classes = useStyles();
   const router = useRouter();
-  const { id, pid, exam_id } = router.query;
+  const { id, pid, exam_id, recipie_id } = router.query;
 
   const [value, setValue] = useState(0);
 
@@ -93,7 +93,7 @@ const MedicalReview = ({ props }) => {
               top: "6px",
             }}
           />
-          Revisión médica
+          Revisión médica (Medicación)
         </Title>
         <Paper elevation={6} style={{ padding: "10px", margin: "20px" }}>
           <Container>
@@ -109,19 +109,15 @@ const MedicalReview = ({ props }) => {
                   allowScrollButtonsMobile
                   aria-label="scrollable auto tabs example"
                 >
-                  <Tab label="Examen físico" {...a11yProps(0)} />
-                  <Tab label="Exploración" {...a11yProps(1)} />
-                  <Tab label="Medicamentos/Imagen" {...a11yProps(2)} />
+                  <Tab label="Imagen" {...a11yProps(0)} />
+                  <Tab label="Medicamento" {...a11yProps(1)} />
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
-                <PhysicalExamUpdate examID={exam_id} />
+                <ImageRecipieNew examID={recipie_id} pid={pid} />
               </TabPanel>
               <TabPanel value={value} index={1}>
-                <ExplorationPatientNew examID={exam_id} />
-              </TabPanel>
-              <TabPanel value={value} index={2}>
-                <ExplorationPatientAttentions patientID={pid} />
+                <DrugsRecipieNew examID={recipie_id} pid={pid} />
               </TabPanel>
             </Box>
           </Container>
@@ -130,4 +126,4 @@ const MedicalReview = ({ props }) => {
     </LayoutSecondary>
   );
 };
-export default MedicalReview;
+export default MedicalImage;
