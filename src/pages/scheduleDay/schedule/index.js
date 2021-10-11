@@ -240,6 +240,15 @@ const PatientShift = () => {
                         role="checkbox"
                         //  tabIndex={-1}
                         key={row.id}
+                        style={
+                          row.scheduleDayState === "atendido"
+                            ? { backgroundColor: "#FFE082" }
+                            : row.scheduleDayState === "pendiente"
+                            ? { backgroundColor: "#FFCDD2" }
+                            : row.scheduleDayState === "registrado"
+                            ? { backgroundColor: "#C5E1A5" }
+                            : { backgroundColor: "#FFF" }
+                        }
                       >
                         {columns.map((array) => {
                           const value = row[array.id];
@@ -263,6 +272,9 @@ const PatientShift = () => {
                                           variant="outlined"
                                           size="small"
                                           className={classes.btn}
+                                          disabled={
+                                            row.scheduleDayState === "atendido"
+                                          }
                                           endIcon={<KeyboardArrowRightIcon />}
                                         >
                                           Continuar

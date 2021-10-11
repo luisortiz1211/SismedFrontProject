@@ -275,16 +275,16 @@ const PatientsList = () => {
                                   alignItems="center"
                                   justifyContent="center"
                                 >
-                                  <Grid item>
-                                    <Link
-                                      href={`/patients/${row.patient_id}`}
-                                      as={`/patients/${row.patient_id}`}
-                                      key={row.patient_id}
-                                      passHref
-                                    >
-                                      {user.roleUser === "ROLE_ASSISTENT" ? (
-                                        column.id === "botonSelect" &&
-                                        column.label == "" ? (
+                                  {user.roleUser === "ROLE_ASSISTENT" ? (
+                                    column.id === "botonSelect" &&
+                                    column.label == "" ? (
+                                      <Grid item>
+                                        <Link
+                                          href={`/patients/${row.patient_id}`}
+                                          as={`/patients/${row.patient_id}`}
+                                          key={row.patient_id}
+                                          passHref
+                                        >
                                           <Button
                                             variant="outlined"
                                             size="small"
@@ -293,14 +293,14 @@ const PatientsList = () => {
                                           >
                                             Agendar
                                           </Button>
-                                        ) : (
-                                          ""
-                                        )
-                                      ) : (
-                                        ""
-                                      )}
-                                    </Link>
-                                  </Grid>
+                                        </Link>
+                                      </Grid>
+                                    ) : (
+                                      ""
+                                    )
+                                  ) : (
+                                    ""
+                                  )}
                                 </Grid>
                               </TableCell>
                             );
