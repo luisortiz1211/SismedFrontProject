@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 const MedicalHistory = () => {
   const classes = useStyles();
   const router = useRouter();
-  const { id, explo_id } = router.query;
+  const { id, explo_id, exam_id } = router.query;
 
   return (
     <LayoutSecondary>
@@ -64,7 +64,7 @@ const MedicalHistory = () => {
           >
             <Grid item>
               {" "}
-              <PhysicalExamCard patientID={explo_id} />
+              <PhysicalExamCard patientID={exam_id} />
             </Grid>
             <Grid item>
               {" "}

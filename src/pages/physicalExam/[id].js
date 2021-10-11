@@ -1,13 +1,9 @@
 import DrugAllergieNew from "@/components/DrugAllergieNew";
-import DrugsRecipieNew from "@/components/DrugsRecipieNew";
 import EmergencyContactNew from "@/components/EmergencyContactNew";
-import ExplorationPatientNew from "@/components/ExplorationPatientNew";
 import FamilyHistoryNew from "@/components/FamilyHistoryNew";
-import ImageRecipieNew from "@/components/ImageRecipieNew";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import PatientsInformation from "@/components/PatientUpdate";
 import PersonalHistoryNew from "@/components/PersonalHistoryNew";
-import PhysicalExamNew from "@/components/PhysicalExamNew";
 import Title from "@/components/Title";
 import withAuth from "@/hocs/withAuth";
 import { Paper } from "@material-ui/core";

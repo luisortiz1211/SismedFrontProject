@@ -136,7 +136,7 @@ const ScheduleDaySelect = () => {
   };
 
   const { data, error } = useSWR(`/users/${id}/schedule_users`, fetcher);
-  //console.log("Horarios médico", data);
+  console.log("Horarios médico", data);
   if (error)
     return (
       <div>

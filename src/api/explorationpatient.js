@@ -5,7 +5,7 @@ async function getExplorationPatient(id) {
 }
 
 async function create(data, id) {
-  return await api.post(`/patients/${id}/exploration_patients`, data);
+  return await api.post(`/physical_exams/${id}/exploration_patients`, data);
 }
 
 async function update(id, data) {

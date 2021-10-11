@@ -151,7 +151,7 @@ const PatientWait = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const { data, error } = useSWR(`/schedule_days/filter/state3`, fetcher);
-  //console.log("Pacientes cancelado", data);
+  console.log("Pacientes cancelado", data);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };

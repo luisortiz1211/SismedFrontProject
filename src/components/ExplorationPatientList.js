@@ -211,7 +211,7 @@ export default function ExplorationPatients({ patientID }) {
                               >
                                 <Grid item>
                                   <Button
-                                    href={`/medicalHistory/${id}/physicalExam/${row.physicalExam_id}`}
+                                    href={`/medicalHistory/${id}/physicalExam/${row.physicalExam_id}/exploration/${row.explorationPatient_id}`}
                                     variant="outlined"
                                     size="small"
                                     className={classes.btnview}

@@ -190,7 +190,7 @@ export default function ExplorationPatientNew({ examID }) {
                 name="id"
                 label="# Historia clínica"
                 className={classes.textField}
-                defaultValue={id}
+                defaultValue={pid}
                 //required
                 disabled
                 variant="outlined"

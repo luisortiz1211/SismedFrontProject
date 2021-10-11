@@ -43,7 +43,7 @@ export default function PhysicalExamCard({ patientID }) {
   };
 
   const { data, error } = useSWR(`/physical_exams/${patientID}`, fetcher);
-  //console.log("examen fisicos", data);
+  console.log("examen fisicos", data);
   if (error) return <div> No se puede mostrar el examen físico </div>;
   if (!data) return <Loading />;
 

@@ -5,7 +5,7 @@ async function getDrugsRecipie(id) {
 }
 
 async function create(data, id) {
-  return await api.post(`/patients/${id}/drugs_recipies`, data);
+  return await api.post(`exploration_patients/${id}/drugs_recipies`, data);
 }
 
 async function update(id, data) {

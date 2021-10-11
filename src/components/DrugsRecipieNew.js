@@ -81,7 +81,7 @@ const schema = yup.object().shape({
     .required("Ingrese el nombre del pedido de imagen"),
 });
 
-export default function DrugsRecipieNew({ props }) {
+export default function DrugsRecipieNew({ examID, pid }) {
   const classes = useStyles();
   const router = useRouter();
   const { id, exam_id } = router.query;
@@ -113,11 +113,11 @@ export default function DrugsRecipieNew({ props }) {
     try {
       const userData = {
         ...formData,
-        exploration_id: exam_id,
+        exploration_id: examID,
         patient_id: id,
       };
       const response = await Drugsrecipies.create(userData);
-      //console.log("Nuevo medicamento registrado", response);
+      console.log("Nuevo medicamento registrado", response);
       setResult("New recipie register");
       reset();
     } catch (error) {
@@ -160,9 +160,9 @@ export default function DrugsRecipieNew({ props }) {
               <TextField
                 id="id"
                 name="id"
-                label="# Historia clínica"
+                label="# Exploración"
                 className={classes.textField}
-                defaultValue={id}
+                defaultValue={examID}
                 disabled
                 variant="outlined"
                 {...register("exploration_id")}
