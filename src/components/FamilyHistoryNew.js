@@ -1,6 +1,12 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CssBaseline, Fade } from "@material-ui/core";
+import {
+  CssBaseline,
+  Fade,
+  FormControl,
+  Select,
+  MenuItem,
+} from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
@@ -67,10 +73,6 @@ const schema = yup.object().shape({
     .required("Ingrese solo el número de años")
     .matches(/^[0-9]+$/, "Ingrese solo números")
     .max(2, "Máximo 2 dígitos"),
-  commentCondition: yup
-    .string()
-    .required("Ingrese máximo 100 caracteres")
-    .max(100, "Máximo 100 caracteres"),
 });
 
 export default function FamilyHistoryNew({ props }) {
@@ -210,17 +212,24 @@ export default function FamilyHistoryNew({ props }) {
               />
             </Grid>
             <Grid item lg={6} sm={6} xs={12}>
-              <TextField
-                id="commentCondition"
-                name="commentCondition"
-                label="Comentario"
-                className={classes.textField}
-                defaultValue=""
-                required
+              <FormControl
                 variant="outlined"
-                {...register("commentCondition")}
-                helperText={errors.commentCondition?.message}
-              />
+                label="Parentesco"
+                fullWidth
+                className={classes.textField}
+              >
+                <Select
+                  id="commentCondition"
+                  {...register("commentCondition")}
+                  defaultValue="Padre/Madre"
+                >
+                  <MenuItem value={`Padre/Madre`}>Padre/Madre</MenuItem>
+                  <MenuItem value={`Abuelo/Abuela`}>Abuelo/Abuela</MenuItem>
+                  <MenuItem value={`Hermano/Hermana`}>Hermano/Hermana</MenuItem>
+                  <MenuItem value={`Tío/Tía`}>Tío/Tía</MenuItem>
+                  <MenuItem value={`Primos`}>Primos</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
           </Grid>
           <Divider

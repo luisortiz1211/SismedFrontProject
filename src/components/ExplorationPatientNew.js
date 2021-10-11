@@ -78,16 +78,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const schema = yup.object().shape({
-  headExplo: yup.string().max(200, "Máximo 200 caracteres"),
-  chestExplo: yup.string().max(200, "Máximo 200 caracteres"),
-  extremitiesExplo: yup.string().max(200, "Máximo 200 caracteres"),
-  neckExplo: yup.string().max(200, "Máximo 200 caracteres"),
-  stomachExplo: yup.string().max(200, "Máximo 200 caracteres"),
-  genitalsExplo: yup.string().max(200, "Máximo 200 caracteres"),
-  forecastExplo: yup.string().max(200, "Máximo 200 caracteres"),
-  diagnosisExplo: yup.string().max(200, "Máximo 200 caracteres"),
-  treatmentExplo: yup.string().max(200, "Máximo 200 caracteres"),
-  commentExplo: yup.string().max(200, "Máximo 200 caracteres"),
+  headExplo: yup.string().max(500, "Máximo 500 caracteres"),
+  chestExplo: yup.string().max(500, "Máximo 500 caracteres"),
+  extremitiesExplo: yup.string().max(500, "Máximo 500 caracteres"),
+  neckExplo: yup.string().max(500, "Máximo 500 caracteres"),
+  stomachExplo: yup.string().max(500, "Máximo 500 caracteres"),
+  genitalsExplo: yup.string().max(500, "Máximo 500 caracteres"),
+  forecastExplo: yup.string().max(500, "Máximo 500 caracteres"),
+  diagnosisExplo: yup.string().max(500, "Máximo 500 caracteres"),
+  treatmentExplo: yup.string().max(500, "Máximo 500 caracteres"),
+  commentExplo: yup.string().max(500, "Máximo 500 caracteres"),
 });
 
 export default function ExplorationPatientNew({ examID }) {
@@ -144,7 +144,7 @@ export default function ExplorationPatientNew({ examID }) {
         patient_id: pid,
       };
       const response = await Explorationpatients.create(userData);
-      //console.log("Nueva exploración registrado", response);
+      console.log("Nueva exploración registrado", response);
       setResult("Exploration patient properly register");
       reset();
     } catch (error) {
@@ -262,7 +262,7 @@ export default function ExplorationPatientNew({ examID }) {
                   name="headExplo"
                   label="Revisión de cabeza"
                   className={classes.textField}
-                  defaultValue="Inspección de área normal"
+                  defaultValue="Normal"
                   placeholder="Campo vacio no permitido"
                   required
                   variant="outlined"
@@ -283,7 +283,7 @@ export default function ExplorationPatientNew({ examID }) {
                   name="chestExplo"
                   label="Revisión de pecho"
                   className={classes.textField}
-                  defaultValue="Inspección de área normal"
+                  defaultValue="Normal"
                   placeholder="Campo vacio no permitido"
                   required
                   variant="outlined"
@@ -322,7 +322,7 @@ export default function ExplorationPatientNew({ examID }) {
                   name="extremitiesExplo"
                   label="Revisión en extremidades"
                   className={classes.textField}
-                  defaultValue="Inspección de área normal"
+                  defaultValue="Normal"
                   placeholder="Campo vacio no permitido"
                   required
                   variant="outlined"
@@ -343,7 +343,7 @@ export default function ExplorationPatientNew({ examID }) {
                   name="neckExplo"
                   label="Revisión de tórax"
                   className={classes.textField}
-                  defaultValue="Inspección de área normal"
+                  defaultValue="Normal"
                   placeholder="Campo vacio no permitido"
                   required
                   variant="outlined"
@@ -380,9 +380,9 @@ export default function ExplorationPatientNew({ examID }) {
                 <TextField
                   id="stomachExplo"
                   name="stomachExplo"
-                  label="Revisión de cuello"
+                  label="Revisión de estomago"
                   className={classes.textField}
-                  defaultValue="Inspección de área normal"
+                  defaultValue="Normal"
                   placeholder="Campo vacio no permitido"
                   required
                   variant="outlined"
@@ -403,7 +403,7 @@ export default function ExplorationPatientNew({ examID }) {
                   name="genitalsExplo"
                   label="Revisión genitales"
                   className={classes.textField}
-                  defaultValue="Inspección de área normal"
+                  defaultValue="Normal"
                   placeholder="Campo vacio no permitido"
                   required
                   variant="outlined"
@@ -440,9 +440,9 @@ export default function ExplorationPatientNew({ examID }) {
                 <TextField
                   id="forecastExplo"
                   name="forecastExplo"
-                  label="Pronostico"
+                  label="Enfermedad actual"
                   className={classes.textField}
-                  defaultValue="Inspección de área normal"
+                  defaultValue="Normal"
                   placeholder="Campo vacio no permitido"
                   required
                   {...register("forecastExplo")}
@@ -460,9 +460,9 @@ export default function ExplorationPatientNew({ examID }) {
                 <TextField
                   id="diagnosisExplo"
                   name="diagnosisExplo"
-                  label="Diagnostico"
+                  label="Diagnostico presuntivo"
                   className={classes.textField}
-                  defaultValue="Inspección de área normal"
+                  defaultValue="Normal"
                   placeholder="Campo vacio no permitido"
                   required
                   variant="outlined"
@@ -501,7 +501,7 @@ export default function ExplorationPatientNew({ examID }) {
                   name="treatmentExplo"
                   label="Tratamiento"
                   className={classes.textField}
-                  defaultValue="Inspección de área normal"
+                  defaultValue="Normal"
                   placeholder="Campo vacio no permitido"
                   required
                   variant="outlined"
@@ -523,7 +523,7 @@ export default function ExplorationPatientNew({ examID }) {
                   name="commentExplo"
                   label="Comentarios"
                   className={classes.textField}
-                  defaultValue="Inspección de área normal"
+                  defaultValue="Normal"
                   placeholder="Campo vacio no permitido"
                   required
                   variant="outlined"

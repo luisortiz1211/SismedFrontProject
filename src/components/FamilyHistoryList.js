@@ -43,7 +43,7 @@ const columns = [
   },
   {
     id: "commentCondition",
-    label: "Observación",
+    label: "Parentesco",
     minWidth: 15,
     backgroundColor: "#BBF0E8",
     align: "center",
