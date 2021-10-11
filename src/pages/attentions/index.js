@@ -217,7 +217,7 @@ const Attentions = () => {
                                         style={{
                                           background: "#60CCD9",
                                         }}
-                                        disabled={row.availableStatus === 0}
+                                        disabled={row.availableStatus === false}
                                       >
                                         <ManageSearchIcon />
                                       </Button>
