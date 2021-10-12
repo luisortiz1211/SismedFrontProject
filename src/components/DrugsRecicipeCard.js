@@ -34,7 +34,10 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function DrugsRecipieCard({ patientID }) {
   const classes = useStyles();
 
-  const { data, error } = useSWR(`/drugs_recipies/${patientID}`, fetcher);
+  const { data, error } = useSWR(
+    `/exploration_patients/${patientID}/drugs_recipies`,
+    fetcher
+  );
   console.log("Receta del paciente", data);
   if (error) return <div> No se puede mostrar medicamentos o no contiene </div>;
   if (!data) return <Loading />;
@@ -149,7 +152,7 @@ export default function DrugsRecipieCard({ patientID }) {
               </Grid>
               <Grid item xs={7}>
                 <Item>
-                  <p>{data.created_at}</p>
+                  <p>{data.data.created_at}</p>
                 </Item>
               </Grid>{" "}
             </Grid>

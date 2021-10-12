@@ -34,7 +34,10 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function ImageRecipieCard({ patientID }) {
   const classes = useStyles();
 
-  const { data, error } = useSWR(`/image_recipies/${patientID}`, fetcher);
+  const { data, error } = useSWR(
+    `/exploration_patients/${patientID}/image_recipies`,
+    fetcher
+  );
   console.log("Pedido de imagen paciente", data);
   if (error)
     return <div> No se puede mostrar pedido de imagen o no contiene </div>;
