@@ -70,6 +70,7 @@ const MedicalHistory = () => {
               {" "}
               <ExplorationPatientCard patientID={explo_id} />
             </Grid>
+
             <Grid item md={6}>
               {" "}
               <DrugsRecipieCard patientID={explo_id} />

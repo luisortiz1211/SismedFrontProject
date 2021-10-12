@@ -206,19 +206,27 @@ export default function ExplorationPatients({ patientID }) {
                                 component={"span"}
                                 container
                                 direction="row"
-                                alignItems="center"
+                                alignItems="spacing-around"
                                 justifyContent="center"
+                                spacing={2}
                               >
-                                <Grid item>
+                                <Grid item xs={6}>
                                   <Button
                                     href={`/medicalHistory/${id}/physicalExam/${row.physicalExam_id}/exploration/${row.explorationPatient_id}`}
                                     variant="outlined"
                                     size="small"
                                     className={classes.btnview}
                                     startIcon={<FindInPageIcon />}
-                                  >
-                                    Historia
-                                  </Button>
+                                  ></Button>
+                                </Grid>
+                                <Grid item xs={6}>
+                                  <Button
+                                    href={`/recipies/${patientID}/exploration/${row.explorationPatient_id}`}
+                                    variant="outlined"
+                                    size="small"
+                                    className={classes.btnview}
+                                    startIcon={<FindInPageIcon />}
+                                  ></Button>
                                 </Grid>
                               </Grid>
                             ) : (
