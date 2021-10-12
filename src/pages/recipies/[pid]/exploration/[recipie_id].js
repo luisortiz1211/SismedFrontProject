@@ -97,7 +97,7 @@ const RecipiesDetails = () => {
               top: "6px",
             }}
           />
-          Historia clínica (Información)
+          Historia clínica (Medicamentos)
         </Title>
         <Paper elevation={6} style={{ padding: "10px", margin: "20px" }}>
           <Container>
