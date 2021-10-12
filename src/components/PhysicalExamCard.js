@@ -176,9 +176,7 @@ export default function PhysicalExamCard({ patientID }) {
                     variant="subtitle2"
                     color="#092435"
                   >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Diametro de cintura :{" "}
-                    </p>
+                    <p style={{ position: "relative", left: "30px" }}>IMC : </p>
                   </Typography>
                 </Item>
               </Grid>
