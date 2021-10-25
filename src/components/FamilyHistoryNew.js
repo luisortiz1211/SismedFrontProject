@@ -67,7 +67,7 @@ const schema = yup.object().shape({
     .max(2, "Máximo 2 dígitos"),
 });
 
-export default function FamilyHistoryNew({ props }) {
+export default function FamilyHistoryNew() {
   const classes = useStyles();
   const router = useRouter();
   const { id } = router.query;
@@ -207,12 +207,12 @@ export default function FamilyHistoryNew({ props }) {
                   defaultValue={`1`}
                 >
                   <MenuItem value={`1`}>1 Año</MenuItem>
-                  <MenuItem value={`2`}>2 Año</MenuItem>
-                  <MenuItem value={`3`}>3 Año</MenuItem>
-                  <MenuItem value={`4`}>4 Año</MenuItem>
-                  <MenuItem value={`5`}>5 Año</MenuItem>
-                  <MenuItem value={`10`}>Mas de 5 Año</MenuItem>
-                  <MenuItem value={`15`}>Mas de 10 1 Año</MenuItem>
+                  <MenuItem value={`2`}>2 Años</MenuItem>
+                  <MenuItem value={`3`}>3 Años</MenuItem>
+                  <MenuItem value={`4`}>4 Años</MenuItem>
+                  <MenuItem value={`5`}>5 Años</MenuItem>
+                  <MenuItem value={`10`}>Mas de 5 Años</MenuItem>
+                  <MenuItem value={`15`}>Mas de 10 Años</MenuItem>
                   <MenuItem value={`20`}>Permanente</MenuItem>
                 </Select>
               </FormControl>
