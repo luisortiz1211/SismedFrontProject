@@ -1,4 +1,4 @@
-import { useAuth } from "@/lib/auth";
+import { useAuth } from "@/contexts/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Paper, TextField } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
