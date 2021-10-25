@@ -1,4 +1,4 @@
-import { useAuth } from "@/contexts/auth";
+/* import { useAuth } from "@/contexts/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Paper, TextField } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
@@ -64,6 +64,7 @@ const ResetPasswordPage = () => {
   });
 
   const { enqueueSnackbar } = useSnackbar();
+
   const handleClick = (message, variant) => {
     enqueueSnackbar(message, {
       variant: variant,
@@ -144,7 +145,7 @@ const ResetPasswordPage = () => {
                 <Grid xs={12} item>
                   <TextField
                     id="email"
-                    name="email"
+                   
                     type="email"
                     label="Correo electrónico"
                     color="secondary"
@@ -222,3 +223,4 @@ const ResetPasswordPage = () => {
 };
 
 export default ResetPasswordPage;
+ */
