@@ -27,13 +27,13 @@ import SaveIcon from "@mui/icons-material/Save";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Scheduleusers } from "src/api/scheduleuser";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import * as yup from "yup";
-import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -114,7 +114,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-//const moment = require("moment");
 
 const schema = yup.object().shape({
   startTime: yup.string().required("Ingrese la hora de inicio"),
@@ -128,7 +127,7 @@ const ScheduleNew = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-  
+
   const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const router = useRouter();

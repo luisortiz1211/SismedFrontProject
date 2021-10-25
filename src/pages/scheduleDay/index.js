@@ -1,24 +1,21 @@
 import Layout from "@/components/Layoutmain";
 import Title from "@/components/Title";
-import Routes from "@/constants/routes";
+import withAuth from "@/hocs/withAuth";
 import {
   Box,
   Button,
-  CssBaseline,
-  Divider,
-  Grid,
+  CssBaseline, Grid,
   Link,
-  Paper,
+  Paper
 } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import Image from "next/image";
 import React from "react";
-import AnalyticsIcon from "@mui/icons-material/Analytics";
-import withAuth from "@/hocs/withAuth";
 import { useAuth } from "src/contexts/auth";
 
 const useStyles = makeStyles((theme) => ({

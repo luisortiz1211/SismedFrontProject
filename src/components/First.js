@@ -13,9 +13,9 @@ import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useAuth } from "src/contexts/auth";
 import Routes from "../constants/routes";
 import withAuth from "./../hocs/withAuth";
-import { useAuth } from "src/contexts/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {

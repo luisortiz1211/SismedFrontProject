@@ -13,13 +13,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import SaveIcon from "@mui/icons-material/Save";
 import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Patients } from "src/api/patient";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import * as yup from "yup";
-import { useSnackbar } from "notistack";
 
 const schema = yup.object().shape({
   name: yup.string().required("Ingrese nombre del paciente"),

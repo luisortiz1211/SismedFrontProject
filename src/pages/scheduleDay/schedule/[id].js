@@ -11,7 +11,7 @@ import {
   Fade,
   Grid,
   Modal,
-  TextField,
+  TextField
 } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";

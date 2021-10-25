@@ -1,10 +1,9 @@
-import React from "react";
+import { Box, Grid, Link as MuiLink, Typography } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
-import { Container, Typography, Grid, Box } from "@material-ui/core";
 import Image from "next/image";
 import Link from "next/link";
-import { Link as MuiLink } from "@material-ui/core";
+import React from "react";
 
 // Subtitulos del footer
 function Copyright() {

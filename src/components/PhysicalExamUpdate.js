@@ -2,26 +2,24 @@ import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
 import Loading from "@/components/Loading";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CssBaseline, Fade } from "@material-ui/core";
+import { CssBaseline } from "@material-ui/core";
 import { FormControl, MenuItem, Select } from "@material-ui/core/";
-import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import SaveIcon from "@mui/icons-material/Save";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useSnackbar } from "notistack";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Physicalexams } from "src/api/physicalexam";
 import { fetcher } from "src/api/utils";
 import { useAuth } from "src/contexts/auth";
 import useSWR from "swr";
 import * as yup from "yup";
-import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {

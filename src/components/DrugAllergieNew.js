@@ -19,7 +19,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Drugallergies } from "src/api/drugallergies";
 import * as yup from "yup";
-import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   form: {

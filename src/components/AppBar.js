@@ -1,11 +1,10 @@
-import { useAuth } from "src/contexts/auth";
 import {
   AppBar,
   Box,
   Button,
   Grid,
   Link as MuiLink,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,6 +13,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useAuth } from "src/contexts/auth";
 import Routes from "../constants/routes";
 
 const useStyles = makeStyles((theme) => ({

@@ -1,22 +1,19 @@
+import ChargeInformation from "@/components/ChargeInformation";
 import Loading from "@/components/Loading";
-import { Button, Grid } from "@material-ui/core";
-import Container from "@material-ui/core/Container";
+import { Button, Grid, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
-import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
-import { Paper } from "@material-ui/core";
+import TableRow from "@material-ui/core/TableRow";
 import FindInPageIcon from "@mui/icons-material/FindInPage";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
-import ChargeInformation from "@/components/ChargeInformation";
 
 const columns = [
   {
