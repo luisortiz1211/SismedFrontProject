@@ -25,6 +25,7 @@ import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import { useSnackbar } from "notistack";
 import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 const schema = yup.object().shape({
   ci: yup.number().required("Confirme su número de cédula"),
