@@ -71,11 +71,11 @@ const MedicalHistory = () => {
               <ExplorationPatientCard patientID={explo_id} />
             </Grid>
 
-            <Grid item md={6}>
+            <Grid item md={12}>
               {" "}
               <DrugsRecipieCard patientID={explo_id} />
             </Grid>
-            <Grid item md={6}>
+            <Grid item md={12}>
               {" "}
               <ImageRecipieCard patientID={explo_id} />
             </Grid>

@@ -33,11 +33,7 @@ import { Scheduleusers } from "src/api/scheduleuser";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import * as yup from "yup";
-
-const schema = yup.object().shape({
-  startTime: yup.string().required("Ingrese la hora de inicio"),
-  finishTime: yup.string().required("Ingrese la hora de final del turno"),
-});
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -118,6 +114,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+//const moment = require("moment");
+
+const schema = yup.object().shape({
+  startTime: yup.string().required("Ingrese la hora de inicio"),
+  finishTime: yup.string().required("Ingrese la hora de fin"),
+});
 
 const ScheduleNew = () => {
   const classes = useStyles();
@@ -125,8 +127,10 @@ const ScheduleNew = () => {
     register,
     handleSubmit,
     formState: { errors },
-    control,
   } = useForm({ resolver: yupResolver(schema) });
+  
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
+
   const router = useRouter();
   const { id } = router.query;
   const [open, setOpen] = useState(false);
@@ -140,15 +144,32 @@ const ScheduleNew = () => {
 
   const onSubmit = async (schedule) => {
     try {
-      await Scheduleusers.create(`${id}`, {
-        user_id: id,
-        userDay: schedule.userDay,
-        startTime: schedule.startTime,
-        finishTime: schedule.finishTime,
-        availableStatus: 0,
-      });
+      await Scheduleusers.create(
+        `${id}`,
+        {
+          user_id: id,
+          userDay: schedule.userDay,
+          startTime: schedule.startTime,
+          finishTime: schedule.finishTime,
+          availableStatus: 0,
+        },
+        enqueueSnackbar("Guardado con éxito", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        })
+      );
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Error al guardar", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
@@ -274,6 +295,7 @@ const ScheduleNew = () => {
                           variant="outlined"
                           placeholder="ej. 12:30"
                           {...register("startTime")}
+                          error={!!errors.startTime}
                           helperText={errors.startTime?.message}
                         />
                       </Grid>
@@ -287,6 +309,7 @@ const ScheduleNew = () => {
                           variant="outlined"
                           placeholder="ej. 12:30"
                           {...register("finishTime")}
+                          error={!!errors.finishTime}
                           helperText={errors.finishTime?.message}
                         />
                       </Grid>
@@ -340,7 +363,7 @@ const ScheduleNew = () => {
                             type="submit"
                             fullWidth
                             className={classes.btnSave}
-                            onClick={handleOpen}
+                            //onClick={handleOpen}
                             startIcon={<SaveIcon />}
                           >
                             Guardar cambios

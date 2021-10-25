@@ -26,6 +26,8 @@ import { Scheduledays } from "src/api/scheduleday";
 import { Scheduleusers } from "src/api/scheduleuser";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
+import { useSnackbar } from "notistack";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -106,10 +108,17 @@ const useStyles = makeStyles((theme) => ({
 
 const ShiftSelect = () => {
   const classes = useStyles();
-  const { register, control, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const router = useRouter();
   const { id, user_id, user_day } = router.query;
 
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
   const [open, setOpen] = useState(false);
 
   const [result, setResult] = useState("");
@@ -138,9 +147,23 @@ const ShiftSelect = () => {
       //console.log("Nueva cita registrada", response);
       setResult("Date properly register");
       //alert("Cita asignada ");
+      enqueueSnackbar("Guardado con éxito", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
     } catch (error) {
       if (error.response) {
-        console.error(error.response);
+        enqueueSnackbar("Error al guardar", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+        //console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
       } else {
@@ -151,13 +174,29 @@ const ShiftSelect = () => {
   };
   const handleSchedule = async (schedule_day) => {
     try {
-      await Scheduleusers.update(`${user_day}`, {
-        availableStatus: 1,
-      });
+      await Scheduleusers.update(
+        `${user_day}`,
+        {
+          availableStatus: 1,
+        },
+        enqueueSnackbar("Guardado con éxito", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        })
+      );
     } catch (error) {
       if (error.response) {
-        // alert(error.response.message);
-        console.log(error.response);
+        enqueueSnackbar("Error al guardar", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+        //console.log(error.response);
       } else if (error.request) {
         console.log(error.request);
       } else {
@@ -368,7 +407,7 @@ const ShiftSelect = () => {
                             className={classes.btnasign}
                             onClick={() => {
                               handleSchedule();
-                              handleOpen();
+                              // handleOpen();
                             }}
                           >
                             Agendar cita

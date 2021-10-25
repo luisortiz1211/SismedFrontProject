@@ -77,7 +77,7 @@ const MedicalReview = ({ props }) => {
   const { id, pid, exam_id } = router.query;
 
   const [value, setValue] = useState(0);
-
+0
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

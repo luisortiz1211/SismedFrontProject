@@ -22,6 +22,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Familyhistories } from "src/api/familyhistory";
 import * as yup from "yup";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,7 +72,7 @@ const schema = yup.object().shape({
   yearCondition: yup
     .string()
     .required("Ingrese solo el número de años")
-    .matches(/^[0-9]+$/, "Ingrese solo números")
+    .matches(/^[1-9]+$/, "Ingrese solo números")
     .max(2, "Máximo 2 dígitos"),
 });
 
@@ -88,17 +89,9 @@ export default function FamilyHistoryNew({ props }) {
     resolver: yupResolver(schema),
   });
   const [result, setResult] = useState("");
-  const [errorsList, setErrorsList] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
 
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const onSubmit = async (formData) => {
     setUserInfo(null);
@@ -111,10 +104,24 @@ export default function FamilyHistoryNew({ props }) {
       };
       const response = await Familyhistories.create(userData);
       //console.log("Antecente familiar registrado", response);
+      enqueueSnackbar("Antecedente familiar registrado", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
       setResult("Family condition properly register");
       reset();
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Error al registrar el antecedente", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
@@ -166,12 +173,12 @@ export default function FamilyHistoryNew({ props }) {
               <TextField
                 id="nameCondition"
                 name="nameCondition"
-                label="Nombre antecedente"
+                label="Nombre del antecedente"
                 className={classes.textField}
-                defaultValue=""
                 required
                 variant="outlined"
                 {...register("nameCondition")}
+                error={!!errors.nameCondition}
                 helperText={errors.nameCondition?.message}
               />
             </Grid>
@@ -194,22 +201,30 @@ export default function FamilyHistoryNew({ props }) {
             }}
           >
             <Grid item lg={6} sm={6} xs={12}>
-              <TextField
-                id="yearCondition"
-                name="yearCondition"
-                label="Tiempo antecedente"
-                className={classes.textField}
-                defaultValue=""
-                required
+              <FormControl
                 variant="outlined"
-                {...register("yearCondition")}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">Años</InputAdornment>
-                  ),
-                }}
-                helperText={errors.yearCondition?.message}
-              />
+                label="Años de padecimiento"
+                fullWidth
+                className={classes.textField}
+              >
+                <Select
+                  id="yearCondition"
+                  {...register("yearCondition")}
+                  defaultValue=""
+                  error={!!errors.yearCondition}
+                  helperText={errors.yearCondition?.message}
+                  defaultValue={`1`}
+                >
+                  <MenuItem value={`1`}>1 Año</MenuItem>
+                  <MenuItem value={`2`}>2 Año</MenuItem>
+                  <MenuItem value={`3`}>3 Año</MenuItem>
+                  <MenuItem value={`4`}>4 Año</MenuItem>
+                  <MenuItem value={`5`}>5 Año</MenuItem>
+                  <MenuItem value={`10`}>Mas de 5 Año</MenuItem>
+                  <MenuItem value={`15`}>Mas de 10 1 Año</MenuItem>
+                  <MenuItem value={`20`}>Permanente</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item lg={6} sm={6} xs={12}>
               <FormControl
@@ -264,7 +279,7 @@ export default function FamilyHistoryNew({ props }) {
                 type="submit"
                 fullWidth
                 className={classes.btnadd}
-                onClick={handleOpen}
+                //onClick={handleOpen}
                 startIcon={<SaveIcon />}
               >
                 Añadir APF
@@ -275,7 +290,7 @@ export default function FamilyHistoryNew({ props }) {
             light
             style={{ backgroundColor: "#60CCD9", color: "#092435" }}
           />
-          <Modal
+          {/* <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
@@ -303,7 +318,7 @@ export default function FamilyHistoryNew({ props }) {
                 </Button>
               </div>
             </Fade>
-          </Modal>
+          </Modal> */}
         </form>
       </Container>
     </CssBaseline>

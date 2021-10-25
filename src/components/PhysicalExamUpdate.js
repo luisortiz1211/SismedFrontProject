@@ -21,8 +21,13 @@ import { fetcher } from "src/api/utils";
 import { useAuth } from "src/contexts/auth";
 import useSWR from "swr";
 import * as yup from "yup";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    height: "auto",
+    //padding: "15px",
+  },
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -58,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(3),
   },
+
   btnexplo: {
     backgroundColor: "#60CCD9",
     color: "#092435",
@@ -83,14 +89,10 @@ const schema = yup.object().shape({
   currentCondition: yup
     .string()
     .required("Ingrese los sintomas actuales")
-    .max(100, "Máximo 100 caracteres"),
+    .max(200, "Máximo 200 caracteres"),
   comment: yup
     .string()
-    .required("Ingrese algún detalle adicional")
-    .max(100, "Máximo 100 caracteres"),
-  currentDrug: yup
-    .string()
-    .required("Ingrese si tomo algún medicamento")
+    .required("Ingrese algún detalle adicional, tomo algún medicamento")
     .max(100, "Máximo 100 caracteres"),
 });
 
@@ -107,36 +109,47 @@ const PhysicalExamUpdate = ({ examID }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const onSubmit = async (physicalExam) => {
     try {
-      await Physicalexams.update(`${examID}`, {
-        physicalExam: physicalExam.heartRate,
-        bloodPleasure: physicalExam.bloodPleasure,
-        weight: physicalExam.weight,
-        height: physicalExam.height,
-        idealWeight: physicalExam.idealWeight,
-        temp: physicalExam.temp,
-        tobacco: physicalExam.tobacco,
-        alcohol: physicalExam.alcohol,
-        drugs: physicalExam.drugs,
-        apetiteChanges: physicalExam.apetiteChanges,
-        dreamChanges: physicalExam.dreamChanges,
-        currentCondition: physicalExam.currentCondition,
-        comment: physicalExam.comment,
-        currentDrug: physicalExam.currentDrug,
-      });
+      await Physicalexams.update(
+        `${examID}`,
+        {
+          patient_id: physicalExam.patient_id,
+          user_id: physicalExam.user_id,
+          physicalExam: physicalExam.heartRate,
+          bloodPleasure: physicalExam.bloodPleasure,
+          weight: physicalExam.weight,
+          height: physicalExam.height,
+          idealWeight: physicalExam.idealWeight,
+          temp: physicalExam.temp,
+          tobacco: physicalExam.tobacco,
+          alcohol: physicalExam.alcohol,
+          drugs: physicalExam.drugs,
+          apetiteChanges: physicalExam.apetiteChanges,
+          dreamChanges: physicalExam.dreamChanges,
+          currentCondition: physicalExam.currentCondition,
+          comment: physicalExam.comment,
+          currentDrug: "Normal",
+        },
+        enqueueSnackbar("Examen físico actualizado con éxito", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        })
+      );
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Error al actualizar el examen físico", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
@@ -195,7 +208,6 @@ const PhysicalExamUpdate = ({ examID }) => {
                 label="# Historia clínica"
                 className={classes.textField}
                 defaultValue={data.patient_id}
-                //required
                 disabled
                 variant="outlined"
                 InputProps={{
@@ -217,7 +229,6 @@ const PhysicalExamUpdate = ({ examID }) => {
                 InputProps={{
                   readOnly: true,
                 }}
-                //{...register("date")}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
@@ -227,7 +238,6 @@ const PhysicalExamUpdate = ({ examID }) => {
                 label="#Examen físico"
                 className={classes.textField}
                 defaultValue={data.physicalExam_id}
-                //required
                 disabled
                 variant="outlined"
                 InputProps={{
@@ -258,12 +268,14 @@ const PhysicalExamUpdate = ({ examID }) => {
               <TextField
                 id="heartRate"
                 name="heartRate"
-                label="Ritmo cardiaco"
+                label="Ritmo cardiaco - lpm"
                 className={classes.textField}
                 defaultValue={data.heartRate}
                 required
                 variant="outlined"
+                placeholder={data.heartRate}
                 {...register("heartRate")}
+                error={!!errors.heartRate}
                 helperText={errors.heartRate?.message}
               />
             </Grid>
@@ -271,12 +283,14 @@ const PhysicalExamUpdate = ({ examID }) => {
               <TextField
                 id="bloodPleasure"
                 name="bloodPleasure"
-                label="Presión arterial"
+                label="Presión arterial - mgHg"
                 className={classes.textField}
                 defaultValue={data.bloodPleasure}
                 required
                 variant="outlined"
+                placeholder={data.bloodPleasure}
                 {...register("bloodPleasure")}
+                error={!!errors.bloodPleasure}
                 helperText={errors.bloodPleasure?.message}
               />
             </Grid>
@@ -284,12 +298,14 @@ const PhysicalExamUpdate = ({ examID }) => {
               <TextField
                 id="temp"
                 name="temp"
-                label="Temperatura"
+                label="Temperatura - g°"
                 className={classes.textField}
                 defaultValue={data.temp}
                 required
                 variant="outlined"
+                placeholder={data.temp}
                 {...register("temp")}
+                error={!!errors.temp}
                 helperText={errors.temp?.message}
               />
             </Grid>
@@ -315,12 +331,14 @@ const PhysicalExamUpdate = ({ examID }) => {
               <TextField
                 id="weight"
                 name="weight"
-                label="Peso"
+                label="Peso - kg"
                 required
                 className={classes.textField}
                 defaultValue={data.weight}
                 variant="outlined"
+                placeholder={data.weight}
                 {...register("weight")}
+                error={!!errors.weight}
                 helperText={errors.weight?.message}
               />
             </Grid>
@@ -328,12 +346,14 @@ const PhysicalExamUpdate = ({ examID }) => {
               <TextField
                 id="height"
                 name="height"
-                label="Estatura"
+                label="Estatura - cm"
                 className={classes.textField}
                 defaultValue={data.height}
                 required
                 variant="outlined"
+                placeholder={data.height}
                 {...register("height")}
+                error={!!errors.height}
                 helperText={errors.height?.message}
               />
             </Grid>
@@ -341,12 +361,14 @@ const PhysicalExamUpdate = ({ examID }) => {
               <TextField
                 id="idealWeight"
                 name="idealWeight"
-                label="Cintura"
+                label="IMC"
                 className={classes.textField}
                 defaultValue={data.idealWeight}
                 required
                 variant="outlined"
+                placeholder={data.idealWeight}
                 {...register("idealWeight")}
+                error={!!errors.idealWeight}
                 helperText={errors.idealWeight?.message}
               />
             </Grid>
@@ -511,7 +533,7 @@ const PhysicalExamUpdate = ({ examID }) => {
               color: "#092435",
             }}
           >
-            <Grid item lg={3} sm={4} xs={12}>
+            <Grid item sm={12} xs={12}>
               <TextField
                 id="currentCondition"
                 name="currentCondition"
@@ -521,10 +543,24 @@ const PhysicalExamUpdate = ({ examID }) => {
                 required
                 variant="outlined"
                 {...register("currentCondition")}
+                error={!!errors.currentCondition}
                 helperText={errors.currentCondition?.message}
               />
             </Grid>
-            <Grid item lg={3} sm={4} xs={12}>
+          </Grid>
+          
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            spacing={2}
+            style={{
+              paddingBottom: "20px",
+              paddingTop: "15px",
+            }}
+          >
+            <Grid item sm={12} xs={12}>
               <TextField
                 id="comment"
                 name="comment"
@@ -534,19 +570,8 @@ const PhysicalExamUpdate = ({ examID }) => {
                 required
                 variant="outlined"
                 {...register("comment")}
+                error={!!errors.comment}
                 helperText={errors.comment?.message}
-              />
-            </Grid>
-            <Grid item lg={3} sm={4} xs={12}>
-              <TextField
-                id="currentDrug"
-                name="currentDrug"
-                label="Medicamento prescrito"
-                className={classes.textField}
-                defaultValue={data.currentDrug}
-                variant="outlined"
-                {...register("currentDrug")}
-                helperText={errors.currentDrug?.message}
               />
             </Grid>
           </Grid>
@@ -583,7 +608,6 @@ const PhysicalExamUpdate = ({ examID }) => {
                 type="submit"
                 fullWidth
                 className={classes.btnexplo}
-                onClick={handleOpen}
                 startIcon={<SaveIcon />}
               >
                 Actualizar examen
@@ -594,34 +618,6 @@ const PhysicalExamUpdate = ({ examID }) => {
             light
             style={{ backgroundColor: "#60CCD9", color: "#092435" }}
           />
-          <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <Fade in={open}>
-              <div className={classes.mpaper}>
-                <h2 id="transition-modal-title">
-                  Examen físico actualizado con éxito
-                </h2>
-                <Button
-                  variant="contained"
-                  type="submit"
-                  size="small"
-                  onClick={handleClose}
-                  className={classes.btnexplo}
-                >
-                  Aceptar
-                </Button>
-              </div>
-            </Fade>
-          </Modal>
         </form>
       </Container>
     </CssBaseline>

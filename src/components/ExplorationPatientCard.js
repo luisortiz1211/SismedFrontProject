@@ -105,7 +105,6 @@ export default function ExplorationPatientCard({ patientID }) {
                     display: "flex",
                     alignItems: "left",
                     justifyContent: "left",
-
                     backgroundColor: "#BBF0E8",
                   }}
                 >

@@ -11,12 +11,12 @@ import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import { Paper } from "@material-ui/core";
-
 import FindInPageIcon from "@mui/icons-material/FindInPage";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
+import ChargeInformation from "@/components/ChargeInformation";
 
 const columns = [
   {
@@ -55,7 +55,7 @@ const columns = [
   {
     id: "botonSelect",
     label: "_",
-    minWidth: 50,
+    minWidth: 200,
     backgroundColor: "#BBF0E8",
     align: "center",
     fontSize: "16px",
@@ -123,6 +123,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "none",
     background: "#60CCD9",
     color: "#092435",
+
     "&:hover": {
       backgroundColor: "#BBF0E8",
       color: "#4A92A8",
@@ -153,9 +154,18 @@ export default function ExplorationPatients({ patientID }) {
   };
 
   if (error)
-    return <div> No se puede mostrar las exploraciones del paciente</div>;
-  if (!data) return <Loading />;
-  // render data
+    return (
+      <div>
+        {" "}
+        <ChargeInformation />
+      </div>
+    );
+  if (!data)
+    return (
+      <div>
+        <Loading />;
+      </div>
+    );
   return (
     <Paper direction="row">
       <TableContainer component="div" className={classes.container}>
@@ -207,27 +217,29 @@ export default function ExplorationPatients({ patientID }) {
                                 container
                                 direction="row"
                                 justifyContent="center"
-                                alignItems="center"
                                 spacing={2}
+                                alignItems="center"
                               >
-                                <Grid item xs={6}>
+                                <Grid item xs={12} md={4}>
                                   <Button
                                     href={`/medicalHistory/${id}/physicalExam/${row.physicalExam_id}/exploration/${row.explorationPatient_id}`}
                                     variant="outlined"
                                     size="small"
                                     className={classes.btnview}
-                                    startIcon={<FindInPageIcon />}
-                                  ></Button>
+                                  >
+                                    <FindInPageIcon />
+                                  </Button>
                                 </Grid>
-                                <Grid item xs={6}>
+                                {/*   <Grid item xs={12} md={4}>
                                   <Button
                                     href={`/recipies/${patientID}/exploration/${row.explorationPatient_id}`}
                                     variant="outlined"
                                     size="small"
                                     className={classes.btnview}
-                                    startIcon={<MedicalServicesIcon />}
-                                  ></Button>
-                                </Grid>
+                                  >
+                                    <MedicalServicesIcon />
+                                  </Button>
+                                </Grid> */}
                               </Grid>
                             ) : (
                               ""

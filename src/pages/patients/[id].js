@@ -23,6 +23,23 @@ import { useForm } from "react-hook-form";
 import { Patients } from "src/api/patient";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
+import { useSnackbar } from "notistack";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object().shape({
+  ci: yup.number().required("Confirme su número de cédula"),
+  name: yup.string().required("Ingrese su nombre"),
+  lastName: yup.string().required("Ingrese su apellido"),
+  birthay: yup.string().required("Ingrese su fecha de nacimiento"),
+  employment: yup.string().required("Defina nombre del empleo"),
+  email: yup.string().email("Ingrese un email").required("Confirme el email"),
+  movil: yup.number().required("Confirme número telefonico"),
+  landline: yup.number().required("Confirme número fijo"),
+  address: yup.string().required("Defina nombre del empleo"),
+  nationality: yup.string().required("Defina nombre del empleo"),
+  city: yup.string().required("Defina nombre del empleo"),
+  parish: yup.string().required("Defina nombre del empleo"),
+});
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -86,8 +103,16 @@ const PatientDetails = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { register, control, handleSubmit } = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const [open, setOpen] = useState(false);
+
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -98,25 +123,42 @@ const PatientDetails = () => {
 
   const onSubmit = async (patient) => {
     try {
-      await Patients.update(`${id}`, {
-        //ci: patient.ci,
-        name: patient.name,
-        lastName: patient.lastName,
-        //sex: patient.sex,
-        //civilStatus: patient.civilStatus,
-        //birthay: patient.birthay,
-        employment: patient.employment,
-        email: patient.email,
-        movil: patient.movil,
-        landline: patient.landline,
-        address: patient.address,
-        nationality: patient.nationality,
-        city: patient.city,
-        parish: patient.parish,
-      });
+      await Patients.update(
+        `${id}`,
+        {
+          //ci: patient.ci,
+          name: patient.name,
+          lastName: patient.lastName,
+          //sex: patient.sex,
+          //civilStatus: patient.civilStatus,
+          //birthay: patient.birthay,
+          employment: patient.employment,
+          email: patient.email,
+          movil: patient.movil,
+          landline: patient.landline,
+          address: patient.address,
+          nationality: patient.nationality,
+          city: patient.city,
+          parish: patient.parish,
+        },
+        enqueueSnackbar("Guardado con éxito", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        })
+      );
     } catch (error) {
       if (error.response) {
-        console.error(error.response);
+        enqueueSnackbar("Error al guardar", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+        //console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
       } else {
@@ -205,6 +247,8 @@ const PatientDetails = () => {
                     required
                     variant="outlined"
                     {...register("name")}
+                    error={!!errors.name}
+                    helperText={errors.name?.message}
                   />
                 </Grid>
                 <Grid item lg={3} sm={4} xs={12}>
@@ -217,6 +261,8 @@ const PatientDetails = () => {
                     className={classes.textField}
                     variant="outlined"
                     {...register("lastName")}
+                    error={!!errors.lastName}
+                    helperText={errors.lastName?.message}
                   />
                 </Grid>
               </Grid>{" "}
@@ -320,6 +366,8 @@ const PatientDetails = () => {
                     className={classes.textField}
                     variant="outlined"
                     {...register("employment")}
+                    error={!!errors.employment}
+                    helperText={errors.employment?.message}
                   />
                 </Grid>
                 <Grid item lg={3} sm={4} xs={12}>
@@ -332,6 +380,8 @@ const PatientDetails = () => {
                     className={classes.textField}
                     variant="outlined"
                     {...register("email")}
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
                   />
                 </Grid>
                 <Grid item lg={3} sm={4} xs={12}>
@@ -344,6 +394,8 @@ const PatientDetails = () => {
                     className={classes.textField}
                     variant="outlined"
                     {...register("movil")}
+                    error={!!errors.movil}
+                    helperText={errors.movil?.message}
                   />
                 </Grid>
               </Grid>
@@ -374,6 +426,8 @@ const PatientDetails = () => {
                     className={classes.textField}
                     variant="outlined"
                     {...register("landline")}
+                    error={!!errors.landline}
+                    helperText={errors.landline?.message}
                   />
                 </Grid>
                 <Grid item lg={3} sm={4} xs={12}>
@@ -386,6 +440,8 @@ const PatientDetails = () => {
                     className={classes.textField}
                     variant="outlined"
                     {...register("address")}
+                    error={!!errors.address}
+                    helperText={errors.address?.message}
                   />
                 </Grid>
                 <Grid item lg={3} sm={4} xs={12}>
@@ -431,6 +487,8 @@ const PatientDetails = () => {
                     className={classes.textField}
                     variant="outlined"
                     {...register("city")}
+                    error={!!errors.city}
+                    helperText={errors.city?.message}
                   />
                 </Grid>
                 <Grid item lg={3} sm={4} xs={12}>
@@ -443,6 +501,8 @@ const PatientDetails = () => {
                     className={classes.textField}
                     variant="outlined"
                     {...register("parish")}
+                    error={!!errors.parish}
+                    helperText={errors.parish?.message}
                   />
                 </Grid>
                 <Grid item lg={3} sm={4} xs={12}>
@@ -540,7 +600,7 @@ const PatientDetails = () => {
                     type="submit"
                     fullWidth
                     className={classes.btnUpdate}
-                    onClick={handleOpen}
+                    // onClick={handleOpen}
                     startIcon={<SaveIcon />}
                   >
                     Actualizar

@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -94,17 +95,8 @@ export default function DrugsRecipieNew({ examID, pid }) {
     resolver: yupResolver(schema),
   });
   const [result, setResult] = useState("");
-  const [errorsList, setErrorsList] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
-
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const onSubmit = async (formData) => {
     setUserInfo(null);
@@ -117,11 +109,25 @@ export default function DrugsRecipieNew({ examID, pid }) {
         patient_id: id,
       };
       const response = await Drugsrecipies.create(userData);
-      console.log("Nuevo medicamento registrado", response);
+      //console.log("Nuevo medicamento registrado", response);
       setResult("New recipie register");
+      enqueueSnackbar("Medicamento registrado con éxito", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
       reset();
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Error al registrar el medicamento", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
@@ -178,6 +184,7 @@ export default function DrugsRecipieNew({ examID, pid }) {
                 required
                 variant="outlined"
                 {...register("coddrug")}
+                error={!!errors.coddrug}
                 helperText={errors.coddrug?.message}
               />
             </Grid>
@@ -191,6 +198,7 @@ export default function DrugsRecipieNew({ examID, pid }) {
                 required
                 variant="outlined"
                 {...register("nameDrugRecipie")}
+                error={!!errors.nameDrugRecipie}
                 helperText={errors.nameDrugRecipie?.message}
               />
             </Grid>
@@ -228,7 +236,7 @@ export default function DrugsRecipieNew({ examID, pid }) {
                 type="submit"
                 fullWidth
                 className={classes.btnsave}
-                onClick={handleOpen}
+                // onClick={handleOpen}
                 startIcon={<SaveIcon />}
               >
                 Agregar medicamento
@@ -239,35 +247,6 @@ export default function DrugsRecipieNew({ examID, pid }) {
             light
             style={{ backgroundColor: "#60CCD9", color: "#092435" }}
           />
-          <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <Fade in={open}>
-              <div className={classes.mpaper}>
-                <h2 id="transition-modal-title">
-                  Medicamentos agregados con éxito
-                </h2>
-                <Button
-                  variant="contained"
-                  type="submit"
-                  size="small"
-                  onClick={handleClose}
-                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                  className={classes.upgrade}
-                >
-                  Aceptar
-                </Button>
-              </div>
-            </Fade>
-          </Modal>
         </form>
       </Container>
     </CssBaseline>

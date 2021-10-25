@@ -1,8 +1,13 @@
 import AnnounTitle from "@/components/AnnounTitle";
-import Routes from "@/constants/routes";
-import { Emergencycontacts } from "src/api/emergencycontact";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CssBaseline, Fade } from "@material-ui/core";
+import {
+  CssBaseline,
+  Fade,
+  FormControl,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import {
   Backdrop,
   Button,
@@ -12,14 +17,13 @@ import {
   Modal,
 } from "@material-ui/core/";
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField, FormControl, Select, MenuItem } from "@material-ui/core";
 import SaveIcon from "@mui/icons-material/Save";
-import ScheduleIcon from "@mui/icons-material/Schedule";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Emergencycontacts } from "src/api/emergencycontact";
 import * as yup from "yup";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,17 +76,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 const schema = yup.object().shape({
   nameContact: yup.string().required("Ingrese el nombre de contacto"),
   movil: yup
     .string()
-    .length(9, "Deben ser 9 dígitos")
+    .length(9, "Ingrese solo números, exactamente 9 dígitos")
     .required()
     .matches(/^[0-9]+$/, "Ingrese solo números, exactamente 9 dígitos")
     .max(9, "Deben ser 9 dígitos"),
   landline: yup
     .string()
-    .length(8, "Deben ser 8 dígitos")
+    .length(8, "Ingrese solo números, exactamente 8 dígitos")
     .required()
     .matches(/^[0-9]+$/, "Ingrese solo números, exactamente 8 dígitos")
     .max(8, "Deben ser 8 dígitos"),
@@ -101,17 +106,11 @@ export default function EmergencyContactNew({ patientID }) {
     resolver: yupResolver(schema),
   });
   const [result, setResult] = useState("");
-  const [errorsList, setErrorsList] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
 
   const [open, setOpen] = useState(false);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
   const onSubmit = async (formData) => {
     setUserInfo(null);
     setResult("Sending data...");
@@ -122,11 +121,25 @@ export default function EmergencyContactNew({ patientID }) {
         patient_id: id,
       };
       const response = await Emergencycontacts.create(contactData);
-      console.log("Nuevo contacto registrado", response);
-      setResult("Contact properly added");
+      //console.log("Nuevo contacto registrado", response);
+      enqueueSnackbar("Contacto agregado con éxito", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+      //setResult("Contact properly added");
       reset();
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Error al agregar un contacto", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
@@ -184,10 +197,11 @@ export default function EmergencyContactNew({ patientID }) {
                 className={classes.textField}
                 defaultValue=""
                 required
+                textTransform="uppercase"
                 variant="outlined"
                 {...register("nameContact")}
+                error={!!errors.nameContact}
                 helperText={errors.nameContact?.message}
-                //placeholder="Kale Diane Frank "
               />
             </Grid>
             <Grid item lg={4} sm={4} xs={12}>
@@ -200,8 +214,8 @@ export default function EmergencyContactNew({ patientID }) {
                 required
                 variant="outlined"
                 {...register("movil")}
+                error={!!errors.movil}
                 helperText={errors.movil?.message}
-                //placeholder="Telf: 99935855"
               />
             </Grid>
           </Grid>{" "}
@@ -232,8 +246,8 @@ export default function EmergencyContactNew({ patientID }) {
                 defaultValue=""
                 variant="outlined"
                 {...register("landline")}
+                error={!!errors.landline}
                 helperText={errors.landline?.message}
-                //placeholder="Telf: 22687555"
               />
             </Grid>
             <Grid item lg={4} sm={4} xs={12}>
@@ -318,7 +332,7 @@ export default function EmergencyContactNew({ patientID }) {
                 type="submit"
                 fullWidth
                 className={classes.btnadd}
-                onClick={handleOpen}
+                //onClick={handleOpen}
                 startIcon={<SaveIcon />}
               >
                 Añadir contacto
@@ -329,7 +343,7 @@ export default function EmergencyContactNew({ patientID }) {
             light
             style={{ backgroundColor: "#60CCD9", color: "#092435" }}
           />
-          <Modal
+          {/* <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
@@ -355,7 +369,7 @@ export default function EmergencyContactNew({ patientID }) {
                 </Button>
               </div>
             </Fade>
-          </Modal>
+          </Modal> */}
         </form>
       </Container>
     </CssBaseline>

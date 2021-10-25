@@ -128,15 +128,6 @@ const ImageRecipieList = ({ patientID }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
   const { data, error } = useSWR(
     `/exploration_patients/${recipie_id}/image_recipies`,
     fetcher
@@ -165,28 +156,6 @@ const ImageRecipieList = ({ patientID }) => {
                   }}
                 >
                   {column.label}
-                  {/*  {column.id === "botonSelect" ? (
-                    <Grid
-                      container
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Grid item>
-                        <Link href={`/physicalExam/${id}`} passHref>
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            className={classes.btnew}
-                          >
-                            Nuevo
-                          </Button>
-                        </Link>
-                      </Grid>
-                    </Grid>
-                  ) : (
-                    ""
-                  )} */}
                 </TableCell>
               ))}
             </TableRow>

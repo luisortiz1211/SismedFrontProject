@@ -1,21 +1,35 @@
 import withoutAuth from "@/hocs/withoutAuth";
-import { useAuth } from "src/contexts/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Link as MuiLink } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
+import {
+  Avatar,
+  Box,
+  Button,
+  CssBaseline,
+  Grid,
+  Link as MuiLink,
+  Paper,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import Image from "next/image";
 import Link from "next/link";
+import { useSnackbar } from "notistack";
 import React from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useAuth } from "src/contexts/auth";
 import * as yup from "yup";
 
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Ingrese un email válido")
+    .required("El campo email es obligatorio"),
+  password: yup
+    .string()
+    .required("Ingrese su clave")
+    .min(6, "La clave debe tener al menos 6 caracteres"),
+});
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "auto",
@@ -72,64 +86,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Ingrese un email válido")
-    .required("Ingrese su email."),
-  password: yup.string().required("Ingrese su clave"),
-});
-
 const Login = () => {
   const { login } = useAuth();
-  const classes = useStyles();
-  const { control, handleSubmit, register, errors } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
   });
-
-  const [values, setValues] = React.useState({
-    amount: "",
-    password: "",
-    weight: "",
-    weightRange: "",
-    showPassword: false,
-  });
+  const classes = useStyles();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const onSubmit = async (data) => {
-    //console.log("data", data);
     try {
       const userData = await login(data);
-      console.log("userActive", userData);
+      enqueueSnackbar("Bienvenido al sistema SISMED", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
     } catch (error) {
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        enqueueSnackbar("Verifique usuario o contraseña", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
       } else if (error.request) {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
         console.log(error.request);
       } else {
-        // Something happened in setting up the request that triggered an Error
         console.log("Error", error.message);
       }
       console.log(error.config);
     }
   };
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
   return (
     <div>
       <CssBaseline />
@@ -179,60 +175,35 @@ const Login = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 style={{ paddingBottom: "30px" }}
               >
-                <Controller
+                <TextField
+                  id="email"
                   name="email"
-                  control={control}
-                  defaultValue=""
-                  render={({
-                    field: { onChange, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextField
-                      label="Correo electrónico"
-                      variant="outlined"
-                      className={classes.textField}
-                      value={value}
-                      onChange={onChange}
-                      error={!!error}
-                      helperText={error ? error.message : null}
-                      type="email"
-                    />
-                  )}
-                  rules={{
-                    required: "Correo requerido",
-                    pattern: {
-                      value:
-                        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                      message: "You must provide a valid email address!",
-                    },
-                  }}
+                  label="Correo electrónico"
+                  {...register("email")}
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  autoComplete="email"
+                  autoFocus
+                  className={classes.textField}
+                  error={!!errors.email}
+                  helperText={errors.email?.message}
                 />
-
-                <Controller
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  {...register("password")}
+                  required
+                  fullWidth
                   name="password"
-                  control={control}
-                  defaultValue=""
-                  render={({
-                    field: { onChange, value },
-                    fieldState: { error },
-                  }) => (
-                    <TextField
-                      label="Contraseña"
-                      variant="outlined"
-                      value={value}
-                      onChange={onChange}
-                      error={!!error}
-                      helperText={error ? error.message : null}
-                      type="password"
-                    />
-                  )}
-                  rules={{
-                    required: "Password required",
-                    minLength: {
-                      value: 6,
-                      message: "Tu contraseña debe tener minimo 6 caracteres",
-                    },
-                  }}
+                  label="Contraseña"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  className={classes.textField}
+                  error={!!errors.password}
+                  helperText={errors.password?.message}
                 />
 
                 <Button
@@ -246,7 +217,7 @@ const Login = () => {
                 </Button>
                 <Grid container>
                   <Grid item style={{ color: "#414A4F" }}>
-                    <Link href="/login" passHref>
+                    <Link href="/olvide-mi-clave" passHref>
                       <MuiLink>Olvido su contraseña?</MuiLink>
                     </Link>
                   </Grid>
