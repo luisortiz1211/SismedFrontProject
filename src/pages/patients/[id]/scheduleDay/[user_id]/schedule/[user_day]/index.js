@@ -12,7 +12,7 @@ import {
   Fade,
   Grid,
   Modal,
-  TextField
+  TextField,
 } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
@@ -112,25 +112,14 @@ const ShiftSelect = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  } = useForm();
   const router = useRouter();
   const { id, user_id, user_day } = router.query;
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
-  const [open, setOpen] = useState(false);
 
   const [result, setResult] = useState("");
-  const [errorsList, setErrorsList] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleclose = () => {
-    setOpen(false);
-  };
 
   const onSubmit = async (formData) => {
     setUserInfo(null);
@@ -407,7 +396,6 @@ const ShiftSelect = () => {
                             className={classes.btnasign}
                             onClick={() => {
                               handleSchedule();
-                              // handleOpen();
                             }}
                           >
                             Agendar cita
@@ -418,41 +406,6 @@ const ShiftSelect = () => {
                       )}
                     </Grid>
                   </Grid>
-
-                  <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    className={classes.modal}
-                    open={open}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                      timeout: 500,
-                    }}
-                  >
-                    <Fade in={open}>
-                      <div className={classes.mpaper}>
-                        <h2 id="transition-modal-title">
-                          Cita asignada con éxito
-                        </h2>
-                        <Link href={`/patients/${id}/scheduleDay`} passHref>
-                          <Button
-                            variant="contained"
-                            type="submit"
-                            size="small"
-                            style={{
-                              backgroundColor: "#60CCD9",
-                              color: "#092435",
-                            }}
-                            className={(classes.upgrade, classes.btnasign)}
-                            onclick={handleclose}
-                          >
-                            Aceptar
-                          </Button>
-                        </Link>
-                      </div>
-                    </Fade>
-                  </Modal>
                 </form>
               </div>
             </Grid>

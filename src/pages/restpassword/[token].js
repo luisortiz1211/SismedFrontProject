@@ -45,7 +45,6 @@ const styles = {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
     backgroundSize: "cover",
-    backgroundImage: `url(${"/fondo-login.png"})`,
     padding: "40px",
   },
   paper: {
@@ -59,6 +58,11 @@ const ResetPasswordPage = () => {
   const { confirmPasswordReset } = useAuth();
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
+
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const { enqueueSnackbar } = useSnackbar();
   const handleClick = (message, variant) => {
     enqueueSnackbar(message, {
@@ -69,9 +73,6 @@ const ResetPasswordPage = () => {
       },
     });
   };
-  const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(schema),
-  });
 
   const onResetPassword = async ({
     email,
