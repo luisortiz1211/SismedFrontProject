@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import api from "../api/api";
 import cookie from "js-cookie";
 import translateMessage from "../constants/messages";
+import { useSnackbar } from "notistack";
 
 export const AuthContext = createContext(null);
 
@@ -24,7 +25,6 @@ function useAuthProvider() {
 
   const handleUser = (user) => {
     if (user) {
-      // si tengo sesión activa
       setUser(user);
       cookie.set("auth", true, {
         expires: 1, // dia
@@ -32,24 +32,32 @@ function useAuthProvider() {
 
       return user;
     } else {
-      // no tengo sesión activa
       setUser(false);
       cookie.remove("auth");
       return false;
     }
   };
+  const { enqueueSnackbar } = useSnackbar();
 
   async function register(data) {
     try {
       const response = await api.post("/register", data);
-      console.log("response", response);
-      handleUser(response.data);
+      //console.log("response", response);
+      //handleUser(response.data);
       return response;
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar(
+          "Usuario no se pudo crear, email o cédula ya existe en el sistema",
+          {
+            variant: "error",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
+          }
+        );
         console.log(error.response.data);
-        //console.log(error.response.status);
-        //console.log(error.response.headers);
         return Promise.reject(error.response);
       } else if (error.request) {
         console.log(error.request);
@@ -67,6 +75,13 @@ function useAuthProvider() {
       return response;
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Verifique email y contraseña", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         console.log("errores", error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
@@ -88,12 +103,19 @@ function useAuthProvider() {
     try {
       const response = await api.post("/logout");
       handleUser(false);
+      enqueueSnackbar("Sesión finalizada en el sistema SISMED", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
       return response;
     } catch (error) {}
   }
 
   const sendPasswordResetEmail = async (email) => {
-    await api.post("/forgot-password", { email });
+    await api.post("forgot-password", { email });
   };
 
   const confirmPasswordReset = async (
@@ -103,7 +125,7 @@ function useAuthProvider() {
     token
   ) => {
     // try {
-    await api.post("/reset-password", {
+    await api.post("/password_resets", {
       email,
       password,
       password_confirmation,

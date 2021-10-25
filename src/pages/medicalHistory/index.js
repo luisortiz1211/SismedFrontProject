@@ -3,8 +3,11 @@ import ChargeInformation from "@/components/ChargeInformation";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
-import { Button, Grid } from "@material-ui/core";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Button, Fade, Grid } from "@material-ui/core";
+import Backdrop from "@material-ui/core/Backdrop";
 import Container from "@material-ui/core/Container";
+import Modal from "@material-ui/core/Modal";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -14,14 +17,18 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import BallotIcon from "@material-ui/icons/Ballot";
 import SendIcon from "@mui/icons-material/Send";
+import Autocomplete from "@mui/material/Autocomplete";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
-import SearchBar from "material-ui-search-bar";
-import BallotIcon from "@material-ui/icons/Ballot";
+import * as yup from "yup";
+import { useSnackbar } from "notistack";
 
 const columns = [
   {
@@ -105,7 +112,7 @@ const columns = [
     fontSize: "17px",
   },
 ];
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: "auto",
   },
@@ -123,6 +130,27 @@ const useStyles = makeStyles({
       color: "#4A92A8",
     },
   },
+  textField: {
+    paddingBottom: "15px",
+  },
+  mpaper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+}));
+const schema = yup.object().shape({
+  ci: yup
+    .string()
+    .length(10, "Deben ser 10 dígitos")
+    .matches(/^[0-9]+$/, "Ingrese solo números, exactamente 10 dígitos")
+    .max(10, "Deben ser 10 dígitos"),
 });
 
 const MedicalHistoryDetails = () => {
@@ -130,11 +158,30 @@ const MedicalHistoryDetails = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const [rows, setRows] = useState(columns);
-  const [searched, setSearched] = useState("");
+  const [wordSearch, setWordSearch] = useState("");
+  const [dataSearchPatient, setDataSearchPatient] = useState([]);
+
+  const {
+    data: patientsAllData,
+    error: error2,
+    mutate: mutate2,
+  } = useSWR(`/patients/all`, fetcher);
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const { data, error } = useSWR(`/patients`, fetcher);
   console.log("lista de pacientes en el sistema", data);
+
+  const handleChange = (event) => {
+    setWordSearch(event.target.value);
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -144,6 +191,18 @@ const MedicalHistoryDetails = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  /*  useEffect(() => {
+    if (patientsAllData) {
+      const listpatients = [];
+      patientsAllData.data.map((patient) => {
+        patient.ci === wordSearch ? listpatients.push(patient) : "";
+      });
+      setDataSearchPatient(listpatients);
+    }
+  }, [wordSearch]);
+*/
+
   if (error)
     return (
       <div>
@@ -156,18 +215,6 @@ const MedicalHistoryDetails = () => {
         <Loading />
       </div>
     );
-
-  const requestSearch = (searchedVal) => {
-    const filteredRows = data.data.filter((row) => {
-      return row.name.toLowerCase().includes(searchedVal.toLowerCase());
-    });
-    setRows(filteredRows);
-  };
-
-  const cancelSearch = () => {
-    setSearched("");
-    requestSearch(searched);
-  };
 
   return (
     <LayoutSecondary>
@@ -183,16 +230,57 @@ const MedicalHistoryDetails = () => {
           />{" "}
           {"  "}Historia clínica
         </Title>
+        <>
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-evenly"
+            alignItems="center"
+          >
+            <Grid item>
+              <Stack spacing={2} sx={{ width: 300 }}>
+                {" "}
+                <Autocomplete
+                  freeSolo
+                  id="patientsSearch"
+                  disableClearable
+                  options={patientsAllData.data.map((option) =>
+                    option.ci.toString()
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      id="wordSearch"
+                      {...params}
+                      value={wordSearch}
+                      label="Cedula paciente"
+                      onChange={handleChange}
+                      InputProps={{
+                        ...params.InputProps,
+                        type: "search",
+                      }}
+                      className={classes.textField}
+                      //{...register("wordSearch")}
+                      error={!!errors.ci}
+                      helperText={errors.ci?.message}
+                    />
+                  )}
+                />
+              </Stack>
+              <Button
+                type="submit"
+                size="small"
+                style={{
+                  textTransform: "none",
+                  border: "10px",
+                  color: "#4A92A8",
+                }}
+              >
+                Ver...
+              </Button>
+            </Grid>
+          </Grid>
+        </>
         <Paper elevation={6} style={{ margin: "20px" }}>
-          <SearchBar
-            onChange={() => console.log("onChange")}
-            onRequestSearch={() => console.log("onRequestSearch")}
-            style={{
-              margin: "0 auto",
-              maxWidth: 800,
-            }}
-            //buscar paciente en construcción
-          />
           <AnnounTitle>Visualizar la historia médica del paciente</AnnounTitle>
           <TableContainer className={classes.container}>
             <Table stickyHeader aria-label="sticky table">

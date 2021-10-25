@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 const RegisterExam = () => {
   const classes = useStyles();
   const router = useRouter();
-  const { id, patient_id } = router.query;
+  const { id, schuser_id, patient_id } = router.query;
 
   const [value, setValue] = useState(0);
 
@@ -138,7 +138,11 @@ const RegisterExam = () => {
               </TabPanel>
 
               <TabPanel value={value} index={5}>
-                <PhysicalExamNew pid={patient_id} />
+                <PhysicalExamNew
+                  schid={id}
+                  pid={patient_id}
+                  schuser={schuser_id}
+                />
               </TabPanel>
             </Box>
           </Container>

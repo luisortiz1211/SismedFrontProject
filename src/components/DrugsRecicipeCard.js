@@ -1,164 +1,176 @@
 import Loading from "@/components/Loading";
-import { Box, Grid, Paper } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { CardActionArea } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import { styled } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 
+const columns = [
+  {
+    id: "created_at",
+    label: "Fecha de ingreso",
+    minWidth: 15,
+    backgroundColor: "#BBF0E8",
+    align: "center",
+    fontSize: "16px",
+  },
+  {
+    id: "nameDrugRecipie",
+    label: "Nombre del medicamento",
+    minWidth: 15,
+    backgroundColor: "#BBF0E8",
+    align: "center",
+    fontSize: "16px",
+  },
+  {
+    id: "coddrug",
+    label: "Cantidad",
+    minWidth: 15,
+    backgroundColor: "#BBF0E8",
+    align: "center",
+    fontSize: "16px",
+  },
+
+  {
+    id: "botonSelect",
+    label: "",
+    minWidth: 50,
+    backgroundColor: "#BBF0E8",
+    align: "center",
+    fontSize: "16px",
+  },
+];
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
-    backgroundColor: "#fff",
+    height: "auto",
   },
-  nested: {
-    paddingLeft: theme.spacing(4),
+  container: {
+    minHeight: 250,
   },
-  fontcolor: {
-    backgroundColor: "#ffff",
+
+  button: {
+    fontSize: "10px",
+  },
+  paper: {
+    margin: theme.spacing(8, 4),
+    padding: theme.spacing(2),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+    padding: "40px",
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  textField: {
+    paddingBottom: "15px",
+    color: "#414A4F",
+  },
+
+  formControl: {
+    minWidth: 300,
+    paddingBottom: "15px",
+    color: "#414A4F",
+    paddingRight: "10px",
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  mpaper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  button: {
+    margin: theme.spacing(3),
+  },
+  rightIcon: {
+    marginLeft: theme.spacing(2),
   },
 }));
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.subtitle2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: "#092435",
-}));
-
-export default function DrugsRecipieCard({ patientID }) {
+const DrugsRecipieCard = ({ patientID }) => {
   const classes = useStyles();
+  const router = useRouter();
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const { data, error } = useSWR(
     `/exploration_patients/${patientID}/drugs_recipies`,
     fetcher
   );
-  console.log("Receta del paciente", data);
-  if (error) return <div> No se puede mostrar medicamentos o no contiene </div>;
+  if (error)
+    return <div>No se puede mostrar los medicamentos o no contiene</div>;
   if (!data) return <Loading />;
-
   return (
-    <Card sx={{ maxWidth: "auto" }}>
-      <CardActionArea className={classes.fontcolor}>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Medicación prescrita según exploración
-          </Typography>
+    <Container maxWidth="lg" direction="row">
+      <TableContainer className={classes.container}>
+        <Typography gutterBottom variant="h5" component="div">
+          Medicación prescrita según exploración
+        </Typography>
+        <Table component="span" stickyHeader aria-label="sticky table">
+          <TableHead component="span">
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{
+                    minWidth: column.minWidth,
+                    backgroundColor: column.backgroundColor,
+                    fontSize: column.fontSize,
+                  }}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
 
-          <Box sx={{ width: "100%" }}>
-            <Grid
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
-              <Grid item xs={5}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                    backgroundColor: "#BBF0E8",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Cantidad :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={7}>
-                <Item>
-                  <p style={{ color: "#4A92A8" }}>{data.coddrug + "unidad"}</p>
-                </Item>
-              </Grid>
-              <Grid item xs={5}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Medicamento :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={7}>
-                <Item>
-                  <p style={{ color: "#4A92A8" }}>{data.nameDrugRecipie}</p>
-                </Item>
-              </Grid>{" "}
-              <Grid item xs={5}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                    backgroundColor: "#BBF0E8",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Médico por :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={7}>
-                <Item>
-                  <p style={{ color: "#4A92A8" }}>{data.user_id}</p>
-                </Item>
-              </Grid>{" "}
-              <Grid item xs={5}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Fecha de ingreso :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={7}>
-                <Item>
-                  <p>{data.data.created_at}</p>
-                </Item>
-              </Grid>{" "}
-            </Grid>
-          </Box>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+          <TableBody component="span">
+            {data.data
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => {
+                return (
+                  <TableRow hover role="checkbox" key={row.id}>
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {column.id && typeof value === "number"
+                            ? value
+                            : value}{" "}
+                          {}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   );
-}
+};
+export default DrugsRecipieCard;

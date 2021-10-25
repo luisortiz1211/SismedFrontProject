@@ -24,6 +24,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "src/contexts/auth";
 import * as yup from "yup";
 import withAuth from "../hocs/withAuth";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -121,8 +122,14 @@ const schema = yup.object().shape({
     .string()
     .email("Ingrese un email válido")
     .required("Ingrese su email."),
-  password: yup.string().required("Ingrese su contraseña"),
-  password_confirmation: yup.string().required("Confirme su contraseña"),
+  password: yup
+    .string()
+    .required("Ingrese su contraseña")
+    .min(6, "La clave debe tener al menos 6 caracteres"),
+  password_confirmation: yup
+    .string()
+    .required("Confirme su contraseña")
+    .min(6, "Debe contener igual caracteres que la contraseña"),
   ci: yup.number().required("Confirme su número de cédula"),
   //roleUser: yup.string().required("Confirme el rol de usuario"),
   employment: yup.string().required("Confirme la especialidad"),
@@ -135,15 +142,13 @@ const Register = () => {
     handleSubmit,
     register,
     formState: { errors },
-    reset,
-    control,
   } = useForm({
     resolver: yupResolver(schema),
   });
   const [result, setResult] = useState("");
-  const [errorsList, setErrorsList] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
   const { register: doregister, logout } = useAuth();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const [open, setOpen] = useState(false);
 
@@ -166,20 +171,34 @@ const Register = () => {
         ...formData,
       };
       const response = await doregister(userData);
-      //console.log("Nuevo usuario registrado", response);
       setResult("User properly register");
-      //reset();
+      logout();
+      enqueueSnackbar("Usuario creado con exito", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
     } catch (error) {
-      if (response) {
-        if (error.response) {
-          console.log(error.response);
-        } else if (error.request) {
-          console.log(error.request);
-        } else {
-          console.log("Error", error.message);
-        }
-        console.log(error.config);
+      if (error.response) {
+        enqueueSnackbar(
+          "Usuario no se pudo crear, email o cédula ya existe en el sistema",
+          {
+            variant: "error",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
+          }
+        );
+        console.log(error.response);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
       }
+      console.log(error.config);
     }
   };
 
@@ -229,6 +248,7 @@ const Register = () => {
                   style={{ textTransform: "upercase" }}
                   className={classes.textField}
                   {...register("name")}
+                  error={!!errors.name}
                   helperText={errors.name?.message}
                   placeholder="Nombres: Kale Diane"
                 />
@@ -240,6 +260,7 @@ const Register = () => {
                   style={{ textTransform: "upercase" }}
                   className={classes.textField}
                   {...register("lastName")}
+                  error={!!errors.lastName}
                   helperText={errors.lastName?.message}
                   placeholder="Apellidos: Frank Herbert"
                 />
@@ -252,6 +273,7 @@ const Register = () => {
                   style={{ textTransform: "upercase" }}
                   className={classes.textField}
                   {...register("email")}
+                  error={!!errors.email}
                   helperText={errors.email?.message}
                   placeholder="Correo: ejemplocorreo@gmail.com"
                 />
@@ -282,6 +304,7 @@ const Register = () => {
                   className={classes.textField}
                   {...register("password", { required: true })}
                   type="password"
+                  error={!!errors.password}
                   helperText={errors.password?.message}
                   placeholder="Contraseña: P@labr5"
                 />
@@ -296,6 +319,7 @@ const Register = () => {
                     required: true,
                   })}
                   type="password"
+                  error={!!errors.password_confirmation}
                   helperText={errors.password_confirmation?.message}
                   placeholder="Confirmar: P@labr5"
                 />
@@ -306,6 +330,7 @@ const Register = () => {
                   label="Cédula"
                   className={classes.textField}
                   {...register("ci", { required: true, minLength: 10 })}
+                  error={!!errors.ci}
                   helperText={errors.ci?.message}
                   placeholder="Cédula: 172145782X"
                 />
@@ -442,7 +467,7 @@ const Register = () => {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  onClick={handleOpen}
+                  // onClick={handleLogout}
                   className={classes.btnacept}
                 >
                   Aceptar
@@ -475,7 +500,6 @@ const Register = () => {
                     size="small"
                     onClick={() => {
                       handleClose();
-                      handleLogout();
                     }}
                     style={{ backgroundColor: "#60CCD9", color: "#092435" }}
                     className={classes.upgrade}

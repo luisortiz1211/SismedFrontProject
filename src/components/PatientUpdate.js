@@ -19,6 +19,7 @@ import { Patients } from "src/api/patient";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import * as yup from "yup";
+import { useSnackbar } from "notistack";
 
 const schema = yup.object().shape({
   name: yup.string().required("Ingrese nombre del paciente"),
@@ -96,7 +97,6 @@ const PatientsInformation = ({ patientID }) => {
 
   const {
     register,
-    control,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -104,6 +104,7 @@ const PatientsInformation = ({ patientID }) => {
   });
 
   const [open, setOpen] = useState(false);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -114,24 +115,41 @@ const PatientsInformation = ({ patientID }) => {
 
   const onSubmit = async (patient) => {
     try {
-      await Patients.update(`${patientID}`, {
-        //ci: patient.ci,
-        name: patient.name,
-        lastName: patient.lastName,
-        //sex: patient.sex,
-        //civilStatus: patient.civilStatus,
-        //birthay: patient.birthay,
-        employment: patient.employment,
-        email: patient.email,
-        movil: patient.movil,
-        landline: patient.landline,
-        address: patient.address,
-        nationality: patient.nationality,
-        city: patient.city,
-        parish: patient.parish,
-      });
+      await Patients.update(
+        `${patientID}`,
+        {
+          //ci: patient.ci,
+          name: patient.name,
+          lastName: patient.lastName,
+          //sex: patient.sex,
+          //civilStatus: patient.civilStatus,
+          //birthay: patient.birthay,
+          employment: patient.employment,
+          email: patient.email,
+          movil: patient.movil,
+          landline: patient.landline,
+          address: patient.address,
+          nationality: patient.nationality,
+          city: patient.city,
+          parish: patient.parish,
+        },
+        enqueueSnackbar("Paciente actualizado con éxito", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        })
+      );
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Error al actualizar, verifique los campos", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
@@ -208,6 +226,7 @@ const PatientsInformation = ({ patientID }) => {
               required
               variant="outlined"
               {...register("name")}
+              error={!!errors.name}
               helperText={errors.name?.message}
               placeholder={data.name}
             />
@@ -222,6 +241,7 @@ const PatientsInformation = ({ patientID }) => {
               className={classes.textField}
               variant="outlined"
               {...register("lastName")}
+              error={!!errors.lastName}
               helperText={errors.lastName?.message}
               placeholder={data.lastName}
             />
@@ -319,6 +339,7 @@ const PatientsInformation = ({ patientID }) => {
               className={classes.textField}
               variant="outlined"
               {...register("employment")}
+              error={!!errors.employment}
               helperText={errors.employment?.message}
               placeholder={data.employment}
             />
@@ -333,6 +354,7 @@ const PatientsInformation = ({ patientID }) => {
               className={classes.textField}
               variant="outlined"
               {...register("email")}
+              error={!!errors.email}
               helperText={errors.email?.message}
               placeholder={data.email}
             />
@@ -347,6 +369,7 @@ const PatientsInformation = ({ patientID }) => {
               className={classes.textField}
               variant="outlined"
               {...register("movil")}
+              error={!!errors.movil}
               helperText={errors.movil?.message}
             />
           </Grid>
@@ -378,6 +401,7 @@ const PatientsInformation = ({ patientID }) => {
               className={classes.textField}
               variant="outlined"
               {...register("landline")}
+              error={!!errors.landline}
               helperText={errors.landline?.message}
             />
           </Grid>
@@ -391,6 +415,7 @@ const PatientsInformation = ({ patientID }) => {
               className={classes.textField}
               variant="outlined"
               {...register("address")}
+              error={!!errors.address}
               helperText={errors.address?.message}
               placeholder={data.address}
             />
@@ -405,6 +430,7 @@ const PatientsInformation = ({ patientID }) => {
               className={classes.textField}
               variant="outlined"
               {...register("nationality")}
+              error={!!errors.nationality}
               helperText={errors.nationality?.message}
               placeholder={data.nationality}
             />
@@ -437,6 +463,7 @@ const PatientsInformation = ({ patientID }) => {
               className={classes.textField}
               variant="outlined"
               {...register("city")}
+              error={!!errors.city}
               helperText={errors.city?.message}
               placeholder={data.city}
             />
@@ -451,6 +478,7 @@ const PatientsInformation = ({ patientID }) => {
               className={classes.textField}
               variant="outlined"
               {...register("parish")}
+              error={!!errors.parish}
               helperText={errors.parish?.message}
               placeholder={data.parish}
             />
@@ -504,7 +532,7 @@ const PatientsInformation = ({ patientID }) => {
               type="submit"
               className={classes.btnView}
               fullWidth
-              onClick={handleOpen}
+              //onClick={handleOpen}
               startIcon={<SaveIcon />}
             >
               Actualizar

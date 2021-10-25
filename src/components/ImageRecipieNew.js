@@ -1,6 +1,4 @@
 import AnnounTitle from "@/components/AnnounTitle";
-import Routes from "@/constants/routes";
-import { Imagerecipies } from "src/api/imagerecipie";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CssBaseline, Fade } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -12,12 +10,13 @@ import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import SaveIcon from "@mui/icons-material/Save";
-import ScheduleIcon from "@mui/icons-material/Schedule";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Imagerecipies } from "src/api/imagerecipie";
 import * as yup from "yup";
+import theme from "@/styles/theme";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,7 +78,9 @@ const schema = yup.object().shape({
     .string()
     .required("Ingrese la cantidad ")
     .matches(/^[0-9]+$/, "Ingrese solo números"),
-  nameImageRecipie: yup.string().required("Ingrese el nombre del medicamento"),
+  nameImageRecipie: yup
+    .string()
+    .required("Ingrese el nombre del examen médico"),
 });
 
 export default function ImageRecipieNew({ examID, pid }) {
@@ -95,17 +96,8 @@ export default function ImageRecipieNew({ examID, pid }) {
     resolver: yupResolver(schema),
   });
   const [result, setResult] = useState("");
-  const [errorsList, setErrorsList] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
-
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const onSubmit = async (formData) => {
     setUserInfo(null);
@@ -118,11 +110,25 @@ export default function ImageRecipieNew({ examID, pid }) {
         exploration_id: examID,
       };
       const response = await Imagerecipies.create(userData);
-      console.log("Nuevo examen registrado", response);
+      //console.log("Nuevo examen registrado", response);
       setResult("New exam register");
+      enqueueSnackbar("Examen registrado con éxito", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
       reset();
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Error al registrar el examen médico", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
@@ -185,6 +191,7 @@ export default function ImageRecipieNew({ examID, pid }) {
                 required
                 variant="outlined"
                 {...register("codimage")}
+                error={!!errors.codimage}
                 helperText={errors.codimage?.message}
               />
             </Grid>
@@ -198,6 +205,7 @@ export default function ImageRecipieNew({ examID, pid }) {
                 required
                 variant="outlined"
                 {...register("nameImageRecipie")}
+                error={!!errors.nameImageRecipie}
                 helperText={errors.nameImageRecipie?.message}
               />
             </Grid>
@@ -235,7 +243,7 @@ export default function ImageRecipieNew({ examID, pid }) {
                 type="submit"
                 fullWidth
                 className={classes.btnsave}
-                onClick={handleOpen}
+                // onClick={handleOpen}
                 startIcon={<SaveIcon />}
               >
                 Agregar pedido
@@ -246,35 +254,6 @@ export default function ImageRecipieNew({ examID, pid }) {
             light
             style={{ backgroundColor: "#60CCD9", color: "#092435" }}
           />
-          <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <Fade in={open}>
-              <div className={classes.mpaper}>
-                <h2 id="transition-modal-title">
-                  Pedido de imagen, guardado con éxito.
-                </h2>
-                <Button
-                  variant="contained"
-                  type="submit"
-                  size="small"
-                  onClick={handleClose}
-                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                  className={classes.upgrade}
-                >
-                  Aceptar
-                </Button>
-              </div>
-            </Fade>
-          </Modal>
         </form>
       </Container>
     </CssBaseline>

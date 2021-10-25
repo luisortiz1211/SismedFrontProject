@@ -4,6 +4,7 @@ import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
 import Routes from "@/constants/routes";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Button,
   Container,
@@ -28,7 +29,7 @@ import { Users } from "src/api/user";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useSnackbar } from "notistack";
 
 const schema = yup.object().shape({
   email: yup.string().email("Ingrese un email").required("Confirme el email"),
@@ -98,7 +99,6 @@ const UserDetails = () => {
   const {
     register,
     formState: { errors },
-    control,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(schema),
@@ -108,6 +108,7 @@ const UserDetails = () => {
     setAge(event.target.value);
   };
   const [available, setAvailable] = useState(1);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -119,13 +120,30 @@ const UserDetails = () => {
 
   const onSubmit = async (user) => {
     try {
-      await Users.update(`${id}`, {
-        availableStatus: user.availableStatus,
-        email: user.email,
-      });
+      await Users.update(
+        `${id}`,
+        {
+          availableStatus: user.availableStatus,
+          email: user.email,
+        },
+        enqueueSnackbar("Guardado con éxito", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        })
+      );
     } catch (error) {
       if (error.response) {
-        console.error(error.response);
+        enqueueSnackbar("Error al guardar", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+        //console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
       } else {
@@ -257,6 +275,7 @@ const UserDetails = () => {
                     className={classes.textField}
                     variant="outlined"
                     {...register("email")}
+                    error={!!errors.email}
                     helperText={errors.email?.message}
                   />
                 </Grid>
@@ -414,7 +433,7 @@ const UserDetails = () => {
                     type="submit"
                     fullWidth
                     className={classes.btnacept}
-                    onClick={handleOpen}
+                    //onClick={handleOpen}
                   >
                     Aceptar
                   </Button>

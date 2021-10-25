@@ -1,17 +1,15 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CssBaseline, Fade } from "@material-ui/core";
-import Backdrop from "@material-ui/core/Backdrop";
+import { CssBaseline, FormControl, MenuItem, Select } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import SaveIcon from "@mui/icons-material/Save";
-import InputAdornment from "@mui/material/InputAdornment";
 import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Personalhistories } from "src/api/personalhistory";
@@ -68,7 +66,7 @@ const schema = yup.object().shape({
     .max(2, "Máximo 2 dígitos"),
   commentCondition: yup
     .string()
-    .required("Ingrese máximo 100 caracteres")
+    .required("Ingrese cualquier descripción importante")
     .max(100, "Máximo 100 caracteres"),
 });
 
@@ -79,23 +77,14 @@ export default function PersonalHistoryNew({ props }) {
   const {
     register,
     reset,
-    formState: { errors },
+    formState: { errors }, 
     handleSubmit,
   } = useForm({
     resolver: yupResolver(schema),
   });
   const [result, setResult] = useState("");
-  const [errorsList, setErrorsList] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
-
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const onSubmit = async (formData) => {
     setUserInfo(null);
@@ -108,10 +97,24 @@ export default function PersonalHistoryNew({ props }) {
       };
       const response = await Personalhistories.create(userData);
       //console.log("Nuevo antecedente registrado", response);
+      enqueueSnackbar("Antecedente personal registrado", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
       setResult("Condition properly register");
       reset();
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Error al registrar antecedente personal", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
@@ -172,6 +175,7 @@ export default function PersonalHistoryNew({ props }) {
                 required
                 variant="outlined"
                 {...register("nameCondition")}
+                error={!!errors.nameCondition}
                 helperText={errors.nameCondition?.message}
               />
             </Grid>
@@ -194,22 +198,27 @@ export default function PersonalHistoryNew({ props }) {
             }}
           >
             <Grid item lg={6} sm={6} xs={12}>
-              <TextField
-                id="yearCondition"
-                name="yearCondition"
-                label="Tiempo antecedente"
-                className={classes.textField}
-                defaultValue=""
-                required
+              <FormControl
                 variant="outlined"
-                {...register("yearCondition")}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">Años</InputAdornment>
-                  ),
-                }}
-                helperText={errors.yearCondition?.message}
-              />
+                label="Tiempo antecedente"
+                fullWidth
+                className={classes.textField}
+              >
+                <Select
+                  id="yearCondition"
+                  {...register("yearCondition")}
+                  defaultValue="1"
+                >
+                  <MenuItem value={`1`}>1 Año</MenuItem>
+                  <MenuItem value={`2`}>2 Año</MenuItem>
+                  <MenuItem value={`3`}>3 Año</MenuItem>
+                  <MenuItem value={`4`}>4 Año</MenuItem>
+                  <MenuItem value={`5`}>5 Año</MenuItem>
+                  <MenuItem value={`10`}>Mas de 5 Año</MenuItem>
+                  <MenuItem value={`15`}>Mas de 10 Año</MenuItem>
+                  <MenuItem value={`20`}>Permanente</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item lg={6} sm={6} xs={12}>
               <TextField
@@ -220,7 +229,9 @@ export default function PersonalHistoryNew({ props }) {
                 className={classes.textField}
                 defaultValue=""
                 variant="outlined"
+                placeholder="Información a resaltar sobre el antecedente"
                 {...register("commentCondition")}
+                error={!!errors.commentCondition}
                 helperText={errors.commentCondition?.message}
               />
             </Grid>
@@ -257,7 +268,7 @@ export default function PersonalHistoryNew({ props }) {
                 type="submit"
                 fullWidth
                 className={classes.btnadd}
-                onClick={handleOpen}
+                //onClick={handleOpen}
                 startIcon={<SaveIcon />}
               >
                 Añadir APP
@@ -268,35 +279,6 @@ export default function PersonalHistoryNew({ props }) {
             light
             style={{ backgroundColor: "#60CCD9", color: "#092435" }}
           />
-          <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <Fade in={open}>
-              <div className={classes.mpaper}>
-                <h2 id="transition-modal-title">
-                  Antecedente personal agregado con éxito
-                </h2>
-                <Button
-                  variant="contained"
-                  type="submit"
-                  size="small"
-                  onClick={handleClose}
-                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                  className={classes.upgrade}
-                >
-                  Aceptar
-                </Button>
-              </div>
-            </Fade>
-          </Modal>
         </form>
       </Container>
     </CssBaseline>

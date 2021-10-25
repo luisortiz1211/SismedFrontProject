@@ -139,7 +139,7 @@ const PatientDetails = () => {
 
               <TabPanel value={value} index={4}>
                 <DrugAllergieList patientID={id} />
-              </TabPanel>
+              </TabPanel> 
 
               <TabPanel value={value} index={5}>
                 <ExplorationPatientList patientID={id} />

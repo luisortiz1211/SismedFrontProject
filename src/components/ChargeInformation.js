@@ -45,6 +45,9 @@ const ChargeInformation = () => {
               >
                 Página no encontrada
               </Typography>
+            </Grid>
+            <Grid item>
+              {" "}
               <Typography
                 component="span"
                 variant="h6"

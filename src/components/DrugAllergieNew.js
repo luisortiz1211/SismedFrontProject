@@ -1,20 +1,25 @@
 import AnnounTitle from "@/components/AnnounTitle";
-import { Drugallergies } from "src/api/drugallergies";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CssBaseline, Fade } from "@material-ui/core";
-import Backdrop from "@material-ui/core/Backdrop";
+import {
+  Container,
+  CssBaseline,
+  FormControl,
+  MenuItem,
+  Select,
+} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import SaveIcon from "@mui/icons-material/Save";
 import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Drugallergies } from "src/api/drugallergies";
 import * as yup from "yup";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -60,11 +65,7 @@ const schema = yup.object().shape({
   drugName: yup.string().required("Ingrese el medicamento"),
   drugSymptom: yup
     .string()
-    .required("Ingrese los efectos provocados")
-    .max(100, "Máximo 100 caracteres"),
-  drugRemark: yup
-    .string()
-    .required("Ingrese comentario")
+    .required("Ingrese las caracteristicas de la reacción alergica")
     .max(100, "Máximo 100 caracteres"),
 });
 
@@ -81,17 +82,8 @@ export default function DrugAllergieNew({ props }) {
     resolver: yupResolver(schema),
   });
   const [result, setResult] = useState("");
-  const [errorsList, setErrorsList] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
-
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const onSubmit = async (formData) => {
     setUserInfo(null);
@@ -101,13 +93,28 @@ export default function DrugAllergieNew({ props }) {
       const userData = {
         ...formData,
         patient_id: id,
+        drugRemark: "Normal",
       };
       const response = await Drugallergies.create(userData);
       //console.log("Nuevo alergia registrada", response);
-      setResult("Allergie properly register");
+      enqueueSnackbar("Alergia registrada con éxito", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
+      //setResult("Allergie properly register");
       reset();
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Error al registrar una alergia", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
@@ -158,17 +165,36 @@ export default function DrugAllergieNew({ props }) {
               />
             </Grid>
             <Grid item lg={6} sm={6} xs={12}>
-              <TextField
-                id="drugName"
-                name="drugName"
-                label="Medicamento"
-                className={classes.textField}
-                defaultValue=""
-                required
+              <FormControl
                 variant="outlined"
-                {...register("drugName")}
-                helperText={errors.drugName?.message}
-              />
+                label="Tipo de alergia"
+                fullWidth
+                className={classes.textField}
+              >
+                <Select
+                  id="drugName"
+                  {...register("drugName")}
+                  defaultValue="Alergia de alimentos"
+                >
+                  <MenuItem value={`Alergia de alimentos`}>
+                    Alergia de alimentos
+                  </MenuItem>
+                  <MenuItem value={`Alergia a fármacos`}>
+                    Alergia a fármacos
+                  </MenuItem>
+                  <MenuItem value={`Asma alérgico`}>Asma alérgico</MenuItem>
+                  <MenuItem value={`Dermatitis atópica`}>
+                    Dermatitis atópica
+                  </MenuItem>
+                  <MenuItem value={`Poliposis Nasal`}>Poliposis Nasal</MenuItem>
+                  <MenuItem value={`Rinitis alérgica`}>
+                    Rinitis alérgica
+                  </MenuItem>
+                  <MenuItem value={`Urticaria crónica`}>
+                    Urticaria crónica
+                  </MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
           </Grid>{" "}
           <Divider
@@ -188,30 +214,18 @@ export default function DrugAllergieNew({ props }) {
               color: "#092435",
             }}
           >
-            <Grid item lg={6} sm={6} xs={12}>
+            <Grid item lg={12} sm={12} xs={12}>
               <TextField
                 id="drugSymptom"
                 name="drugSymptom"
-                label="Síntomas"
+                label="Detalle de la alergia"
                 className={classes.textField}
                 defaultValue=""
                 required
                 variant="outlined"
                 {...register("drugSymptom")}
+                error={!!errors.drugSymptom}
                 helperText={errors.drugSymptom?.message}
-              />
-            </Grid>
-            <Grid item lg={6} sm={6} xs={12}>
-              <TextField
-                id="drugRemark"
-                name="drugRemark"
-                label="Observación"
-                className={classes.textField}
-                defaultValue=""
-                required
-                variant="outlined"
-                {...register("drugRemark")}
-                helperText={errors.drugRemark?.message}
               />
             </Grid>
           </Grid>
@@ -247,7 +261,7 @@ export default function DrugAllergieNew({ props }) {
                 type="submit"
                 fullWidth
                 className={classes.btnadd}
-                onClick={handleOpen}
+                //onClick={handleOpen}
                 startIcon={<SaveIcon />}
               >
                 Añadir alergia
@@ -258,7 +272,7 @@ export default function DrugAllergieNew({ props }) {
             light
             style={{ backgroundColor: "#60CCD9", color: "#092435" }}
           />
-          <Modal
+          {/*   <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
@@ -286,7 +300,7 @@ export default function DrugAllergieNew({ props }) {
                 </Button>
               </div>
             </Fade>
-          </Modal>
+          </Modal> */}
         </form>
       </Container>
     </CssBaseline>

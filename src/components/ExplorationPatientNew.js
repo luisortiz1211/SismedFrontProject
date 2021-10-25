@@ -21,6 +21,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { Scheduledays } from "src/api/scheduleday";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,16 +79,60 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const schema = yup.object().shape({
-  headExplo: yup.string().max(500, "Máximo 500 caracteres"),
-  chestExplo: yup.string().max(500, "Máximo 500 caracteres"),
-  extremitiesExplo: yup.string().max(500, "Máximo 500 caracteres"),
-  neckExplo: yup.string().max(500, "Máximo 500 caracteres"),
-  stomachExplo: yup.string().max(500, "Máximo 500 caracteres"),
-  genitalsExplo: yup.string().max(500, "Máximo 500 caracteres"),
-  forecastExplo: yup.string().max(500, "Máximo 500 caracteres"),
-  diagnosisExplo: yup.string().max(500, "Máximo 500 caracteres"),
-  treatmentExplo: yup.string().max(500, "Máximo 500 caracteres"),
-  commentExplo: yup.string().max(500, "Máximo 500 caracteres"),
+  headExplo: yup
+    .string()
+    .required(
+      "Registre el campo como normal, si no existe novedades que añadir"
+    )
+    .max(500, "Máximo 500 caracteres"),
+  chestExplo: yup
+    .string()
+    .required(
+      "Registre el campo como normal, si no existe novedades que añadir"
+    )
+    .max(500, "Máximo 500 caracteres"),
+  extremitiesExplo: yup
+    .string()
+    .required(
+      "Registre el campo como normal, si no existe novedades que añadir"
+    )
+    .max(500, "Máximo 500 caracteres"),
+  neckExplo: yup
+    .string()
+    .required(
+      "Registre el campo como normal, si no existe novedades que añadir"
+    )
+    .max(500, "Máximo 500 caracteres"),
+  stomachExplo: yup
+    .string()
+    .required(
+      "Registre el campo como normal, si no existe novedades que añadir"
+    )
+    .max(500, "Máximo 500 caracteres"),
+  genitalsExplo: yup
+    .string()
+    .required(
+      "Registre el campo como normal, si no existe novedades que añadir"
+    )
+    .max(500, "Máximo 500 caracteres"),
+  forecastExplo: yup
+    .string()
+    .required(
+      "Registre el campo como normal, si no existe novedades que añadir"
+    )
+    .max(500, "Máximo 500 caracteres"),
+  diagnosisExplo: yup
+    .string()
+    .required(
+      "Registre el campo como normal, si no existe novedades que añadir"
+    )
+    .max(500, "Máximo 500 caracteres"),
+  treatmentExplo: yup
+    .string()
+    .required(
+      "Registre el campo como normal, si no existe novedades que añadir"
+    )
+    .max(500, "Máximo 500 caracteres"),
 });
 
 export default function ExplorationPatientNew({ examID }) {
@@ -104,17 +149,9 @@ export default function ExplorationPatientNew({ examID }) {
     resolver: yupResolver(schema),
   });
   const [result, setResult] = useState("");
-  const [errorsList, setErrorsList] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
   const handleRegisterDay = async () => {
     try {
       await Scheduledays.update(`${id}`, {
@@ -142,13 +179,28 @@ export default function ExplorationPatientNew({ examID }) {
         ...formData,
         physicalExam_id: exam_id,
         patient_id: pid,
+        commentExplo: "Normal",
       };
       const response = await Explorationpatients.create(userData);
-      console.log("Nueva exploración registrado", response);
+      //console.log("Nueva exploración registrado", response);
       setResult("Exploration patient properly register");
+      enqueueSnackbar("Exploración registrada con éxito", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
       reset();
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Error al registrar antecedente personal", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
@@ -267,6 +319,7 @@ export default function ExplorationPatientNew({ examID }) {
                   required
                   variant="outlined"
                   {...register("headExplo")}
+                  error={!!errors.headExplo}
                   helperText={errors.headExplo?.message}
                 />
               </Grid>
@@ -288,6 +341,7 @@ export default function ExplorationPatientNew({ examID }) {
                   required
                   variant="outlined"
                   {...register("chestExplo")}
+                  error={!!errors.chestExplo}
                   helperText={errors.chestExplo?.message}
                 />
               </Grid>
@@ -327,6 +381,7 @@ export default function ExplorationPatientNew({ examID }) {
                   required
                   variant="outlined"
                   {...register("extremitiesExplo")}
+                  error={!!errors.extremitiesExplo}
                   helperText={errors.extremitiesExplo?.message}
                 />
               </Grid>
@@ -348,6 +403,7 @@ export default function ExplorationPatientNew({ examID }) {
                   required
                   variant="outlined"
                   {...register("neckExplo")}
+                  error={!!errors.neckExplo}
                   helperText={errors.neckExplo?.message}
                 />
               </Grid>
@@ -387,6 +443,7 @@ export default function ExplorationPatientNew({ examID }) {
                   required
                   variant="outlined"
                   {...register("stomachExplo")}
+                  error={!!errors.stomachExplo}
                   helperText={errors.stomachExplo?.message}
                 />
               </Grid>
@@ -408,6 +465,7 @@ export default function ExplorationPatientNew({ examID }) {
                   required
                   variant="outlined"
                   {...register("genitalsExplo")}
+                  error={!!errors.genitalsExplo}
                   helperText={errors.genitalsExplo?.message}
                 />
               </Grid>
@@ -430,7 +488,7 @@ export default function ExplorationPatientNew({ examID }) {
               color: "#092435",
             }}
           >
-            <Grid item md={6} xs={12}>
+            <Grid item md={12} xs={12}>
               <Grid
                 container
                 direction="row"
@@ -446,11 +504,26 @@ export default function ExplorationPatientNew({ examID }) {
                   placeholder="Campo vacio no permitido"
                   required
                   {...register("forecastExplo")}
+                  error={!!errors.forecastExplo}
                   helperText={errors.forecastExplo?.message}
                 />
               </Grid>
             </Grid>
-            <Grid item md={6} xs={12}>
+          </Grid>
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            spacing={2}
+            style={{
+              backgroundColor: "#fff",
+              paddingBottom: "10px",
+              paddingTop: "15px",
+              color: "#092435",
+            }}
+          >
+            <Grid item md={12} xs={12}>
               <Grid
                 container
                 direction="row"
@@ -467,6 +540,7 @@ export default function ExplorationPatientNew({ examID }) {
                   required
                   variant="outlined"
                   {...register("diagnosisExplo")}
+                  error={!!errors.diagnosisExplo}
                   helperText={errors.diagnosisExplo?.message}
                 />
               </Grid>
@@ -483,13 +557,13 @@ export default function ExplorationPatientNew({ examID }) {
             alignItems="center"
             spacing={2}
             style={{
-              backgroundColor: "#ffff",
+              backgroundColor: "#BBF0E8",
               paddingBottom: "20px",
               paddingTop: "15px",
               color: "#092435",
             }}
           >
-            <Grid item md={6} xs={12}>
+            <Grid item md={12} xs={12}>
               <Grid
                 container
                 direction="row"
@@ -506,29 +580,8 @@ export default function ExplorationPatientNew({ examID }) {
                   required
                   variant="outlined"
                   {...register("treatmentExplo")}
+                  error={!!errors.treatmentExplo}
                   helperText={errors.treatmentExplo?.message}
-                />
-              </Grid>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-              >
-                <TextField
-                  id="commentExplo"
-                  name="commentExplo"
-                  label="Comentarios"
-                  className={classes.textField}
-                  defaultValue="Normal"
-                  placeholder="Campo vacio no permitido"
-                  required
-                  variant="outlined"
-                  {...register("commentExplo")}
-                  helperText={errors.commentExplo?.message}
                 />
               </Grid>
             </Grid>
@@ -542,6 +595,7 @@ export default function ExplorationPatientNew({ examID }) {
             direction="row"
             justifyContent="space-around"
             alignItems="center"
+            spacing={2}
             style={{
               backgroundColor: "#FFFFFF",
               paddingBottom: "10px",
@@ -566,7 +620,6 @@ export default function ExplorationPatientNew({ examID }) {
                 fullWidth
                 className={classes.btnexplo}
                 onClick={() => {
-                  handleOpen();
                   handleRegisterDay();
                 }}
                 startIcon={<SaveIcon />}
@@ -579,34 +632,6 @@ export default function ExplorationPatientNew({ examID }) {
             light
             style={{ backgroundColor: "#60CCD9", color: "#092435" }}
           />
-          <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <Fade in={open}>
-              <div className={classes.mpaper}>
-                <h2 id="transition-modal-title">
-                  Revisión agregada con exito,
-                </h2>
-                <Button
-                  variant="contained"
-                  type="submit"
-                  size="small"
-                  onClick={handleClose}
-                  className={classes.btnexplo}
-                >
-                  Aceptar
-                </Button>
-              </div>
-            </Fade>
-          </Modal>
         </form>
       </Container>
     </CssBaseline>

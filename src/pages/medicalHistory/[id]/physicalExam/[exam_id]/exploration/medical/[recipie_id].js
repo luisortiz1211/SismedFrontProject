@@ -1,22 +1,18 @@
 import DrugsRecipieNew from "@/components/DrugsRecipieNew";
-import ExplorationPatientNew from "@/components/ExplorationPatientNew";
 import ImageRecipieNew from "@/components/ImageRecipieNew";
 import LayoutSecondary from "@/components/LayoutSecondary";
-import PhysicalExamUpdate from "@/components/PhysicalExamUpdate";
 import Title from "@/components/Title";
-import withAuth from "@/hocs/withAuth";
 import { Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
-import Tabs, { tabsClasses } from "@mui/material/Tabs";
+import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import ExplorationPatientAttentions from "@/components/ExplorationPatientAttentions";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

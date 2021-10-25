@@ -20,6 +20,7 @@ import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Scheduledays } from "src/api/scheduleday";
@@ -119,6 +120,7 @@ const RegisterCancel = () => {
   const { id } = router.query;
   const [open, setOpen] = useState(false);
   const [opendel, setDel] = useState(false);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -140,7 +142,14 @@ const RegisterCancel = () => {
       });
     } catch (error) {
       if (error.response) {
-        console.error(error.response);
+        enqueueSnackbar("Error al guardar", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+        //console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
       } else {
@@ -152,11 +161,28 @@ const RegisterCancel = () => {
   // cancelar cita en la tabla schedule_days
   const handleCancelDay = async () => {
     try {
-      await Scheduledays.update(`${id}`, { scheduleDayState: "cancelado" });
+      await Scheduledays.update(
+        `${id}`,
+        { scheduleDayState: "cancelado" },
+        enqueueSnackbar("Cita cancelada", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        })
+      );
     } catch (error) {
       if (error.response) {
-        alert(error.response.message);
-        console.log(error.response);
+        enqueueSnackbar("Error al cancelar cita", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+        //alert(error.response.message);
+        //console.log(error.response);
       } else if (error.request) {
         console.log(error.request);
       } else {
@@ -165,18 +191,34 @@ const RegisterCancel = () => {
       console.log(error.config);
     }
   };
-  // actualizar a registrado para ingresar datos médicos
 
   // cancelar horario en schedule_user
   const handleCancelUser = async () => {
     try {
-      await Scheduleusers.update(`${data.schedule_id}`, {
-        availableStatus: 0,
-      });
+      await Scheduleusers.update(
+        `${data.schedule_id}`,
+        {
+          availableStatus: 0,
+        },
+        enqueueSnackbar("Ahora el horario esta disponible", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        })
+      );
     } catch (error) {
       if (error.response) {
-        alert(error.response.message);
-        console.log(error.response);
+        enqueueSnackbar("Error al actualizar horario", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+        //alert(error.response.message);
+        //console.log(error.response);
       } else if (error.request) {
         console.log(error.request);
       } else {
@@ -390,18 +432,19 @@ const RegisterCancel = () => {
                               justifyContent: "center",
                             }}
                           >
-                            <Button
-                              className={classes.btnCancel}
-                              variant="contained"
-                              fullWidth
-                              onClick={() => {
-                                handleCancelUser();
-                                handleCancelDay();
-                                handleOpen();
-                              }}
-                            >
-                              Cancelar cita
-                            </Button>
+                            <Link href={`/scheduleDay/schedule`} passHref>
+                              <Button
+                                className={classes.btnCancel}
+                                variant="contained"
+                                fullWidth
+                                onClick={() => {
+                                  handleCancelUser();
+                                  handleCancelDay();
+                                }}
+                              >
+                                Cancelar cita
+                              </Button>
+                            </Link>
                           </Grid>
                           <Grid
                             item
@@ -416,7 +459,7 @@ const RegisterCancel = () => {
                             }}
                           >
                             <Link
-                              href={`/physicalExam/${data.schedule_day}/patient/${data.patient_id}`}
+                              href={`/physicalExam/${data.schedule_day}/patient/${data.patient_id}/schedule/${data.schedule_id}`}
                               passHref
                             >
                               <Button
@@ -424,9 +467,6 @@ const RegisterCancel = () => {
                                 type="submit"
                                 fullWidth
                                 className={classes.btnSave}
-                                onClick={() => {
-                                  handleCancelUser();
-                                }}
                               >
                                 Examinar
                               </Button>

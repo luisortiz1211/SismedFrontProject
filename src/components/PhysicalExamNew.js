@@ -1,26 +1,23 @@
 import AnnounTitle from "@/components/AnnounTitle";
-import withAuth from "@/hocs/withAuth";
+import { Scheduleusers } from "@/lib/scheduleuser";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CssBaseline, Fade } from "@material-ui/core";
+import { CssBaseline } from "@material-ui/core";
 import { FormControl, MenuItem, Select } from "@material-ui/core/";
-import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
-import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import SaveIcon from "@mui/icons-material/Save";
-import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Physicalexams } from "src/api/physicalexam";
 import { Scheduledays } from "src/api/scheduleday";
 import { useAuth } from "src/contexts/auth";
 import * as yup from "yup";
-import InputAdornment from "@mui/material/InputAdornment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,22 +85,18 @@ const schema = yup.object().shape({
   currentCondition: yup
     .string()
     .required("Ingrese los sintomas actuales")
-    .max(100, "Máximo 100 caracteres"),
+    .max(200, "Máximo 200 caracteres"),
   comment: yup
     .string()
-    .required("Ingrese algún detalle adicional")
-    .max(100, "Máximo 100 caracteres"),
-  currentDrug: yup
-    .string()
-    .required("Ingrese si tomo algún medicamento")
+    .required("Ingrese algún detalle adicional, tomo algún medicamento")
     .max(100, "Máximo 100 caracteres"),
 });
 
-const PhysicalExamNew = ({ pid }) => {
+const PhysicalExamNew = ({ pid, schid, schuser }) => {
   const classes = useStyles();
   const { user } = useAuth();
   const router = useRouter();
-  const { id } = router.query;
+  //const { id } = router.query;
   const {
     register,
     reset,
@@ -113,27 +106,70 @@ const PhysicalExamNew = ({ pid }) => {
     resolver: yupResolver(schema),
   });
   const [result, setResult] = useState("");
-  const [errorsList, setErrorsList] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
-
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const handleRegisterDay = async () => {
     try {
-      await Scheduledays.update(`${id}`, {
-        scheduleDayState: "registrado",
-      });
+      await Scheduledays.update(
+        `${schid}`,
+        {
+          scheduleDayState: "registrado",
+        },
+        enqueueSnackbar("Paciente registrado en agenda de atención", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        })
+      );
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Error al registrar en agenda de atención", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         alert(error.response.message);
         console.log(error.response);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    }
+  };
+
+  const handleCancelUser = async () => {
+    try {
+      await Scheduleusers.update(
+        `${schuser}`,
+        {
+          availableStatus: 0,
+        },
+        enqueueSnackbar("Ahora el horario esta disponible", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        })
+      );
+    } catch (error) {
+      if (error.response) {
+        enqueueSnackbar("Error al actualizar horario", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+        //alert(error.response.message);
+        //console.log(error.response);
       } else if (error.request) {
         console.log(error.request);
       } else {
@@ -151,14 +187,29 @@ const PhysicalExamNew = ({ pid }) => {
       const userData = {
         ...formData,
         patient_id: pid,
-        schedule_day: id,
+        schedule_day: schid,
+        currentDrug: "Normal",
       };
       const response = await Physicalexams.create(userData);
       //console.log("Examen fisico registrado", response);
       setResult("Physical exam register");
+      enqueueSnackbar("Examen físico registrado", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
       reset();
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Error al registrar el examen físico", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
@@ -199,14 +250,12 @@ const PhysicalExamNew = ({ pid }) => {
                 name="id"
                 label="# Historia clínica"
                 className={classes.textField}
-                defaultValue={id}
-                //required
+                defaultValue={pid}
                 disabled
                 variant="outlined"
                 InputProps={{
                   readOnly: true,
                 }}
-                //{...register("patient_id")}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
@@ -221,7 +270,6 @@ const PhysicalExamNew = ({ pid }) => {
                 InputProps={{
                   readOnly: true,
                 }}
-                // {...register("date")}
               />
             </Grid>
             <Grid item lg={3} sm={4} xs={12}>
@@ -260,18 +308,14 @@ const PhysicalExamNew = ({ pid }) => {
               <TextField
                 id="heartRate"
                 name="heartRate"
-                label="Ritmo cardiaco-lpm"
+                label="Ritmo cardiaco - lpm"
                 className={classes.textField}
                 defaultValue=""
                 required
                 variant="outlined"
                 placeholder="89"
                 {...register("heartRate")}
-                /*       InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">lpm</InputAdornment>
-                  ),
-                }} */
+                error={!!errors.heartRate}
                 helperText={errors.heartRate?.message}
               />
             </Grid>
@@ -279,18 +323,14 @@ const PhysicalExamNew = ({ pid }) => {
               <TextField
                 id="bloodPleasure"
                 name="bloodPleasure"
-                label="Presión arterial-mgHg"
+                label="Presión arterial - mgHg"
                 className={classes.textField}
                 defaultValue=""
                 required
                 variant="outlined"
                 placeholder="155/95"
                 {...register("bloodPleasure")}
-                /* InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">mgHg</InputAdornment>
-                  ),
-                }} */
+                error={!!errors.bloodPleasure}
                 helperText={errors.bloodPleasure?.message}
               />
             </Grid>
@@ -305,6 +345,7 @@ const PhysicalExamNew = ({ pid }) => {
                 placeholder="38"
                 variant="outlined"
                 {...register("temp")}
+                error={!!errors.temp}
                 helperText={errors.temp?.message}
               />
             </Grid>
@@ -337,6 +378,7 @@ const PhysicalExamNew = ({ pid }) => {
                 placeholder="71.5"
                 variant="outlined"
                 {...register("weight")}
+                error={!!errors.weight}
                 helperText={errors.weight?.message}
               />
             </Grid>
@@ -351,6 +393,7 @@ const PhysicalExamNew = ({ pid }) => {
                 placeholder="175.5"
                 variant="outlined"
                 {...register("height")}
+                error={!!errors.height}
                 helperText={errors.height?.message}
               />
             </Grid>
@@ -358,13 +401,14 @@ const PhysicalExamNew = ({ pid }) => {
               <TextField
                 id="idealWeight"
                 name="idealWeight"
-                label="Masa corporal"
+                label="IMC"
                 className={classes.textField}
                 defaultValue=""
                 required
                 placeholder="21.5"
                 variant="outlined"
                 {...register("idealWeight")}
+                error={!!errors.idealWeight}
                 helperText={errors.idealWeight?.message}
               />
             </Grid>
@@ -378,6 +422,7 @@ const PhysicalExamNew = ({ pid }) => {
             direction="row"
             justifyContent="space-around"
             alignItems="center"
+            spacing={2}
             style={{
               backgroundColor: "#FFFFFF",
               paddingBottom: "10px",
@@ -523,7 +568,7 @@ const PhysicalExamNew = ({ pid }) => {
               color: "#092435",
             }}
           >
-            <Grid item lg={3} sm={4} xs={12}>
+            <Grid item sm={12} xs={12}>
               <TextField
                 id="currentCondition"
                 name="currentCondition"
@@ -533,10 +578,23 @@ const PhysicalExamNew = ({ pid }) => {
                 required
                 variant="outlined"
                 {...register("currentCondition")}
+                error={!!errors.currentCondition}
                 helperText={errors.currentCondition?.message}
               />
             </Grid>
-            <Grid item lg={3} sm={4} xs={12}>
+          </Grid>
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            spacing={2}
+            style={{
+              paddingBottom: "20px",
+              paddingTop: "15px",
+            }}
+          >
+            <Grid item sm={12} xs={12}>
               <TextField
                 id="comment"
                 name="comment"
@@ -546,18 +604,8 @@ const PhysicalExamNew = ({ pid }) => {
                 required
                 variant="outlined"
                 {...register("comment")}
+                error={!!errors.comment}
                 helperText={errors.comment?.message}
-              />
-            </Grid>
-            <Grid item lg={3} sm={4} xs={12}>
-              <TextField
-                id="currentDrug"
-                name="currentDrug"
-                label="Medicamento prescrito"
-                className={classes.textField}
-                variant="outlined"
-                {...register("currentDrug")}
-                helperText={errors.currentDrug?.message}
               />
             </Grid>
           </Grid>
@@ -570,6 +618,7 @@ const PhysicalExamNew = ({ pid }) => {
             direction="row"
             justifyContent="space-around"
             alignItems="center"
+            spacing={2}
             style={{
               backgroundColor: "#FFFFFF",
               paddingBottom: "10px",
@@ -594,8 +643,8 @@ const PhysicalExamNew = ({ pid }) => {
                 fullWidth
                 className={classes.btnsave}
                 onClick={() => {
-                  handleOpen();
                   handleRegisterDay();
+                  handleCancelUser();
                 }}
                 startIcon={<SaveIcon />}
               >
@@ -607,36 +656,6 @@ const PhysicalExamNew = ({ pid }) => {
             light
             style={{ backgroundColor: "#60CCD9", color: "#092435" }}
           />
-          <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <Fade in={open}>
-              <div className={classes.mpaper}>
-                <h2 id="transition-modal-title">
-                  Examen agregado con éxito, puede continuar con la atención
-                </h2>
-
-                <Button
-                  variant="contained"
-                  type="submit"
-                  size="small"
-                  onClick={handleClose}
-                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                  className={classes.upgrade}
-                >
-                  Aceptar
-                </Button>
-              </div>
-            </Fade>
-          </Modal>
         </form>
       </Container>
     </CssBaseline>

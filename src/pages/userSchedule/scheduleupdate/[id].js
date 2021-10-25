@@ -31,10 +31,21 @@ import { Scheduleusers } from "src/api/scheduleuser";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import * as yup from "yup";
+import { useSnackbar } from "notistack";
 
 const schema = yup.object().shape({
   startTime: yup.string().required("Ingrese la hora de inicio"),
-  finishTime: yup.string().required("Ingrese la hora de final del turno"),
+  finishTime: yup
+    .string()
+    .required("Ingrese la hora de fin")
+    .test(
+      "is-greater",
+      "Debe ser posterior a la hora de Inicio",
+      function (value) {
+        const { startTime } = this.parent;
+        return moment(value, "HH:mm").isSameOrAfter(moment(startTime, "HH:mm"));
+      }
+    ),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -129,6 +140,7 @@ const ScheduleUpdate = () => {
     formState: { errors },
     handleSubmit,
   } = useForm({ resolver: yupResolver(schema) });
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const router = useRouter();
   const { id } = router.query;
@@ -149,14 +161,31 @@ const ScheduleUpdate = () => {
 
   const onSubmit = async (schedule) => {
     try {
-      await Scheduleusers.update(`${id}`, {
-        startTime: schedule.startTime,
-        finishTime: schedule.finishTime,
-        availableStatus: 0,
-      });
+      await Scheduleusers.update(
+        `${id}`,
+        {
+          startTime: schedule.startTime,
+          finishTime: schedule.finishTime,
+          availableStatus: 0,
+        },
+        enqueueSnackbar("Guardado con éxito", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        })
+      );
     } catch (error) {
       if (error.response) {
-        console.error(error.response);
+        enqueueSnackbar("Error al guardar", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+        //console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
       } else {
@@ -167,11 +196,26 @@ const ScheduleUpdate = () => {
   };
   const handleDelete = async () => {
     try {
-      await Scheduleusers.deleteSchedule(`${id}`);
+      await Scheduleusers.deleteSchedule(
+        `${id}`,
+        enqueueSnackbar("Horario eliminado", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        })
+      );
     } catch (error) {
       if (error.response) {
-        //alert(error.response.message);
-        console.log(error.response);
+        enqueueSnackbar("Error al eliminar", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+        //console.log(error.response);
       } else if (error.request) {
         console.log(error.request);
       } else {
@@ -289,6 +333,7 @@ const ScheduleUpdate = () => {
                         variant="outlined"
                         placeholder="ej. 12:30"
                         {...register("startTime")}
+                        error={!!errors.startTime}
                         helperText={errors.startTime?.message}
                       />
                     </Grid>
@@ -302,6 +347,7 @@ const ScheduleUpdate = () => {
                         variant="outlined"
                         placeholder="ej. 12:30"
                         {...register("finishTime")}
+                        error={!!errors.finishTime}
                         helperText={errors.finishTime?.message}
                       />
                     </Grid>
@@ -387,7 +433,7 @@ const ScheduleUpdate = () => {
                               type="submit"
                               fullWidth
                               className={classes.btnSave}
-                              onClick={handleOpen}
+                              //onClick={handleOpen}
                               startIcon={<SaveIcon />}
                             >
                               Actualizar
@@ -400,7 +446,7 @@ const ScheduleUpdate = () => {
                     </Grid>
                   </Grid>
 
-                  <Modal
+                  {/*     <Modal
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
                     className={classes.modal}
@@ -436,7 +482,7 @@ const ScheduleUpdate = () => {
                         </Link>
                       </div>
                     </Fade>
-                  </Modal>
+                  </Modal> */}
                 </form>
               </div>
             </Grid>

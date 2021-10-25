@@ -1,12 +1,12 @@
-/*const translateMessage = (message) => {
+const translateMessage = (message) => {
   const messages = {
     invalid_credentials: "La combinación de usuario y clave es incorrecta.",
   };
 
   return messages[message] || message;
 };
-export default translateMessage;*/
-export default (message) => {
+export default translateMessage;
+/* export default (message) => {
   const messages = {
     invalid_credentials: "La combinación de correo y contraseña es incorrecta",
     '{"email":["validation.unique"]}':
@@ -14,4 +14,4 @@ export default (message) => {
     "passwords.token": "El correo ingresado no coincide con el de la petición",
   };
   return messages[message] || message;
-};
+}; */

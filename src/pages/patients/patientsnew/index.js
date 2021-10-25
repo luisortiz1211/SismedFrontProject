@@ -22,6 +22,22 @@ import { useForm } from "react-hook-form";
 import { Patients } from "src/api/patient";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useSnackbar } from "notistack";
+
+const schema = yup.object().shape({
+  ci: yup.number().required("Confirme su número de cédula"),
+  name: yup.string().required("Ingrese su nombre"),
+  lastName: yup.string().required("Ingrese su apellido"),
+  birthay: yup.string().required("Ingrese su fecha de nacimiento"),
+  employment: yup.string().required("Defina nombre del empleo"),
+  email: yup.string().email("Ingrese un email").required("Confirme el email"),
+  movil: yup.number().required("Confirme número telefonico"),
+  landline: yup.number().required("Confirme número fijo"),
+  address: yup.string().required("Defina nombre del empleo"),
+  nationality: yup.string().required("Defina nombre del empleo"),
+  city: yup.string().required("Defina nombre del empleo"),
+  parish: yup.string().required("Defina nombre del empleo"),
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,20 +99,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const schema = yup.object().shape({
-  ci: yup.number().required("Confirme su número de cédula"),
-  name: yup.string().required("Ingrese su nombre"),
-  lastName: yup.string().required("Ingrese su apellido"),
-  birthay: yup.string().required("Ingrese su fecha de nacimiento"),
-  employment: yup.string().required("Defina nombre del empleo"),
-  email: yup.string().email("Ingrese un email").required("Confirme el email"),
-  movil: yup.number().required("Confirme número telefonico"),
-  landline: yup.number().required("Confirme número fijo"),
-  address: yup.string().required("Defina nombre del empleo"),
-  nationality: yup.string().required("Defina nombre del empleo"),
-  city: yup.string().required("Defina nombre del empleo"),
-  parish: yup.string().required("Defina nombre del empleo"),
-});
 
 const PatientNew = ({ props }) => {
   const classes = useStyles();
@@ -115,6 +117,7 @@ const PatientNew = ({ props }) => {
   const [userInfo, setUserInfo] = useState(null);
 
   const [open, setOpen] = useState(false);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -135,8 +138,22 @@ const PatientNew = ({ props }) => {
       //      console.log("Nuevo paciente registrado", response);
       setResult("User properly register");
       reset();
+      enqueueSnackbar("Creado con éxito", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
     } catch (error) {
       if (error.response) {
+        enqueueSnackbar("Error al guardar", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
         console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
@@ -198,6 +215,7 @@ const PatientNew = ({ props }) => {
                     required
                     variant="outlined"
                     {...register("ci")}
+                    error={!!errors.ci}
                     helperText={errors.ci?.message}
                     placeholder="Cédula: 172145784X"
                   />
@@ -212,6 +230,7 @@ const PatientNew = ({ props }) => {
                     required
                     variant="outlined"
                     {...register("name")}
+                    error={!!errors.name}
                     helperText={errors.name?.message}
                     placeholder="Nombre: Dale Diane  "
                   />
@@ -226,6 +245,7 @@ const PatientNew = ({ props }) => {
                     required
                     variant="outlined"
                     {...register("lastName")}
+                    error={!!errors.lastName}
                     helperText={errors.lastName?.message}
                     placeholder="Apellidos: Frank Herbert"
                   />
@@ -295,6 +315,7 @@ const PatientNew = ({ props }) => {
                     required
                     variant="outlined"
                     {...register("birthay")}
+                    error={!!errors.birthay}
                     helperText={errors.birthay?.message}
                     placeholder="Fecha: 1989-12-10"
                   />
@@ -327,6 +348,7 @@ const PatientNew = ({ props }) => {
                     required
                     variant="outlined"
                     {...register("employment")}
+                    error={!!errors.employment}
                     helperText={errors.employment?.message}
                     placeholder="Ocupación: Profesor"
                   />
@@ -341,6 +363,7 @@ const PatientNew = ({ props }) => {
                     required
                     variant="outlined"
                     {...register("email")}
+                    error={!!errors.email}
                     helperText={errors.email?.message}
                     placeholder="Correo: ejemplomail@gmail.com"
                   />
@@ -355,6 +378,7 @@ const PatientNew = ({ props }) => {
                     required
                     variant="outlined"
                     {...register("movil")}
+                    error={!!errors.movil}
                     helperText={errors.movil?.message}
                     placeholder="Celular: 09956235X"
                   />
@@ -387,6 +411,7 @@ const PatientNew = ({ props }) => {
                     required
                     variant="outlined"
                     {...register("landline")}
+                    error={!!errors.landline}
                     helperText={errors.landline?.message}
                     placeholder="Fijo: 022695566 "
                   />
@@ -401,6 +426,7 @@ const PatientNew = ({ props }) => {
                     required
                     variant="outlined"
                     {...register("address")}
+                    error={!!errors.address}
                     helperText={errors.address?.message}
                     placeholder="Dirección: Calle A1 y Av Principal"
                   />
@@ -415,7 +441,8 @@ const PatientNew = ({ props }) => {
                     required
                     variant="outlined"
                     {...register("nationality")}
-                    helperText={errors.ci?.message}
+                    error={!!errors.nationality}
+                    helperText={errors.nationality?.message}
                     placeholder="País: Ecuador"
                   />
                 </Grid>
@@ -447,6 +474,7 @@ const PatientNew = ({ props }) => {
                     required
                     variant="outlined"
                     {...register("city")}
+                    error={!!errors.city}
                     helperText={errors.city?.message}
                     placeholder="Ciudad: Quito"
                   />
@@ -461,6 +489,7 @@ const PatientNew = ({ props }) => {
                     required
                     variant="outlined"
                     {...register("parish")}
+                    error={!!errors.parish}
                     helperText={errors.parish?.message}
                     placeholder="Provincia: Pichincha"
                   />
@@ -533,7 +562,7 @@ const PatientNew = ({ props }) => {
                     type="submit"
                     fullWidth
                     className={classes.btncrear}
-                    onClick={handleOpen}
+                    //onClick={handleOpen}
                     startIcon={<SaveIcon />}
                   >
                     Crear historia
