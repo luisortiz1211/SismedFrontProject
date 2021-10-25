@@ -201,7 +201,6 @@ export default function FamilyHistoryNew() {
                 <Select
                   id="yearCondition"
                   {...register("yearCondition")}
-                  defaultValue=""
                   error={!!errors.yearCondition}
                   helperText={errors.yearCondition?.message}
                   defaultValue={`1`}
@@ -281,35 +280,6 @@ export default function FamilyHistoryNew() {
             light
             style={{ backgroundColor: "#60CCD9", color: "#092435" }}
           />
-          {/* <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <Fade in={open}>
-              <div className={classes.mpaper}>
-                <h2 id="transition-modal-title">
-                  Antecedente familiar agregado con éxito
-                </h2>
-                <Button
-                  variant="contained"
-                  type="submit"
-                  size="small"
-                  onClick={handleClose}
-                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                  className={classes.upgrade}
-                >
-                  Aceptar
-                </Button>
-              </div>
-            </Fade>
-          </Modal> */}
         </form>
       </Container>
     </CssBaseline>
