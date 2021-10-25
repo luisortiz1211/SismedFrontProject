@@ -1,15 +1,7 @@
-import DrugAllergieList from "@/components/DrugAllergieList";
 import DrugsRecipieList from "@/components/DrugsRecipieList";
 import ImageRecipieList from "@/components/ImageRecipieList";
-
-import EmergencyContactList from "@/components/EmergencyContactList";
-import ExplorationPatientList from "@/components/ExplorationPatientList";
-import FamilyHistoryList from "@/components/FamilyHistoryList";
 import LayoutSecondary from "@/components/LayoutSecondary";
-import PatientsInformation from "@/components/PatientUpdate";
-import PersonalHistoryList from "@/components/PersonalHistoryList";
 import Title from "@/components/Title";
-import withAuth from "@/hocs/withAuth";
 import { Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
@@ -21,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

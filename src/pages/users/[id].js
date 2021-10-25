@@ -12,7 +12,7 @@ import {
   Grid,
   MenuItem,
   Select,
-  TextField,
+  TextField
 } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import Divider from "@material-ui/core/Divider";
@@ -23,13 +23,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Users } from "src/api/user";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import * as yup from "yup";
-import { useSnackbar } from "notistack";
 
 const schema = yup.object().shape({
   email: yup.string().email("Ingrese un email").required("Confirme el email"),

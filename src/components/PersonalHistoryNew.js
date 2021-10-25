@@ -77,7 +77,7 @@ export default function PersonalHistoryNew({ props }) {
   const {
     register,
     reset,
-    formState: { errors }, 
+    formState: { errors },
     handleSubmit,
   } = useForm({
     resolver: yupResolver(schema),

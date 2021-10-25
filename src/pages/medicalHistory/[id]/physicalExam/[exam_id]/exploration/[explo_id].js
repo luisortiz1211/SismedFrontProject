@@ -9,10 +9,8 @@ import { Grid } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
-import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
-import { useRouter } from "next/router";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import BallotIcon from "@material-ui/icons/Ballot";
+import { useRouter } from "next/router";
 import React from "react";
 
 const useStyles = makeStyles({

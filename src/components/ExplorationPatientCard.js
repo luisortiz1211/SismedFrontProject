@@ -1,17 +1,15 @@
 import Loading from "@/components/Loading";
-import { fetcher } from "src/api/utils";
-import Container from "@material-ui/core/Container";
+import { Box, Grid, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
-import useSWR from "swr";
+import { CardActionArea } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
-import { Button, CardActionArea, CardActions } from "@mui/material";
-import { Grid, Box, Paper } from "@material-ui/core";
-import { styled } from "@mui/material/styles";
+import React from "react";
+import { fetcher } from "src/api/utils";
+import useSWR from "swr";
 
 const useStyles = makeStyles((theme) => ({
   root: {
