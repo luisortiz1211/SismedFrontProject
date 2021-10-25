@@ -1,4 +1,4 @@
-/* import { useAuth } from "@/contexts/auth";
+import { useAuth } from "@/contexts/auth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Paper, TextField } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
@@ -45,6 +45,7 @@ const styles = {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
     backgroundSize: "cover",
+    backgroundImage: `url(${"/fondo-login.png"})`,
     padding: "40px",
   },
   paper: {
@@ -58,13 +59,7 @@ const ResetPasswordPage = () => {
   const { confirmPasswordReset } = useAuth();
   const classes = useStyles();
   const [loading, setLoading] = useState(false);
-
-  const { register, handleSubmit, errors } = useForm({
-    resolver: yupResolver(schema),
-  });
-
   const { enqueueSnackbar } = useSnackbar();
-
   const handleClick = (message, variant) => {
     enqueueSnackbar(message, {
       variant: variant,
@@ -74,6 +69,9 @@ const ResetPasswordPage = () => {
       },
     });
   };
+  const { register, handleSubmit, errors } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const onResetPassword = async ({
     email,
@@ -136,16 +134,11 @@ const ResetPasswordPage = () => {
               noValidate
               onSubmit={handleSubmit(onResetPassword)}
             >
-              <Grid
-                container
-                spacing={2}
-                justifyContent="center"
-                alignItems="center"
-              >
+              <Grid container spacing={2} justify="center" alignItems="center">
                 <Grid xs={12} item>
                   <TextField
                     id="email"
-                   
+                    name="email"
                     type="email"
                     label="Correo electrónico"
                     color="secondary"
@@ -156,12 +149,7 @@ const ResetPasswordPage = () => {
                   />
                 </Grid>
               </Grid>
-              <Grid
-                container
-                spacing={2}
-                justifyContent="center"
-                alignItems="center"
-              >
+              <Grid container spacing={2} justify="center" alignItems="center">
                 <Grid xs={12} item>
                   <TextField
                     id="password"
@@ -175,12 +163,7 @@ const ResetPasswordPage = () => {
                   />
                 </Grid>
               </Grid>
-              <Grid
-                container
-                spacing={2}
-                justifyContent="center"
-                alignItems="center"
-              >
+              <Grid container spacing={2} justify="center" alignItems="center">
                 <Grid xs={12} item>
                   <TextField
                     id="password_confirmation"
@@ -194,12 +177,7 @@ const ResetPasswordPage = () => {
                   />
                 </Grid>
               </Grid>
-              <Grid
-                container
-                spacing={2}
-                justifyContent="center"
-                alignItems="center"
-              >
+              <Grid container spacing={2} justify="center" alignItems="center">
                 <Grid xs={12} item className={classes.buttonWrapper}>
                   <Button
                     name="submit"
@@ -223,4 +201,3 @@ const ResetPasswordPage = () => {
 };
 
 export default ResetPasswordPage;
- */
