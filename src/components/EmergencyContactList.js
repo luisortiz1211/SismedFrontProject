@@ -1,4 +1,5 @@
 import Loading from "@/components/Loading";
+import { Emergencycontacts } from "@/lib/emergencycontact";
 import { Button, Grid } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,8 +9,10 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
@@ -133,6 +136,15 @@ const useStyles = makeStyles((theme) => ({
       color: "#4A92A8",
     },
   },
+  btnDelete: {
+    backgroundColor: "#fff",
+    color: "#CB3234",
+    textTransform: "none",
+    "&:hover": {
+      backgroundColor: "#BBF0E8",
+      color: "#4A92A8",
+    },
+  },
 }));
 
 const EmergencyContactList = ({ patientID }) => {
@@ -142,6 +154,7 @@ const EmergencyContactList = ({ patientID }) => {
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -150,6 +163,37 @@ const EmergencyContactList = ({ patientID }) => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const handleDelete = async (contact) => {
+    try {
+      await Emergencycontacts.deleteContact(
+        `${id}`,
+        enqueueSnackbar("Contacto eliminado", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        })
+      );
+    } catch (error) {
+      if (error.response) {
+        enqueueSnackbar("Error al eliminar", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
+        //console.log(error.response);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    }
   };
 
   const { data, error } = useSWR(
@@ -220,6 +264,28 @@ const EmergencyContactList = ({ patientID }) => {
                           {column.id && typeof value === "number"
                             ? value
                             : value}{" "}
+                          {column.id === "botonSelect" && column.label == "" ? (
+                            <Grid
+                              container
+                              direction="row"
+                              alignItems="center"
+                              justifyContent="center"
+                            >
+                              <Grid item>
+                                <Button
+                                  variant="outlined"
+                                  size="small"
+                                  fullWidth
+                                  className={classes.btnDelete}
+                                  onClick={() => handleDelete(`${data.id}`)}
+                                >
+                                  <DeleteForeverIcon />
+                                </Button>
+                              </Grid>
+                            </Grid>
+                          ) : (
+                            ""
+                          )}
                         </TableCell>
                       );
                     })}
