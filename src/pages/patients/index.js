@@ -2,6 +2,7 @@ import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
+import SearchPatient from "@/components/SearchPatient";
 import Title from "@/components/Title";
 import withAuth from "@/hocs/withAuth";
 import { Button, Grid } from "@material-ui/core";
@@ -147,7 +148,7 @@ const PatientsList = () => {
     setPage(0);
   };
 
-  const { data, error } = useSWR(`/patients`, fetcher);
+  const { data, error } = useSWR(`/patients/all`, fetcher);
   console.log("lista de pacientes", data);
   if (error)
     return (
@@ -176,6 +177,9 @@ const PatientsList = () => {
           />{" "}
           {"  "} Historial de pacientes
         </Title>
+        <>
+          <SearchPatient />
+        </>
         <Paper
           elevation={6}
           style={{ margin: "20px" }}
@@ -232,7 +236,8 @@ const PatientsList = () => {
 
               <TableBody>
                 {data.data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .slice()
+                  .reverse()
                   .map((row) => {
                     const colorLine = row.patient_id;
                     return (
@@ -313,7 +318,7 @@ const PatientsList = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination
+          {/*     <TablePagination
             labelRowsPerPage="Pacientes:"
             rowsPerPageOptions={[10, 25]}
             component="div"
@@ -322,7 +327,10 @@ const PatientsList = () => {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+          /> */}
+          <Container style={{ color: "#BBF0E8", backgroundColor: "#BBF0E8" }}>
+            .
+          </Container>
         </Paper>
       </Container>
     </LayoutSecondary>

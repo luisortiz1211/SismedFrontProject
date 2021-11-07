@@ -144,19 +144,9 @@ const ScheduleUpdate = () => {
 
   const router = useRouter();
   const { id } = router.query;
-  const [open, setOpen] = useState(false);
-
-  const [opendel, setDel] = useState(false);
 
   const handleChange = (event) => {
     setAge(event.target.value);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
   };
 
   const onSubmit = async (schedule) => {
@@ -445,44 +435,6 @@ const ScheduleUpdate = () => {
                       )}
                     </Grid>
                   </Grid>
-
-                  {/*     <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    className={classes.modal}
-                    open={open}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                      timeout: 500,
-                    }}
-                  >
-                    <Fade in={open}>
-                      <div className={classes.mpaper}>
-                        <h2 id="transition-modal-title">
-                          Cambios realizados con éxito
-                        </h2>
-                        <Link
-                          href={`${Routes.SCHEDULEUSER}/${data.user_id}`}
-                          passHref
-                        >
-                          <Button
-                            variant="contained"
-                            type="submit"
-                            size="small"
-                            style={{
-                              backgroundColor: "#60CCD9",
-                              color: "#092435",
-                            }}
-                            className={classes.upgrade}
-                            onClick={handleClose}
-                          >
-                            Aceptar
-                          </Button>
-                        </Link>
-                      </div>
-                    </Fade>
-                  </Modal> */}
                 </form>
               </div>
             </Grid>

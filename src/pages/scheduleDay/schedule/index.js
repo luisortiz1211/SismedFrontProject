@@ -1,10 +1,10 @@
 import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
-import Layout from "@/components/Layoutmain";
+import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
 import withAuth from "@/hocs/withAuth";
-import { Button, Container, CssBaseline, Grid } from "@material-ui/core";
+import { Button, Container, Grid } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -12,18 +12,25 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import { useAuth } from "src/contexts/auth";
 import useSWR from "swr";
 
 const columns = [
+  {
+    id: "id",
+    label: "N° ",
+    maxWidth: 10,
+    backgroundColor: "#BBF0E8",
+    align: "center",
+    fontSize: "16px",
+  },
+
   {
     id: "created_at",
     label: "Fecha registro ",
@@ -91,60 +98,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     minHeight: 440,
   },
-
-  button: {
-    fontSize: "10px",
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    padding: theme.spacing(2),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-    padding: "40px",
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-    backgroundColor: theme.palette.primary.main,
-  },
-  textField: {
-    paddingBottom: "15px",
-    color: "#414A4F",
-  },
-
-  formControl: {
-    minWidth: 300,
-    paddingBottom: "15px",
-    color: "#414A4F",
-    paddingRight: "10px",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  mpaper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  button: {
-    margin: theme.spacing(3),
-  },
-  rightIcon: {
-    marginLeft: theme.spacing(2),
-  },
   btn: {
-    display: "flex",
-    justifyAlign: "right",
     background: "#60CCD9",
     textTransform: "none",
     "&:hover": {
@@ -156,8 +110,6 @@ const useStyles = makeStyles((theme) => ({
 
 const PatientShift = () => {
   const classes = useStyles();
-  const router = useRouter();
-  const { id, user_id } = router.query;
   const { user } = useAuth();
 
   const [page, setPage] = useState(0);
@@ -172,7 +124,7 @@ const PatientShift = () => {
     setPage(0);
   };
 
-  const { data, error } = useSWR(`/schedule_days`, fetcher);
+  const { data, error } = useSWR(`/schedule_days/all`, fetcher);
   //console.log("Citas agenda", data);
   if (error)
     return (
@@ -188,8 +140,7 @@ const PatientShift = () => {
     );
 
   return (
-    <Layout>
-      <CssBaseline />
+    <LayoutSecondary>
       <Container maxWidth="lg">
         <Title>
           {" "}
@@ -203,11 +154,8 @@ const PatientShift = () => {
           />{" "}
           Pacientes agendados
         </Title>
-        <Paper
-          elevation={6}
-          style={{ margin: "20px" }}
-          sx={{ width: "100%", overflow: "hidden" }}
-        >
+
+        <Paper elevation={6} style={{ margin: "20px" }}>
           <AnnounTitle>Registrar o cancelar agendamiento</AnnounTitle>
 
           <TableContainer className={classes.container}>
@@ -232,13 +180,14 @@ const PatientShift = () => {
 
               <TableBody>
                 {data.data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .slice()
+                  .reverse()
                   .map((row) => {
                     return (
                       <TableRow
                         hover
                         role="checkbox"
-                        //  tabIndex={-1}
+                        tabIndex={-2}
                         key={row.id}
                         style={
                           row.scheduleDayState === "atendido"
@@ -250,54 +199,64 @@ const PatientShift = () => {
                             : { backgroundColor: "#FFF" }
                         }
                       >
-                        {columns.map((array) => {
-                          const value = row[array.id];
-                          return (
-                            <TableCell key={array.id} align={array.align}>
-                              {array.id === "botonSelect" &&
-                              array.label == "" ? (
-                                <Grid
-                                  container
-                                  direction="row"
-                                  alignItems="center"
-                                  justifyContent="center"
-                                >
-                                  <Grid item>
-                                    <Link
-                                      href={`/scheduleDay/schedule/${row.schedule_day}`}
-                                      passHref
-                                    >
-                                      {user.roleUser !== "ROLE_MEDIC" ? (
-                                        <Button
-                                          variant="outlined"
-                                          size="small"
-                                          className={classes.btn}
-                                          disabled={
-                                            row.scheduleDayState === "atendido"
-                                          }
-                                          endIcon={<KeyboardArrowRightIcon />}
-                                        >
-                                          Continuar
-                                        </Button>
-                                      ) : (
-                                        ""
-                                      )}
-                                    </Link>
+                        {""}
+                        <>
+                          {columns.map((array) => {
+                            const value = row[array.id];
+                            return (
+                              <TableCell key={array.id} align={array.align}>
+                                
+                                
+                                
+                                {array.id === "botonSelect" &&
+                                array.label == "" ? (
+                                  <Grid
+                                    container
+                                    direction="row"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                  >
+                                    <Grid item>
+                                      <Link
+                                        href={`/scheduleDay/schedule/${row.schedule_day}`}
+                                        passHref
+                                      >
+                                        {user.roleUser !== "ROLE_MEDIC" ? (
+                                          <Button
+                                            variant="outlined"
+                                            size="small"
+                                            className={classes.btn}
+                                            disabled={
+                                              row.scheduleDayState ===
+                                              "atendido"
+                                            }
+                                            endIcon={<KeyboardArrowRightIcon />}
+                                          >
+                                            Continuar
+                                          </Button>
+                                        ) : (
+                                          ""
+                                        )}
+                                      </Link>
+                                    </Grid>
                                   </Grid>
-                                </Grid>
-                              ) : (
-                                value
-                              )}
-                            </TableCell>
-                          );
-                        })}
+                                ) : (
+                                  value
+                                )}
+                              </TableCell>
+                            );
+                          })}
+                        </>
                       </TableRow>
                     );
                   })}
               </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination
+          <Container style={{ color: "#BBF0E8", backgroundColor: "#BBF0E8" }}>
+            .
+          </Container>
+          {/*   <TablePagination
             labelRowsPerPage="Horarios:"
             rowsPerPageOptions={[10, 25]}
             component="div"
@@ -306,10 +265,10 @@ const PatientShift = () => {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+          /> */}
         </Paper>
       </Container>
-    </Layout>
+    </LayoutSecondary>
   );
 };
 export default withAuth(PatientShift);

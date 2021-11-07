@@ -2,6 +2,7 @@ import AnnounTitle from "@/components/AnnounTitle";
 import ChargeInformation from "@/components/ChargeInformation";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
+import SearchPatient from "@/components/SearchPatient";
 import Title from "@/components/Title";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Grid } from "@material-ui/core";
@@ -13,13 +14,9 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import BallotIcon from "@material-ui/icons/Ballot";
 import SendIcon from "@mui/icons-material/Send";
-import Autocomplete from "@mui/material/Autocomplete";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
 import Link from "next/link";
 import { useSnackbar } from "notistack";
 import React, { useState } from "react";
@@ -56,23 +53,16 @@ const columns = [
   {
     id: "sex",
     label: "Sexo",
-    minWidth: 60,
+    minWidth: 40,
     backgroundColor: "#BBF0E8",
     align: "center",
     fontSize: "17px",
   },
-  {
-    id: "civilStatus",
-    label: "Estado",
-    minWidth: 50,
-    backgroundColor: "#BBF0E8",
-    align: "center",
-    fontSize: "17px",
-  },
+
   {
     id: "email",
     label: "Email",
-    minWidth: 80,
+    minWidth: 50,
     backgroundColor: "#BBF0E8",
     align: "center",
     fontSize: "17px",
@@ -80,7 +70,7 @@ const columns = [
   {
     id: "movil",
     label: "Movil",
-    minWidth: 80,
+    minWidth: 40,
     backgroundColor: "#BBF0E8",
     align: "center",
     fontSize: "17px",
@@ -96,7 +86,7 @@ const columns = [
   {
     id: "city",
     label: "Ciudad",
-    minWidth: 80,
+    minWidth: 40,
     backgroundColor: "#BBF0E8",
     align: "center",
     fontSize: "17px",
@@ -104,7 +94,7 @@ const columns = [
   {
     id: "botonSelect",
     label: "_",
-    minWidth: 50,
+    minWidth: 40,
     backgroundColor: "#BBF0E8",
     align: "center",
     fontSize: "17px",
@@ -117,9 +107,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     maxHeight: 440,
   },
-  button: {
-    fontSize: "10px",
-  },
+
   btnView: {
     backgroundColor: "#60CCD9",
     textTransform: "none",
@@ -127,20 +115,6 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#BBF0E8",
       color: "#4A92A8",
     },
-  },
-  textField: {
-    paddingBottom: "15px",
-  },
-  mpaper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
   },
 }));
 const schema = yup.object().shape({
@@ -153,33 +127,9 @@ const schema = yup.object().shape({
 
 const MedicalHistoryDetails = () => {
   const classes = useStyles();
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  const [wordSearch, setWordSearch] = useState("");
-  const [dataSearchPatient, setDataSearchPatient] = useState([]);
-
-  const {
-    data: patientsAllData,
-    error: error2,
-    mutate: mutate2,
-  } = useSWR(`/patients/all`, fetcher);
-
-  const {
-    handleSubmit,
-    formState: { errors },
-    register,
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
-
-  const { data, error } = useSWR(`/patients`, fetcher);
-  console.log("lista de pacientes en el sistema", data);
-
-  const handleChange = (event) => {
-    setWordSearch(event.target.value);
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -189,17 +139,16 @@ const MedicalHistoryDetails = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  const {
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
-  /*  useEffect(() => {
-    if (patientsAllData) {
-      const listpatients = [];
-      patientsAllData.data.map((patient) => {
-        patient.ci === wordSearch ? listpatients.push(patient) : "";
-      });
-      setDataSearchPatient(listpatients);
-    }
-  }, [wordSearch]);
-*/
+  const { data, error } = useSWR(`/patients/all`, fetcher);
+  console.log("lista de pacientes en el sistema", data);
 
   if (error)
     return (
@@ -229,57 +178,11 @@ const MedicalHistoryDetails = () => {
           {"  "}Historia clínica
         </Title>
         <>
-          <Grid
-            container
-            direction="row"
-            justifyContent="space-evenly"
-            alignItems="center"
-          >
-            <Grid item>
-              <Stack spacing={2} sx={{ width: 300 }}>
-                {" "}
-                <Autocomplete
-                  freeSolo
-                  id="patientsSearch"
-                  disableClearable
-                  options={patientsAllData.data.map((option) =>
-                    option.ci.toString()
-                  )}
-                  renderInput={(params) => (
-                    <TextField
-                      id="wordSearch"
-                      {...params}
-                      value={wordSearch}
-                      label="Cedula paciente"
-                      onChange={handleChange}
-                      InputProps={{
-                        ...params.InputProps,
-                        type: "search",
-                      }}
-                      className={classes.textField}
-                      //{...register("wordSearch")}
-                      error={!!errors.ci}
-                      helperText={errors.ci?.message}
-                    />
-                  )}
-                />
-              </Stack>
-              <Button
-                type="submit"
-                size="small"
-                style={{
-                  textTransform: "none",
-                  border: "10px",
-                  color: "#4A92A8",
-                }}
-              >
-                Ver...
-              </Button>
-            </Grid>
-          </Grid>
+          <SearchPatient />
         </>
         <Paper elevation={6} style={{ margin: "20px" }}>
           <AnnounTitle>Visualizar la historia médica del paciente</AnnounTitle>
+       
           <TableContainer className={classes.container}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
@@ -302,7 +205,8 @@ const MedicalHistoryDetails = () => {
 
               <TableBody>
                 {data.data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .slice()
+                  .reverse()
                   .map((row) => {
                     const colorLine = row.patient_id;
                     return (
@@ -376,16 +280,9 @@ const MedicalHistoryDetails = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination
-            labelRowsPerPage="Pacientes:"
-            rowsPerPageOptions={[10, 25]}
-            component="div"
-            count={data.data.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+          <Container style={{ color: "#BBF0E8", backgroundColor: "#BBF0E8" }}>
+            .
+          </Container>
         </Paper>
       </Container>
     </LayoutSecondary>

@@ -3,6 +3,7 @@ import ChargeInformation from "@/components/ChargeInformation";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Loading from "@/components/Loading";
 import Title from "@/components/Title";
+import withAuth from "@/hocs/withAuth";
 import { Button, CssBaseline, Grid } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
@@ -24,6 +25,15 @@ import { useAuth } from "src/contexts/auth";
 import useSWR from "swr";
 
 const columns = [
+  {
+    id: "id",
+    label: "N°",
+    minWidth: 10,
+    backgroundColor: "#BBF0E8",
+    align: "center",
+    fontSize: "16px",
+  },
+
   {
     id: "created_at",
     label: "Fecha",
@@ -240,7 +250,8 @@ const AttentionsDetails = () => {
 
               <TableBody>
                 {data.data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .slice()
+                  .reverse()
                   .map((row) => {
                     return (
                       <TableRow
@@ -316,4 +327,4 @@ const AttentionsDetails = () => {
     </LayoutSecondary>
   );
 };
-export default AttentionsDetails;
+export default withAuth(AttentionsDetails);
