@@ -128,7 +128,7 @@ const Attentions = () => {
     );
 
   return (
-    <LayoutSecondary>
+    <div>
       <CssBaseline>
         <Container maxWidth="lg" direction="row">
           <Title>
@@ -252,7 +252,7 @@ const Attentions = () => {
           </Paper>
         </Container>
       </CssBaseline>
-    </LayoutSecondary>
+    </div>
   );
 };
 export default Attentions;
