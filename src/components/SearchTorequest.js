@@ -27,6 +27,7 @@ import {
   Divider,
 } from "@material-ui/core";
 import Link from "next/link";
+import { useAuth } from "src/contexts/auth";
 
 const schema = yup.object().shape({
   ci: yup
@@ -85,8 +86,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchPatient = () => {
+const SearchToRequest = () => {
   const classes = useStyles();
+  const { user } = useAuth();
+
   const [wordSearch, setWordSearch] = useState(null);
   const {
     handleSubmit,
@@ -174,7 +177,7 @@ const SearchPatient = () => {
                 style={{
                   textTransform: "none",
                   position: "realive",
-                  bottom: "7px",
+                  bottom: "5px",
                 }}
                 className={classes.submit}
               >
@@ -214,7 +217,6 @@ const SearchPatient = () => {
                           {bull}
                           {data[0].name} / {data[0].lastName}
                         </Typography>
-
                         <Typography sx={{ mb: 1.5 }}>
                           {bull}Ci : {data[0].ci}
                         </Typography>
@@ -248,29 +250,46 @@ const SearchPatient = () => {
                         />
                       </CardContent>
                       <CardActions>
-                        <Link
-                          href={`/medicalHistory/${data[0].id}`}
-                          as={`/medicalHistory/${data[0].id}`}
-                          key={data[0].id}
-                          passHref
-                        >
+                        {user.roleUser === "ROLE_ASSISTENT" ? (
+                          <>
+                            <Grid
+                              container
+                              direction="row"
+                              justifyContent="space-around"
+                              alignItems="center"
+                            >
+                              <Grid item>
+                                <Link
+                                  href={`/patients/${data[0].id}`}
+                                  as={`/patients/${data[0].id}`}
+                                  key={data[0].id}
+                                  passHref
+                                >
+                                  <Button
+                                    size="small"
+                                    variant="contained"
+                                    className={classes.btnhistory}
+                                  >
+                                    Agendar
+                                  </Button>
+                                </Link>
+                              </Grid>
+                            </Grid>
+                          </>
+                        ) : (
+                          ""
+                        )}
+                        <Grid item>
                           <Button
                             size="small"
                             variant="contained"
-                            className={classes.btnhistory}
+                            type="submit"
+                            onClick={handleClose}
+                            className={classes.btncancelar}
                           >
-                            Ver historia
+                            Cancelar
                           </Button>
-                        </Link>
-                        <Button
-                          size="small"
-                          variant="contained"
-                          type="submit"
-                          onClick={handleClose}
-                          className={classes.btncancelar}
-                        >
-                          Cancelar
-                        </Button>
+                        </Grid>
                       </CardActions>
                     </Card>
                   </>
@@ -302,4 +321,4 @@ const SearchPatient = () => {
     </>
   );
 };
-export default SearchPatient;
+export default SearchToRequest;

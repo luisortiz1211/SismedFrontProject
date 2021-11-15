@@ -13,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { CssBaseline } from "@material-ui/core/CssBaseline";
+import theme from "@/styles/theme";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -67,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MedicalImage = ({ props }) => {
+const MedicalImageAdd = ({ props }) => {
   const classes = useStyles();
   const router = useRouter();
   const { id, pid, exam_id, recipie_id } = router.query;
@@ -122,4 +124,4 @@ const MedicalImage = ({ props }) => {
     </LayoutSecondary>
   );
 };
-export default MedicalImage;
+export default MedicalImageAdd;

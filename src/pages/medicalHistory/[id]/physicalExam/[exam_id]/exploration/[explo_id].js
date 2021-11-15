@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import BallotIcon from "@material-ui/icons/Ballot";
 import { useRouter } from "next/router";
 import React from "react";
+import { CssBaseline } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -30,56 +31,58 @@ const MedicalHistory = () => {
 
   return (
     <LayoutSecondary>
-      <Container maxWidth="lg">
-        <Title>
-          <BallotIcon
-            style={{
-              color: "#092435",
-              fontSize: 35,
-              position: "relative",
-              top: "6px",
-            }}
-          />{" "}
-          {"  "}Historia clínica
-        </Title>
-        <Paper elevation={6} style={{ margin: "20px" }}>
-          <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <AnnounTitle>
-              Sintomas y resultados de evaluación médica
-            </AnnounTitle>
-          </Grid>
-          <Grid
-            container
-            direction="row"
-            justifyContent="space-around"
-            alignItems="stretch"
-            spacing={2}
-          >
-            <Grid item>
-              {" "}
-              <PhysicalExamCard patientID={exam_id} />
+      <CssBaseline>
+        <Container maxWidth="lg">
+          <Title>
+            <BallotIcon
+              style={{
+                color: "#092435",
+                fontSize: 35,
+                position: "relative",
+                top: "6px",
+              }}
+            />{" "}
+            {"  "}Historia clínica
+          </Title>
+          <Paper elevation={6} style={{ margin: "20px" }}>
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <AnnounTitle>
+                Sintomas y resultados de evaluación médica
+              </AnnounTitle>
             </Grid>
-            <Grid item>
-              {" "}
-              <ExplorationPatientCard patientID={explo_id} />
-            </Grid>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-around"
+              alignItems="stretch"
+              spacing={2}
+            >
+              <Grid item>
+                {" "}
+                <PhysicalExamCard patientID={exam_id} />
+              </Grid>
+              <Grid item>
+                {" "}
+                <ExplorationPatientCard patientID={explo_id} />
+              </Grid>
 
-            <Grid item md={12}>
-              {" "}
-              <DrugsRecipieCard patientID={explo_id} />
+              <Grid item md={12}>
+                {" "}
+                <DrugsRecipieCard patientID={explo_id} />
+              </Grid>
+              <Grid item md={12}>
+                {" "}
+                <ImageRecipieCard patientID={explo_id} />
+              </Grid>
             </Grid>
-            <Grid item md={12}>
-              {" "}
-              <ImageRecipieCard patientID={explo_id} />
-            </Grid>
-          </Grid>
-        </Paper>
-      </Container>
+          </Paper>
+        </Container>
+      </CssBaseline>
     </LayoutSecondary>
   );
 };

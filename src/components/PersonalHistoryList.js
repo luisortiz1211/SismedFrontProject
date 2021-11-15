@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import ChargeInformation from "./ChargeInformation";
+import { CssBaseline } from "@material-ui/core";
 
 const columns = [
   {
@@ -125,77 +126,79 @@ const PersonalHistories = ({ patientID }) => {
     );
   if (!data) return <Loading />;
   return (
-    <Container maxWidth="lg" direction="row">
-      <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{
-                    minWidth: column.minWidth,
-                    backgroundColor: column.backgroundColor,
-                    fontSize: column.fontSize,
-                  }}
-                >
-                  {column.label}
-                  {column.id === "botonSelect" ? (
-                    <Grid
-                      container
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Grid item>
-                        <Link href={`/physicalExam/${id}`} passHref>
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            className={classes.btnew}
-                          >
-                            Nuevo
-                          </Button>
-                        </Link>
-                      </Grid>
-                    </Grid>
-                  ) : (
-                    ""
-                  )}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {data.data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    //  tabIndex={-1}
-                    key={row.id}
+    <CssBaseline>
+      <Container maxWidth="lg" direction="row">
+        <TableContainer className={classes.container}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{
+                      minWidth: column.minWidth,
+                      backgroundColor: column.backgroundColor,
+                      fontSize: column.fontSize,
+                    }}
                   >
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.id && typeof value === "number"
-                            ? value
-                            : value}{" "}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+                    {column.label}
+                    {column.id === "botonSelect" ? (
+                      <Grid
+                        container
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        <Grid item>
+                          <Link href={`/physicalExam/${id}`} passHref>
+                            <Button
+                              variant="outlined"
+                              size="small"
+                              className={classes.btnew}
+                            >
+                              Nuevo
+                            </Button>
+                          </Link>
+                        </Grid>
+                      </Grid>
+                    ) : (
+                      ""
+                    )}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {data.data
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={row.patient_id}
+                    >
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {column.id && typeof value === "number"
+                              ? value
+                              : value}{" "}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
+    </CssBaseline>
   );
 };
 export default PersonalHistories;

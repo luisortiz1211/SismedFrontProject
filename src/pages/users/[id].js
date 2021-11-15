@@ -12,7 +12,7 @@ import {
   Grid,
   MenuItem,
   Select,
-  TextField
+  TextField,
 } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import Divider from "@material-ui/core/Divider";
@@ -30,6 +30,7 @@ import { Users } from "src/api/user";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import * as yup from "yup";
+import { CssBaseline } from "@material-ui/core";
 
 const schema = yup.object().shape({
   email: yup.string().email("Ingrese un email").required("Confirme el email"),
@@ -143,7 +144,7 @@ const UserDetails = () => {
             horizontal: "center",
           },
         });
-        //console.error(error.response);
+        console.error(error.response);
       } else if (error.request) {
         console.error(error.request);
       } else {
@@ -170,318 +171,322 @@ const UserDetails = () => {
 
   return (
     <LayoutSecondary>
-      <Container maxWidth="lg">
-        <Title>
-          <HowToRegIcon
-            style={{
-              color: "#092435",
-              fontSize: 35,
-              position: "relative",
-              top: "6px",
-            }}
-          />
-          Información de Usuario
-        </Title>
-        <Paper elevation={6} style={{ padding: "10px", margin: "20px" }}>
-          <Container>
-            <AnnounTitle>
-              Actualice el estado del usuario Activado/Desactivado
-            </AnnounTitle>
-            <form
-              className={classes.root}
-              noValidate
-              autoComplete="off"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-                spacing={2}
-                style={{
-                  backgroundColor: "#BBF0E8",
-                  paddingBottom: "10px",
-                  paddingTop: "15px",
-                  color: "#092435",
-                }}
-              >
-                {" "}
-                <Grid item lg={3} sm={4} xs={12}>
-                  <TextField
-                    id="id"
-                    name="id"
-                    label="N° de usuario"
-                    defaultValue={data.id}
-                    className={classes.textField}
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item lg={3} sm={4} xs={12}>
-                  <TextField
-                    id="name"
-                    name="name"
-                    label="Nombre"
-                    defaultValue={data.name}
-                    className={classes.textField}
-                    variant="outlined"
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                    {...register("name")}
-                  />
-                </Grid>
-                <Grid item lg={3} sm={4} xs={12}>
-                  <TextField
-                    id="lastName"
-                    name="lastName"
-                    label="Apellidos"
-                    defaultValue={data.lastName}
-                    className={classes.textField}
-                    variant="outlined"
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                    {...register("lastName")}
-                  />
-                </Grid>
-              </Grid>{" "}
-              <Divider
-                light
-                style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-              />
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-                spacing={2}
-                style={{
-                  backgroundColor: "#FFFFFF",
-                  paddingBottom: "10px",
-                  paddingTop: "15px",
-                  color: "#092435",
-                }}
-              >
-                <Grid item lg={3} sm={4} xs={12}>
-                  <TextField
-                    id="email"
-                    name="email"
-                    label="Correo electrónico"
-                    defaultValue={data.email}
-                    className={classes.textField}
-                    variant="outlined"
-                    {...register("email")}
-                    error={!!errors.email}
-                    helperText={errors.email?.message}
-                  />
-                </Grid>
-                <Grid item lg={3} sm={4} xs={12}>
-                  <FormControl
-                    label="Estado"
-                    variant="outlined"
-                    fullWidth
-                    className={classes.textField}
-                  >
-                    <Select
-                      id="availableStatus"
-                      {...register("availableStatus", { required: true })}
-                      defaultValue="1"
-                    >
-                      <MenuItem value={`1`}>Activo</MenuItem>
-                      <MenuItem value={`0`}>Desactivado</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item lg={3} sm={4} xs={12}>
-                  <TextField
-                    id="roleUser"
-                    name="roleUser"
-                    label="Usuario"
-                    variant="outlined"
-                    className={classes.textField}
-                    defaultValue={
-                      data.roleUser === "ROLE_ADMIN"
-                        ? "Administrador"
-                        : data.roleUser === "ROLE_ASSISTENT"
-                        ? "Asistente"
-                        : data.roleUser === "ROLE_MEDIC"
-                        ? "Médico"
-                        : "No Asignado"
-                    }
-                    //{...register("roleUser")}
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                  />
-                </Grid>
-              </Grid>
-              <Divider
-                light
-                style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-              />{" "}
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-                spacing={2}
-                style={{
-                  backgroundColor: "#BBF0E8",
-                  paddingBottom: "10px",
-                  paddingTop: "15px",
-                  color: "#092435",
-                }}
-              >
-                {" "}
-                <Grid item lg={3} sm={4} xs={12}>
-                  <TextField
-                    id="ci"
-                    name="ci"
-                    label="Cédula"
-                    defaultValue={data.ci.data}
-                    className={classes.textField}
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item lg={3} sm={4} xs={12}>
-                  <TextField
-                    id="employment"
-                    name="employment"
-                    label="Especialidad"
-                    defaultValue={data.employment.data}
-                    className={classes.textField}
-                    variant="outlined"
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                  />
-                </Grid>
-                <Grid item lg={3} sm={4} xs={12}>
-                  <TextField
-                    id="created_at"
-                    name="created_at"
-                    label="Actualizado"
-                    defaultValue={data.created_at}
-                    className={classes.textField}
-                    variant="outlined"
-                    InputProps={{
-                      readOnly: true,
-                    }}
-                  />
-                </Grid>
-              </Grid>
-              <Divider
-                light
-                style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-              />
-              <Grid
-                container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-                style={{
-                  backgroundColor: "#FFFFFF",
-                  paddingBottom: "10px",
-                  paddingTop: "15px",
-                  color: "#092435",
-                }}
+      <CssBaseline>
+        <Container maxWidth="lg">
+          <Title>
+            <HowToRegIcon
+              style={{
+                color: "#092435",
+                fontSize: 35,
+                position: "relative",
+                top: "6px",
+              }}
+            />
+            Información de Usuario
+          </Title>
+          <Paper elevation={6} style={{ padding: "10px", margin: "20px" }}>
+            <Container>
+              <AnnounTitle>
+                Actualice el estado del usuario Activado/Desactivado
+              </AnnounTitle>
+              <form
+                className={classes.root}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit(onSubmit)}
               >
                 <Grid
-                  item
-                  lg={4}
-                  md={6}
-                  xs={12}
+                  container
+                  direction="row"
+                  justifyContent="space-around"
+                  alignItems="center"
+                  spacing={2}
                   style={{
-                    padding: "10px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    backgroundColor: "#BBF0E8",
+                    paddingBottom: "10px",
+                    paddingTop: "15px",
+                    color: "#092435",
                   }}
                 >
-                  <Link href={`${Routes.HOME}`} passHref>
-                    <Button
+                  {" "}
+                  <Grid item lg={3} sm={4} xs={12}>
+                    <TextField
+                      id="id"
+                      name="id"
+                      label="N° de usuario"
+                      defaultValue={data.id}
+                      className={classes.textField}
+                      InputProps={{
+                        readOnly: true,
+                      }}
+                      variant="outlined"
+                    />
+                  </Grid>
+                  <Grid item lg={3} sm={4} xs={12}>
+                    <TextField
+                      id="name"
+                      name="name"
+                      label="Nombre"
+                      defaultValue={data.name}
+                      className={classes.textField}
+                      variant="outlined"
+                      InputProps={{
+                        readOnly: true,
+                      }}
+                      {...register("name")}
+                    />
+                  </Grid>
+                  <Grid item lg={3} sm={4} xs={12}>
+                    <TextField
+                      id="lastName"
+                      name="lastName"
+                      label="Apellidos"
+                      defaultValue={data.lastName}
+                      className={classes.textField}
+                      variant="outlined"
+                      InputProps={{
+                        readOnly: true,
+                      }}
+                      {...register("lastName")}
+                    />
+                  </Grid>
+                </Grid>{" "}
+                <Divider
+                  light
+                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                />
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="space-around"
+                  alignItems="center"
+                  spacing={2}
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    paddingBottom: "10px",
+                    paddingTop: "15px",
+                    color: "#092435",
+                  }}
+                >
+                  <Grid item lg={3} sm={4} xs={12}>
+                    <TextField
+                      id="email"
+                      name="email"
+                      label="Correo electrónico"
+                      defaultValue={data.email}
+                      className={classes.textField}
+                      variant="outlined"
+                      {...register("email")}
+                      error={!!errors.email}
+                      helperText={errors.email?.message}
+                    />
+                  </Grid>
+                  <Grid item lg={3} sm={4} xs={12}>
+                    <FormControl
+                      label="Estado"
+                      variant="outlined"
                       fullWidth
-                      className={classes.btncancel}
-                      variant="contained"
+                      className={classes.textField}
                     >
-                      Cancelar
-                    </Button>
-                  </Link>
+                      <Select
+                        id="availableStatus"
+                        {...register("availableStatus")}
+                        defaultValue="1"
+                      >
+                        <MenuItem value={`1`}>Activo</MenuItem>
+                        <MenuItem value={`0`}>Desactivado</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item lg={3} sm={4} xs={12}>
+                    <TextField
+                      id="roleUser"
+                      name="roleUser"
+                      label="Usuario"
+                      variant="outlined"
+                      className={classes.textField}
+                      defaultValue={
+                        data.roleUser === "ROLE_ADMIN"
+                          ? "Administrador"
+                          : data.roleUser === "ROLE_ASSISTENT"
+                          ? "Asistente"
+                          : data.roleUser === "ROLE_MEDIC"
+                          ? "Médico"
+                          : "No Asignado"
+                      }
+                      {...register("roleUser")}
+                      InputProps={{
+                        readOnly: true,
+                      }}
+                    />
+                  </Grid>
                 </Grid>
-
+                <Divider
+                  light
+                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                />{" "}
                 <Grid
-                  item
-                  lg={4}
-                  md={6}
-                  xs={12}
+                  container
+                  direction="row"
+                  justifyContent="space-around"
+                  alignItems="center"
+                  spacing={2}
                   style={{
-                    padding: "10px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    backgroundColor: "#BBF0E8",
+                    paddingBottom: "10px",
+                    paddingTop: "15px",
+                    color: "#092435",
                   }}
                 >
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    fullWidth
-                    className={classes.btnacept}
-                    //onClick={handleOpen}
-                  >
-                    Aceptar
-                  </Button>
+                  {" "}
+                  <Grid item lg={3} sm={4} xs={12}>
+                    <TextField
+                      id="ci"
+                      name="ci"
+                      label="Cédula"
+                      defaultValue={data.ci.data}
+                      className={classes.textField}
+                      InputProps={{
+                        readOnly: true,
+                      }}
+                      variant="outlined"
+                      {...register("ci")}
+                    />
+                  </Grid>
+                  <Grid item lg={3} sm={4} xs={12}>
+                    <TextField
+                      id="employment"
+                      name="employment"
+                      label="Especialidad"
+                      defaultValue={data.employment.data}
+                      className={classes.textField}
+                      variant="outlined"
+                      InputProps={{
+                        readOnly: true,
+                      }}
+                      {...register("employment")}
+                    />
+                  </Grid>
+                  <Grid item lg={3} sm={4} xs={12}>
+                    <TextField
+                      id="created_at"
+                      name="created_at"
+                      label="Actualizado"
+                      defaultValue={data.created_at}
+                      className={classes.textField}
+                      variant="outlined"
+                      InputProps={{
+                        readOnly: true,
+                      }}
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Divider
-                light
-                style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-              />
-              <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={open}>
-                  <div className={classes.mpaper}>
-                    <h2 id="transition-modal-title">
-                      Usuario{" "}
-                      {data.name +
-                        "  " +
-                        data.lastName +
-                        "  " +
-                        "modificado con éxito"}
-                    </h2>
+                <Divider
+                  light
+                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                />
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="space-around"
+                  alignItems="center"
+                  style={{
+                    backgroundColor: "#FFFFFF",
+                    paddingBottom: "10px",
+                    paddingTop: "15px",
+                    color: "#092435",
+                  }}
+                >
+                  <Grid
+                    item
+                    lg={4}
+                    md={6}
+                    xs={12}
+                    style={{
+                      padding: "10px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Link href={`${Routes.HOME}`} passHref>
+                      <Button
+                        fullWidth
+                        className={classes.btncancel}
+                        variant="contained"
+                      >
+                        Cancelar
+                      </Button>
+                    </Link>
+                  </Grid>
 
+                  <Grid
+                    item
+                    lg={4}
+                    md={6}
+                    xs={12}
+                    style={{
+                      padding: "10px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
                     <Button
                       variant="contained"
                       type="submit"
-                      size="small"
-                      style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                      className={classes.upgrade}
-                      onClick={handleClose}
+                      fullWidth
+                      className={classes.btnacept}
+                      //onClick={handleOpen}
                     >
                       Aceptar
                     </Button>
-                  </div>
-                </Fade>
-              </Modal>
-            </form>
-          </Container>
-        </Paper>
-      </Container>
+                  </Grid>
+                </Grid>
+                <Divider
+                  light
+                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                />
+                {/* <Modal
+                  aria-labelledby="transition-modal-title"
+                  aria-describedby="transition-modal-description"
+                  className={classes.modal}
+                  open={open}
+                  closeAfterTransition
+                  BackdropComponent={Backdrop}
+                  BackdropProps={{
+                    timeout: 500,
+                  }}
+                >
+                  <Fade in={open}>
+                    <div className={classes.mpaper}>
+                      <h2 id="transition-modal-title">
+                        Usuario{" "}
+                        {data.name +
+                          "  " +
+                          data.lastName +
+                          "  " +
+                          "modificado con éxito"}
+                      </h2>
+
+                      <Button
+                        variant="contained"
+                        type="submit"
+                        size="small"
+                        style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                        className={classes.upgrade}
+                        onClick={handleClose}
+                      >
+                        Aceptar
+                      </Button>
+                    </div>
+                  </Fade>
+                </Modal> */}
+              </form>
+            </Container>
+          </Paper>
+        </Container>
+      </CssBaseline>
     </LayoutSecondary>
   );
 };

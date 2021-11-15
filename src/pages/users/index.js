@@ -131,128 +131,129 @@ const UserList = () => {
 
   return (
     <LayoutSecondary>
-      <CssBaseline />
-      <Container maxWidth="lg" direction="row">
-        <Title>
-          <GroupAddIcon
-            style={{
-              color: "#092435",
-              fontSize: 40,
-              position: "relative",
-              top: "9px",
-            }}
-          />{" "}
-          {"  "}
-          Usuarios
-        </Title>
+      <CssBaseline>
+        <Container maxWidth="lg" direction="row">
+          <Title>
+            <GroupAddIcon
+              style={{
+                color: "#092435",
+                fontSize: 40,
+                position: "relative",
+                top: "9px",
+              }}
+            />{" "}
+            {"  "}
+            Usuarios
+          </Title>
 
-        <Paper
-          className={classes.root}
-          elevation={6}
-          style={{ margin: "20px" }}
-        >
-          <AnnounTitle>Usuarios registrados en el sistema</AnnounTitle>
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{
-                        minWidth: column.minWidth,
-                        backgroundColor: column.backgroundColor,
-                        fontSize: column.fontSize,
-                      }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    const colorLine = row.id;
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.id}
+          <Paper
+            className={classes.root}
+            elevation={6}
+            style={{ margin: "20px" }}
+          >
+            <AnnounTitle>Usuarios registrados en el sistema</AnnounTitle>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{
+                          minWidth: column.minWidth,
+                          backgroundColor: column.backgroundColor,
+                          fontSize: column.fontSize,
+                        }}
                       >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.id === "roleUser"
-                                ? row.roleUser === "ROLE_MEDIC"
-                                  ? "Médico"
-                                  : row.roleUser === "ROLE_ASSISTENT"
-                                  ? "Asistente"
-                                  : row.roleUser === "ROLE_ADMIN"
-                                  ? "Administrador"
-                                  : "No asignado"
-                                : value}
+                        {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
 
-                              {column.id === "availableStatus"
-                                ? row.availableStatus === false
-                                  ? "Desactivado"
-                                  : "Activo"
-                                : ""}
+                <TableBody>
+                  {data
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      const colorLine = row.id;
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.id}
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.id === "roleUser"
+                                  ? row.roleUser === "ROLE_MEDIC"
+                                    ? "Médico"
+                                    : row.roleUser === "ROLE_ASSISTENT"
+                                    ? "Asistente"
+                                    : row.roleUser === "ROLE_ADMIN"
+                                    ? "Administrador"
+                                    : "No asignado"
+                                  : value}
 
-                              {column.label == "" ? (
-                                <Grid
-                                  container
-                                  direction="row"
-                                  alignItems="center"
-                                >
-                                  <Grid item>
-                                    <Link
-                                      href={`/users/${row.id}`}
-                                      as={`/users/${row.id}`}
-                                      key={row.id}
-                                      passHref
-                                    >
-                                      <Button
-                                        variant="outlined"
-                                        size="small"
-                                        className={classes.btnedit}
-                                        startIcon={<BorderColorIcon />}
+                                {column.id === "availableStatus"
+                                  ? row.availableStatus === false
+                                    ? "Desactivado"
+                                    : "Activo"
+                                  : ""}
+
+                                {column.label == "" ? (
+                                  <Grid
+                                    container
+                                    direction="row"
+                                    alignItems="center"
+                                  >
+                                    <Grid item>
+                                      <Link
+                                        href={`/users/${row.id}`}
+                                        as={`/users/${row.id}`}
+                                        key={row.id}
+                                        passHref
                                       >
-                                        {" "}
-                                        Editar
-                                      </Button>
-                                    </Link>
+                                        <Button
+                                          variant="outlined"
+                                          size="small"
+                                          className={classes.btnedit}
+                                          startIcon={<BorderColorIcon />}
+                                        >
+                                          {" "}
+                                          Editar
+                                        </Button>
+                                      </Link>
+                                    </Grid>
                                   </Grid>
-                                </Grid>
-                              ) : (
-                                ""
-                              )}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            labelRowsPerPage="Usuarios:"
-            rowsPerPageOptions={[10, 25]}
-            component="div"
-            count={data.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      </Container>
+                                ) : (
+                                  ""
+                                )}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              labelRowsPerPage="Usuarios:"
+              rowsPerPageOptions={[10, 25]}
+              component="div"
+              count={data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Container>
+      </CssBaseline>
     </LayoutSecondary>
   );
 };

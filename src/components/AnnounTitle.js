@@ -1,11 +1,13 @@
 import { Grid } from "@material-ui/core";
 import AnnouncementIcon from "@mui/icons-material/Announcement";
+import {CssBaseline} from "@material-ui/core"
 import React from "react";
 
 // Mensaje de información en cada página
 export default function AnnounTitle({ children }) {
   return (
     <>
+    <CssBaseline>
       <Grid
         container
         direction="row"
@@ -41,6 +43,7 @@ export default function AnnounTitle({ children }) {
           }
         `}
       </style>
+      </CssBaseline>
     </>
   );
 }

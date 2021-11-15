@@ -138,123 +138,126 @@ const ScheduleMedic = () => {
 
   return (
     <LayoutSecondary>
-      <CssBaseline />
-      <Container maxWidth="lg" direction="row">
-        <Title>
-          <PeopleAltIcon
-            style={{
-              color: "#092435",
-              fontSize: 35,
-              position: "relative",
-              top: "6px",
-            }}
-          />
-          {"  "}Horarios de médicos
-        </Title>
-        <Paper
-          className={classes.root}
-          elevation={6}
-          style={{ margin: "20px" }}
-        >
-          <AnnounTitle>
-            Seleccione un médico y agrege un horario de atención
-          </AnnounTitle>
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{
-                        minWidth: column.minWidth,
-                        backgroundColor: column.backgroundColor,
-                      }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    const colorLine = row.id;
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.id}
+      <CssBaseline>
+        <Container maxWidth="lg" direction="row">
+          <Title>
+            <PeopleAltIcon
+              style={{
+                color: "#092435",
+                fontSize: 35,
+                position: "relative",
+                top: "6px",
+              }}
+            />
+            {"  "}Horarios de médicos
+          </Title>
+          <Paper
+            className={classes.root}
+            elevation={6}
+            style={{ margin: "20px" }}
+          >
+            <AnnounTitle>
+              Seleccione un médico y agrege un horario de atención
+            </AnnounTitle>
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{
+                          minWidth: column.minWidth,
+                          backgroundColor: column.backgroundColor,
+                        }}
                       >
-                        {columns.map((array) => {
-                          const value = row[array.id];
-                          return row.roleUser === "ROLE_MEDIC" ? (
-                            <TableCell key={array.id} align={array.align}>
-                              {array.id === "availableStatus"
-                                ? row.availableStatus === false
-                                  ? "Desactivado"
-                                  : "Activo"
-                                : ""}
-                              {array.id === "roleUser"
-                                ? row.roleUser === "ROLE_MEDIC"
-                                  ? "Médico"
-                                  : "No asignado"
-                                : value}
+                        {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
 
-                              {array.label == "" ? (
-                                <Grid
-                                  container
-                                  direction="row"
-                                  alignItems="center"
-                                >
-                                  <Grid item>
-                                    <Link
-                                      href={`/userSchedule/${row.id}`}
-                                      as={`/userSchedule/${row.id}`}
-                                      key={row.id}
-                                      passHref
-                                    >
-                                      <Button
-                                        variant="outlined"
-                                        size="small"
-                                        className={classes.btn}
-                                        disabled={row.availableStatus === false}
+                <TableBody>
+                  {data
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      const colorLine = row.id;
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.id}
+                        >
+                          {columns.map((array) => {
+                            const value = row[array.id];
+                            return row.roleUser === "ROLE_MEDIC" ? (
+                              <TableCell key={array.id} align={array.align}>
+                                {array.id === "availableStatus"
+                                  ? row.availableStatus === false
+                                    ? "Desactivado"
+                                    : "Activo"
+                                  : ""}
+                                {array.id === "roleUser"
+                                  ? row.roleUser === "ROLE_MEDIC"
+                                    ? "Médico"
+                                    : "No asignado"
+                                  : value}
+
+                                {array.label == "" ? (
+                                  <Grid
+                                    container
+                                    direction="row"
+                                    alignItems="center"
+                                  >
+                                    <Grid item>
+                                      <Link
+                                        href={`/userSchedule/${row.id}`}
+                                        as={`/userSchedule/${row.id}`}
+                                        key={row.id}
+                                        passHref
                                       >
-                                        <ManageSearchIcon />
-                                      </Button>
-                                    </Link>
+                                        <Button
+                                          variant="outlined"
+                                          size="small"
+                                          className={classes.btn}
+                                          disabled={
+                                            row.availableStatus === false
+                                          }
+                                        >
+                                          <ManageSearchIcon />
+                                        </Button>
+                                      </Link>
+                                    </Grid>
                                   </Grid>
-                                </Grid>
-                              ) : (
-                                ""
-                              )}
-                            </TableCell>
-                          ) : (
-                            ""
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            labelRowsPerPage="Usuarios:"
-            rowsPerPageOptions={[10, 25]}
-            component="div"
-            count={data.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      </Container>
+                                ) : (
+                                  ""
+                                )}
+                              </TableCell>
+                            ) : (
+                              ""
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              labelRowsPerPage="Usuarios:"
+              rowsPerPageOptions={[10, 25]}
+              component="div"
+              count={data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Container>
+      </CssBaseline>
     </LayoutSecondary>
   );
 };

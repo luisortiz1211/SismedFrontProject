@@ -17,6 +17,7 @@ import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import ChargeInformation from "./ChargeInformation";
+import { CssBaseline } from "@material-ui/core";
 
 const columns = [
   {
@@ -208,94 +209,97 @@ const EmergencyContactList = ({ patientID }) => {
     );
   if (!data) return <Loading />;
   return (
-    <Container maxWidth="lg" direction="row">
-      <TableContainer className={classes.container}>
-        <Table component="span" stickyHeader aria-label="sticky table">
-          <TableHead component="span">
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{
-                    minWidth: column.minWidth,
-                    backgroundColor: column.backgroundColor,
-                    fontSize: column.fontSize,
-                  }}
-                >
-                  {column.label}
-                  {column.id === "botonSelect" ? (
-                    <Grid
-                      container
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Grid item>
-                        <Link href={`/physicalExam/${id}`} passHref>
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            className={classes.btnew}
-                          >
-                            Nuevo
-                          </Button>
-                        </Link>
-                      </Grid>
-                    </Grid>
-                  ) : (
-                    ""
-                  )}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-
-          <TableBody component="span">
-            {data.data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" key={row.id}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.id && typeof value === "number"
-                            ? value
-                            : value}{" "}
-                          {column.id === "botonSelect" && column.label == "" ? (
-                            <Grid
-                              container
-                              direction="row"
-                              alignItems="center"
-                              justifyContent="center"
+    <CssBaseline>
+      <Container maxWidth="lg" direction="row">
+        <TableContainer className={classes.container}>
+          <Table component="span" stickyHeader aria-label="sticky table">
+            <TableHead component="span">
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{
+                      minWidth: column.minWidth,
+                      backgroundColor: column.backgroundColor,
+                      fontSize: column.fontSize,
+                    }}
+                  >
+                    {column.label}
+                    {column.id === "botonSelect" ? (
+                      <Grid
+                        container
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="center"
+                      >
+                        <Grid item>
+                          <Link href={`/physicalExam/${id}`} passHref>
+                            <Button
+                              variant="outlined"
+                              size="small"
+                              className={classes.btnew}
                             >
-                              <Grid item>
-                                <Button
-                                  variant="outlined"
-                                  size="small"
-                                  fullWidth
-                                  className={classes.btnDelete}
-                                  onClick={() => handleDelete(`${data.id}`)}
-                                >
-                                  <DeleteForeverIcon />
-                                </Button>
+                              Nuevo
+                            </Button>
+                          </Link>
+                        </Grid>
+                      </Grid>
+                    ) : (
+                      ""
+                    )}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+
+            <TableBody component="span">
+              {data.data
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return (
+                    <TableRow hover role="checkbox" key={row.id}>
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {column.id && typeof value === "number"
+                              ? value
+                              : value}{" "}
+                            {column.id === "botonSelect" &&
+                            column.label == "" ? (
+                              <Grid
+                                container
+                                direction="row"
+                                alignItems="center"
+                                justifyContent="center"
+                              >
+                                <Grid item>
+                                  <Button
+                                    variant="outlined"
+                                    size="small"
+                                    fullWidth
+                                    className={classes.btnDelete}
+                                    onClick={() => handleDelete(`${data.id}`)}
+                                  >
+                                    <DeleteForeverIcon />
+                                  </Button>
+                                </Grid>
                               </Grid>
-                            </Grid>
-                          ) : (
-                            ""
-                          )}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+                            ) : (
+                              ""
+                            )}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
+    </CssBaseline>
   );
 };
 export default EmergencyContactList;

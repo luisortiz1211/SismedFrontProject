@@ -145,118 +145,121 @@ const ScheduleShift = () => {
 
   return (
     <Layout>
-      <CssBaseline />
-      <Container maxWidth="lg" direction="row">
-        <Title>
-          {" "}
-          <ListAltIcon
-            style={{
-              color: "#092435",
-              fontSize: 40,
-              position: "relative",
-              top: "7px",
-            }}
-          />{" "}
-          Horario de Citas
-        </Title>
-        <Paper
-          className={classes.root}
-          elevation={6}
-          style={{ margin: "20px" }}
-        >
-          <AnnounTitle>
-            Seleccione un horario para la cita del paciente
-          </AnnounTitle>
+      <CssBaseline>
+        <Container maxWidth="lg" direction="row">
+          <Title>
+            {" "}
+            <ListAltIcon
+              style={{
+                color: "#092435",
+                fontSize: 40,
+                position: "relative",
+                top: "7px",
+              }}
+            />{" "}
+            Horario de Citas
+          </Title>
+          <Paper
+            className={classes.root}
+            elevation={6}
+            style={{ margin: "20px" }}
+          >
+            <AnnounTitle>
+              Seleccione un horario para la cita del paciente
+            </AnnounTitle>
 
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{
-                        minWidth: column.minWidth,
-                        backgroundColor: column.backgroundColor,
-                        fontSize: column.fontSize,
-                      }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {data.data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        //  tabIndex={-1}
-                        key={row.id}
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{
+                          minWidth: column.minWidth,
+                          backgroundColor: column.backgroundColor,
+                          fontSize: column.fontSize,
+                        }}
                       >
-                        {columns.map((array) => {
-                          const value = row[array.id];
-                          return (
-                            <TableCell key={array.id} align={array.align}>
-                              {array.id === "availableStatus"
-                                ? row.availableStatus === false
-                                  ? "Disponible"
-                                  : "Asignado"
-                                : value}
-                              {array.id === "botonSelect" &&
-                              array.label == "" ? (
-                                <Grid
-                                  container
-                                  direction="row"
-                                  alignItems="center"
-                                  justifyContent="center"
-                                >
-                                  <Grid item>
-                                    <Link
-                                      href={`/patients/${id}/scheduleDay/${user_id}/schedule/${row.schedule_id}`}
-                                      passHref
-                                    >
-                                      <Button
-                                        variant="outlined"
-                                        size="small"
-                                        className={classes.btnasign}
-                                        endIcon={<AssignmentTurnedInIcon />}
-                                        disabled={row.availableStatus === true}
+                        {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {data.data
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          //  tabIndex={-1}
+                          key={row.id}
+                        >
+                          {columns.map((array) => {
+                            const value = row[array.id];
+                            return (
+                              <TableCell key={array.id} align={array.align}>
+                                {array.id === "availableStatus"
+                                  ? row.availableStatus === false
+                                    ? "Disponible"
+                                    : "Asignado"
+                                  : value}
+                                {array.id === "botonSelect" &&
+                                array.label == "" ? (
+                                  <Grid
+                                    container
+                                    direction="row"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                  >
+                                    <Grid item>
+                                      <Link
+                                        href={`/patients/${id}/scheduleDay/${user_id}/schedule/${row.schedule_id}`}
+                                        passHref
                                       >
-                                        Asignar
-                                      </Button>
-                                    </Link>
+                                        <Button
+                                          variant="outlined"
+                                          size="small"
+                                          className={classes.btnasign}
+                                          endIcon={<AssignmentTurnedInIcon />}
+                                          disabled={
+                                            row.availableStatus === true
+                                          }
+                                        >
+                                          Asignar
+                                        </Button>
+                                      </Link>
+                                    </Grid>
                                   </Grid>
-                                </Grid>
-                              ) : (
-                                ""
-                              )}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            labelRowsPerPage="Horarios:"
-            rowsPerPageOptions={[10, 25]}
-            component="div"
-            count={data.data.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      </Container>
+                                ) : (
+                                  ""
+                                )}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              labelRowsPerPage="Horarios:"
+              rowsPerPageOptions={[10, 25]}
+              component="div"
+              count={data.data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Container>
+      </CssBaseline>
     </Layout>
   );
 };

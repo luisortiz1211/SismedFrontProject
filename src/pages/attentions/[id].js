@@ -206,124 +206,135 @@ const AttentionsDetails = () => {
 
   return (
     <LayoutSecondary>
-      <CssBaseline />
-      <Container direction="row">
-        <Title>
-          <LibraryBooksIcon
-            style={{
-              color: "#092435",
-              fontSize: 35,
-              position: "relative",
-              top: "6px",
-            }}
-          />
-          {"  "}Lista de agendamiento
-        </Title>
-        <Paper
-          className={classes.root}
-          elevation={6}
-          style={{ margin: "20px" }}
-        >
-          <AnnounTitle>
-            Seleccione un paciente para visualizar su examen físico{" "}
-          </AnnounTitle>
+      <CssBaseline>
+        <Container direction="row">
+          <Title>
+            <LibraryBooksIcon
+              style={{
+                color: "#092435",
+                fontSize: 35,
+                position: "relative",
+                top: "6px",
+              }}
+            />
+            {"  "}Lista de agendamiento
+          </Title>
+          <Paper
+            className={classes.root}
+            elevation={6}
+            style={{ margin: "20px" }}
+          >
+            <AnnounTitle>
+              Seleccione un paciente para visualizar su examen físico{" "}
+            </AnnounTitle>
 
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{
-                        minWidth: column.minWidth,
-                        backgroundColor: column.backgroundColor,
-                        fontSize: column.fontSize,
-                      }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {data.data
-                  .slice()
-                  .reverse()
-                  .map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.id}
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{
+                          minWidth: column.minWidth,
+                          backgroundColor: column.backgroundColor,
+                          fontSize: column.fontSize,
+                        }}
                       >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.id && typeof value === "number"
-                                ? value
-                                : value}{" "}
-                              {user.roleUser === "ROLE_MEDIC" ? (
-                                column.id === "botonSelect" &&
-                                column.label == "_" ? (
-                                  <Grid
-                                    container
-                                    direction="row"
-                                    alignItems="center"
-                                    justifyContent="center"
-                                    spacing={2}
-                                  >
-                                    <Grid item>
-                                      <Link
-                                        href={`/reviewAttention/${row.schedule_day}/patient/${row.patient_id}`}
-                                        passHref
-                                      >
-                                        <Button
-                                          variant="outlined"
-                                          size="small"
-                                          disabled={
-                                            row.scheduleDayState ===
-                                              "cancelado" ||
-                                            row.scheduleDayState === "atendido"
-                                          }
-                                          className={classes.btnexplo}
+                        {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {data.data
+                    .slice()
+                    .reverse()
+                    .map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.id}
+                          style={
+                            row.scheduleDayState === "atendido"
+                              ? { backgroundColor: "#FFE082" }
+                              : row.scheduleDayState === "pendiente"
+                              ? { backgroundColor: "#FFF" }
+                              : row.scheduleDayState === "registrado"
+                              ? { backgroundColor: "#C5E1A5" }
+                              : { backgroundColor: "#FFCDD2" }
+                          }
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.id && typeof value === "number"
+                                  ? value
+                                  : value}{" "}
+                                {user.roleUser === "ROLE_MEDIC" ? (
+                                  column.id === "botonSelect" &&
+                                  column.label == "_" ? (
+                                    <Grid
+                                      container
+                                      direction="row"
+                                      alignItems="center"
+                                      justifyContent="center"
+                                      spacing={2}
+                                    >
+                                      <Grid item>
+                                        <Link
+                                          href={`/reviewAttention/${row.schedule_day}/patient/${row.patient_id}`}
+                                          passHref
                                         >
-                                          <DomainVerificationIcon />
-                                        </Button>
-                                      </Link>
+                                          <Button
+                                            variant="outlined"
+                                            size="small"
+                                            disabled={
+                                              row.scheduleDayState ===
+                                                "cancelado" ||
+                                              row.scheduleDayState ===
+                                                "atendido"
+                                            }
+                                            className={classes.btnexplo}
+                                          >
+                                            <DomainVerificationIcon />
+                                          </Button>
+                                        </Link>
+                                      </Grid>
                                     </Grid>
-                                  </Grid>
+                                  ) : (
+                                    ""
+                                  )
                                 ) : (
                                   ""
-                                )
-                              ) : (
-                                ""
-                              )}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            labelRowsPerPage="Usuarios:"
-            rowsPerPageOptions={[10, 25]}
-            component="div"
-            count={data.data.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      </Container>
+                                )}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              labelRowsPerPage="Usuarios:"
+              rowsPerPageOptions={[10, 25]}
+              component="div"
+              count={data.data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Container>
+      </CssBaseline>
     </LayoutSecondary>
   );
 };

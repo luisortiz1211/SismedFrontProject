@@ -178,66 +178,68 @@ const PatientWait = () => {
 
   return (
     <Layout>
-      <CssBaseline />
-      <Container maxWidth="lg">
-        <TableContainer className={classes.container}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{
-                      minWidth: column.minWidth,
-                      backgroundColor: column.backgroundColor,
-                      fontSize: column.fontSize,
-                    }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-              {data.data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      //  tabIndex={-1}
-                      key={row.id}
+      <CssBaseline>
+        {" "}
+        <Container maxWidth="lg">
+          <TableContainer className={classes.container}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{
+                        minWidth: column.minWidth,
+                        backgroundColor: column.backgroundColor,
+                        fontSize: column.fontSize,
+                      }}
                     >
-                      {columns.map((array) => {
-                        const value = row[array.id];
-                        return (
-                          <TableCell key={array.id} align={array.align}>
-                            {array.id === "botonSelect" && array.label == "_"
-                              ? value
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          labelRowsPerPage="Pacientes:"
-          rowsPerPageOptions={[10, 20]}
-          component="div"
-          count={data.data.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Container>
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {data.data
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        //  tabIndex={-1}
+                        key={row.id}
+                      >
+                        {columns.map((array) => {
+                          const value = row[array.id];
+                          return (
+                            <TableCell key={array.id} align={array.align}>
+                              {array.id === "botonSelect" && array.label == "_"
+                                ? value
+                                : value}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            labelRowsPerPage="Pacientes:"
+            rowsPerPageOptions={[10, 20]}
+            component="div"
+            count={data.data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Container>
+      </CssBaseline>
     </Layout>
   );
 };

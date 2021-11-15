@@ -128,106 +128,107 @@ const Login = () => {
 
   return (
     <div>
-      <CssBaseline />
-      <Paper elevation={6} style={{ margin: "20px" }}>
-        <Grid
-          container
-          justifyContent="center"
-          alignItems="center"
-          component="main"
-          className={(classes.root, classes.image)}
-        >
-          <Grid item xs={12} md={6} component="main">
-            <Grid
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-            >
-              {" "}
-              <Grid item>
+      <CssBaseline>
+        <Paper elevation={6} style={{ margin: "20px" }}>
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            component="main"
+            className={(classes.root, classes.image)}
+          >
+            <Grid item xs={12} md={6} component="main">
+              <Grid
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+              >
                 {" "}
-                <Box
-                  md={4}
-                  display={{ xs: "none", sm: "block" }}
-                  style={{ padding: "10px" }}
-                >
-                  <Image
-                    src="/logosismed2.png"
-                    alt="Sismed"
-                    width={150}
-                    height={150}
-                  />
-                </Box>
+                <Grid item>
+                  {" "}
+                  <Box
+                    md={4}
+                    display={{ xs: "none", sm: "block" }}
+                    style={{ padding: "10px" }}
+                  >
+                    <Image
+                      src="/logosismed2.png"
+                      alt="Sismed"
+                      width={150}
+                      height={150}
+                    />
+                  </Box>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
 
-          <Grid item xs={12} md={6} component={Paper} elevation={6} square>
-            <div className={classes.paper}>
-              <Avatar className={classes.avatar}></Avatar>
-              <Typography component="h1" variant="h5">
-                Inicio de sesión
-              </Typography>
-              <form
-                className={classes.form}
-                noValidate
-                onSubmit={handleSubmit(onSubmit)}
-                style={{ paddingBottom: "30px" }}
-              >
-                <TextField
-                  id="email"
-                  name="email"
-                  label="Correo electrónico"
-                  {...register("email")}
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  autoComplete="email"
-                  autoFocus
-                  className={classes.textField}
-                  error={!!errors.email}
-                  helperText={errors.email?.message}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  {...register("password")}
-                  required
-                  fullWidth
-                  name="password"
-                  label="Contraseña"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  className={classes.textField}
-                  error={!!errors.password}
-                  helperText={errors.password?.message}
-                />
-
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  //color="primary"
-                  className={classes.submit}
+            <Grid item xs={12} md={6} component={Paper} elevation={6} square>
+              <div className={classes.paper}>
+                <Avatar className={classes.avatar}></Avatar>
+                <Typography component="h1" variant="h5">
+                  Inicio de sesión
+                </Typography>
+                <form
+                  className={classes.form}
+                  noValidate
+                  onSubmit={handleSubmit(onSubmit)}
+                  style={{ paddingBottom: "30px" }}
                 >
-                  Ingresar
-                </Button>
-                <Grid container>
-                  <Grid item style={{ color: "#414A4F" }}>
-                    <Link href="/olvide-mi-clave" passHref>
-                      <MuiLink>Olvido su contraseña?</MuiLink>
-                    </Link>
+                  <TextField
+                    id="email"
+                    name="email"
+                    label="Correo electrónico"
+                    {...register("email")}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    autoComplete="email"
+                    autoFocus
+                    className={classes.textField}
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                  />
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    {...register("password")}
+                    required
+                    fullWidth
+                    name="password"
+                    label="Contraseña"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    className={classes.textField}
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                  />
+
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    //color="primary"
+                    className={classes.submit}
+                  >
+                    Ingresar
+                  </Button>
+                  <Grid container>
+                    <Grid item style={{ color: "#414A4F" }}>
+                      <Link href="/olvide-mi-clave" passHref>
+                        <MuiLink>Olvido su contraseña?</MuiLink>
+                      </Link>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </form>{" "}
-              {/*//////////*/}
-            </div>
+                </form>{" "}
+                {/*//////////*/}
+              </div>
+            </Grid>
           </Grid>
-        </Grid>
-      </Paper>
+        </Paper>
+      </CssBaseline>
     </div>
   );
 };

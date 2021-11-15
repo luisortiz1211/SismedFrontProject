@@ -157,149 +157,150 @@ const ScheduleDayMedic = () => {
 
   return (
     <LayoutSecondary>
-      <CssBaseline />
-      <Container maxWidth="lg" direction="row">
-        <Title>
-          <LibraryBooksIcon
-            style={{
-              color: "#092435",
-              fontSize: 35,
-              position: "relative",
-              top: "6px",
-            }}
-          />
-          {"  "}Agenda de médico
-        </Title>
-        <Paper
-          className={classes.root}
-          elevation={6}
-          style={{ margin: "20px" }}
-        >
-          <AnnounTitle>
-            Horarios establecidos en el usuario (Agregar y modificar){" "}
-          </AnnounTitle>
+      <CssBaseline>
+        <Container maxWidth="lg" direction="row">
+          <Title>
+            <LibraryBooksIcon
+              style={{
+                color: "#092435",
+                fontSize: 35,
+                position: "relative",
+                top: "6px",
+              }}
+            />
+            {"  "}Agenda de médico
+          </Title>
+          <Paper
+            className={classes.root}
+            elevation={6}
+            style={{ margin: "20px" }}
+          >
+            <AnnounTitle>
+              Horarios establecidos en el usuario (Agregar y modificar){" "}
+            </AnnounTitle>
 
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{
-                        minWidth: column.minWidth,
-                        backgroundColor: column.backgroundColor,
-                        fontSize: column.fontSize,
-                      }}
-                    >
-                      {column.label}
-                      <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        justifyContent="center"
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{
+                          minWidth: column.minWidth,
+                          backgroundColor: column.backgroundColor,
+                          fontSize: column.fontSize,
+                        }}
                       >
-                        <Link
-                          href={`/userSchedule/schedulenew/${id}/`}
-                          as={`/userSchedule/schedulenew/${id}/`}
+                        {column.label}
+                        <Grid
+                          container
+                          direction="row"
+                          alignItems="center"
+                          justifyContent="center"
                         >
-                          {user.roleUser === "ROLE_ADMIN" ? (
-                            column.id === "botonSelect" ? (
-                              <Button
-                                variant="outlined"
-                                size="small"
-                                className={classes.btnadd}
-                                startIcon={<AddIcon />}
-                              >
-                                Añadir
-                              </Button>
+                          <Link
+                            href={`/userSchedule/schedulenew/${id}/`}
+                            as={`/userSchedule/schedulenew/${id}/`}
+                          >
+                            {user.roleUser === "ROLE_ADMIN" ? (
+                              column.id === "botonSelect" ? (
+                                <Button
+                                  variant="outlined"
+                                  size="small"
+                                  className={classes.btnadd}
+                                  startIcon={<AddIcon />}
+                                >
+                                  Añadir
+                                </Button>
+                              ) : (
+                                ""
+                              )
                             ) : (
                               ""
-                            )
-                          ) : (
-                            ""
-                          )}
-                        </Link>
-                      </Grid>
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
+                            )}
+                          </Link>
+                        </Grid>
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
 
-              <TableBody>
-                {data.data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.schedule_id}
-                      >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.id === "availableStatus"
-                                ? row.availableStatus === false
-                                  ? "Disponible"
-                                  : "Asignado"
-                                : value}
+                <TableBody>
+                  {data.data
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.schedule_id}
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.id === "availableStatus"
+                                  ? row.availableStatus === false
+                                    ? "Disponible"
+                                    : "Asignado"
+                                  : value}
 
-                              <Grid
-                                container
-                                direction="row"
-                                alignItems="center"
-                                justifyContent="center"
-                              >
-                                <Grid item>
-                                  <Link
-                                    //es el numero de id en horarios usuarios
-                                    href={`/userSchedule/scheduleupdate/${row.schedule_id}`}
-                                    passHref
-                                  >
-                                    {user.roleUser === "ROLE_ADMIN" ? (
-                                      column.id === "botonSelect" &&
-                                      column.label == "" ? (
-                                        <Button
-                                          variant="outlined"
-                                          size="small"
-                                          className={classes.btnedit}
-                                        >
-                                          <BorderColorIcon />
-                                        </Button>
+                                <Grid
+                                  container
+                                  direction="row"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                >
+                                  <Grid item>
+                                    <Link
+                                      //es el numero de id en horarios usuarios
+                                      href={`/userSchedule/scheduleupdate/${row.schedule_id}`}
+                                      passHref
+                                    >
+                                      {user.roleUser === "ROLE_ADMIN" ? (
+                                        column.id === "botonSelect" &&
+                                        column.label == "" ? (
+                                          <Button
+                                            variant="outlined"
+                                            size="small"
+                                            className={classes.btnedit}
+                                          >
+                                            <BorderColorIcon />
+                                          </Button>
+                                        ) : (
+                                          ""
+                                        )
                                       ) : (
                                         ""
-                                      )
-                                    ) : (
-                                      ""
-                                    )}
-                                  </Link>
+                                      )}
+                                    </Link>
+                                  </Grid>
                                 </Grid>
-                              </Grid>
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            labelRowsPerPage="Usuarios:"
-            rowsPerPageOptions={[10, 25]}
-            component="div"
-            count={data.data.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      </Container>
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              labelRowsPerPage="Usuarios:"
+              rowsPerPageOptions={[10, 25]}
+              component="div"
+              count={data.data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Container>
+      </CssBaseline>
     </LayoutSecondary>
   );
 };

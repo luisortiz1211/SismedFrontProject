@@ -212,172 +212,145 @@ const ShiftSelect = () => {
 
   return (
     <LayoutSecondary>
-      <CssBaseline />
-      <Container maxWidth="lg" direction="row">
-        <Title>
-          <PostAddIcon
-            style={{
-              color: "#092435",
-              fontSize: 35,
-              position: "relative",
-              top: "6px",
-            }}
-          />
-          Turno seleccionado
-        </Title>
-        <Paper
-          className={classes.root}
-          elevation={6}
-          style={{ margin: "20px" }}
-        >
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            component="main"
-            className={(classes.root, classes.image)}
+      <CssBaseline>
+        <Container maxWidth="lg" direction="row">
+          <Title>
+            <PostAddIcon
+              style={{
+                color: "#092435",
+                fontSize: 35,
+                position: "relative",
+                top: "6px",
+              }}
+            />
+            Turno seleccionado
+          </Title>
+          <Paper
+            className={classes.root}
+            elevation={6}
+            style={{ margin: "20px" }}
           >
-            <Grid item xs={12} md={4} component="main">
-              <Grid container justifyContent="center" alignItems="center">
-                <Grid item>
-                  {" "}
-                  <Box
-                    display={{ xs: "none", sm: "block" }}
-                    style={{ padding: "10px" }}
-                  >
-                    <Image
-                      src="/logosismed2.png"
-                      alt="Sismed"
-                      width={150}
-                      height={150}
-                    />
-                  </Box>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              component="main"
+              className={(classes.root, classes.image)}
+            >
+              <Grid item xs={12} md={4} component="main">
+                <Grid container justifyContent="center" alignItems="center">
+                  <Grid item>
+                    {" "}
+                    <Box
+                      display={{ xs: "none", sm: "block" }}
+                      style={{ padding: "10px" }}
+                    >
+                      <Image
+                        src="/logosismed2.png"
+                        alt="Sismed"
+                        width={150}
+                        height={150}
+                      />
+                    </Box>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
 
-            <Grid item xs={12} md={8} component={Paper} elevation={6} square>
-              <div className={classes.paper}>
-                <form
-                  className={classes.root}
-                  noValidate
-                  autoComplete="off"
-                  onSubmit={handleSubmit(onSubmit)}
-                >
-                  <AnnounTitle>
-                    Verifique la hora antes de aceptar, para cancelar el turno
-                    diríjase a la sección Agenda pacientes
-                  </AnnounTitle>
-                  <Grid
-                    container
-                    direction="row"
-                    justifyContent="space-around"
-                    alignItems="center"
-                    spacing={1}
-                    style={{
-                      paddingBottom: "15px",
-                      paddingTop: "20px",
-                      color: "#092435",
-                    }}
+              <Grid item xs={12} md={8} component={Paper} elevation={6} square>
+                <div className={classes.paper}>
+                  <form
+                    className={classes.root}
+                    noValidate
+                    autoComplete="off"
+                    onSubmit={handleSubmit(onSubmit)}
                   >
-                    <Grid item md={3} sm={6} xs={12}>
-                      <TextField
-                        id="scheduleDay"
-                        name="scheduleDay"
-                        label="Día"
-                        defaultValue={data.userDay}
-                        className={classes.textField}
-                        variant="outlined"
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                        {...register("scheduleDay")}
-                      />
-                    </Grid>
-                    <Grid item md={3} sm={6} xs={12}>
-                      <TextField
-                        id="availableStatus"
-                        name="availableStatus"
-                        label="Estado"
-                        defaultValue={
-                          data.availableStatus === false
-                            ? "Disponible"
-                            : "Asignado"
-                        }
-                        className={classes.textField}
-                        variant="outlined"
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                      />
-                    </Grid>
-                    <Grid item md={3} sm={6} xs={12}>
-                      <TextField
-                        id="scheduleTime"
-                        name="scheduleTime"
-                        label="Inicio Turno"
-                        defaultValue={data.startTime}
-                        className={classes.textField}
-                        variant="outlined"
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                        {...register("scheduleTime")}
-                      />
-                    </Grid>
-                    <Grid item md={3} sm={6} xs={12}>
-                      <TextField
-                        id="finishTime"
-                        name="finishTime"
-                        label="Fin turno"
-                        defaultValue={data.finishTime}
-                        className={classes.textField}
-                        variant="outlined"
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                      />
-                    </Grid>
-
+                    <AnnounTitle>
+                      Verifique la hora antes de aceptar, para cancelar el turno
+                      diríjase a la sección Agenda pacientes
+                    </AnnounTitle>
                     <Grid
                       container
                       direction="row"
                       justifyContent="space-around"
                       alignItems="center"
+                      spacing={1}
                       style={{
-                        backgroundColor: "#FFFFFF",
-                        paddingBottom: "10px",
-                        paddingTop: "15px",
+                        paddingBottom: "15px",
+                        paddingTop: "20px",
                         color: "#092435",
                       }}
                     >
-                      <Grid
-                        item
-                        md={3}
-                        xs={12}
-                        style={{
-                          padding: "10px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Link
-                          href={`/patients/${id}/scheduleDay/${user_id}/`}
-                          as={`/patients/${id}/scheduleDay/${user_id}/`}
-                          passHref
-                        >
-                          <Button
-                            className={classes.btncancel}
-                            variant="contained"
-                            fullWidth
-                          >
-                            Cancelar
-                          </Button>
-                        </Link>
+                      <Grid item md={3} sm={6} xs={12}>
+                        <TextField
+                          id="scheduleDay"
+                          name="scheduleDay"
+                          label="Día"
+                          defaultValue={data.userDay}
+                          className={classes.textField}
+                          variant="outlined"
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                          {...register("scheduleDay")}
+                        />
+                      </Grid>
+                      <Grid item md={3} sm={6} xs={12}>
+                        <TextField
+                          id="availableStatus"
+                          name="availableStatus"
+                          label="Estado"
+                          defaultValue={
+                            data.availableStatus === false
+                              ? "Disponible"
+                              : "Asignado"
+                          }
+                          className={classes.textField}
+                          variant="outlined"
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                        />
+                      </Grid>
+                      <Grid item md={3} sm={6} xs={12}>
+                        <TextField
+                          id="scheduleTime"
+                          name="scheduleTime"
+                          label="Inicio Turno"
+                          defaultValue={data.startTime}
+                          className={classes.textField}
+                          variant="outlined"
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                          {...register("scheduleTime")}
+                        />
+                      </Grid>
+                      <Grid item md={3} sm={6} xs={12}>
+                        <TextField
+                          id="finishTime"
+                          name="finishTime"
+                          label="Fin turno"
+                          defaultValue={data.finishTime}
+                          className={classes.textField}
+                          variant="outlined"
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                        />
                       </Grid>
 
-                      {data.availableStatus === false ? (
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="space-around"
+                        alignItems="center"
+                        style={{
+                          backgroundColor: "#FFFFFF",
+                          paddingBottom: "10px",
+                          paddingTop: "15px",
+                          color: "#092435",
+                        }}
+                      >
                         <Grid
                           item
                           md={3}
@@ -389,29 +362,57 @@ const ShiftSelect = () => {
                             justifyContent: "center",
                           }}
                         >
-                          <Button
-                            variant="contained"
-                            type="submit"
-                            fullWidth
-                            className={classes.btnasign}
-                            onClick={() => {
-                              handleSchedule();
+                          <Link
+                            href={`/patients/${id}/scheduleDay/${user_id}/`}
+                            as={`/patients/${id}/scheduleDay/${user_id}/`}
+                            passHref
+                          >
+                            <Button
+                              className={classes.btncancel}
+                              variant="contained"
+                              fullWidth
+                            >
+                              Cancelar
+                            </Button>
+                          </Link>
+                        </Grid>
+
+                        {data.availableStatus === false ? (
+                          <Grid
+                            item
+                            md={3}
+                            xs={12}
+                            style={{
+                              padding: "10px",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
                             }}
                           >
-                            Agendar cita
-                          </Button>
-                        </Grid>
-                      ) : (
-                        "Cita no disponible, ingrese en la sección Agenda pacientes para cancelar"
-                      )}
+                            <Button
+                              variant="contained"
+                              type="submit"
+                              fullWidth
+                              className={classes.btnasign}
+                              onClick={() => {
+                                handleSchedule();
+                              }}
+                            >
+                              Agendar cita
+                            </Button>
+                          </Grid>
+                        ) : (
+                          "Cita no disponible, ingrese en la sección Agenda pacientes para cancelar"
+                        )}
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </form>
-              </div>
+                  </form>
+                </div>
+              </Grid>
             </Grid>
-          </Grid>
-        </Paper>
-      </Container>
+          </Paper>
+        </Container>
+      </CssBaseline>
     </LayoutSecondary>
   );
 };

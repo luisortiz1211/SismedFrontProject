@@ -20,6 +20,7 @@ import { Patients } from "src/api/patient";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import * as yup from "yup";
+import { CssBaseline } from "@material-ui/core";
 
 const schema = yup.object().shape({
   name: yup.string().required("Ingrese nombre del paciente"),
@@ -176,402 +177,406 @@ const PatientsInformation = ({ patientID }) => {
     );
 
   return (
-    <Container variant={"body2"}>
-      <form
-        component={"span"}
-        className={classes.root}
-        noValidate
-        autoComplete="off"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <AnnounTitle>
-          Actualice los datos personales de ser necesario
-        </AnnounTitle>
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-          spacing={2}
-          style={{
-            backgroundColor: "#BBF0E8",
-            paddingBottom: "10px",
-            paddingTop: "15px",
-            color: "#092435",
-          }}
+    <CssBaseline>
+      <Container variant={"body2"}>
+        <form
+          component={"span"}
+          className={classes.root}
+          noValidate
+          autoComplete="off"
+          onSubmit={handleSubmit(onSubmit)}
         >
-          {" "}
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="ci"
-              name="ci"
-              label="Cédula"
-              defaultValue={data.ci}
-              className={classes.textField}
-              disabled
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-              //{...register("ci")}
-            />
-          </Grid>
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="name"
-              name="name"
-              label="Nombre"
-              defaultValue={data.name}
-              className={classes.textField}
-              required
-              variant="outlined"
-              {...register("name")}
-              error={!!errors.name}
-              helperText={errors.name?.message}
-              placeholder={data.name}
-            />
-          </Grid>
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="lastName"
-              name="lastName"
-              label="Apellidos"
-              defaultValue={data.lastName}
-              required
-              className={classes.textField}
-              variant="outlined"
-              {...register("lastName")}
-              error={!!errors.lastName}
-              helperText={errors.lastName?.message}
-              placeholder={data.lastName}
-            />
-          </Grid>
-        </Grid>{" "}
-        <Divider
-          light
-          style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-        />
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-          spacing={2}
-          style={{
-            backgroundColor: "#FFFFFF",
-            paddingBottom: "10px",
-            paddingTop: "15px",
-            color: "#092435",
-          }}
-        >
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="sex"
-              name="sex"
-              label="Sexo"
-              defaultValue={data.sex === 1 ? "Masculino" : "Femenino"}
-              className={classes.textField}
-              variant="outlined"
-              disabled
-              //{...register("sex")}
-            />
-          </Grid>
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="civilStatus"
-              name="civilStatus"
-              label="Estado civil"
-              defaultValue={
-                data.civilStatus === "1"
-                  ? "Soltero"
-                  : data.civilStatus === "2"
-                  ? "Casado"
-                  : data.civilStatus === "3"
-                  ? "Divordiado"
-                  : data.civilStatus === "4"
-                  ? "Unión libre"
-                  : "Montepio"
-              }
-              required
-              className={classes.textField}
-              variant="outlined"
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-          </Grid>
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="birthay"
-              name="birthay"
-              label="Fecha nacimiento"
-              defaultValue={data.birthay}
-              disabled
-              className={classes.textField}
-              variant="outlined"
-            />
-          </Grid>
-        </Grid>
-        <Divider
-          light
-          style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-        />
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-          spacing={2}
-          style={{
-            backgroundColor: "#BBF0E8",
-            paddingBottom: "10px",
-            paddingTop: "15px",
-            color: "#092435",
-          }}
-        >
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="employment"
-              name="employment"
-              label="Ocupación"
-              defaultValue={data.employment}
-              required
-              className={classes.textField}
-              variant="outlined"
-              {...register("employment")}
-              error={!!errors.employment}
-              helperText={errors.employment?.message}
-              placeholder={data.employment}
-            />
-          </Grid>
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="email"
-              name="email"
-              label="Correo electrónico"
-              defaultValue={data.email}
-              required
-              className={classes.textField}
-              variant="outlined"
-              {...register("email")}
-              error={!!errors.email}
-              helperText={errors.email?.message}
-              placeholder={data.email}
-            />
-          </Grid>
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="movil"
-              name="movil"
-              label="Celular"
-              defaultValue={data.movil}
-              required
-              className={classes.textField}
-              variant="outlined"
-              {...register("movil")}
-              error={!!errors.movil}
-              helperText={errors.movil?.message}
-            />
-          </Grid>
-        </Grid>
-        <Divider
-          light
-          style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-        />
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-          spacing={2}
-          style={{
-            backgroundColor: "#FFFFFF",
-            paddingBottom: "10px",
-            paddingTop: "15px",
-            color: "#092435",
-          }}
-        >
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="landline"
-              name="landline"
-              label="Telf. Fijo"
-              defaultValue={data.landline}
-              required
-              className={classes.textField}
-              variant="outlined"
-              {...register("landline")}
-              error={!!errors.landline}
-              helperText={errors.landline?.message}
-            />
-          </Grid>
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="address"
-              name="address"
-              label="Dirección"
-              defaultValue={data.address}
-              required
-              className={classes.textField}
-              variant="outlined"
-              {...register("address")}
-              error={!!errors.address}
-              helperText={errors.address?.message}
-              placeholder={data.address}
-            />
-          </Grid>
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="nationality"
-              name="nationality"
-              label="País/Origen"
-              defaultValue={data.nationality}
-              required
-              className={classes.textField}
-              variant="outlined"
-              {...register("nationality")}
-              error={!!errors.nationality}
-              helperText={errors.nationality?.message}
-              placeholder={data.nationality}
-            />
-          </Grid>
-        </Grid>
-        <Divider
-          light
-          style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-        />
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-          spacing={2}
-          style={{
-            backgroundColor: "#BBF0E8",
-            paddingBottom: "20px",
-            paddingTop: "15px",
-            color: "#092435",
-          }}
-        >
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="city"
-              name="city"
-              label="Ciudad"
-              defaultValue={data.city}
-              required
-              className={classes.textField}
-              variant="outlined"
-              {...register("city")}
-              error={!!errors.city}
-              helperText={errors.city?.message}
-              placeholder={data.city}
-            />
-          </Grid>
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="parish"
-              name="parish"
-              label="Provincia"
-              defaultValue={data.parish}
-              required
-              className={classes.textField}
-              variant="outlined"
-              {...register("parish")}
-              error={!!errors.parish}
-              helperText={errors.parish?.message}
-              placeholder={data.parish}
-            />
-          </Grid>
-          <Grid item lg={3} sm={4} xs={12}>
-            <TextField
-              id="patient_id"
-              name="patient_id"
-              label="# Historia clínica"
-              defaultValue={data.patient_id}
-              className={classes.textField}
-              disabled
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-              //{...register("patient_id")}
-            />
-          </Grid>
-        </Grid>
-        <Divider
-          light
-          style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-        />
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-          spacing={2}
-          style={{
-            backgroundColor: "#FFFFFF",
-            paddingBottom: "10px",
-            paddingTop: "15px",
-            color: "#092435",
-          }}
-        >
+          <AnnounTitle>
+            Actualice los datos personales de ser necesario
+          </AnnounTitle>
           <Grid
-            item
-            md={3}
-            xs={12}
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            spacing={2}
             style={{
-              padding: "10px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              backgroundColor: "#BBF0E8",
+              paddingBottom: "10px",
+              paddingTop: "15px",
+              color: "#092435",
             }}
           >
-            <Button
-              variant="contained"
-              type="submit"
-              className={classes.btnView}
-              fullWidth
-              //onClick={handleOpen}
-              startIcon={<SaveIcon />}
-            >
-              Actualizar
-            </Button>
+            {" "}
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="ci"
+                name="ci"
+                label="Cédula"
+                defaultValue={data.ci}
+                className={classes.textField}
+                disabled
+                InputProps={{
+                  readOnly: true,
+                }}
+                variant="outlined"
+                //{...register("ci")}
+              />
+            </Grid>
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="name"
+                name="name"
+                label="Nombre"
+                defaultValue={data.name}
+                className={classes.textField}
+                required
+                variant="outlined"
+                {...register("name")}
+                error={!!errors.name}
+                helperText={errors.name?.message}
+                placeholder={data.name}
+              />
+            </Grid>
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="lastName"
+                name="lastName"
+                label="Apellidos"
+                defaultValue={data.lastName}
+                required
+                className={classes.textField}
+                variant="outlined"
+                {...register("lastName")}
+                error={!!errors.lastName}
+                helperText={errors.lastName?.message}
+                placeholder={data.lastName}
+              />
+            </Grid>
+          </Grid>{" "}
+          <Divider
+            light
+            style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+          />
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            spacing={2}
+            style={{
+              backgroundColor: "#FFFFFF",
+              paddingBottom: "10px",
+              paddingTop: "15px",
+              color: "#092435",
+            }}
+          >
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="sex"
+                name="sex"
+                label="Sexo"
+                defaultValue={data.sex === 1 ? "Masculino" : "Femenino"}
+                className={classes.textField}
+                variant="outlined"
+                disabled
+                //{...register("sex")}
+              />
+            </Grid>
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="civilStatus"
+                name="civilStatus"
+                label="Estado civil"
+                defaultValue={
+                  data.civilStatus === "1"
+                    ? "Soltero"
+                    : data.civilStatus === "2"
+                    ? "Casado"
+                    : data.civilStatus === "3"
+                    ? "Divordiado"
+                    : data.civilStatus === "4"
+                    ? "Unión libre"
+                    : "Montepio"
+                }
+                required
+                className={classes.textField}
+                variant="outlined"
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </Grid>
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="birthay"
+                name="birthay"
+                label="Fecha nacimiento"
+                defaultValue={data.birthay}
+                disabled
+                className={classes.textField}
+                variant="outlined"
+              />
+            </Grid>
           </Grid>
-        </Grid>
-        <Divider
-          light
-          style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-        />
-        <Modal
-          aria-labelledby="transition-modal-title"
-          aria-describedby="transition-modal-description"
-          className={classes.modal}
-          open={open}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{
-            timeout: 500,
-          }}
-        >
-          <Fade in={open}>
-            <div className={classes.mpaper}>
-              <h2 id="transition-modal-title">Datos actualizados con éxito</h2>
+          <Divider
+            light
+            style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+          />
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            spacing={2}
+            style={{
+              backgroundColor: "#BBF0E8",
+              paddingBottom: "10px",
+              paddingTop: "15px",
+              color: "#092435",
+            }}
+          >
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="employment"
+                name="employment"
+                label="Ocupación"
+                defaultValue={data.employment}
+                required
+                className={classes.textField}
+                variant="outlined"
+                {...register("employment")}
+                error={!!errors.employment}
+                helperText={errors.employment?.message}
+                placeholder={data.employment}
+              />
+            </Grid>
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="email"
+                name="email"
+                label="Correo electrónico"
+                defaultValue={data.email}
+                required
+                className={classes.textField}
+                variant="outlined"
+                {...register("email")}
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                placeholder={data.email}
+              />
+            </Grid>
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="movil"
+                name="movil"
+                label="Celular"
+                defaultValue={data.movil}
+                required
+                className={classes.textField}
+                variant="outlined"
+                {...register("movil")}
+                error={!!errors.movil}
+                helperText={errors.movil?.message}
+              />
+            </Grid>
+          </Grid>
+          <Divider
+            light
+            style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+          />
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            spacing={2}
+            style={{
+              backgroundColor: "#FFFFFF",
+              paddingBottom: "10px",
+              paddingTop: "15px",
+              color: "#092435",
+            }}
+          >
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="landline"
+                name="landline"
+                label="Telf. Fijo"
+                defaultValue={data.landline}
+                required
+                className={classes.textField}
+                variant="outlined"
+                {...register("landline")}
+                error={!!errors.landline}
+                helperText={errors.landline?.message}
+              />
+            </Grid>
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="address"
+                name="address"
+                label="Dirección"
+                defaultValue={data.address}
+                required
+                className={classes.textField}
+                variant="outlined"
+                {...register("address")}
+                error={!!errors.address}
+                helperText={errors.address?.message}
+                placeholder={data.address}
+              />
+            </Grid>
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="nationality"
+                name="nationality"
+                label="País/Origen"
+                defaultValue={data.nationality}
+                required
+                className={classes.textField}
+                variant="outlined"
+                {...register("nationality")}
+                error={!!errors.nationality}
+                helperText={errors.nationality?.message}
+                placeholder={data.nationality}
+              />
+            </Grid>
+          </Grid>
+          <Divider
+            light
+            style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+          />
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            spacing={2}
+            style={{
+              backgroundColor: "#BBF0E8",
+              paddingBottom: "20px",
+              paddingTop: "15px",
+              color: "#092435",
+            }}
+          >
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="city"
+                name="city"
+                label="Ciudad"
+                defaultValue={data.city}
+                required
+                className={classes.textField}
+                variant="outlined"
+                {...register("city")}
+                error={!!errors.city}
+                helperText={errors.city?.message}
+                placeholder={data.city}
+              />
+            </Grid>
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="parish"
+                name="parish"
+                label="Provincia"
+                defaultValue={data.parish}
+                required
+                className={classes.textField}
+                variant="outlined"
+                {...register("parish")}
+                error={!!errors.parish}
+                helperText={errors.parish?.message}
+                placeholder={data.parish}
+              />
+            </Grid>
+            <Grid item lg={3} sm={4} xs={12}>
+              <TextField
+                id="patient_id"
+                name="patient_id"
+                label="# Historia clínica"
+                defaultValue={data.patient_id}
+                className={classes.textField}
+                disabled
+                InputProps={{
+                  readOnly: true,
+                }}
+                variant="outlined"
+                //{...register("patient_id")}
+              />
+            </Grid>
+          </Grid>
+          <Divider
+            light
+            style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+          />
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            spacing={2}
+            style={{
+              backgroundColor: "#FFFFFF",
+              paddingBottom: "10px",
+              paddingTop: "15px",
+              color: "#092435",
+            }}
+          >
+            <Grid
+              item
+              md={3}
+              xs={12}
+              style={{
+                padding: "10px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <Button
                 variant="contained"
                 type="submit"
-                size="small"
-                onClick={handleClose}
-                style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                className={classes.upgrade}
+                className={classes.btnView}
+                fullWidth
+                //onClick={handleOpen}
+                startIcon={<SaveIcon />}
               >
-                Aceptar
+                Actualizar
               </Button>
-            </div>
-          </Fade>
-        </Modal>
-      </form>
-    </Container>
+            </Grid>
+          </Grid>
+          <Divider
+            light
+            style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+          />
+          <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={open}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={open}>
+              <div className={classes.mpaper}>
+                <h2 id="transition-modal-title">
+                  Datos actualizados con éxito
+                </h2>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  size="small"
+                  onClick={handleClose}
+                  style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                  className={classes.upgrade}
+                >
+                  Aceptar
+                </Button>
+              </div>
+            </Fade>
+          </Modal>
+        </form>
+      </Container>
+    </CssBaseline>
   );
 };
 export default PatientsInformation;

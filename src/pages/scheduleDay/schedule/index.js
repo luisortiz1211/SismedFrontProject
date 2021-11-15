@@ -20,6 +20,8 @@ import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import { useAuth } from "src/contexts/auth";
 import useSWR from "swr";
+import { CssBaseline } from "@material-ui/core";
+import SearchToDate from "@/components/SearchToDate";
 
 const columns = [
   {
@@ -141,122 +143,125 @@ const PatientShift = () => {
 
   return (
     <LayoutSecondary>
-      <Container maxWidth="lg">
-        <Title>
-          {" "}
-          <ListAltIcon
-            style={{
-              color: "#092435",
-              fontSize: 35,
-              position: "relative",
-              top: "6px",
-            }}
-          />{" "}
-          Pacientes agendados
-        </Title>
+      <CssBaseline>
+        <Container maxWidth="lg">
+          <Title>
+            {" "}
+            <ListAltIcon
+              style={{
+                color: "#092435",
+                fontSize: 35,
+                position: "relative",
+                top: "6px",
+              }}
+            />{" "}
+            Pacientes agendados
+          </Title>
+          <>
+            <SearchToDate />
+          </>
 
-        <Paper elevation={6} style={{ margin: "20px" }}>
-          <AnnounTitle>Registrar o cancelar agendamiento</AnnounTitle>
+          <Paper elevation={6} style={{ margin: "20px" }}>
+            <AnnounTitle>Registrar o cancelar agendamiento</AnnounTitle>
 
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{
-                        minWidth: column.minWidth,
-                        backgroundColor: column.backgroundColor,
-                        fontSize: column.fontSize,
-                      }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {data.data
-                  .slice()
-                  .reverse()
-                  .map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-2}
-                        key={row.id}
-                        style={
-                          row.scheduleDayState === "atendido"
-                            ? { backgroundColor: "#FFE082" }
-                            : row.scheduleDayState === "pendiente"
-                            ? { backgroundColor: "#FFCDD2" }
-                            : row.scheduleDayState === "registrado"
-                            ? { backgroundColor: "#C5E1A5" }
-                            : { backgroundColor: "#FFF" }
-                        }
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{
+                          minWidth: column.minWidth,
+                          backgroundColor: column.backgroundColor,
+                          fontSize: column.fontSize,
+                        }}
                       >
-                        {""}
-                        <>
-                          {columns.map((array) => {
-                            const value = row[array.id];
-                            return (
-                              <TableCell key={array.id} align={array.align}>
-                                
-                                
-                                
-                                {array.id === "botonSelect" &&
-                                array.label == "" ? (
-                                  <Grid
-                                    container
-                                    direction="row"
-                                    alignItems="center"
-                                    justifyContent="center"
-                                  >
-                                    <Grid item>
-                                      <Link
-                                        href={`/scheduleDay/schedule/${row.schedule_day}`}
-                                        passHref
-                                      >
-                                        {user.roleUser !== "ROLE_MEDIC" ? (
-                                          <Button
-                                            variant="outlined"
-                                            size="small"
-                                            className={classes.btn}
-                                            disabled={
-                                              row.scheduleDayState ===
-                                              "atendido"
-                                            }
-                                            endIcon={<KeyboardArrowRightIcon />}
-                                          >
-                                            Continuar
-                                          </Button>
-                                        ) : (
-                                          ""
-                                        )}
-                                      </Link>
+                        {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {data.data
+                    .slice()
+                    .reverse()
+                    .map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-2}
+                          key={row.id}
+                          style={
+                            row.scheduleDayState === "atendido"
+                              ? { backgroundColor: "#FFE082" }
+                              : row.scheduleDayState === "pendiente"
+                              ? { backgroundColor: "#FFF" }
+                              : row.scheduleDayState === "registrado"
+                              ? { backgroundColor: "#C5E1A5" }
+                              : { backgroundColor: "#FFCDD2" }
+                          }
+                        >
+                          {""}
+                          <>
+                            {columns.map((array) => {
+                              const value = row[array.id];
+                              return (
+                                <TableCell key={array.id} align={array.align}>
+                                  {array.id === "botonSelect" &&
+                                  array.label == "" ? (
+                                    <Grid
+                                      container
+                                      direction="row"
+                                      alignItems="center"
+                                      justifyContent="center"
+                                    >
+                                      <Grid item>
+                                        <Link
+                                          href={`/scheduleDay/schedule/${row.patient_id}`}
+                                          passHref
+                                        >
+                                          {user.roleUser !== "ROLE_MEDIC" ? (
+                                            <Button
+                                              variant="outlined"
+                                              size="small"
+                                              className={classes.btn}
+                                              disabled={
+                                                row.scheduleDayState ===
+                                                "atendido"
+                                              }
+                                              endIcon={
+                                                <KeyboardArrowRightIcon />
+                                              }
+                                            >
+                                              Continuar
+                                            </Button>
+                                          ) : (
+                                            ""
+                                          )}
+                                        </Link>
+                                      </Grid>
                                     </Grid>
-                                  </Grid>
-                                ) : (
-                                  value
-                                )}
-                              </TableCell>
-                            );
-                          })}
-                        </>
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <Container style={{ color: "#BBF0E8", backgroundColor: "#BBF0E8" }}>
-            .
-          </Container>
-          {/*   <TablePagination
+                                  ) : (
+                                    value
+                                  )}
+                                </TableCell>
+                              );
+                            })}
+                          </>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <Container style={{ color: "#BBF0E8", backgroundColor: "#BBF0E8" }}>
+              .
+            </Container>
+            {/*   <TablePagination
             labelRowsPerPage="Horarios:"
             rowsPerPageOptions={[10, 25]}
             component="div"
@@ -266,8 +271,9 @@ const PatientShift = () => {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           /> */}
-        </Paper>
-      </Container>
+          </Paper>
+        </Container>
+      </CssBaseline>
     </LayoutSecondary>
   );
 };

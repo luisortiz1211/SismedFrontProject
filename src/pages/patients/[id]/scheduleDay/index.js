@@ -57,32 +57,33 @@ const MedicalSchedule = () => {
     );
   return (
     <Layout>
-      <CssBaseline />
-      <Container maxWidth="lg" direction="row">
-        <Title>
-          {" "}
-          <ListAltIcon
-            style={{
-              color: "#092435",
-              fontSize: 40,
-              position: "relative",
-              top: "7px",
-            }}
-          />{" "}
-          Agendamiento
-        </Title>
-        <Paper
-          className={classes.root}
-          elevation={6}
-          style={{ margin: "20px" }}
-        >
-          <AnnounTitle>
-            Seleccione el médico, comprobar los horarios disponibles
-          </AnnounTitle>
+      <CssBaseline>
+        <Container maxWidth="lg" direction="row">
+          <Title>
+            {" "}
+            <ListAltIcon
+              style={{
+                color: "#092435",
+                fontSize: 40,
+                position: "relative",
+                top: "7px",
+              }}
+            />{" "}
+            Agendamiento
+          </Title>
+          <Paper
+            className={classes.root}
+            elevation={6}
+            style={{ margin: "20px" }}
+          >
+            <AnnounTitle>
+              Seleccione el médico, comprobar los horarios disponibles
+            </AnnounTitle>
 
-          <ScheduleDayUser />
-        </Paper>
-      </Container>
+            <ScheduleDayUser />
+          </Paper>
+        </Container>
+      </CssBaseline>
     </Layout>
   );
 };

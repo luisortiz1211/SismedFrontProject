@@ -25,6 +25,7 @@ import { useAuth } from "src/contexts/auth";
 import * as yup from "yup";
 import withAuth from "../hocs/withAuth";
 import { useSnackbar } from "notistack";
+import { CssBaseline } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -204,314 +205,318 @@ const Register = () => {
 
   return (
     <div>
-      <Title>
-        <AddReactionIcon
-          style={{
-            color: "#092435",
-            fontSize: 35,
-            position: "relative",
-            top: "6px",
-          }}
-        />
-        {"  "}
-        Crear cuenta de usuario
-      </Title>
-      <Paper elevation={6} style={{ margin: "20px" }}>
-        <Container>
-          <form
-            className={classes.form}
-            onSubmit={handleSubmit(onSubmit)}
-            noValidate
-            style={{ paddingBottom: "30px" }}
-          >
-            <AnnounTitle>
-              Registrar los campos y crear un nuevo perfil de usuario
-            </AnnounTitle>
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-around"
-              alignItems="center"
-              spacing={2}
-              style={{
-                backgroundColor: "#BBF0E8",
-                paddingBottom: "10px",
-                paddingTop: "15px",
-                color: "#092435",
-              }}
+      <CssBaseline>
+        <Title>
+          <AddReactionIcon
+            style={{
+              color: "#092435",
+              fontSize: 35,
+              position: "relative",
+              top: "6px",
+            }}
+          />
+          {"  "}
+          Crear cuenta de usuario
+        </Title>
+        <Paper elevation={6} style={{ margin: "20px" }}>
+          <Container>
+            <form
+              className={classes.form}
+              onSubmit={handleSubmit(onSubmit)}
+              noValidate
+              style={{ paddingBottom: "30px" }}
             >
-              <Grid item lg={4} sm={4} xs={12}>
-                {" "}
-                <TextField
-                  variant="outlined"
-                  label="Nombres"
-                  style={{ textTransform: "upercase" }}
-                  className={classes.textField}
-                  {...register("name")}
-                  error={!!errors.name}
-                  helperText={errors.name?.message}
-                  placeholder="Nombres: Kale Diane"
-                />
-              </Grid>
-              <Grid item lg={4} sm={4} xs={12}>
-                <TextField
-                  variant="outlined"
-                  label="Apellidos"
-                  style={{ textTransform: "upercase" }}
-                  className={classes.textField}
-                  {...register("lastName")}
-                  error={!!errors.lastName}
-                  helperText={errors.lastName?.message}
-                  placeholder="Apellidos: Frank Herbert"
-                />
-              </Grid>
-              <Grid item lg={4} sm={4} xs={12}>
-                <TextField
-                  //{...field}
-                  variant="outlined"
-                  label="Correo electrónico"
-                  style={{ textTransform: "upercase" }}
-                  className={classes.textField}
-                  {...register("email")}
-                  error={!!errors.email}
-                  helperText={errors.email?.message}
-                  placeholder="Correo: ejemplocorreo@gmail.com"
-                />
-              </Grid>
-            </Grid>
-            <Divider
-              light
-              style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-            />
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-around"
-              alignItems="center"
-              spacing={2}
-              style={{
-                backgroundColor: "#FFFFFF",
-                paddingBottom: "10px",
-                paddingTop: "15px",
-                color: "#092435",
-              }}
-            >
-              <Grid item lg={4} sm={4} xs={12}>
-                <TextField
-                  variant="outlined"
-                  label="Contraseña"
-                  style={{ textTransform: "upercase" }}
-                  className={classes.textField}
-                  {...register("password", { required: true })}
-                  type="password"
-                  error={!!errors.password}
-                  helperText={errors.password?.message}
-                  placeholder="Contraseña: P@labr5"
-                />
-              </Grid>
-              <Grid item lg={4} sm={4} xs={12}>
-                <TextField
-                  variant="outlined"
-                  label="Confirmar contraseña"
-                  style={{ textTransform: "upercase" }}
-                  className={classes.textField}
-                  {...register("password_confirmation", {
-                    required: true,
-                  })}
-                  type="password"
-                  error={!!errors.password_confirmation}
-                  helperText={errors.password_confirmation?.message}
-                  placeholder="Confirmar: P@labr5"
-                />
-              </Grid>
-              <Grid item lg={4} sm={4} xs={12}>
-                <TextField
-                  variant="outlined"
-                  label="Cédula"
-                  className={classes.textField}
-                  {...register("ci", { required: true, minLength: 10 })}
-                  error={!!errors.ci}
-                  helperText={errors.ci?.message}
-                  placeholder="Cédula: 172145782X"
-                />
-              </Grid>
-            </Grid>
-            <Divider
-              light
-              style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-            />
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-around"
-              alignItems="center"
-              spacing={2}
-              style={{
-                backgroundColor: "#BBF0E8",
-                paddingBottom: "10px",
-                paddingTop: "15px",
-                color: "#092435",
-              }}
-            >
-              <AnnounTitle>Seleccionar tipo y estado de la cuenta</AnnounTitle>
-              <Grid item lg={4} sm={4} xs={12}>
-                <FormControl
-                  variant="outlined"
-                  label="Estado"
-                  fullWidth
-                  className={classes.textField}
-                >
-                  <Select
-                    id="availableStatus"
-                    {...register("availableStatus", { required: true })}
-                    defaultValue="1"
-                  >
-                    <MenuItem value={`1`}>Activo</MenuItem>
-                    <MenuItem value={`0`}>Desactivado</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item lg={4} sm={4} xs={12}>
-                <FormControl
-                  variant="outlined"
-                  label="Tipo"
-                  className={classes.textField}
-                  fullWidth
-                >
-                  <Select
-                    id="roleUser"
-                    {...register("roleUser", { required: true })}
-                    defaultValue="ROLE_MEDIC"
-                  >
-                    <MenuItem value={`ROLE_ADMIN`}>Administrador</MenuItem>
-                    <MenuItem value={`ROLE_MEDIC`}>Médico</MenuItem>
-                    <MenuItem value={`ROLE_ASSISTENT`}>Asistente</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item lg={4} sm={4} xs={12}>
-                <FormControl
-                  variant="outlined"
-                  label="ESpecialidad"
-                  className={classes.textField}
-                  fullWidth
-                >
-                  <Select
-                    id="employment"
-                    {...register("employment", { required: true })}
-                    defaultValue="Medicina General"
-                  >
-                    <MenuItem value={"Medicina General"}>
-                      Medicina General
-                    </MenuItem>
-                    <MenuItem value={"Asistente Médico"}>
-                      Asistente Médico
-                    </MenuItem>
-                    <MenuItem value={"Enfermeria"}>Enfermeria</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
-            <Divider
-              light
-              style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-            />{" "}
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-around"
-              alignItems="center"
-              spacing={2}
-              style={{
-                backgroundColor: "#FFFFFF",
-                paddingBottom: "10px",
-                paddingTop: "15px",
-                color: "#092435",
-              }}
-            >
+              <AnnounTitle>
+                Registrar los campos y crear un nuevo perfil de usuario
+              </AnnounTitle>
               <Grid
-                item
-                md={3}
-                xs={12}
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+                spacing={2}
                 style={{
-                  padding: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  backgroundColor: "#BBF0E8",
+                  paddingBottom: "10px",
+                  paddingTop: "15px",
+                  color: "#092435",
                 }}
               >
-                <Link href={`${Routes.HOME}`} passHref>
-                  <Button
-                    className={classes.btncancel}
-                    variant="contained"
+                <Grid item lg={4} sm={4} xs={12}>
+                  {" "}
+                  <TextField
+                    variant="outlined"
+                    label="Nombres"
+                    style={{ textTransform: "upercase" }}
+                    className={classes.textField}
+                    {...register("name")}
+                    error={!!errors.name}
+                    helperText={errors.name?.message}
+                    placeholder="Nombres: Kale Diane"
+                  />
+                </Grid>
+                <Grid item lg={4} sm={4} xs={12}>
+                  <TextField
+                    variant="outlined"
+                    label="Apellidos"
+                    style={{ textTransform: "upercase" }}
+                    className={classes.textField}
+                    {...register("lastName")}
+                    error={!!errors.lastName}
+                    helperText={errors.lastName?.message}
+                    placeholder="Apellidos: Frank Herbert"
+                  />
+                </Grid>
+                <Grid item lg={4} sm={4} xs={12}>
+                  <TextField
+                    //{...field}
+                    variant="outlined"
+                    label="Correo electrónico"
+                    style={{ textTransform: "upercase" }}
+                    className={classes.textField}
+                    {...register("email")}
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                    placeholder="Correo: ejemplocorreo@gmail.com"
+                  />
+                </Grid>
+              </Grid>
+              <Divider
+                light
+                style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+              />
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+                spacing={2}
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  paddingBottom: "10px",
+                  paddingTop: "15px",
+                  color: "#092435",
+                }}
+              >
+                <Grid item lg={4} sm={4} xs={12}>
+                  <TextField
+                    variant="outlined"
+                    label="Contraseña"
+                    style={{ textTransform: "upercase" }}
+                    className={classes.textField}
+                    {...register("password", { required: true })}
+                    type="password"
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                    placeholder="Contraseña: P@labr5"
+                  />
+                </Grid>
+                <Grid item lg={4} sm={4} xs={12}>
+                  <TextField
+                    variant="outlined"
+                    label="Confirmar contraseña"
+                    style={{ textTransform: "upercase" }}
+                    className={classes.textField}
+                    {...register("password_confirmation", {
+                      required: true,
+                    })}
+                    type="password"
+                    error={!!errors.password_confirmation}
+                    helperText={errors.password_confirmation?.message}
+                    placeholder="Confirmar: P@labr5"
+                  />
+                </Grid>
+                <Grid item lg={4} sm={4} xs={12}>
+                  <TextField
+                    variant="outlined"
+                    label="Cédula"
+                    className={classes.textField}
+                    {...register("ci", { required: true, minLength: 10 })}
+                    error={!!errors.ci}
+                    helperText={errors.ci?.message}
+                    placeholder="Cédula: 172145782X"
+                  />
+                </Grid>
+              </Grid>
+              <Divider
+                light
+                style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+              />
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+                spacing={2}
+                style={{
+                  backgroundColor: "#BBF0E8",
+                  paddingBottom: "10px",
+                  paddingTop: "15px",
+                  color: "#092435",
+                }}
+              >
+                <AnnounTitle>
+                  Seleccionar tipo y estado de la cuenta
+                </AnnounTitle>
+                <Grid item lg={4} sm={4} xs={12}>
+                  <FormControl
+                    variant="outlined"
+                    label="Estado"
+                    fullWidth
+                    className={classes.textField}
+                  >
+                    <Select
+                      id="availableStatus"
+                      {...register("availableStatus", { required: true })}
+                      defaultValue="1"
+                    >
+                      <MenuItem value={`1`}>Activo</MenuItem>
+                      <MenuItem value={`0`}>Desactivado</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item lg={4} sm={4} xs={12}>
+                  <FormControl
+                    variant="outlined"
+                    label="Tipo"
+                    className={classes.textField}
                     fullWidth
                   >
-                    Cancelar
-                  </Button>
-                </Link>
+                    <Select
+                      id="roleUser"
+                      {...register("roleUser", { required: true })}
+                      defaultValue="ROLE_MEDIC"
+                    >
+                      <MenuItem value={`ROLE_ADMIN`}>Administrador</MenuItem>
+                      <MenuItem value={`ROLE_MEDIC`}>Médico</MenuItem>
+                      <MenuItem value={`ROLE_ASSISTENT`}>Asistente</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item lg={4} sm={4} xs={12}>
+                  <FormControl
+                    variant="outlined"
+                    label="ESpecialidad"
+                    className={classes.textField}
+                    fullWidth
+                  >
+                    <Select
+                      id="employment"
+                      {...register("employment", { required: true })}
+                      defaultValue="Medicina General"
+                    >
+                      <MenuItem value={"Medicina General"}>
+                        Medicina General
+                      </MenuItem>
+                      <MenuItem value={"Asistente Médico"}>
+                        Asistente Médico
+                      </MenuItem>
+                      <MenuItem value={"Enfermeria"}>Enfermeria</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
               </Grid>
-
+              <Divider
+                light
+                style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+              />{" "}
               <Grid
-                item
-                md={3}
-                xs={12}
+                container
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+                spacing={2}
                 style={{
-                  padding: "10px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  backgroundColor: "#FFFFFF",
+                  paddingBottom: "10px",
+                  paddingTop: "15px",
+                  color: "#092435",
                 }}
               >
-                {" "}
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  // onClick={handleLogout}
-                  className={classes.btnacept}
+                <Grid
+                  item
+                  md={3}
+                  xs={12}
+                  style={{
+                    padding: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                 >
-                  Aceptar
-                </Button>
-              </Grid>
-            </Grid>
-            <Divider
-              light
-              style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-            />{" "}
-            <Modal
-              aria-labelledby="transition-modal-title"
-              aria-describedby="transition-modal-description"
-              className={classes.modal}
-              open={open}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                timeout: 500,
-              }}
-            >
-              <Fade in={open}>
-                <div className={classes.mpaper}>
-                  <h2 id="transition-modal-title">
-                    Usuario registrado en el sistema
-                  </h2>
+                  <Link href={`${Routes.HOME}`} passHref>
+                    <Button
+                      className={classes.btncancel}
+                      variant="contained"
+                      fullWidth
+                    >
+                      Cancelar
+                    </Button>
+                  </Link>
+                </Grid>
+
+                <Grid
+                  item
+                  md={3}
+                  xs={12}
+                  style={{
+                    padding: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {" "}
                   <Button
-                    variant="contained"
                     type="submit"
-                    size="small"
-                    onClick={() => {
-                      handleClose();
-                    }}
-                    style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                    className={classes.upgrade}
+                    fullWidth
+                    variant="contained"
+                    // onClick={handleLogout}
+                    className={classes.btnacept}
                   >
                     Aceptar
                   </Button>
-                </div>
-              </Fade>
-            </Modal>
-          </form>
-        </Container>
-      </Paper>
+                </Grid>
+              </Grid>
+              <Divider
+                light
+                style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+              />{" "}
+              <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <Fade in={open}>
+                  <div className={classes.mpaper}>
+                    <h2 id="transition-modal-title">
+                      Usuario registrado en el sistema
+                    </h2>
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      size="small"
+                      onClick={() => {
+                        handleClose();
+                      }}
+                      style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                      className={classes.upgrade}
+                    >
+                      Aceptar
+                    </Button>
+                  </div>
+                </Fade>
+              </Modal>
+            </form>
+          </Container>
+        </Paper>
+      </CssBaseline>
     </div>
   );
 };

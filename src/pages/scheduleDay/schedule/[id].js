@@ -11,7 +11,7 @@ import {
   Fade,
   Grid,
   Modal,
-  TextField
+  TextField,
 } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
@@ -245,279 +245,280 @@ const RegisterCancel = () => {
 
   return (
     <LayoutSecondary>
-      <CssBaseline />
-      <Container maxWidth="lg" direction="row">
-        <Title>
-          <ChangeCircleIcon
-            style={{
-              color: "#092435",
-              fontSize: 35,
-              position: "relative",
-              top: "6px",
-            }}
-          />
-          Registrar/Cancelar cita
-        </Title>
-        <Paper
-          className={classes.root}
-          elevation={6}
-          style={{ margin: "20px" }}
-        >
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            component="main"
-            className={(classes.root, classes.image)}
+      <CssBaseline>
+        <Container maxWidth="lg" direction="row">
+          <Title>
+            <ChangeCircleIcon
+              style={{
+                color: "#092435",
+                fontSize: 35,
+                position: "relative",
+                top: "6px",
+              }}
+            />
+            Registrar/Cancelar cita
+          </Title>
+          <Paper
+            className={classes.root}
+            elevation={6}
+            style={{ margin: "20px" }}
           >
-            <Grid item xs={12} md={4} component="main">
-              <Grid container justifyContent="center" alignItems="center">
-                <Grid item>
-                  {" "}
-                  <Box
-                    display={{ xs: "none", sm: "block" }}
-                    style={{ padding: "10px" }}
-                  >
-                    <Image
-                      src="/logosismed2.png"
-                      alt="Sismed"
-                      width={150}
-                      height={150}
-                    />
-                  </Box>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              component="main"
+              className={(classes.root, classes.image)}
+            >
+              <Grid item xs={12} md={4} component="main">
+                <Grid container justifyContent="center" alignItems="center">
+                  <Grid item>
+                    {" "}
+                    <Box
+                      display={{ xs: "none", sm: "block" }}
+                      style={{ padding: "10px" }}
+                    >
+                      <Image
+                        src="/logosismed2.png"
+                        alt="Sismed"
+                        width={150}
+                        height={150}
+                      />
+                    </Box>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
 
-            <Grid item xs={12} md={8} component={Paper} elevation={6} square>
-              <div className={classes.paper}>
-                <form
-                  className={classes.root}
-                  noValidate
-                  autoComplete="off"
-                  onSubmit={handleSubmit(onSubmit)}
-                >
-                  <AnnounTitle>
-                    Seleccione examinar para continuar con la atención.
-                  </AnnounTitle>
-                  <Grid
-                    container
-                    direction="row"
-                    justifyContent="space-around"
-                    alignItems="center"
-                    spacing={1}
-                    style={{
-                      paddingBottom: "15px",
-                      paddingTop: "20px",
-                      color: "#092435",
-                    }}
+              <Grid item xs={12} md={8} component={Paper} elevation={6} square>
+                <div className={classes.paper}>
+                  <form
+                    className={classes.root}
+                    noValidate
+                    autoComplete="off"
+                    onSubmit={handleSubmit(onSubmit)}
                   >
-                    <Grid item md={2} sm={2} xs={12}>
-                      <TextField
-                        id="scheduleDay"
-                        name="scheduleDay"
-                        label="Día"
-                        defaultValue={data.scheduleDay}
-                        className={classes.textField}
-                        variant="outlined"
-                        {...register("scheduleDay")}
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                      />
-                    </Grid>
-                    <Grid item md={3} sm={3} xs={12}>
-                      <TextField
-                        id="scheduleTime"
-                        name="scheduleTime"
-                        label="Inicio turno"
-                        defaultValue={data.scheduleTime}
-                        className={classes.textField}
-                        variant="outlined"
-                        {...register("scheduleTime")}
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                      />
-                    </Grid>
-                    <Grid item md={2} sm={2} xs={12}>
-                      <TextField
-                        id="userAssigned"
-                        name="userAssigned"
-                        label="ID Médico"
-                        defaultValue={data.userAssigned}
-                        className={classes.textField}
-                        variant="outlined"
-                        {...register("userAssigned")}
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                      />
-                    </Grid>
-                    <Grid item md={3} sm={3} xs={12}>
-                      <TextField
-                        id="scheduleDayState"
-                        name="scheduleDayState"
-                        label="Estado"
-                        defaultValue={data.scheduleDayState}
-                        className={classes.textField}
-                        variant="outlined"
-                        //{...register("scheduleDayState")}
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                      />
-                    </Grid>
-                    <Grid item md={2} sm={2} xs={12}>
-                      <TextField
-                        id="patient_id"
-                        name="patient_id"
-                        label="# Historia clínica"
-                        defaultValue={data.patient_id}
-                        className={classes.textField}
-                        variant="outlined"
-                        {...register("patient_id")}
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                      />
-                    </Grid>
-
+                    <AnnounTitle>
+                      Seleccione examinar para continuar con la atención.
+                    </AnnounTitle>
                     <Grid
                       container
                       direction="row"
                       justifyContent="space-around"
                       alignItems="center"
+                      spacing={1}
                       style={{
-                        backgroundColor: "#FFFFFF",
-                        paddingBottom: "10px",
-                        paddingTop: "15px",
+                        paddingBottom: "15px",
+                        paddingTop: "20px",
                         color: "#092435",
                       }}
                     >
+                      <Grid item md={2} sm={2} xs={12}>
+                        <TextField
+                          id="scheduleDay"
+                          name="scheduleDay"
+                          label="Día"
+                          defaultValue={data.scheduleDay}
+                          className={classes.textField}
+                          variant="outlined"
+                          {...register("scheduleDay")}
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                        />
+                      </Grid>
+                      <Grid item md={3} sm={3} xs={12}>
+                        <TextField
+                          id="scheduleTime"
+                          name="scheduleTime"
+                          label="Inicio turno"
+                          defaultValue={data.scheduleTime}
+                          className={classes.textField}
+                          variant="outlined"
+                          {...register("scheduleTime")}
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                        />
+                      </Grid>
+                      <Grid item md={2} sm={2} xs={12}>
+                        <TextField
+                          id="userAssigned"
+                          name="userAssigned"
+                          label="ID Médico"
+                          defaultValue={data.userAssigned}
+                          className={classes.textField}
+                          variant="outlined"
+                          {...register("userAssigned")}
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                        />
+                      </Grid>
+                      <Grid item md={3} sm={3} xs={12}>
+                        <TextField
+                          id="scheduleDayState"
+                          name="scheduleDayState"
+                          label="Estado"
+                          defaultValue={data.scheduleDayState}
+                          className={classes.textField}
+                          variant="outlined"
+                          //{...register("scheduleDayState")}
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                        />
+                      </Grid>
+                      <Grid item md={2} sm={2} xs={12}>
+                        <TextField
+                          id="patient_id"
+                          name="patient_id"
+                          label="# Historia clínica"
+                          defaultValue={data.patient_id}
+                          className={classes.textField}
+                          variant="outlined"
+                          {...register("patient_id")}
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                        />
+                      </Grid>
+
                       <Grid
-                        item
-                        md={4}
-                        sm={4}
-                        xs={12}
+                        container
+                        direction="row"
+                        justifyContent="space-around"
+                        alignItems="center"
                         style={{
-                          padding: "10px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
+                          backgroundColor: "#FFFFFF",
+                          paddingBottom: "10px",
+                          paddingTop: "15px",
+                          color: "#092435",
                         }}
                       >
-                        <Link href={`/scheduleDay/schedule/`} passHref>
-                          <Button
-                            className={classes.btnEdit}
-                            variant="contained"
-                            fullWidth
-                          >
-                            Regresar
-                          </Button>
-                        </Link>
-                      </Grid>
-                      {data.scheduleDayState === "pendiente" ? (
-                        <>
-                          {" "}
-                          <Grid
-                            item
-                            md={4}
-                            sm={4}
-                            xs={12}
-                            style={{
-                              padding: "10px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                          >
-                            <Link href={`/scheduleDay/schedule`} passHref>
-                              <Button
-                                className={classes.btnCancel}
-                                variant="contained"
-                                fullWidth
-                                onClick={() => {
-                                  handleCancelUser();
-                                  handleCancelDay();
-                                }}
-                              >
-                                Cancelar cita
-                              </Button>
-                            </Link>
-                          </Grid>
-                          <Grid
-                            item
-                            md={4}
-                            sm={4}
-                            xs={12}
-                            style={{
-                              padding: "10px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                          >
-                            <Link
-                              href={`/physicalExam/${data.schedule_day}/patient/${data.patient_id}/schedule/${data.schedule_id}`}
-                              passHref
+                        <Grid
+                          item
+                          md={4}
+                          sm={4}
+                          xs={12}
+                          style={{
+                            padding: "10px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Link href={`/scheduleDay/schedule/`} passHref>
+                            <Button
+                              className={classes.btnEdit}
+                              variant="contained"
+                              fullWidth
                             >
-                              <Button
-                                variant="contained"
-                                type="submit"
-                                fullWidth
-                                className={classes.btnSave}
+                              Regresar
+                            </Button>
+                          </Link>
+                        </Grid>
+                        {data.scheduleDayState === "pendiente" ? (
+                          <>
+                            {" "}
+                            <Grid
+                              item
+                              md={4}
+                              sm={4}
+                              xs={12}
+                              style={{
+                                padding: "10px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Link href={`/scheduleDay/schedule`} passHref>
+                                <Button
+                                  className={classes.btnCancel}
+                                  variant="contained"
+                                  fullWidth
+                                  onClick={() => {
+                                    handleCancelUser();
+                                    handleCancelDay();
+                                  }}
+                                >
+                                  Cancelar cita
+                                </Button>
+                              </Link>
+                            </Grid>
+                            <Grid
+                              item
+                              md={4}
+                              sm={4}
+                              xs={12}
+                              style={{
+                                padding: "10px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Link
+                                href={`/physicalExam/${data.id}/patient/${data.patient_id}/schedule/${data.schedule_id}`}
+                                passHref
                               >
-                                Examinar
-                              </Button>
-                            </Link>
-                          </Grid>
-                        </>
-                      ) : (
-                        "Cita cancelada o registrada, agendar nuevamente"
-                      )}
+                                <Button
+                                  variant="contained"
+                                  type="submit"
+                                  fullWidth
+                                  className={classes.btnSave}
+                                >
+                                  Examinar
+                                </Button>
+                              </Link>
+                            </Grid>
+                          </>
+                        ) : (
+                          "Cita cancelada o registrada, agendar nuevamente"
+                        )}
+                      </Grid>
                     </Grid>
-                  </Grid>
 
-                  <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    className={classes.modal}
-                    open={open}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                      timeout: 500,
-                    }}
-                  >
-                    <Fade in={open}>
-                      <div className={classes.mpaper}>
-                        <h2 id="transition-modal-title">
-                          Cita cancelada, horario habilitado en agenda médica.
-                        </h2>
-                        <Link href={`/scheduleDay/schedule`} passHref>
-                          <Button
-                            variant="contained"
-                            type="submit"
-                            size="small"
-                            style={{
-                              backgroundColor: "#60CCD9",
-                              color: "#092435",
-                            }}
-                            className={classes.upgrade}
-                          >
-                            Aceptar
-                          </Button>
-                        </Link>
-                      </div>
-                    </Fade>
-                  </Modal>
-                </form>
-              </div>
+                    <Modal
+                      aria-labelledby="transition-modal-title"
+                      aria-describedby="transition-modal-description"
+                      className={classes.modal}
+                      open={open}
+                      closeAfterTransition
+                      BackdropComponent={Backdrop}
+                      BackdropProps={{
+                        timeout: 500,
+                      }}
+                    >
+                      <Fade in={open}>
+                        <div className={classes.mpaper}>
+                          <h2 id="transition-modal-title">
+                            Cita cancelada, horario habilitado en agenda médica.
+                          </h2>
+                          <Link href={`/scheduleDay/schedule`} passHref>
+                            <Button
+                              variant="contained"
+                              type="submit"
+                              size="small"
+                              style={{
+                                backgroundColor: "#60CCD9",
+                                color: "#092435",
+                              }}
+                              className={classes.upgrade}
+                            >
+                              Aceptar
+                            </Button>
+                          </Link>
+                        </div>
+                      </Fade>
+                    </Modal>
+                  </form>
+                </div>
+              </Grid>
             </Grid>
-          </Grid>
-        </Paper>
-      </Container>
+          </Paper>
+        </Container>
+      </CssBaseline>
     </LayoutSecondary>
   );
 };

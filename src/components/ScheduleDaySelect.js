@@ -152,142 +152,143 @@ const ScheduleDaySelect = () => {
 
   return (
     <Layout>
-      <CssBaseline />
-      <Container maxWidth="lg" direction="row">
-        <Title>
-          {" "}
-          <ListAltIcon
-            style={{
-              color: "#092435",
-              fontSize: 40,
-              position: "relative",
-              top: "6px",
-            }}
-          />{" "}
-          Horario de Citas
-        </Title>
-        <Paper
-          className={classes.root}
-          elevation={6}
-          style={{ margin: "20px" }}
-        >
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{
-                        minWidth: column.minWidth,
-                        //backgroundColor: column.backgroundColor,
-                      }}
-                    >
-                      {column.label}
-                      {column.id === "botonSelect" ? (
-                        <Grid
-                          container
-                          direction="row"
-                          alignItems="center"
-                          justifyContent="center"
-                        >
-                          <Link
-                            href={`/userSchedule/schedulenew/${id}/`}
-                            as={`/userSchedule/schedulenew/${id}/`}
-                            passHref
-                          >
-                            <Button
-                              variant="outlined"
-                              size="medium"
-                              style={{
-                                background: "#fff",
-                              }}
-                            >
-                              <AddIcon
-                                style={{ color: "#092435", border: "5px" }}
-                              />
-                              Añadir
-                            </Button>
-                          </Link>
-                        </Grid>
-                      ) : (
-                        ""
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {data.data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    const colorLine = row.schedule_id;
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.schedule_id}
-                        style={
-                          colorLine % 2 == 0
-                            ? { backgroundColor: "#BBF0E8" }
-                            : { backgroundColor: "#fff" }
-                        }
+      <CssBaseline>
+        <Container maxWidth="lg" direction="row">
+          <Title>
+            {" "}
+            <ListAltIcon
+              style={{
+                color: "#092435",
+                fontSize: 40,
+                position: "relative",
+                top: "6px",
+              }}
+            />{" "}
+            Horario de Citas
+          </Title>
+          <Paper
+            className={classes.root}
+            elevation={6}
+            style={{ margin: "20px" }}
+          >
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{
+                          minWidth: column.minWidth,
+                          //backgroundColor: column.backgroundColor,
+                        }}
                       >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.id && typeof value === "number"
-                                ? column.id(value)
-                                : value}{" "}
-                              {column.id === "botonSelect" &&
-                              column.label == "" ? (
-                                <Grid
-                                  container
-                                  direction="row"
-                                  alignItems="center"
-                                  justifyContent="center"
-                                >
-                                  <Grid item>
-                                    <Button
-                                      variant="outlined"
-                                      size="medium"
-                                      style={{
-                                        background: "#60CCD9",
-                                      }}
-                                      href={`/userSchedule/scheduleupdate/${row.schedule_id}`}
-                                    >
-                                      <BorderColorIcon />
-                                    </Button>
+                        {column.label}
+                        {column.id === "botonSelect" ? (
+                          <Grid
+                            container
+                            direction="row"
+                            alignItems="center"
+                            justifyContent="center"
+                          >
+                            <Link
+                              href={`/userSchedule/schedulenew/${id}/`}
+                              as={`/userSchedule/schedulenew/${id}/`}
+                              passHref
+                            >
+                              <Button
+                                variant="outlined"
+                                size="medium"
+                                style={{
+                                  background: "#fff",
+                                }}
+                              >
+                                <AddIcon
+                                  style={{ color: "#092435", border: "5px" }}
+                                />
+                                Añadir
+                              </Button>
+                            </Link>
+                          </Grid>
+                        ) : (
+                          ""
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {data.data
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      const colorLine = row.schedule_id;
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.schedule_id}
+                          style={
+                            colorLine % 2 == 0
+                              ? { backgroundColor: "#BBF0E8" }
+                              : { backgroundColor: "#fff" }
+                          }
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.id && typeof value === "number"
+                                  ? column.id(value)
+                                  : value}{" "}
+                                {column.id === "botonSelect" &&
+                                column.label == "" ? (
+                                  <Grid
+                                    container
+                                    direction="row"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                  >
+                                    <Grid item>
+                                      <Button
+                                        variant="outlined"
+                                        size="medium"
+                                        style={{
+                                          background: "#60CCD9",
+                                        }}
+                                        href={`/userSchedule/scheduleupdate/${row.schedule_id}`}
+                                      >
+                                        <BorderColorIcon />
+                                      </Button>
+                                    </Grid>
                                   </Grid>
-                                </Grid>
-                              ) : (
-                                ""
-                              )}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            labelRowsPerPage="Usuarios:"
-            rowsPerPageOptions={[10, 25]}
-            component="div"
-            count={data.data.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      </Container>
+                                ) : (
+                                  ""
+                                )}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              labelRowsPerPage="Usuarios:"
+              rowsPerPageOptions={[10, 25]}
+              component="div"
+              count={data.data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Container>
+      </CssBaseline>
     </Layout>
   );
 };
