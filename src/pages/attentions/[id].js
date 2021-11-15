@@ -205,7 +205,7 @@ const AttentionsDetails = () => {
     );
 
   return (
-    <LayoutSecondary>
+    <div>
       <CssBaseline>
         <Container direction="row">
           <Title>
@@ -335,7 +335,7 @@ const AttentionsDetails = () => {
           </Paper>
         </Container>
       </CssBaseline>
-    </LayoutSecondary>
+    </div>
   );
 };
 export default withAuth(AttentionsDetails);
