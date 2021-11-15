@@ -192,113 +192,114 @@ const ReviewAttention = () => {
 
   return (
     <LayoutSecondary>
-      <CssBaseline />
-      <Container maxWidth="lg" direction="row">
-        <Title>
-          <LibraryBooksIcon
-            style={{
-              color: "#092435",
-              fontSize: 35,
-              position: "relative",
-              top: "6px",
-            }}
-          />
-          {"  "}Examen físico
-        </Title>
-        <Paper
-          className={classes.root}
-          elevation={6}
-          style={{ margin: "20px" }}
-        >
-          <AnnounTitle>Informe de signos vitales del paciente </AnnounTitle>
+      <CssBaseline>
+        <Container maxWidth="lg" direction="row">
+          <Title>
+            <LibraryBooksIcon
+              style={{
+                color: "#092435",
+                fontSize: 35,
+                position: "relative",
+                top: "6px",
+              }}
+            />
+            {"  "}Examen físico
+          </Title>
+          <Paper
+            className={classes.root}
+            elevation={6}
+            style={{ margin: "20px" }}
+          >
+            <AnnounTitle>Informe de signos vitales del paciente </AnnounTitle>
 
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{
-                        minWidth: column.minWidth,
-                        backgroundColor: column.backgroundColor,
-                        fontSize: column.fontSize,
-                      }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {data.data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        //  tabIndex={-1}
-                        key={row.id}
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{
+                          minWidth: column.minWidth,
+                          backgroundColor: column.backgroundColor,
+                          fontSize: column.fontSize,
+                        }}
                       >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.id && typeof value === "number"
-                                ? value
-                                : value}{" "}
-                              {column.id === "botonSelect" &&
-                              column.label == "_" ? (
-                                <Grid
-                                  container
-                                  direction="row"
-                                  alignItems="center"
-                                  justifyContent="center"
-                                >
-                                  <Grid item>
-                                    <Link
-                                      href={`/scheduleDay/${row.schedule_day}/patient/${row.patient_id}/physicExam/${row.physicalExam_id}`}
-                                      passHref
-                                    >
-                                      <Button
-                                        variant="outlined"
-                                        size="medium"
-                                        style={{
-                                          background: "#60CCD9",
-                                        }}
+                        {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {data.data
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          //  tabIndex={-1}
+                          key={row.id}
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.id && typeof value === "number"
+                                  ? value
+                                  : value}{" "}
+                                {column.id === "botonSelect" &&
+                                column.label == "_" ? (
+                                  <Grid
+                                    container
+                                    direction="row"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                  >
+                                    <Grid item>
+                                      <Link
+                                        href={`/scheduleDay/${row.schedule_day}/patient/${row.patient_id}/physicExam/${row.physicalExam_id}`}
+                                        passHref
                                       >
-                                        <DomainVerificationIcon />
-                                      </Button>
-                                    </Link>
+                                        <Button
+                                          variant="outlined"
+                                          size="medium"
+                                          style={{
+                                            background: "#60CCD9",
+                                          }}
+                                        >
+                                          <DomainVerificationIcon />
+                                        </Button>
+                                      </Link>
+                                    </Grid>
                                   </Grid>
-                                </Grid>
-                              ) : (
-                                ""
-                              )}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            labelRowsPerPage="Examenes:"
-            rowsPerPageOptions={[10, 20, 50]}
-            component="div"
-            count={data.data.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      </Container>
+                                ) : (
+                                  ""
+                                )}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              labelRowsPerPage="Examenes:"
+              rowsPerPageOptions={[10, 20, 50]}
+              component="div"
+              count={data.data.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Container>
+      </CssBaseline>
     </LayoutSecondary>
   );
 };

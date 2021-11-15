@@ -24,6 +24,8 @@ import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import { useAuth } from "src/contexts/auth";
 import useSWR from "swr";
+import { CssBaseline } from "@material-ui/core";
+import SearchToRequest from "@/components/SearchTorequest";
 
 const columns = [
   {
@@ -35,9 +37,18 @@ const columns = [
     fontSize: "16px",
   },
   {
+    id: "ci",
+    label: "Cédula",
+    minWidth: 5,
+    backgroundColor: "#BBF0E8",
+    align: "center",
+    fontSize: "16px",
+  },
+
+  {
     id: "name",
     label: "Nombres",
-    minWidth: 100,
+    minWidth: 60,
     backgroundColor: "#BBF0E8",
     align: "center",
     fontSize: "16px",
@@ -45,7 +56,7 @@ const columns = [
   {
     id: "lastName",
     label: "Apellidos",
-    minWidth: 100,
+    minWidth: 60,
     backgroundColor: "#BBF0E8",
     align: "center",
     fontSize: "16px",
@@ -69,7 +80,7 @@ const columns = [
   {
     id: "email",
     label: "Email",
-    minWidth: 80,
+    minWidth: 50,
     backgroundColor: "#BBF0E8",
     align: "center",
     fontSize: "16px",
@@ -77,7 +88,7 @@ const columns = [
   {
     id: "movil",
     label: "Movil",
-    minWidth: 80,
+    minWidth: 50,
     backgroundColor: "#BBF0E8",
     align: "center",
     fontSize: "16px",
@@ -165,160 +176,161 @@ const PatientsList = () => {
 
   return (
     <LayoutSecondary>
-      <Container maxWidth="lg">
-        <Title>
-          <PeopleOutlineIcon
-            style={{
-              color: "#092435",
-              fontSize: 40,
-              position: "relative",
-              top: "7px",
-            }}
-          />{" "}
-          {"  "} Historial de pacientes
-        </Title>
-        <>
-          <SearchPatient />
-        </>
-        <Paper
-          elevation={6}
-          style={{ margin: "20px" }}
-          sx={{ width: "100%", overflow: "hidden" }}
-        >
-          <AnnounTitle>
-            Buscar si el paciente existe en la base de datos antes de agendar
-          </AnnounTitle>
+      <CssBaseline>
+        <Container maxWidth="lg">
+          <Title>
+            <PeopleOutlineIcon
+              style={{
+                color: "#092435",
+                fontSize: 40,
+                position: "relative",
+                top: "7px",
+              }}
+            />{" "}
+            {"  "} Buscar pacientes
+          </Title>
+          <>
+            <SearchToRequest />
+          </>
+          <Paper
+            elevation={6}
+            style={{ margin: "20px" }}
+            sx={{ width: "100%", overflow: "hidden" }}
+          >
+            <AnnounTitle>
+              Buscar si el paciente existe en la base de datos antes de agendar
+            </AnnounTitle>
 
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{
-                        minWidth: column.minWidth,
-                        backgroundColor: column.backgroundColor,
-                        fontSize: column.fontSize,
-                      }}
-                    >
-                      {column.label}
-                      {column.id === "botonSelect" ? (
-                        <Grid
-                          container
-                          direction="row"
-                          alignItems="center"
-                          justifyContent="center"
-                        >
-                          <Link
-                            href={`/patients/patientsnew/`}
-                            as={`/patients/patientsnew/`}
-                            passHref
-                          >
-                            <Button
-                              variant="outlined"
-                              size="small"
-                              className={classes.btnnew}
-                            >
-                              Nuevo
-                              <AddIcon />
-                            </Button>
-                          </Link>
-                        </Grid>
-                      ) : (
-                        ""
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {data.data
-                  .slice()
-                  .reverse()
-                  .map((row) => {
-                    const colorLine = row.patient_id;
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-2}
-                        key={row.patient_id}
-                        style={
-                          colorLine % 2 == 0
-                            ? { backgroundColor: "#BBF0E8" }
-                            : { backgroundColor: "#fff" }
-                        }
+            <TableContainer className={classes.container}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{
+                          minWidth: column.minWidth,
+                          backgroundColor: column.backgroundColor,
+                          fontSize: column.fontSize,
+                        }}
                       >
-                        {" "}
-                        <>
-                          {columns.map((column) => {
-                            const value = row[column.id];
-                            return (
-                              <TableCell key={column.id} align={column.align}>
-                                {column.id && typeof value === "number"
-                                  ? column.id === "sex"
-                                    ? row.sex === 1
-                                      ? "Masculino"
-                                      : "Femenino"
-                                    : value
-                                  : value && column.id === "civilStatus"
-                                  ? row.civilStatus === "1"
-                                    ? "Soltero"
-                                    : row.civilStatus === "2"
-                                    ? "Casado"
-                                    : row.civilStatus === "3"
-                                    ? "Divordiado"
-                                    : row.civilStatus === "4"
-                                    ? "Unión libre"
-                                    : "Montepio"
-                                  : value}
-                                <Grid
-                                  container
-                                  direction="row"
-                                  alignItems="center"
-                                  justifyContent="center"
-                                >
-                                  {user.roleUser === "ROLE_ASSISTENT" ? (
-                                    column.id === "botonSelect" &&
-                                    column.label == "" ? (
-                                      <Grid item>
-                                        <Link
-                                          href={`/patients/${row.patient_id}`}
-                                          as={`/patients/${row.patient_id}`}
-                                          key={row.patient_id}
-                                          passHref
-                                        >
-                                          <Button
-                                            variant="outlined"
-                                            size="small"
-                                            className={classes.btnagn}
-                                            endIcon={<SendIcon />}
+                        {column.label}
+                        {column.id === "botonSelect" ? (
+                          <Grid
+                            container
+                            direction="row"
+                            alignItems="center"
+                            justifyContent="center"
+                          >
+                            <Link
+                              href={`/patients/patientsnew/`}
+                              as={`/patients/patientsnew/`}
+                              passHref
+                            >
+                              <Button
+                                variant="outlined"
+                                size="small"
+                                className={classes.btnnew}
+                              >
+                                Nuevo
+                                <AddIcon />
+                              </Button>
+                            </Link>
+                          </Grid>
+                        ) : (
+                          ""
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {data.data
+                    .slice()
+                    .reverse()
+                    .map((row) => {
+                      const colorLine = row.patient_id;
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-2}
+                          key={row.patient_id}
+                          style={
+                            colorLine % 2 == 0
+                              ? { backgroundColor: "#BBF0E8" }
+                              : { backgroundColor: "#fff" }
+                          }
+                        >
+                          {" "}
+                          <>
+                            {columns.map((column) => {
+                              const value = row[column.id];
+                              return (
+                                <TableCell key={column.id} align={column.align}>
+                                  {column.id && typeof value === "number"
+                                    ? column.id === "sex"
+                                      ? row.sex === 1
+                                        ? "Masculino"
+                                        : "Femenino"
+                                      : value
+                                    : value && column.id === "civilStatus"
+                                    ? row.civilStatus === "1"
+                                      ? "Soltero"
+                                      : row.civilStatus === "2"
+                                      ? "Casado"
+                                      : row.civilStatus === "3"
+                                      ? "Divordiado"
+                                      : row.civilStatus === "4"
+                                      ? "Unión libre"
+                                      : "Montepio"
+                                    : value}
+                                  <Grid
+                                    container
+                                    direction="row"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                  >
+                                    {user.roleUser === "ROLE_ASSISTENT" ? (
+                                      column.id === "botonSelect" &&
+                                      column.label == "" ? (
+                                        <Grid item>
+                                          <Link
+                                            href={`/patients/${row.patient_id}`}
+                                            as={`/patients/${row.patient_id}`}
+                                            key={row.patient_id}
+                                            passHref
                                           >
-                                            Agendar
-                                          </Button>
-                                        </Link>
-                                      </Grid>
+                                            <Button
+                                              variant="outlined"
+                                              size="small"
+                                              className={classes.btnagn}
+                                              endIcon={<SendIcon />}
+                                            >
+                                              Agendar
+                                            </Button>
+                                          </Link>
+                                        </Grid>
+                                      ) : (
+                                        ""
+                                      )
                                     ) : (
                                       ""
-                                    )
-                                  ) : (
-                                    ""
-                                  )}
-                                </Grid>
-                              </TableCell>
-                            );
-                          })}
-                        </>
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          {/*     <TablePagination
+                                    )}
+                                  </Grid>
+                                </TableCell>
+                              );
+                            })}
+                          </>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            {/*     <TablePagination
             labelRowsPerPage="Pacientes:"
             rowsPerPageOptions={[10, 25]}
             component="div"
@@ -328,11 +340,12 @@ const PatientsList = () => {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           /> */}
-          <Container style={{ color: "#BBF0E8", backgroundColor: "#BBF0E8" }}>
-            .
-          </Container>
-        </Paper>
-      </Container>
+            <Container style={{ color: "#BBF0E8", backgroundColor: "#BBF0E8" }}>
+              .
+            </Container>
+          </Paper>
+        </Container>
+      </CssBaseline>
     </LayoutSecondary>
   );
 };

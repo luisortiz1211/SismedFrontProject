@@ -18,6 +18,7 @@ import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { CssBaseline } from "@material-ui/core/CssBaseline";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -139,7 +140,7 @@ const PatientDetails = () => {
 
               <TabPanel value={value} index={4}>
                 <DrugAllergieList patientID={id} />
-              </TabPanel> 
+              </TabPanel>
 
               <TabPanel value={value} index={5}>
                 <ExplorationPatientList patientID={id} />

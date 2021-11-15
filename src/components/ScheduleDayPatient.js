@@ -25,89 +25,75 @@ import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import * as yup from "yup";
 import { CssBaseline } from "@material-ui/core";
+import { useAuth } from "src/contexts/auth";
 
 const columns = [
   {
+    id: "id",
+    label: "N° ",
+    maxWidth: 10,
+    backgroundColor: "#BBF0E8",
+    align: "center",
+    fontSize: "16px",
+  },
+
+  {
+    id: "created_at",
+    label: "Fecha registro ",
+    maxWidth: 10,
+    backgroundColor: "#BBF0E8",
+    align: "center",
+    fontSize: "16px",
+  },
+
+  {
     id: "patient_id",
-    label: "N°",
-    minWidth: 5,
+    label: "# Historia clínica",
+    minWidth: 30,
     backgroundColor: "#BBF0E8",
     align: "center",
-    fontSize: "17px",
+    fontSize: "16px",
   },
   {
-    id: "ci",
-    label: "Cédula",
-    minWidth: 5,
-    backgroundColor: "#BBF0E8",
-    align: "center",
-    fontSize: "17px",
-  },
-
-  {
-    id: "name",
-    label: "Nombres",
-    minWidth: 100,
-    backgroundColor: "#BBF0E8",
-    align: "center",
-    fontSize: "17px",
-  },
-  {
-    id: "lastName",
-    label: "Apellidos",
-    minWidth: 100,
-    backgroundColor: "#BBF0E8",
-    align: "center",
-    fontSize: "17px",
-  },
-  {
-    id: "sex",
-    label: "Sexo",
-    minWidth: 40,
-    backgroundColor: "#BBF0E8",
-    align: "center",
-    fontSize: "17px",
-  },
-
-  {
-    id: "email",
-    label: "Email",
+    id: "scheduleDay",
+    label: "Día",
     minWidth: 50,
     backgroundColor: "#BBF0E8",
     align: "center",
-    fontSize: "17px",
+    fontSize: "16px",
   },
+
   {
-    id: "movil",
-    label: "Movil",
-    minWidth: 40,
+    id: "scheduleTime",
+    label: "Inicio turno",
+    minWidth: 50,
     backgroundColor: "#BBF0E8",
     align: "center",
-    fontSize: "17px",
+    fontSize: "16px",
   },
   {
-    id: "address",
-    label: "Dirección",
+    id: "userAssigned",
+    label: "ID Médico",
     minWidth: 100,
     backgroundColor: "#BBF0E8",
     align: "center",
-    fontSize: "17px",
+    fontSize: "16px",
   },
   {
-    id: "city",
-    label: "Ciudad",
-    minWidth: 40,
+    id: "scheduleDayState",
+    label: "Estado",
+    minWidth: 50,
     backgroundColor: "#BBF0E8",
     align: "center",
-    fontSize: "17px",
+    fontSize: "16px",
   },
+
   {
     id: "botonSelect",
-    label: "_",
-    minWidth: 40,
+    label: "",
+    minWidth: 50,
     backgroundColor: "#BBF0E8",
     align: "center",
-    fontSize: "17px",
   },
 ];
 const useStyles = makeStyles((theme) => ({
@@ -135,8 +121,9 @@ const schema = yup.object().shape({
     .max(10, "Deben ser 10 dígitos"),
 });
 
-const MedicalHistoryDetails = () => {
+const MedicalHistoryDetails = ({ date }) => {
   const classes = useStyles();
+  const { user } = useAuth();
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -157,8 +144,8 @@ const MedicalHistoryDetails = () => {
   });
   const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
-  const { data, error } = useSWR(`/patients/all`, fetcher);
-  console.log("lista de pacientes en el sistema", data);
+  const { data, error } = useSWR(`/patients/${date}/schedule_days`, fetcher);
+  console.log("lista de citas por paciente", data);
 
   if (error)
     return (
@@ -177,24 +164,8 @@ const MedicalHistoryDetails = () => {
     <LayoutSecondary>
       <CssBaseline>
         <Container maxWidth="lg">
-          <Title>
-            <BallotIcon
-              style={{
-                color: "#092435",
-                fontSize: 35,
-                position: "relative",
-                top: "6px",
-              }}
-            />{" "}
-            {"  "}Historia clínica
-          </Title>
-          <>
-            <SearchPatient />
-          </>
           <Paper elevation={6} style={{ margin: "20px" }}>
-            <AnnounTitle>
-              Visualizar la historia médica del paciente
-            </AnnounTitle>
+            <AnnounTitle>Historial de citas del paciente </AnnounTitle>
 
             <TableContainer className={classes.container}>
               <Table stickyHeader aria-label="sticky table">
@@ -227,34 +198,16 @@ const MedicalHistoryDetails = () => {
                           hover
                           role="checkbox"
                           tabIndex={-2}
-                          key={row.patient_id}
+                          key={row.id}
                         >
                           {" "}
                           <>
-                            {columns.map((column) => {
-                              const value = row[column.id];
+                            {columns.map((array) => {
+                              const value = row[array.id];
                               return (
-                                <TableCell key={column.id} align={column.align}>
-                                  {column.id && typeof value === "number"
-                                    ? column.id === "sex"
-                                      ? row.sex === 1
-                                        ? "Masculino"
-                                        : "Femenino"
-                                      : value
-                                    : value && column.id === "civilStatus"
-                                    ? row.civilStatus === "1"
-                                      ? "Soltero"
-                                      : row.civilStatus === "2"
-                                      ? "Casado"
-                                      : row.civilStatus === "3"
-                                      ? "Divordiado"
-                                      : row.civilStatus === "4"
-                                      ? "Unión libre"
-                                      : "Montepio"
-                                    : value}
-
-                                  {column.id === "botonSelect" &&
-                                  column.label == "_" ? (
+                                <TableCell key={array.id} align={array.align}>
+                                  {array.id === "botonSelect" &&
+                                  array.label == "" ? (
                                     <Grid
                                       container
                                       direction="row"
@@ -263,25 +216,29 @@ const MedicalHistoryDetails = () => {
                                     >
                                       <Grid item>
                                         <Link
-                                          href={`/medicalHistory/${row.patient_id}`}
-                                          as={`/medicalHistory/${row.patient_id}`}
-                                          key={row.patient_id}
+                                          href={`/scheduleDay/schedule/${row.id}`}
                                           passHref
                                         >
-                                          <Button
-                                            variant="outlined"
-                                            size="small"
-                                            fullWidth
-                                            className={classes.btnView}
-                                            endIcon={<SendIcon />}
-                                          >
-                                            Ver
-                                          </Button>
+                                          {user.roleUser !== "ROLE_MEDIC" ? (
+                                            <Button
+                                              variant="outlined"
+                                              size="small"
+                                              className={classes.btnView}
+                                              disabled={
+                                                row.scheduleDayState ===
+                                                "atendido"
+                                              }
+                                            >
+                                              Continuar
+                                            </Button>
+                                          ) : (
+                                            ""
+                                          )}
                                         </Link>
                                       </Grid>
                                     </Grid>
                                   ) : (
-                                    ""
+                                    value
                                   )}
                                 </TableCell>
                               );

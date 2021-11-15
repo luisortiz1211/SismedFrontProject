@@ -14,7 +14,6 @@ export default function Home() {
         </Head>
         {/*<SignInSide />*/}
       </div>
-
       <Container maxWidth="lg">
         <First />
       </Container>

@@ -1,5 +1,5 @@
 import { Box, Grid, Link as MuiLink, Typography } from "@material-ui/core";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { CssBaseline } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Image from "next/image";
 import Link from "next/link";
@@ -78,63 +78,64 @@ const StickyFooter = () => {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <footer className={classes.footer}>
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-          style={{
-            backgroundColor: "#092435",
-            padding: "5px",
-            color: "#BBF0E8",
-          }}
-        >
-          <Grid item xs={2}>
-            <Box
-              className={classes.logo}
-              style={{
-                filter: "invert(100%)",
-                color: "#fffff",
-                position: "relative",
-                left: "11px",
-              }}
-            >
-              <Link href="/login" passHref>
-                <MuiLink>
-                  <Image
-                    src="/logosismed1.png"
-                    alt="Sismed"
-                    width={100}
-                    height={50}
-                  />
-                </MuiLink>
-              </Link>
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={2}>
-            <Typography variant="subtitle1" align="center">
-              Horario de atención: Lunes a Viernes de 9:00 a 17:00
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={2}>
-            <Typography variant="subtitle1" align="center">
-              Av. Amazonas y Tomas de Berlanga
-            </Typography>
-          </Grid>
+    <>
+      <CssBaseline>
+        <footer className={classes.footer}>
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            style={{
+              backgroundColor: "#092435",
+              padding: "5px",
+              color: "#BBF0E8",
+            }}
+          >
+            <Grid item xs={2}>
+              <Box
+                className={classes.logo}
+                style={{
+                  filter: "invert(100%)",
+                  color: "#fffff",
+                  position: "relative",
+                  left: "11px",
+                }}
+              >
+                <Link href="/login" passHref>
+                  <MuiLink>
+                    <Image
+                      src="/logosismed1.png"
+                      alt="Sismed"
+                      width={100}
+                      height={50}
+                    />
+                  </MuiLink>
+                </Link>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <Typography variant="subtitle1" align="center">
+                Horario de atención: Lunes a Viernes de 9:00 a 17:00
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={2}>
+              <Typography variant="subtitle1" align="center">
+                Av. Amazonas y Tomas de Berlanga
+              </Typography>
+            </Grid>
 
-          <Grid item xs={12} md={2}>
-            <Typography variant="subtitle1" align="center" component="p">
-              0939573837 {"/"} 0999905876
-            </Typography>
+            <Grid item xs={12} md={2}>
+              <Typography variant="subtitle1" align="center" component="p">
+                0939573837 {"/"} 0999905876
+              </Typography>
+            </Grid>
           </Grid>
-        </Grid>
-      </footer>
-      <Copyright />
-      <Copyright1 />
-    </React.Fragment>
+        </footer>
+        <Copyright />
+        <Copyright1 />
+      </CssBaseline>
+    </>
   );
 };
 export default StickyFooter;

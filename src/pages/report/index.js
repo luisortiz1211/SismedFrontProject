@@ -3,7 +3,7 @@ import PatientAdd from "@/components/PatientAdd";
 import PatientCancel from "@/components/PatientCancel";
 import PatientWait from "@/components/PatientWait";
 import Title from "@/components/Title";
-import { Paper } from "@material-ui/core";
+import { CssBaseline, Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import AnalyticsIcon from "@mui/icons-material/Analytics";

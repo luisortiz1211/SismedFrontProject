@@ -1,13 +1,7 @@
 import Layout from "@/components/Layoutmain";
 import Title from "@/components/Title";
 import withAuth from "@/hocs/withAuth";
-import {
-  Box,
-  Button,
-  CssBaseline, Grid,
-  Link,
-  Paper
-} from "@material-ui/core";
+import { Box, Button, CssBaseline, Grid, Link, Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import AssignmentIcon from "@material-ui/icons/Assignment";
@@ -86,196 +80,199 @@ const AttentionPatient = () => {
 
   return (
     <Layout>
-      <CssBaseline />
-      <Container maxWidth="lg" direction="row">
-        <Title>
-          {" "}
-          <ListAltIcon
-            style={{
-              color: "#092435",
-              fontSize: 40,
-              position: "relative",
-              top: "7px",
-            }}
-          />{" "}
-          Atención de pacientes
-        </Title>
-        <Paper
-          className={classes.root}
-          elevation={6}
-          style={{ margin: "20px" }}
-        >
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            component="main"
-            className={(classes.root, classes.image)}
+      <CssBaseline>
+        <Container maxWidth="lg" direction="row">
+          <Title>
+            {" "}
+            <ListAltIcon
+              style={{
+                color: "#092435",
+                fontSize: 40,
+                position: "relative",
+                top: "7px",
+              }}
+            />{" "}
+            Atención de pacientes
+          </Title>
+          <Paper
+            className={classes.root}
+            elevation={6}
+            style={{ margin: "20px" }}
           >
-            <Grid item xs={12} md={4} component="main">
-              <Grid container justifyContent="center" alignItems="center">
-                <Grid item>
-                  {" "}
-                  <Box
-                    display={{ xs: "none", sm: "block" }}
-                    style={{ padding: "10px" }}
-                  >
-                    <Image
-                      src="/logosismed2.png"
-                      alt="Sismed"
-                      width={150}
-                      height={150}
-                    />
-                  </Box>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              component="main"
+              className={(classes.root, classes.image)}
+            >
+              <Grid item xs={12} md={4} component="main">
+                <Grid container justifyContent="center" alignItems="center">
+                  <Grid item>
+                    {" "}
+                    <Box
+                      display={{ xs: "none", sm: "block" }}
+                      style={{ padding: "10px" }}
+                    >
+                      <Image
+                        src="/logosismed2.png"
+                        alt="Sismed"
+                        width={150}
+                        height={150}
+                      />
+                    </Box>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
 
-            <Grid item xs={12} md={8} component={Paper} elevation={6} square>
-              <div className={classes.paper}>
-                <Grid
-                  container
-                  direction="row"
-                  justifyContent="space-around"
-                  alignItems="center"
-                  style={{
-                    paddingBottom: "15px",
-                    paddingTop: "20px",
-                    color: "#092435",
-                  }}
-                >
+              <Grid item xs={12} md={8} component={Paper} elevation={6} square>
+                <div className={classes.paper}>
                   <Grid
-                    item
-                    md={4}
-                    xs={12}
+                    container
+                    direction="row"
+                    justifyContent="space-around"
+                    alignItems="center"
                     style={{
-                      padding: "10px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      paddingBottom: "15px",
+                      paddingTop: "20px",
+                      color: "#092435",
                     }}
                   >
-                    <Grid container justifyContent="center">
-                      <Grid item md={6} sm={3} xs={3}>
-                        {" "}
-                        <Link href={`/scheduleDay/schedule`} passHref>
-                          <Button
-                            className={classes.button}
-                            variant="contained"
-                            style={{
-                              color: "#60CCD9",
-                            }}
-                            color="primary"
-                          >
-                            <Grid
-                              container
-                              style={{ textAlign: "center" }}
-                              alignItems="center"
-                              justifyContent="center"
+                    <Grid
+                      item
+                      md={4}
+                      xs={12}
+                      style={{
+                        padding: "10px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Grid container justifyContent="center">
+                        <Grid item md={6} sm={3} xs={3}>
+                          {" "}
+                          <Link href={`/scheduleDay/schedule`} passHref>
+                            <Button
+                              className={classes.button}
+                              variant="contained"
+                              style={{
+                                color: "#60CCD9",
+                              }}
+                              color="primary"
                             >
-                              <Grid item>
-                                <AssignmentIcon style={{ fontSize: 80 }} />
+                              <Grid
+                                container
+                                style={{ textAlign: "center" }}
+                                alignItems="center"
+                                justifyContent="center"
+                              >
+                                <Grid item>
+                                  <AssignmentIcon style={{ fontSize: 80 }} />
+                                </Grid>
+                                <Grid item>Citas pacientes</Grid>
                               </Grid>
-                              <Grid item>Citas pacientes</Grid>
-                            </Grid>
-                          </Button>
-                        </Link>
+                            </Button>
+                          </Link>
+                        </Grid>
                       </Grid>
                     </Grid>
-                  </Grid>
-                  <Grid
-                    item
-                    md={4}
-                    xs={12}
-                    style={{
-                      padding: "10px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {user.roleUser !== "ROLE_ASSISTENT" ? (
-                      <Grid container justifyContent="center">
-                        <Grid item md={6} sm={3} xs={3}>
-                          {" "}
-                          <Link href={`/attentions`} passHref>
-                            <Button
-                              className={classes.button}
-                              variant="contained"
-                              style={{
-                                color: "#60CCD9",
-                              }}
-                              color="primary"
-                            >
-                              <Grid
-                                container
-                                style={{ textAlign: "center" }}
-                                alignItems="center"
-                                justifyContent="center"
+                    <Grid
+                      item
+                      md={4}
+                      xs={12}
+                      style={{
+                        padding: "10px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {user.roleUser !== "ROLE_ASSISTENT" ? (
+                        <Grid container justifyContent="center">
+                          <Grid item md={6} sm={3} xs={3}>
+                            {" "}
+                            <Link href={`/attentions`} passHref>
+                              <Button
+                                className={classes.button}
+                                variant="contained"
+                                style={{
+                                  color: "#60CCD9",
+                                }}
+                                color="primary"
                               >
-                                <Grid item>
-                                  <LocalHospitalIcon style={{ fontSize: 80 }} />
+                                <Grid
+                                  container
+                                  style={{ textAlign: "center" }}
+                                  alignItems="center"
+                                  justifyContent="center"
+                                >
+                                  <Grid item>
+                                    <LocalHospitalIcon
+                                      style={{ fontSize: 80 }}
+                                    />
+                                  </Grid>
+                                  <Grid item>Atención pacientes</Grid>
                                 </Grid>
-                                <Grid item>Atención pacientes</Grid>
-                              </Grid>
-                            </Button>
-                          </Link>
+                              </Button>
+                            </Link>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    ) : (
-                      ""
-                    )}
-                  </Grid>
+                      ) : (
+                        ""
+                      )}
+                    </Grid>
 
-                  <Grid
-                    item
-                    md={4}
-                    xs={12}
-                    style={{
-                      padding: "10px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {user.roleUser === "ROLE_ADMIN" ? (
-                      <Grid container justifyContent="center">
-                        <Grid item md={6} sm={3} xs={3}>
-                          {" "}
-                          <Link href={`/report`} passHref>
-                            <Button
-                              className={classes.button}
-                              variant="contained"
-                              style={{
-                                color: "#60CCD9",
-                              }}
-                              color="primary"
-                            >
-                              <Grid
-                                container
-                                style={{ textAlign: "center" }}
-                                alignItems="center"
-                                justifyContent="center"
+                    <Grid
+                      item
+                      md={4}
+                      xs={12}
+                      style={{
+                        padding: "10px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {user.roleUser === "ROLE_ADMIN" ? (
+                        <Grid container justifyContent="center">
+                          <Grid item md={6} sm={3} xs={3}>
+                            {" "}
+                            <Link href={`/report`} passHref>
+                              <Button
+                                className={classes.button}
+                                variant="contained"
+                                style={{
+                                  color: "#60CCD9",
+                                }}
+                                color="primary"
                               >
-                                <Grid item>
-                                  <AnalyticsIcon style={{ fontSize: 80 }} />
+                                <Grid
+                                  container
+                                  style={{ textAlign: "center" }}
+                                  alignItems="center"
+                                  justifyContent="center"
+                                >
+                                  <Grid item>
+                                    <AnalyticsIcon style={{ fontSize: 80 }} />
+                                  </Grid>
+                                  <Grid item>Reporte Atención</Grid>
                                 </Grid>
-                                <Grid item>Reporte Atención</Grid>
-                              </Grid>
-                            </Button>
-                          </Link>
+                              </Button>
+                            </Link>
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    ) : (
-                      ""
-                    )}
+                      ) : (
+                        ""
+                      )}
+                    </Grid>
                   </Grid>
-                </Grid>
-              </div>
+                </div>
+              </Grid>
             </Grid>
-          </Grid>
-        </Paper>
-      </Container>
+          </Paper>
+        </Container>
+      </CssBaseline>
     </Layout>
   );
 };

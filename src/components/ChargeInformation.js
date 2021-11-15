@@ -1,5 +1,5 @@
 import Routes from "@/constants/routes";
-import { Button, Typography } from "@material-ui/core";
+import { Button, CssBaseline, Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
@@ -26,60 +26,62 @@ const ChargeInformation = () => {
   const classes = useStyles();
   return (
     <>
-      <Paper className={classes.root} elevation={3}>
-        <Box sx={{ maxWidth: "auto" }}>
-          <Grid
-            container
-            direction="row"
-            justifyContent="space-around"
-            alignItems="center"
-            className={classes.image}
-          >
-            {" "}
-            <Grid item>
-              <Typography
-                component="span"
-                variant="h3"
-                gutterBottom
-                style={{ color: "#092435" }}
-              >
-                Página no encontrada
-              </Typography>
-            </Grid>
-            <Grid item>
+      <CssBaseline>
+        <Paper className={classes.root} elevation={3}>
+          <Box sx={{ maxWidth: "auto" }}>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-around"
+              alignItems="center"
+              className={classes.image}
+            >
               {" "}
-              <Typography
-                component="span"
-                variant="h6"
-                gutterBottom
-                style={{ color: "#092435" }}
-              >
-                Lo sentimos, la página que buscaba no se encuentra aquí. El
-                enlace que siguió puede estar roto o ya no existe. Actualice la
-                página o ingrese nuevamente a la sesión.
-              </Typography>
-            </Grid>
-            <Grid item>
-              {" "}
-              <Link href={Routes.LOGIN} passHref>
-                <Button
-                  variant="contained"
-                  type="button"
-                  size="small"
-                  style={{
-                    backgroundColor: "#092435",
-                    color: "#4A92A8",
-                    margin: "5px",
-                  }}
+              <Grid item>
+                <Typography
+                  component="span"
+                  variant="h3"
+                  gutterBottom
+                  style={{ color: "#092435" }}
                 >
-                  {" "}
-                  Ir al inicio
-                </Button>
-              </Link>
+                  Página no encontrada
+                </Typography>
+              </Grid>
+              <Grid item>
+                {" "}
+                <Typography
+                  component="span"
+                  variant="h6"
+                  gutterBottom
+                  style={{ color: "#092435" }}
+                >
+                  Lo sentimos, la página que buscaba no se encuentra aquí. El
+                  enlace que siguió puede estar roto o ya no existe. Actualice
+                  la página o ingrese nuevamente a la sesión.
+                </Typography>
+              </Grid>
+              <Grid item>
+                {" "}
+                <Link href={Routes.LOGIN} passHref>
+                  <Button
+                    variant="contained"
+                    type="button"
+                    size="small"
+                    style={{
+                      backgroundColor: "#092435",
+                      color: "#4A92A8",
+                      margin: "5px",
+                    }}
+                  >
+                    {" "}
+                    Ir al inicio
+                  </Button>
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
-      </Paper>
+          </Box>
+        </Paper>
+      </CssBaseline>
     </>
   );
 };

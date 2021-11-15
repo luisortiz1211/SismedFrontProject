@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { CssBaseline } from "@material-ui/core";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -74,7 +75,7 @@ const MedicalReview = ({ props }) => {
   const { id, pid, exam_id } = router.query;
 
   const [value, setValue] = useState(0);
-0
+  0;
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

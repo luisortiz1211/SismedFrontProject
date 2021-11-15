@@ -2,7 +2,7 @@ import DrugsRecipieList from "@/components/DrugsRecipieList";
 import ImageRecipieList from "@/components/ImageRecipieList";
 import LayoutSecondary from "@/components/LayoutSecondary";
 import Title from "@/components/Title";
-import { Paper } from "@material-ui/core";
+import { CssBaseline, Paper } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import BallotIcon from "@material-ui/icons/Ballot";
@@ -13,7 +13,6 @@ import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

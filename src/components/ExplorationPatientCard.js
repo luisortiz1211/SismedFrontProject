@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
+import { CssBaseline } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,417 +50,419 @@ export default function ExplorationPatientCard({ patientID }) {
   if (!data) return <Loading />;
 
   return (
-    <Card sx={{ maxWidth: "auto" }}>
-      <CardActionArea className={classes.fontcolor}>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="span">
-            Resultados de revisión medica
-          </Typography>
+    <CssBaseline>
+      <Card sx={{ maxWidth: "auto" }}>
+        <CardActionArea className={classes.fontcolor}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="span">
+              Resultados de revisión medica
+            </Typography>
 
-          <Box sx={{ width: "100%" }}>
-            <Grid container>
-              <Grid item xs={12} md={3}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                    backgroundColor: "#BBF0E8",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Revisión de cabeza :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={12} md={9}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                  }}
-                >
-                  <p
+            <Box sx={{ width: "100%" }}>
+              <Grid container>
+                <Grid item xs={12} md={3}>
+                  <Item
                     style={{
-                      position: "relative",
-                      left: "30px",
-                      color: "#4A92A8",
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
+                      backgroundColor: "#BBF0E8",
                     }}
                   >
-                    {data.headExplo}
-                  </p>
-                </Item>
-              </Grid>
-              <Grid item xs={12} md={3}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                    backgroundColor: "#BBF0E8",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Revisión de tórax y espalda :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={12} md={9}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                  }}
-                >
-                  <p
+                    <Typography
+                      component={"span"}
+                      variant="subtitle2"
+                      color="#092435"
+                    >
+                      <p style={{ position: "relative", left: "30px" }}>
+                        Revisión de cabeza :{" "}
+                      </p>
+                    </Typography>
+                  </Item>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <Item
                     style={{
-                      position: "relative",
-                      left: "30px",
-                      color: "#4A92A8",
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
                     }}
                   >
-                    {data.chestExplo}
-                  </p>
-                </Item>
-              </Grid>{" "}
-              <Grid item xs={12} md={3}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
+                    <p
+                      style={{
+                        position: "relative",
+                        left: "30px",
+                        color: "#4A92A8",
+                      }}
+                    >
+                      {data.headExplo}
+                    </p>
+                  </Item>
+                </Grid>
+                <Grid item xs={12} md={3}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
+                      backgroundColor: "#BBF0E8",
+                    }}
+                  >
+                    <Typography
+                      component={"span"}
+                      variant="subtitle2"
+                      color="#092435"
+                    >
+                      <p style={{ position: "relative", left: "30px" }}>
+                        Revisión de tórax y espalda :{" "}
+                      </p>
+                    </Typography>
+                  </Item>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
+                    }}
+                  >
+                    <p
+                      style={{
+                        position: "relative",
+                        left: "30px",
+                        color: "#4A92A8",
+                      }}
+                    >
+                      {data.chestExplo}
+                    </p>
+                  </Item>
+                </Grid>{" "}
+                <Grid item xs={12} md={3}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
 
-                    backgroundColor: "#BBF0E8",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Revisión de extremidades :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={12} md={9}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                  }}
-                >
-                  <p
-                    style={{
-                      position: "relative",
-                      left: "30px",
-                      color: "#4A92A8",
+                      backgroundColor: "#BBF0E8",
                     }}
                   >
-                    {data.extremitiesExplo}
-                  </p>
-                </Item>
-              </Grid>{" "}
-              <Grid item xs={12} md={3}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
+                    <Typography
+                      component={"span"}
+                      variant="subtitle2"
+                      color="#092435"
+                    >
+                      <p style={{ position: "relative", left: "30px" }}>
+                        Revisión de extremidades :{" "}
+                      </p>
+                    </Typography>
+                  </Item>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
+                    }}
+                  >
+                    <p
+                      style={{
+                        position: "relative",
+                        left: "30px",
+                        color: "#4A92A8",
+                      }}
+                    >
+                      {data.extremitiesExplo}
+                    </p>
+                  </Item>
+                </Grid>{" "}
+                <Grid item xs={12} md={3}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
 
-                    backgroundColor: "#BBF0E8",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Exploración de abdomen :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={12} md={9}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                  }}
-                >
-                  <p
-                    style={{
-                      position: "relative",
-                      left: "30px",
-                      color: "#4A92A8",
+                      backgroundColor: "#BBF0E8",
                     }}
                   >
-                    {data.stomachExplo}
-                  </p>
-                </Item>
-              </Grid>{" "}
-              <Grid item xs={12} md={3}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
+                    <Typography
+                      component={"span"}
+                      variant="subtitle2"
+                      color="#092435"
+                    >
+                      <p style={{ position: "relative", left: "30px" }}>
+                        Exploración de abdomen :{" "}
+                      </p>
+                    </Typography>
+                  </Item>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
+                    }}
+                  >
+                    <p
+                      style={{
+                        position: "relative",
+                        left: "30px",
+                        color: "#4A92A8",
+                      }}
+                    >
+                      {data.stomachExplo}
+                    </p>
+                  </Item>
+                </Grid>{" "}
+                <Grid item xs={12} md={3}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
 
-                    backgroundColor: "#BBF0E8",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Revisión de genitales :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={12} md={9}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                  }}
-                >
-                  <p
-                    style={{
-                      position: "relative",
-                      left: "30px",
-                      color: "#4A92A8",
+                      backgroundColor: "#BBF0E8",
                     }}
                   >
-                    {data.genitalsExplo}
-                  </p>
-                </Item>
-              </Grid>{" "}
-              <Grid item xs={12} md={3}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
+                    <Typography
+                      component={"span"}
+                      variant="subtitle2"
+                      color="#092435"
+                    >
+                      <p style={{ position: "relative", left: "30px" }}>
+                        Revisión de genitales :{" "}
+                      </p>
+                    </Typography>
+                  </Item>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
+                    }}
+                  >
+                    <p
+                      style={{
+                        position: "relative",
+                        left: "30px",
+                        color: "#4A92A8",
+                      }}
+                    >
+                      {data.genitalsExplo}
+                    </p>
+                  </Item>
+                </Grid>{" "}
+                <Grid item xs={12} md={3}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
 
-                    backgroundColor: "#BBF0E8",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Pronóstico :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={12} md={9}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                  }}
-                >
-                  <p
-                    style={{
-                      position: "relative",
-                      left: "30px",
-                      color: "#4A92A8",
+                      backgroundColor: "#BBF0E8",
                     }}
                   >
-                    {data.forecastExplo}
-                  </p>
-                </Item>
-              </Grid>{" "}
-              <Grid item xs={12} md={3}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
+                    <Typography
+                      component={"span"}
+                      variant="subtitle2"
+                      color="#092435"
+                    >
+                      <p style={{ position: "relative", left: "30px" }}>
+                        Pronóstico :{" "}
+                      </p>
+                    </Typography>
+                  </Item>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
+                    }}
+                  >
+                    <p
+                      style={{
+                        position: "relative",
+                        left: "30px",
+                        color: "#4A92A8",
+                      }}
+                    >
+                      {data.forecastExplo}
+                    </p>
+                  </Item>
+                </Grid>{" "}
+                <Grid item xs={12} md={3}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
 
-                    backgroundColor: "#BBF0E8",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Diagnóstico :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={12} md={9}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                  }}
-                >
-                  <p
-                    style={{
-                      position: "relative",
-                      left: "30px",
-                      color: "#4A92A8",
+                      backgroundColor: "#BBF0E8",
                     }}
                   >
-                    {data.diagnosisExplo}
-                  </p>
-                </Item>
-              </Grid>{" "}
-              <Grid item xs={12} md={3}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
+                    <Typography
+                      component={"span"}
+                      variant="subtitle2"
+                      color="#092435"
+                    >
+                      <p style={{ position: "relative", left: "30px" }}>
+                        Diagnóstico :{" "}
+                      </p>
+                    </Typography>
+                  </Item>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
+                    }}
+                  >
+                    <p
+                      style={{
+                        position: "relative",
+                        left: "30px",
+                        color: "#4A92A8",
+                      }}
+                    >
+                      {data.diagnosisExplo}
+                    </p>
+                  </Item>
+                </Grid>{" "}
+                <Grid item xs={12} md={3}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
 
-                    backgroundColor: "#BBF0E8",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Tratamiento :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={12} md={9}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                  }}
-                >
-                  <p
-                    style={{
-                      position: "relative",
-                      left: "30px",
-                      color: "#4A92A8",
+                      backgroundColor: "#BBF0E8",
                     }}
                   >
-                    {data.treatmentExplo}
-                  </p>
-                </Item>
-              </Grid>{" "}
-              <Grid item xs={12} md={3}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
+                    <Typography
+                      component={"span"}
+                      variant="subtitle2"
+                      color="#092435"
+                    >
+                      <p style={{ position: "relative", left: "30px" }}>
+                        Tratamiento :{" "}
+                      </p>
+                    </Typography>
+                  </Item>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
+                    }}
+                  >
+                    <p
+                      style={{
+                        position: "relative",
+                        left: "30px",
+                        color: "#4A92A8",
+                      }}
+                    >
+                      {data.treatmentExplo}
+                    </p>
+                  </Item>
+                </Grid>{" "}
+                <Grid item xs={12} md={3}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
 
-                    backgroundColor: "#BBF0E8",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Observación :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={12} md={9}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                  }}
-                >
-                  <p
-                    style={{
-                      position: "relative",
-                      left: "30px",
-                      color: "#4A92A8",
+                      backgroundColor: "#BBF0E8",
                     }}
                   >
-                    {data.commentExplo}
-                  </p>
-                </Item>
-              </Grid>{" "}
-              <Grid item xs={6} md={3}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
+                    <Typography
+                      component={"span"}
+                      variant="subtitle2"
+                      color="#092435"
+                    >
+                      <p style={{ position: "relative", left: "30px" }}>
+                        Observación :{" "}
+                      </p>
+                    </Typography>
+                  </Item>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
+                    }}
+                  >
+                    <p
+                      style={{
+                        position: "relative",
+                        left: "30px",
+                        color: "#4A92A8",
+                      }}
+                    >
+                      {data.commentExplo}
+                    </p>
+                  </Item>
+                </Grid>{" "}
+                <Grid item xs={6} md={3}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
 
-                    backgroundColor: "#BBF0E8",
-                  }}
-                >
-                  <Typography
-                    component={"span"}
-                    variant="subtitle2"
-                    color="#092435"
-                  >
-                    <p style={{ position: "relative", left: "30px" }}>
-                      Fecha de registro :{" "}
-                    </p>
-                  </Typography>
-                </Item>
-              </Grid>
-              <Grid item xs={6} md={9}>
-                <Item
-                  style={{
-                    display: "flex",
-                    alignItems: "left",
-                    justifyContent: "left",
-                  }}
-                >
-                  <p
-                    style={{
-                      position: "relative",
-                      left: "30px",
-                      color: "#4A92A8",
+                      backgroundColor: "#BBF0E8",
                     }}
                   >
-                    {data.created_at}
-                  </p>
-                </Item>
-              </Grid>{" "}
-            </Grid>
-          </Box>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+                    <Typography
+                      component={"span"}
+                      variant="subtitle2"
+                      color="#092435"
+                    >
+                      <p style={{ position: "relative", left: "30px" }}>
+                        Fecha de registro :{" "}
+                      </p>
+                    </Typography>
+                  </Item>
+                </Grid>
+                <Grid item xs={6} md={9}>
+                  <Item
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
+                    }}
+                  >
+                    <p
+                      style={{
+                        position: "relative",
+                        left: "30px",
+                        color: "#4A92A8",
+                      }}
+                    >
+                      {data.created_at}
+                    </p>
+                  </Item>
+                </Grid>{" "}
+              </Grid>
+            </Box>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </CssBaseline>
   );
 }

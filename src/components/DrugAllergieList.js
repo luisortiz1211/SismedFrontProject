@@ -206,7 +206,12 @@ const DrugAllergies = ({ patientID }) => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row.patient_id}
+                  >
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (

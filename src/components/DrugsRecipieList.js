@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
 import ChargeInformation from "./ChargeInformation";
+import { CssBaseline } from "@material-ui/core";
 
 const columns = [
   {
@@ -147,51 +148,53 @@ const DrugsRecipieList = ({ patientID }) => {
     );
   if (!data) return <Loading />;
   return (
-    <Container maxWidth="lg" direction="row">
-      <TableContainer className={classes.container}>
-        <Table component="span" stickyHeader aria-label="sticky table">
-          <TableHead component="span">
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{
-                    minWidth: column.minWidth,
-                    backgroundColor: column.backgroundColor,
-                    fontSize: column.fontSize,
-                  }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
+    <CssBaseline>
+      <Container maxWidth="lg" direction="row">
+        <TableContainer className={classes.container}>
+          <Table component="span" stickyHeader aria-label="sticky table">
+            <TableHead component="span">
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{
+                      minWidth: column.minWidth,
+                      backgroundColor: column.backgroundColor,
+                      fontSize: column.fontSize,
+                    }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
 
-          <TableBody component="span">
-            {data.data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" key={row.id}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.id && typeof value === "number"
-                            ? value
-                            : value}{" "}
-                          {}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+            <TableBody component="span">
+              {data.data
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return (
+                    <TableRow hover role="checkbox" key={row.id}>
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {column.id && typeof value === "number"
+                              ? value
+                              : value}{" "}
+                            {}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
+    </CssBaseline>
   );
 };
 export default DrugsRecipieList;

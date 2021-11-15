@@ -102,57 +102,58 @@ const SendPasswordResetEmailPage = () => {
 
   return (
     <>
-      <div style={styles.Container}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Paper elevation={3} style={styles.paper}>
-            <Grid item xs={false} sm={4} md={7} className={classes.image} />
-            <Typography component="h1" variant="h5" align="center">
-              <strong>Recuperar contraseña</strong>
-            </Typography>
-            <br />
-            <form
-              className={classes.form}
-              noValidate
-              autoComplete="off"
-              onSubmit={handleSubmit(onSendEmail)}
-            >
-              <Grid
-                container
-                spacing={2}
-                justifyContent="center"
-                alignItems="center"
+      <CssBaseline>
+        <div style={styles.Container}>
+          <Container component="main" maxWidth="xs">
+            <Paper elevation={3} style={styles.paper}>
+              <Grid item xs={false} sm={4} md={7} className={classes.image} />
+              <Typography component="h1" variant="h5" align="center">
+                <strong>Recuperar contraseña</strong>
+              </Typography>
+              <br />
+              <form
+                className={classes.form}
+                noValidate
+                autoComplete="off"
+                onSubmit={handleSubmit(onSendEmail)}
               >
-                <Grid xs={12} item>
-                  <TextField
-                    id="email"
-                    name="email"
-                    type="email"
-                    label="Correo electrónico"
-                    {...register("email")}
-                    autoComplete="email"
-                    error={!!errors.email}
-                    helperText={errors.email?.message}
-                  />
-                </Grid>
+                <Grid
+                  container
+                  spacing={2}
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Grid xs={12} item>
+                    <TextField
+                      id="email"
+                      name="email"
+                      type="email"
+                      label="Correo electrónico"
+                      {...register("email")}
+                      autoComplete="email"
+                      error={!!errors.email}
+                      helperText={errors.email?.message}
+                    />
+                  </Grid>
 
-                <Grid xs={12} item className={classes.buttonWrapper}>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    disabled={loading}
-                  >
-                    Enviar
-                  </Button>
+                  <Grid xs={12} item className={classes.buttonWrapper}>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className={classes.submit}
+                      disabled={loading}
+                    >
+                      Enviar
+                    </Button>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </form>
-          </Paper>
-        </Container>
-      </div>
+              </form>
+            </Paper>
+          </Container>
+        </div>
+      </CssBaseline>
     </>
   );
 };

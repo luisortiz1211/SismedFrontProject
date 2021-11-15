@@ -232,215 +232,216 @@ const ScheduleUpdate = () => {
 
   return (
     <LayoutSecondary>
-      <CssBaseline />
-      <Container maxWidth="lg" direction="row">
-        <Title>
-          <UploadFileIcon
-            style={{
-              color: "#092435",
-              fontSize: 35,
-              position: "relative",
-              top: "6px",
-            }}
-          />
-          Modificar horario
-        </Title>
-        <Paper
-          className={classes.root}
-          elevation={6}
-          style={{ margin: "20px" }}
-        >
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            component="main"
-            className={(classes.root, classes.image)}
+      <CssBaseline>
+        <Container maxWidth="lg" direction="row">
+          <Title>
+            <UploadFileIcon
+              style={{
+                color: "#092435",
+                fontSize: 35,
+                position: "relative",
+                top: "6px",
+              }}
+            />
+            Modificar horario
+          </Title>
+          <Paper
+            className={classes.root}
+            elevation={6}
+            style={{ margin: "20px" }}
           >
-            <Grid item xs={12} md={4} component="main">
-              <Grid container justifyContent="center" alignItems="center">
-                <Grid item>
-                  {" "}
-                  <Box
-                    display={{ xs: "none", sm: "block" }}
-                    style={{ padding: "10px" }}
-                  >
-                    <Image
-                      src="/logosismed2.png"
-                      alt="Sismed"
-                      width={150}
-                      height={150}
-                    />
-                  </Box>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              component="main"
+              className={(classes.root, classes.image)}
+            >
+              <Grid item xs={12} md={4} component="main">
+                <Grid container justifyContent="center" alignItems="center">
+                  <Grid item>
+                    {" "}
+                    <Box
+                      display={{ xs: "none", sm: "block" }}
+                      style={{ padding: "10px" }}
+                    >
+                      <Image
+                        src="/logosismed2.png"
+                        alt="Sismed"
+                        width={150}
+                        height={150}
+                      />
+                    </Box>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
 
-            <Grid item xs={12} md={8} component={Paper} elevation={6} square>
-              <div className={classes.paper}>
-                <form
-                  className={classes.root}
-                  noValidate
-                  autoComplete="off"
-                  onSubmit={handleSubmit(onSubmit)}
-                >
-                  <AnnounTitle>
-                    Realice cambios en la hora o elimine el horario
-                  </AnnounTitle>
-                  <Grid
-                    container
-                    direction="row"
-                    justifyContent="space-around"
-                    alignItems="center"
-                    spacing={1}
-                    style={{
-                      paddingBottom: "15px",
-                      paddingTop: "20px",
-                      color: "#092435",
-                    }}
+              <Grid item xs={12} md={8} component={Paper} elevation={6} square>
+                <div className={classes.paper}>
+                  <form
+                    className={classes.root}
+                    noValidate
+                    autoComplete="off"
+                    onSubmit={handleSubmit(onSubmit)}
                   >
-                    <Grid item md={4} sm={3} xs={12}>
-                      <TextField
-                        id="userDay"
-                        name="userDay"
-                        label="Día"
-                        defaultValue={data.userDay}
-                        className={classes.textField}
-                        variant="outlined"
-                        //{...register("ci")}
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                      />
-                    </Grid>
-                    <Grid item md={4} sm={3} xs={12}>
-                      <TextField
-                        id="startTime"
-                        name="startTime"
-                        label="Hora inicio"
-                        defaultValue={data.startTime}
-                        className={classes.textField}
-                        variant="outlined"
-                        placeholder="ej. 12:30"
-                        {...register("startTime")}
-                        error={!!errors.startTime}
-                        helperText={errors.startTime?.message}
-                      />
-                    </Grid>
-                    <Grid item md={4} sm={3} xs={12}>
-                      <TextField
-                        id="finishTime"
-                        name="finishTime"
-                        label="Hora final"
-                        defaultValue={data.finishTime}
-                        className={classes.textField}
-                        variant="outlined"
-                        placeholder="ej. 12:30"
-                        {...register("finishTime")}
-                        error={!!errors.finishTime}
-                        helperText={errors.finishTime?.message}
-                      />
-                    </Grid>
-                    <Divider
-                      light
-                      style={{ backgroundColor: "#60CCD9", color: "#092435" }}
-                    />
+                    <AnnounTitle>
+                      Realice cambios en la hora o elimine el horario
+                    </AnnounTitle>
                     <Grid
                       container
                       direction="row"
                       justifyContent="space-around"
                       alignItems="center"
+                      spacing={1}
                       style={{
-                        backgroundColor: "#FFFFFF",
-                        paddingBottom: "10px",
-                        paddingTop: "15px",
+                        paddingBottom: "15px",
+                        paddingTop: "20px",
                         color: "#092435",
                       }}
                     >
+                      <Grid item md={4} sm={3} xs={12}>
+                        <TextField
+                          id="userDay"
+                          name="userDay"
+                          label="Día"
+                          defaultValue={data.userDay}
+                          className={classes.textField}
+                          variant="outlined"
+                          //{...register("ci")}
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                        />
+                      </Grid>
+                      <Grid item md={4} sm={3} xs={12}>
+                        <TextField
+                          id="startTime"
+                          name="startTime"
+                          label="Hora inicio"
+                          defaultValue={data.startTime}
+                          className={classes.textField}
+                          variant="outlined"
+                          placeholder="ej. 12:30"
+                          {...register("startTime")}
+                          error={!!errors.startTime}
+                          helperText={errors.startTime?.message}
+                        />
+                      </Grid>
+                      <Grid item md={4} sm={3} xs={12}>
+                        <TextField
+                          id="finishTime"
+                          name="finishTime"
+                          label="Hora final"
+                          defaultValue={data.finishTime}
+                          className={classes.textField}
+                          variant="outlined"
+                          placeholder="ej. 12:30"
+                          {...register("finishTime")}
+                          error={!!errors.finishTime}
+                          helperText={errors.finishTime?.message}
+                        />
+                      </Grid>
+                      <Divider
+                        light
+                        style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                      />
                       <Grid
-                        item
-                        md={3}
-                        xs={12}
+                        container
+                        direction="row"
+                        justifyContent="space-around"
+                        alignItems="center"
                         style={{
-                          padding: "10px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
+                          backgroundColor: "#FFFFFF",
+                          paddingBottom: "10px",
+                          paddingTop: "15px",
+                          color: "#092435",
                         }}
                       >
-                        <Link href={`/userSchedule/${data.user_id}`} passHref>
-                          <Button
-                            variant="contained"
-                            fullWidth
-                            className={classes.btnCancel}
-                          >
-                            Cancelar
-                          </Button>
-                        </Link>
-                      </Grid>
-
-                      {data.availableStatus === false ? (
-                        <>
-                          <Grid
-                            item
-                            md={3}
-                            xs={12}
-                            style={{
-                              padding: "10px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                          >
-                            <Link
-                              href={`${Routes.SCHEDULEUSER}/${data.user_id}`}
-                              passHref
-                            >
-                              <Button
-                                className={classes.btnEdit}
-                                variant="contained"
-                                fullWidth
-                                onClick={handleDelete}
-                                startIcon={<DeleteForeverIcon />}
-                              >
-                                Eliminar
-                              </Button>
-                            </Link>
-                          </Grid>
-                          <Grid
-                            item
-                            md={3}
-                            xs={12}
-                            style={{
-                              padding: "10px",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                          >
+                        <Grid
+                          item
+                          md={3}
+                          xs={12}
+                          style={{
+                            padding: "10px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Link href={`/userSchedule/${data.user_id}`} passHref>
                             <Button
                               variant="contained"
-                              type="submit"
                               fullWidth
-                              className={classes.btnSave}
-                              //onClick={handleOpen}
-                              startIcon={<SaveIcon />}
+                              className={classes.btnCancel}
                             >
-                              Actualizar
+                              Cancelar
                             </Button>
-                          </Grid>
-                        </>
-                      ) : (
-                        "No se puede modificar o eliminar el horario"
-                      )}
+                          </Link>
+                        </Grid>
+
+                        {data.availableStatus === false ? (
+                          <>
+                            <Grid
+                              item
+                              md={3}
+                              xs={12}
+                              style={{
+                                padding: "10px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Link
+                                href={`${Routes.SCHEDULEUSER}/${data.user_id}`}
+                                passHref
+                              >
+                                <Button
+                                  className={classes.btnEdit}
+                                  variant="contained"
+                                  fullWidth
+                                  onClick={handleDelete}
+                                  startIcon={<DeleteForeverIcon />}
+                                >
+                                  Eliminar
+                                </Button>
+                              </Link>
+                            </Grid>
+                            <Grid
+                              item
+                              md={3}
+                              xs={12}
+                              style={{
+                                padding: "10px",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <Button
+                                variant="contained"
+                                type="submit"
+                                fullWidth
+                                className={classes.btnSave}
+                                //onClick={handleOpen}
+                                startIcon={<SaveIcon />}
+                              >
+                                Actualizar
+                              </Button>
+                            </Grid>
+                          </>
+                        ) : (
+                          "No se puede modificar o eliminar el horario"
+                        )}
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </form>
-              </div>
+                  </form>
+                </div>
+              </Grid>
             </Grid>
-          </Grid>
-        </Paper>
-      </Container>
+          </Paper>
+        </Container>
+      </CssBaseline>
     </LayoutSecondary>
   );
 };

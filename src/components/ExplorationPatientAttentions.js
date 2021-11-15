@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { fetcher } from "src/api/utils";
 import useSWR from "swr";
+import { CssBaseline } from "@material-ui/core";
 
 const columns = [
   {
@@ -153,93 +154,95 @@ export default function ExplorationPatientsAttentions({ patientID }) {
   if (!data) return <Loading />;
   // render data
   return (
-    <Paper direction="row">
-      <TableContainer component="div" className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{
-                    minWidth: column.minWidth,
-                    backgroundColor: column.backgroundColor,
-                    fontSize: column.fontSize,
-                  }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {data.data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                const colorLine = row.explorationPatient_id;
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-2}
-                    key={row.explorationPatient_id}
+    <CssBaseline>
+      <Paper direction="row">
+        <TableContainer component="div" className={classes.container}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{
+                      minWidth: column.minWidth,
+                      backgroundColor: column.backgroundColor,
+                      fontSize: column.fontSize,
+                    }}
                   >
-                    {" "}
-                    <>
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.id && typeof value === "number"
-                              ? value
-                              : value}
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
 
-                            {column.id === "botonSelect" &&
-                            column.label == "_" ? (
-                              <Grid
-                                component={"span"}
-                                container
-                                direction="row"
-                                alignItems="center"
-                                justifyContent="center"
-                              >
-                                <Grid item>
-                                  <Button
-                                    href={`/medicalHistory/${patientID}/physicalExam/${row.physicalExam_id}/exploration/medical/${row.explorationPatient_id}`}
-                                    variant="outlined"
-                                    size="small"
-                                    className={classes.btnview}
-                                    startIcon={<FindInPageIcon />}
-                                  >
-                                    Agregar
-                                  </Button>
+            <TableBody>
+              {data.data
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  const colorLine = row.explorationPatient_id;
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-2}
+                      key={row.explorationPatient_id}
+                    >
+                      {" "}
+                      <>
+                        {columns.map((column) => {
+                          const value = row[column.id];
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              {column.id && typeof value === "number"
+                                ? value
+                                : value}
+
+                              {column.id === "botonSelect" &&
+                              column.label == "_" ? (
+                                <Grid
+                                  component={"span"}
+                                  container
+                                  direction="row"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                >
+                                  <Grid item>
+                                    <Button
+                                      href={`/medicalHistory/${patientID}/physicalExam/${row.physicalExam_id}/exploration/medical/${row.explorationPatient_id}`}
+                                      variant="outlined"
+                                      size="small"
+                                      className={classes.btnview}
+                                      startIcon={<FindInPageIcon />}
+                                    >
+                                      Agregar
+                                    </Button>
+                                  </Grid>
                                 </Grid>
-                              </Grid>
-                            ) : (
-                              ""
-                            )}
-                          </TableCell>
-                        );
-                      })}
-                    </>
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        labelRowsPerPage="Pacientes:"
-        rowsPerPageOptions={[10, 25]}
-        component="div"
-        count={data.data.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+                              ) : (
+                                ""
+                              )}
+                            </TableCell>
+                          );
+                        })}
+                      </>
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          labelRowsPerPage="Pacientes:"
+          rowsPerPageOptions={[10, 25]}
+          component="div"
+          count={data.data.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
+    </CssBaseline>
   );
 }

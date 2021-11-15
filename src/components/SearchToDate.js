@@ -7,6 +7,7 @@ import {
   Grid,
   Modal,
   CssBaseline,
+  Divider,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@mui/icons-material/Search";
@@ -24,9 +25,10 @@ import {
   CardActions,
   CardContent,
   Typography,
-  Divider,
 } from "@material-ui/core";
 import Link from "next/link";
+import { useAuth } from "src/contexts/auth";
+import ScheduleDayPatient from "@/components/ScheduleDayPatient";
 
 const schema = yup.object().shape({
   ci: yup
@@ -85,8 +87,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchPatient = () => {
+const SearchToDate = () => {
   const classes = useStyles();
+  const { user } = useAuth();
+
   const [wordSearch, setWordSearch] = useState(null);
   const {
     handleSubmit,
@@ -98,6 +102,8 @@ const SearchPatient = () => {
   });
   const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
   const [open, setOpen] = useState(false);
+  const [openSchedule, setOpenSchedule] = useState(false);
+  const [date, setDate] = useState(null);
 
   const { data, error } = useSWR("/searching/" + wordSearch, fetcher);
   console.log("Respuesta", data);
@@ -108,9 +114,20 @@ const SearchPatient = () => {
   const handleOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
+  const handleOpenSchedule = () => {
+    setOpenSchedule(true);
+  };
+  const handleCloseSchedule = () => {
+    setOpenSchedule(false);
+  };
+  const handleIdView = () => {
+    setDate(data[0].id);
+  };
+
   const bull = (
     <Box
       component="span"
@@ -174,7 +191,7 @@ const SearchPatient = () => {
                 style={{
                   textTransform: "none",
                   position: "realive",
-                  bottom: "7px",
+                  bottom: "5px",
                 }}
                 className={classes.submit}
               >
@@ -214,7 +231,6 @@ const SearchPatient = () => {
                           {bull}
                           {data[0].name} / {data[0].lastName}
                         </Typography>
-
                         <Typography sx={{ mb: 1.5 }}>
                           {bull}Ci : {data[0].ci}
                         </Typography>
@@ -248,29 +264,40 @@ const SearchPatient = () => {
                         />
                       </CardContent>
                       <CardActions>
-                        <Link
-                          href={`/medicalHistory/${data[0].id}`}
-                          as={`/medicalHistory/${data[0].id}`}
-                          key={data[0].id}
-                          passHref
-                        >
-                          <Button
-                            size="small"
-                            variant="contained"
-                            className={classes.btnhistory}
+                        <>
+                          <Grid
+                            container
+                            direction="row"
+                            justifyContent="space-around"
+                            alignItems="center"
                           >
-                            Ver historia
-                          </Button>
-                        </Link>
-                        <Button
-                          size="small"
-                          variant="contained"
-                          type="submit"
-                          onClick={handleClose}
-                          className={classes.btncancelar}
-                        >
-                          Cancelar
-                        </Button>
+                            <Grid item>
+                              <Button
+                                size="small"
+                                variant="contained"
+                                onClick={() => {
+                                  handleOpenSchedule();
+                                  handleClose();
+                                  handleIdView();
+                                }}
+                                className={classes.btnhistory}
+                              >
+                                Historial de citas
+                              </Button>
+                            </Grid>
+                            <Grid item>
+                              <Button
+                                size="small"
+                                variant="contained"
+                                type="submit"
+                                onClick={handleClose}
+                                className={classes.btncancelar}
+                              >
+                                Cancelar
+                              </Button>
+                            </Grid>
+                          </Grid>
+                        </>
                       </CardActions>
                     </Card>
                   </>
@@ -297,9 +324,59 @@ const SearchPatient = () => {
               </div>
             </Fade>
           </Modal>
+
+          <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={openSchedule}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={openSchedule}>
+              <div className={classes.mpaper}>
+                {" "}
+                <Card>
+                  <ScheduleDayPatient date={date} />
+                  <Divider
+                    light
+                    style={{
+                      backgroundColor: "#60CCD9",
+                      color: "#092435",
+                    }}
+                  />
+                  <CardActions>
+                    <>
+                      <Grid
+                        container
+                        direction="row"
+                        justifyContent="space-around"
+                        alignItems="center"
+                      >
+                        <Grid item>
+                          <Button
+                            size="small"
+                            variant="contained"
+                            type="submit"
+                            onClick={handleCloseSchedule}
+                            className={classes.btncancelar}
+                          >
+                            Cancelar
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </>
+                  </CardActions>
+                </Card>
+              </div>
+            </Fade>
+          </Modal>
         </form>
       </CssBaseline>
     </>
   );
 };
-export default SearchPatient;
+export default SearchToDate;
