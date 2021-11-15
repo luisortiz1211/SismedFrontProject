@@ -130,7 +130,7 @@ const UserList = () => {
     );
 
   return (
-    <LayoutSecondary>
+    <div>
       <CssBaseline>
         <Container maxWidth="lg" direction="row">
           <Title>
@@ -254,7 +254,7 @@ const UserList = () => {
           </Paper>
         </Container>
       </CssBaseline>
-    </LayoutSecondary>
+    </div>
   );
 };
 export default UserList;
