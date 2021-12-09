@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Home() {
   return (
-    <React.Fragment>
+    <>
       <div>
         <Head>
           <title>SISMED</title>
@@ -17,6 +17,6 @@ export default function Home() {
       <Container maxWidth="lg">
         <First />
       </Container>
-    </React.Fragment>
+    </>
   );
 }

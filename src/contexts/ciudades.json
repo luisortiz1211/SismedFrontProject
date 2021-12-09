@@ -1,0 +1,858 @@
+[
+    {
+        "value": "cuenca",
+        "label": "cuenca"
+    },
+    {
+        "value": "giron",
+        "label": "giron"
+    },
+    {
+        "value": "nabon",
+        "label": "nabon"
+    },
+    {
+        "value": "pucara",
+        "label": "pucara"
+    },
+    {
+        "value": "san fernando",
+        "label": "san fernando"
+    },
+    {
+        "value": "santa isabel",
+        "label": "santa isabel"
+    },
+    {
+        "value": "sigsig",
+        "label": "sigsig"
+    },
+    {
+        "value": "oña",
+        "label": "oña"
+    },
+    {
+        "value": "chordeleg",
+        "label": "chordeleg"
+    },
+    {
+        "value": "el pan",
+        "label": "el pan"
+    },
+    {
+        "value": "sevilla de oro",
+        "label": "sevilla de oro"
+    },
+    {
+        "value": "guachapala",
+        "label": "guachapala"
+    },
+    {
+        "value": "camilo ponce enriquez",
+        "label": "camilo ponce enriquez"
+    },
+    {
+        "value": "guaranda",
+        "label": "guaranda"
+    },
+    {
+        "value": "chillanes",
+        "label": "chillanes"
+    },
+    {
+        "value": "chimbo",
+        "label": "chimbo"
+    },
+    {
+        "value": "echeandia",
+        "label": "echeandia"
+    },
+    {
+        "value": "san miguel",
+        "label": "san miguel"
+    },
+    {
+        "value": "caluma",
+        "label": "caluma"
+    },
+    {
+        "value": "las naves",
+        "label": "las naves"
+    },
+    {
+        "value": "azogues",
+        "label": "azogues"
+    },
+    {
+        "value": "biblian",
+        "label": "biblian"
+    },
+    {
+        "value": "cañar",
+        "label": "cañar"
+    },
+    {
+        "value": "la troncal",
+        "label": "la troncal"
+    },
+    {
+        "value": "el tambo",
+        "label": "el tambo"
+    },
+    {
+        "value": "deleg",
+        "label": "deleg"
+    },
+    {
+        "value": "suscal",
+        "label": "suscal"
+    },
+    {
+        "value": "tulcan",
+        "label": "tulcan"
+    },
+    {
+        "value": "espejo",
+        "label": "espejo"
+    },
+    {
+        "value": "mira",
+        "label": "mira"
+    },
+    {
+        "value": "montufar",
+        "label": "montufar"
+    },
+    {
+        "value": "san pedro de huaca",
+        "label": "san pedro de huaca"
+    },
+    {
+        "value": "latacunga",
+        "label": "latacunga"
+    },
+    {
+        "value": "la mana",
+        "label": "la mana"
+    },
+    {
+        "value": "pangua",
+        "label": "pangua"
+    },
+    {
+        "value": "pujili",
+        "label": "pujili"
+    },
+    {
+        "value": "salcedo",
+        "label": "salcedo"
+    },
+    {
+        "value": "saquisili",
+        "label": "saquilisi"
+    },
+    {
+        "value": "sigchos",
+        "label": "sigchos"
+    },
+    {
+        "value": "riobamba",
+        "label": "riobamba"
+    },
+    {
+        "value": "alausi",
+        "label": "alausi"
+    },
+    {
+        "value": "colta",
+        "label": "colta"
+    },
+    {
+        "value": "chambo",
+        "label": "chambo"
+    },
+    {
+        "value": "chunchi",
+        "label": "chunchi"
+    },
+    {
+        "value": "guamote",
+        "label": "guamote"
+    },
+    {
+        "value": "guano",
+        "label": "guano"
+    },
+    {
+        "value": "pallatanga",
+        "label": "pallatanga"
+    },
+    {
+        "value": "penipe",
+        "label": "penipe"
+    },
+    {
+        "value": "cumanda",
+        "label": "cumanda"
+    },
+    {
+        "value": "machala",
+        "label": "machala"
+    },
+    {
+        "value": "atahualpa",
+        "label": "atahualpa"
+    },
+    {
+        "value": "balsas",
+        "label": "balsas"
+    },
+    {
+        "value": "chilla",
+        "label": "chilla"
+    },
+    {
+        "value": "el guabo",
+        "label": "el guabo"
+    },
+    {
+        "value": "huaquillas",
+        "label": "huaquillas"
+    },
+    {
+        "value": "marcabeli",
+        "label": "marcabeli"
+    },
+    {
+        "value": "pasaje",
+        "label": "pasaje"
+    },
+    {
+        "value": "piñas",
+        "label": "piñas"
+    },
+    {
+        "value": "portovelo",
+        "label": "portovelo"
+    },
+    {
+        "value": "santa rosa",
+        "label": "santa rosa"
+    },
+    {
+        "value": "zaruma",
+        "label": "zaruma"
+    },
+    {
+        "value": "las lajas",
+        "label": "las lajas"
+    },
+    {
+        "value": "esmeraldas",
+        "label": "esmeraldas"
+    },
+    {
+        "value": "eloy alfaro",
+        "label": "eloy alfaro"
+    },
+    {
+        "value": "muisne",
+        "label": "muisne"
+    },
+    {
+        "value": "quininde",
+        "label": "quininde"
+    },
+    {
+        "value": "san lorenzo",
+        "label": "san lorenzo"
+    },
+    {
+        "value": "atacames",
+        "label": "atacames"
+    },
+    {
+        "value": "rioverde",
+        "label": "rioverde"
+    },
+    {
+        "value": "la concordia",
+        "label": "la concordia"
+    },
+    {
+        "value": "guayaquil",
+        "label": "guayaquil"
+    },
+    {
+        "value": "alfredo baquerizo moreno (jujan)",
+        "label": "alfredo baquerizo moreno (jujan)"
+    },
+    {
+        "value": "balao",
+        "label": "balao"
+    },
+    {
+        "value": "balzar",
+        "label": "balzar"
+    },
+    {
+        "value": "colimes",
+        "label": "colimes"
+    },
+    {
+        "value": "daule",
+        "label": "daule"
+    },
+    {
+        "value": "duran",
+        "label": "duran"
+    },
+    {
+        "value": "el empalme",
+        "label": "el empalme"
+    },
+    {
+        "value": "el triunfo",
+        "label": "el triunfo"
+    },
+    {
+        "value": "milagro",
+        "label": "milagro"
+    },
+    {
+        "value": "naranjal",
+        "label": "naranjal"
+    },
+    {
+        "value": "naranjito",
+        "label": "naranjito"
+    },
+    {
+        "value": "palestina",
+        "label": "palestina"
+    },
+    {
+        "value": "pedro carbo",
+        "label": "pedro carbo"
+    },
+    {
+        "value": "samborondon",
+        "label": "samborondon"
+    },
+    {
+        "value": "santa lucia",
+        "label": "santa lucia"
+    },
+    {
+        "value": "salitre",
+        "label": "salitre"
+    },
+    {
+        "value": "san jacinto de yaguachi",
+        "label": "san jacinto de yaguachi"
+    },
+    {
+        "value": "playas",
+        "label": "playas"
+    },
+    {
+        "value": "simon bolivar",
+        "label": "simon bolivar"
+    },
+    {
+        "value": "coronel marcelino maridueña",
+        "label": "coronel marcelino maridueña"
+    },
+    {
+        "value": "lomas de sargentillo",
+        "label": "lomas de sargentillo"
+    },
+    {
+        "value": "nobol",
+        "label": "nobol"
+    },
+    {
+        "value": "general antonio elizalde",
+        "label": "general antonio elizalde"
+    },
+    {
+        "value": "isidro ayora",
+        "label": "isidro ayora"
+    },
+    {
+        "value": "ibarra",
+        "label": "ibarra"
+    },
+    {
+        "value": "antonio ante",
+        "label": "antonio ante"
+    },
+    {
+        "value": "cotacachi",
+        "label": "cotacachi"
+    },
+    {
+        "value": "otavalo",
+        "label": "otavalo"
+    },
+    {
+        "value": "pimampiro",
+        "label": "pimampiro"
+    },
+    {
+        "value": "san miguel de urcuqui",
+        "label": "san miguel de urcuqui"
+    },
+    {
+        "value": "loja",
+        "label": "loja"
+    },
+    {
+        "value": "calvas",
+        "label": "calvas"
+    },
+    {
+        "value": "catamayo",
+        "label": "catamayo"
+    },
+    {
+        "value": "celica",
+        "label": "celica"
+    },
+    {
+        "value": "chaguarpamba",
+        "label": "chaguarpamba"
+    },
+    {
+        "value": "espindola",
+        "label": "espindola"
+    },
+    {
+        "value": "gonzanama",
+        "label": "gonzanama"
+    },
+    {
+        "value": "macara",
+        "label": "macara"
+    },
+    {
+        "value": "puyango",
+        "label": "puyango"
+    },
+    {
+        "value": "saraguro",
+        "label": "saraguro"
+    },
+    {
+        "value": "sozoranga",
+        "label": "sozoranga"
+    },
+    {
+        "value": "zapotillo",
+        "label": "zapotillo"
+    },
+    {
+        "value": "pindal",
+        "label": "pindal"
+    },
+    {
+        "value": "quilanga",
+        "label": "quilanga"
+    },
+    {
+        "value": "olmedo",
+        "label": "olmedo"
+    },
+    {
+        "value": "babahoyo",
+        "label": "babahoyo"
+    },
+    {
+        "value": "baba",
+        "label": "baba"
+    },
+    {
+        "value": "montalvo",
+        "label": "montalvo"
+    },
+    {
+        "value": "puebloviejo",
+        "label": "puebloviejo"
+    },
+    {
+        "value": "quevedo",
+        "label": "quevedo"
+    },
+    {
+        "value": "urdaneta",
+        "label": "urdaneta"
+    },
+    {
+        "value": "ventanas",
+        "label": "ventanas"
+    },
+    {
+        "value": "vinces",
+        "label": "vinces"
+    },
+    {
+        "value": "palenque",
+        "label": "palenque"
+    },
+    {
+        "value": "buena fe",
+        "label": "buena fe"
+    },
+    {
+        "value": "valencia",
+        "label": "valencia"
+    },
+    {
+        "value": "mocache",
+        "label": "mocache"
+    },
+    {
+        "value": "quinsaloma",
+        "label": "quinsaloma"
+    },
+    {
+        "value": "portoviejo",
+        "label": "portoviejo"
+    },
+    {
+        "value": "bolivar",
+        "label": "bolivar"
+    },
+    {
+        "value": "chone",
+        "label": "chone"
+    },
+    {
+        "value": "el carmen",
+        "label": "el carmen"
+    },
+    {
+        "value": "flavio alfaro",
+        "label": "flavio alfaro"
+    },
+    {
+        "value": "jipijapa",
+        "label": "jipijapa"
+    },
+    {
+        "value": "junin",
+        "label": "junin"
+    },
+    {
+        "value": "manta",
+        "label": "manta"
+    },
+    {
+        "value": "montecristi",
+        "label": "montecristi"
+    },
+    {
+        "value": "ajan",
+        "label": "ajan"
+    },
+    {
+        "value": "pichincha",
+        "label": "pichincha"
+    },
+    {
+        "value": "rocafuerte",
+        "label": "rocafuerte"
+    },
+    {
+        "value": "santa ana",
+        "label": "santa ana"
+    },
+    {
+        "value": "sucre",
+        "label": "sucre"
+    },
+    {
+        "value": "tosagua",
+        "label": "tosagua"
+    },
+    {
+        "value": "24 de mayo",
+        "label": "24 de mayo"
+    },
+    {
+        "value": "pedernales",
+        "label": "pedernales"
+    },
+    {
+        "value": "puerto lopez",
+        "label": "puerto lopez"
+    },
+    {
+        "value": "jama",
+        "label": "jama"
+    },
+    {
+        "value": "jaramijo",
+        "label": "jaramijo"
+    },
+    {
+        "value": "san vicente",
+        "label": "san vicente"
+    },
+    {
+        "value": "morona",
+        "label": "morona"
+    },
+    {
+        "value": "gualaquiza",
+        "label": "gualaquiza"
+    },
+    {
+        "value": "limon indanza",
+        "label": "limon indanza"
+    },
+    {
+        "value": "palora",
+        "label": "palora"
+    },
+    {
+        "value": "santiago",
+        "label": "santiago"
+    },
+    {
+        "value": "sucua",
+        "label": "sucua"
+    },
+    {
+        "value": "huamboya",
+        "label": "huamboya"
+    },
+    {
+        "value": "san juan bosco",
+        "label": "san juan bosco"
+    },
+    {
+        "value": "taisha",
+        "label": "taisha "
+    },
+    {
+        "value": "logroño",
+        "label": "logroño"
+    },
+    {
+        "value": "pablo sexto",
+        "label": "pablo sexto"
+    },
+    {
+        "value": "tiwintza",
+        "label": "tiwintza"
+    },
+    {
+        "value": "tena",
+        "label": "tena"
+    },
+    {
+        "value": "archidona",
+        "label": "archidona"
+    },
+    {
+        "value": "el chaco",
+        "label": "el chaco"
+    },
+    {
+        "value": "quijos",
+        "label": "quijos"
+    },
+    {
+        "value": "carlos julio arosemena tola",
+        "label": "carlos julio arosemena tola"
+    },
+    {
+        "value": "pastaza",
+        "label": "pastaza"
+    },
+    {
+        "value": "mera",
+        "label": "mera"
+    },
+    {
+        "value": "santa clara",
+        "label": "santa clara"
+    },
+    {
+        "value": "arajuno",
+        "label": "arajuno"
+    },
+    {
+        "value": "quito",
+        "label": "quito"
+    },
+    {
+        "value": "cayambe",
+        "label": "cayambe"
+    },
+    {
+        "value": "mejia",
+        "label": "mejia"
+    },
+    {
+        "value": "pedro moncayo",
+        "label": "pedro moncayo"
+    },
+    {
+        "value": "rumiñahui",
+        "label": "rumiñahui"
+    },
+    {
+        "value": "san miguel de los bancos",
+        "label": "san miguel de los bancos"
+    },
+    {
+        "value": "pedro vicente maldonado",
+        "label": "pedro vicente maldonado"
+    },
+    {
+        "value": "puerto quito",
+        "label": "puerto quito"
+    },
+    {
+        "value": "ambato",
+        "label": "ambato"
+    },
+    {
+        "value": "baños de agua santa",
+        "label": "baños de agua santa"
+    },
+    {
+        "value": "cevallos",
+        "label": "cevallos"
+    },
+    {
+        "value": "mocha",
+        "label": "mocha"
+    },
+    {
+        "value": "patate",
+        "label": "patate"
+    },
+    {
+        "value": "quero",
+        "label": "quero"
+    },
+    {
+        "value": "san pedro de pelileo",
+        "label": "san pedro de pelileo"
+    },
+    {
+        "value": "santiago de pillaro",
+        "label": "santiago de pillaro"
+    },
+    {
+        "value": "tisaleo",
+        "label": "tisaleo"
+    },
+    {
+        "value": "zamora chinchipe",
+        "label": "zamora chinchipe"
+    },
+    {
+        "value": "nangaritza",
+        "label": "nangaritza"
+    },
+    {
+        "value": "yacuambi",
+        "label": "yacuambi"
+    },
+    {
+        "value": "yantzaza",
+        "label": "yantzaza"
+    },
+    {
+        "value": "el pangui",
+        "label": "el pangui"
+    },
+    {
+        "value": "centinela del condor",
+        "label": "centinela del condor"
+    },
+    {
+        "value": "palanda",
+        "label": "palanda"
+    },
+    {
+        "value": "paquisha",
+        "label": "paquisha"
+    },
+    {
+        "value": "san cristobal",
+        "label": "san cristobal"
+    },
+    {
+        "value": "isabela",
+        "label": "isabela"
+    },
+    {
+        "value": "santa cruz",
+        "label": "santa cruz"
+    },
+    {
+        "value": "lago agrio",
+        "label": "lago agrio"
+    },
+    {
+        "value": "gonzalo pizarro",
+        "label": "gonzalo pizarro"
+    },
+    {
+        "value": "putumayo",
+        "label": "putumayo"
+    },
+    {
+        "value": "shushufindi",
+        "label": "shushufindi"
+    },
+    {
+        "value": "sucumbios",
+        "label": "sucumbios"
+    },
+    {
+        "value": "cascales",
+        "label": "cascales"
+    },
+    {
+        "value": "cuyabeno",
+        "label": "cuyabeno"
+    },
+    {
+        "value": "orellana",
+        "label": "orellana"
+    },
+    {
+        "value": "aguarico",
+        "label": "aguarico"
+    },
+    {
+        "value": "la joya de los sachas",
+        "label": "la joya de los sachas"
+    },
+    {
+        "value": "loreto",
+        "label": "loreto"
+    },
+    {
+        "value": "santo domingo",
+        "label": "santo domingo"
+    },
+    {
+        "value": "santa elena",
+        "label": "santa elena"
+    },
+    {
+        "value": "la libertad",
+        "label": "la libertad"
+    },
+    {
+        "value": "salinas",
+        "label": "salinas"
+    }
+]

@@ -1,6 +1,6 @@
 import Loading from "@/components/Loading";
 import { Emergencycontacts } from "@/lib/emergencycontact";
-import { Button, Grid } from "@material-ui/core";
+import { Button, Grid, Fade, Modal, Backdrop } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -155,6 +155,8 @@ const EmergencyContactList = ({ patientID }) => {
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [open, setOpen] = useState(false);
+  const [contactDelete, setDelete] = useState("");
   const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
   const handleChangePage = (event, newPage) => {
@@ -166,10 +168,22 @@ const EmergencyContactList = ({ patientID }) => {
     setPage(0);
   };
 
+  const { data, error } = useSWR(
+    `/patients/${patientID}/emergency_contacts`,
+    fetcher
+  );
+  if (error)
+    return (
+      <div>
+        <ChargeInformation />
+      </div>
+    );
+  if (!data) return <Loading />;
+
   const handleDelete = async (contact) => {
     try {
       await Emergencycontacts.deleteContact(
-        `${id}`,
+        `${contact}`,
         enqueueSnackbar("Contacto eliminado", {
           variant: "success",
           anchorOrigin: {
@@ -196,18 +210,13 @@ const EmergencyContactList = ({ patientID }) => {
       console.log(error.config);
     }
   };
-
-  const { data, error } = useSWR(
-    `/patients/${patientID}/emergency_contacts`,
-    fetcher
-  );
-  if (error)
-    return (
-      <div>
-        <ChargeInformation />
-      </div>
-    );
-  if (!data) return <Loading />;
+  /*   const handleOpen = () => {
+    setOpen(true);
+    setDelete(`${data.id}`);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  }; */
   return (
     <CssBaseline>
       <Container maxWidth="lg" direction="row">
@@ -280,7 +289,8 @@ const EmergencyContactList = ({ patientID }) => {
                                     size="small"
                                     fullWidth
                                     className={classes.btnDelete}
-                                    onClick={() => handleDelete(`${data.id}`)}
+                                    onClick={() => handleDelete(`${row.id}`)}
+                                    //onClick={handleOpen}
                                   >
                                     <DeleteForeverIcon />
                                   </Button>
@@ -298,6 +308,35 @@ const EmergencyContactList = ({ patientID }) => {
             </TableBody>
           </Table>
         </TableContainer>
+        {/*         <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <div className={classes.mpaper}>
+              <h2 id="transition-modal-title">
+                El paciente {`${contactDelete}`} será eliminado
+              </h2>
+              <Button
+                variant="contained"
+                type="submit"
+                size="small"
+                onClick={handleClose}
+                style={{ backgroundColor: "#60CCD9", color: "#092435" }}
+                className={classes.upgrade}
+              >
+                Cancelar
+              </Button>
+            </div>
+          </Fade>
+        </Modal> */}
       </Container>
     </CssBaseline>
   );

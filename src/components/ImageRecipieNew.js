@@ -168,14 +168,14 @@ export default function ImageRecipieNew({ examID, pid }) {
                 name="id"
                 label="# Exploración"
                 className={classes.textField}
-                defaultValue={examID}
+                defaultValue={id}
                 //required
                 variant="outlined"
                 disabled
                 InputProps={{
                   readOnly: true,
                 }}
-                {...register("exploration_id")}
+                //{...register("exploration_id")}
               />
             </Grid>
             <Grid item md={3} sm={4} xs={12}>

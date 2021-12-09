@@ -71,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "15px",
     color: "#414A4F",
   },
+  color: { color: "#092435" },
 }));
 
 const PatientDetails = () => {
@@ -104,9 +105,10 @@ const PatientDetails = () => {
                 <Tabs
                   value={value}
                   onChange={handleChange}
-                  indicatorColor="primary"
+                  //indicatorColor="primary"
                   textColor="primary"
                   variant="scrollable"
+                  indicator={{ backgroundColor: "green" }}
                   scrollButtons
                   aria-label="visible arrows tabs example"
                   sx={{
@@ -115,7 +117,11 @@ const PatientDetails = () => {
                     },
                   }}
                 >
-                  <Tab label="Datos" {...a11yProps(0)} />
+                  <Tab
+                    label="Datos"
+                    className={classes.color}
+                    {...a11yProps(0)}
+                  />
                   <Tab label="Contactos" {...a11yProps(1)} />
                   <Tab label="APP" {...a11yProps(2)} />
                   <Tab label="APF" {...a11yProps(3)} />

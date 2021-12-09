@@ -16,6 +16,62 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Emergencycontacts } from "src/api/emergencycontact";
 import * as yup from "yup";
+const families = [
+  {
+    value: "Padre/Madre",
+    label: "Padre/Madre",
+  },
+  {
+    value: "Hijo/Hija",
+    label: "Hijo/Hija",
+  },
+  {
+    value: "Abuelo/Abuela",
+    label: "Abuelo/Abuela",
+  },
+  {
+    value: "Hermano/Hermana",
+    label: "Hermano/Hermana",
+  },
+  {
+    value: "Tío/Tía",
+    label: "Tío/Tía",
+  },
+];
+const bloodType = [
+  {
+    value: `O negativo`,
+    label: "O negativo",
+  },
+  {
+    value: "O positivo",
+    label: "O positivo",
+  },
+  {
+    value: "A negativo",
+    label: "A negativo",
+  },
+  {
+    value: "A positivo",
+    label: "A positivo",
+  },
+  {
+    value: "B negativo",
+    label: "B negativo",
+  },
+  {
+    value: "B positivo",
+    label: "B positivo",
+  },
+  {
+    value: "AB positivo",
+    label: "AB positivo",
+  },
+  {
+    value: "AB negativo",
+    label: "AB negativo",
+  },
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,7 +144,7 @@ const schema = yup.object().shape({
 export default function EmergencyContactNew({ patientID }) {
   const classes = useStyles();
   const router = useRouter();
-  const { id } = router.query;
+  const { id, patient_id } = router.query;
   const {
     register,
     reset,
@@ -103,6 +159,9 @@ export default function EmergencyContactNew({ patientID }) {
   const [open, setOpen] = useState(false);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
 
+  const [family, setFamily] = useState("Padre/Madre");
+  const [blood, setBlood] = useState("O negativo");
+
   const onSubmit = async (formData) => {
     setUserInfo(null);
     setResult("Sending data...");
@@ -112,7 +171,7 @@ export default function EmergencyContactNew({ patientID }) {
         ...formData,
         patient_id: id,
       };
-      const response = await Emergencycontacts.create(contactData);
+      const response = await Emergencycontacts.create(contactData, `${id}`);
       //console.log("Nuevo contacto registrado", response);
       enqueueSnackbar("Contacto agregado con éxito", {
         variant: "success",
@@ -140,6 +199,12 @@ export default function EmergencyContactNew({ patientID }) {
       }
       console.error(error.config);
     }
+  };
+  const handleChange = (event) => {
+    setFamily(event.target.value);
+  };
+  const handleChangeBlood = (event) => {
+    setBlood(event.target.value);
   };
 
   return (
@@ -172,6 +237,7 @@ export default function EmergencyContactNew({ patientID }) {
                 name="id"
                 label="# Historia clínica"
                 className={classes.textField}
+                //defaultValue={patient_id}
                 defaultValue={id}
                 variant="outlined"
                 disabled
@@ -189,7 +255,6 @@ export default function EmergencyContactNew({ patientID }) {
                 className={classes.textField}
                 defaultValue=""
                 required
-                textTransform="uppercase"
                 variant="outlined"
                 {...register("nameContact")}
                 error={!!errors.nameContact}
@@ -243,53 +308,38 @@ export default function EmergencyContactNew({ patientID }) {
               />
             </Grid>
             <Grid item lg={4} sm={4} xs={12}>
-              <FormControl
-                variant="outlined"
-                label="Parentesco"
-                fullWidth
+              <TextField
+                id="relationShip"
+                select
                 className={classes.textField}
+                label="Parentesco"
+                value={family}
+                {...register("relationShip")}
+                onChange={handleChange}
               >
-                <Select
-                  id="relationShip"
-                  {...register("relationShip")}
-                  defaultValue="Padre/Madre"
-                >
-                  <MenuItem value={`Suegro/Suegra`}>Suegro/Suegra</MenuItem>
-                  <MenuItem value={`Padre/Madre`}>Padre/Madre</MenuItem>
-                  <MenuItem value={`Hijo/Hija`}>Hijo/Hija</MenuItem>
-                  <MenuItem value={`Yerno/Nuera`}>Yerno/Nuera</MenuItem>
-                  <MenuItem value={`Abuelo/Abuela`}>Abuelo/Abuela</MenuItem>
-                  <MenuItem value={`Hermano/Hermana`}>Hermano/Hermana</MenuItem>
-                  <MenuItem value={`Nieto/Nieta`}>Nieto/Nieta</MenuItem>
-                  <MenuItem value={`Cuñado/Cuñada`}>Cuñado/Cuñada</MenuItem>
-                  <MenuItem value={`Tío/Tía`}>Tío/Tía</MenuItem>
-                  <MenuItem value={`Sobrino/Sobrina`}>Sobrino/Sobrina</MenuItem>
-                  <MenuItem value={`Primos`}>Primos</MenuItem>
-                </Select>
-              </FormControl>
+                {families.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Grid>
             <Grid item lg={4} sm={4} xs={12}>
-              <FormControl
-                variant="outlined"
-                label="Tipo de sangre"
-                fullWidth
+              <TextField
+                id="bloodType"
+                select
                 className={classes.textField}
+                label="Tipo de sangre"
+                value={blood}
+                {...register("bloodType")}
+                onChange={handleChangeBlood}
               >
-                <Select
-                  id="bloodType"
-                  {...register("bloodType")}
-                  defaultValue="O positivo"
-                >
-                  <MenuItem value={`O negativo`}>O negativo</MenuItem>
-                  <MenuItem value={`O positivo`}>O positivo</MenuItem>
-                  <MenuItem value={`A negativo`}>A negativo</MenuItem>
-                  <MenuItem value={`A positivo`}>A positivo</MenuItem>
-                  <MenuItem value={`B negativo`}>B negativo</MenuItem>
-                  <MenuItem value={`B positivo`}>B positivo</MenuItem>
-                  <MenuItem value={`AB negativo`}>AB negativo</MenuItem>
-                  <MenuItem value={`AB positivo`}>AB positivo</MenuItem>
-                </Select>
-              </FormControl>
+                {bloodType.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Grid>
           </Grid>
           <Divider

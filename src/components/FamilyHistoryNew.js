@@ -15,6 +15,60 @@ import { useForm } from "react-hook-form";
 import { Familyhistories } from "src/api/familyhistory";
 import * as yup from "yup";
 
+const years = [
+  {
+    value: "1",
+    label: "1 Año",
+  },
+  {
+    value: "2",
+    label: "2 Años",
+  },
+  {
+    value: "3",
+    label: "3 Años",
+  },
+  {
+    value: "4",
+    label: "4 Años",
+  },
+  {
+    value: "5",
+    label: "5 Años",
+  },
+  {
+    value: "10",
+    label: "Mas de 10 Años",
+  },
+  {
+    value: "15",
+    label: "Permanente",
+  },
+];
+
+const families = [
+  {
+    value: "Padre/Madre",
+    label: "Padre/Madre",
+  },
+  {
+    value: "Hijo/Hija",
+    label: "Hijo/Hija",
+  },
+  {
+    value: "Abuelo/Abuela",
+    label: "Abuelo/Abuela",
+  },
+  {
+    value: "Hermano/Hermana",
+    label: "Hermano/Hermana",
+  },
+  {
+    value: "Tío/Tía",
+    label: "Tío/Tía",
+  },
+];
+
 const useStyles = makeStyles((theme) => ({
   root: {
     //height: "auto",
@@ -70,7 +124,7 @@ const schema = yup.object().shape({
 export default function FamilyHistoryNew() {
   const classes = useStyles();
   const router = useRouter();
-  const { id } = router.query;
+  const { patient_id, id } = router.query;
   const {
     register,
     reset,
@@ -83,6 +137,8 @@ export default function FamilyHistoryNew() {
   const [userInfo, setUserInfo] = useState(null);
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
+  const [year, setYear] = useState("1");
+  const [family, setFamily] = useState("Padre/Madre");
 
   const onSubmit = async (formData) => {
     setUserInfo(null);
@@ -123,6 +179,13 @@ export default function FamilyHistoryNew() {
     }
   };
 
+  const handleChangeYear = (event) => {
+    setYear(event.target.value);
+  };
+  const handleChangeFamily = (event) => {
+    setFamily(event.target.value);
+  };
+
   return (
     <CssBaseline>
       <Container>
@@ -153,6 +216,7 @@ export default function FamilyHistoryNew() {
                 name="id"
                 label="# Historia clínica"
                 className={classes.textField}
+                //defaultValue={patient_id}
                 defaultValue={id}
                 //required
                 disabled
@@ -192,49 +256,38 @@ export default function FamilyHistoryNew() {
             }}
           >
             <Grid item lg={6} sm={6} xs={12}>
-              <FormControl
-                variant="outlined"
-                label="Años de padecimiento"
-                fullWidth
+              <TextField
+                id="yearCondition"
+                select
                 className={classes.textField}
+                label="Tiempo de condición"
+                value={year}
+                {...register("yearCondition")}
+                onChange={handleChangeYear}
               >
-                <Select
-                  id="yearCondition"
-                  {...register("yearCondition")}
-                  error={!!errors.yearCondition}
-                  helperText={errors.yearCondition?.message}
-                  defaultValue={`1`}
-                >
-                  <MenuItem value={`1`}>1 Año</MenuItem>
-                  <MenuItem value={`2`}>2 Años</MenuItem>
-                  <MenuItem value={`3`}>3 Años</MenuItem>
-                  <MenuItem value={`4`}>4 Años</MenuItem>
-                  <MenuItem value={`5`}>5 Años</MenuItem>
-                  <MenuItem value={`10`}>Mas de 5 Años</MenuItem>
-                  <MenuItem value={`15`}>Mas de 10 Años</MenuItem>
-                  <MenuItem value={`20`}>Permanente</MenuItem>
-                </Select>
-              </FormControl>
+                {years.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Grid>
             <Grid item lg={6} sm={6} xs={12}>
-              <FormControl
-                variant="outlined"
-                label="Parentesco"
-                fullWidth
+              <TextField
+                id="commentCondition"
+                select
                 className={classes.textField}
+                label="Tiempo de condición"
+                value={family}
+                {...register("commentCondition")}
+                onChange={handleChangeFamily}
               >
-                <Select
-                  id="commentCondition"
-                  {...register("commentCondition")}
-                  defaultValue="Padre/Madre"
-                >
-                  <MenuItem value={`Padre/Madre`}>Padre/Madre</MenuItem>
-                  <MenuItem value={`Abuelo/Abuela`}>Abuelo/Abuela</MenuItem>
-                  <MenuItem value={`Hermano/Hermana`}>Hermano/Hermana</MenuItem>
-                  <MenuItem value={`Tío/Tía`}>Tío/Tía</MenuItem>
-                  <MenuItem value={`Primos`}>Primos</MenuItem>
-                </Select>
-              </FormControl>
+                {families.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Grid>
           </Grid>
           <Divider

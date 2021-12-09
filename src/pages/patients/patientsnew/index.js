@@ -23,7 +23,24 @@ import { Patients } from "src/api/patient";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import provincias from "@/contexts/provincias.json";
+import ciudades from "@/contexts/ciudades.json";
 
+const genders = [
+  { value: "1", label: "Masculino" },
+  { value: "2", label: "Femenino" },
+  { value: "3", label: "Otros" },
+];
+const civil = [
+  { value: "1", label: "Soltero" },
+  { value: "2", label: "Casado" },
+  { value: "3", label: "Divorciado" },
+  { value: "4", label: "Unión libre" },
+  { value: "5", label: "Montepio" },
+];
 const schema = yup.object().shape({
   ci: yup.number().required("Confirme su número de cédula"),
   name: yup.string().required("Ingrese su nombre"),
@@ -54,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   textField: {
-    paddingBottom: "15px",
+    //paddingBottom: "15px",
     color: "#414A4F",
   },
 
@@ -115,9 +132,14 @@ const PatientNew = ({ props }) => {
   const [result, setResult] = useState("");
   const [errorsList, setErrorsList] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
+  const [gender, setGender] = useState("");
+  const [civilState, setCivil] = useState("");
+  const [parish, setParish] = useState("");
+  const [cities, setCities] = useState("");
+  const [value, setValue] = React.useState(new Date());
 
-  const [open, setOpen] = useState(false);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
+  /*   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -125,6 +147,7 @@ const PatientNew = ({ props }) => {
   const handleClose = () => {
     setOpen(false);
   };
+ */
 
   const onSubmit = async (formData) => {
     setUserInfo(null);
@@ -162,6 +185,22 @@ const PatientNew = ({ props }) => {
       }
       console.error(error.config);
     }
+  };
+
+  const handleChangeBirthday = (newValue) => {
+    setValue(newValue);
+  };
+  const handleChangeGender = (event) => {
+    setGender(event.target.value);
+  };
+  const handleChangeCivil = (event) => {
+    setCivil(event.target.value);
+  };
+  const handleChangeParish = (event) => {
+    setParish(event.target.value);
+  };
+  const handleChangeCities = (event) => {
+    setCities(event.target.value);
   };
 
   return (
@@ -269,56 +308,59 @@ const PatientNew = ({ props }) => {
                   }}
                 >
                   <Grid item lg={3} sm={4} xs={12}>
-                    <FormControl
-                      variant="outlined"
+                    <TextField
+                      id="sex"
+                      select
+                      className={classes.textField}
                       label="Sexo"
-                      fullWidth
-                      className={classes.textField}
+                      value={gender}
+                      {...register("sex")}
+                      onChange={handleChangeGender}
+                      error={!!errors.sex}
+                      helperText={errors.sex?.message}
                     >
-                      <Select
-                        id="sex"
-                        {...register("sex", { required: true })}
-                        defaultValue={"1"}
-                      >
-                        <MenuItem value={`1`}>Masculino</MenuItem>
-                        <MenuItem value={`2`}>Femenino</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                  <Grid item lg={3} sm={4} xs={12}>
-                    <FormControl
-                      variant="outlined"
-                      label="Estado civil"
-                      className={classes.textField}
-                      fullWidth
-                    >
-                      <Select
-                        id="civilStatus"
-                        {...register("civilStatus", { required: true })}
-                        defaultValue={"1"}
-                      >
-                        <MenuItem value={`1`}>Soltero</MenuItem>
-                        <MenuItem value={`2`}>Casado</MenuItem>
-                        <MenuItem value={`3`}>Divorciado</MenuItem>
-                        <MenuItem value={`4`}>Union libre</MenuItem>
-                        <MenuItem value={`5`}>Montepio</MenuItem>
-                      </Select>
-                    </FormControl>
+                      {genders.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
                   </Grid>
                   <Grid item lg={3} sm={4} xs={12}>
                     <TextField
-                      id="birthay"
-                      name="birthay"
-                      label="Fecha nacimiento"
+                      id="civilStatus"
+                      select
                       className={classes.textField}
-                      defaultValue=""
-                      required
-                      variant="outlined"
-                      {...register("birthay")}
-                      error={!!errors.birthay}
-                      helperText={errors.birthay?.message}
-                      placeholder="Fecha: 1989-12-10"
-                    />
+                      label="Estado civil"
+                      value={civilState}
+                      {...register("civilStatus")}
+                      onChange={handleChangeCivil}
+                      error={!!errors.civilStatus}
+                      helperText={errors.civilStatus?.message}
+                    >
+                      {civil.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
+                  <Grid item lg={3} sm={4} xs={12}>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DesktopDatePicker
+                        label="Fecha nacimiento"
+                        inputFormat="MM/dd/yyyy"
+                        required
+                        className={classes.textField}
+                        variant="outlined"
+                        {...register("birthay")}
+                        error={!!errors.birthay}
+                        helperText={errors.birthay?.message}
+                        value={value}
+                        onChange={handleChangeBirthday}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
                   </Grid>
                 </Grid>
                 <Divider
@@ -435,11 +477,13 @@ const PatientNew = ({ props }) => {
                     <TextField
                       id="nationality"
                       name="nationality"
-                      label="País/Origen"
+                      label="País/Atención"
                       className={classes.textField}
-                      defaultValue=""
-                      required
+                      defaultValue=" Ecuador"
                       variant="outlined"
+                      InputProps={{
+                        readOnly: true,
+                      }}
                       {...register("nationality")}
                       error={!!errors.nationality}
                       helperText={errors.nationality?.message}
@@ -467,32 +511,40 @@ const PatientNew = ({ props }) => {
                   <Grid item lg={3} sm={4} xs={12}>
                     <TextField
                       id="city"
-                      name="city"
-                      label="Ciudad"
+                      select
                       className={classes.textField}
-                      defaultValue=""
-                      required
-                      variant="outlined"
+                      label="Ciudad residencia"
+                      value={cities}
                       {...register("city")}
+                      onChange={handleChangeCities}
                       error={!!errors.city}
                       helperText={errors.city?.message}
-                      placeholder="Ciudad: Quito"
-                    />
+                    >
+                      {ciudades.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
                   </Grid>
                   <Grid item lg={3} sm={4} xs={12}>
                     <TextField
                       id="parish"
-                      name="parish"
-                      label="Provincia"
+                      select
                       className={classes.textField}
-                      defaultValue=""
-                      required
-                      variant="outlined"
+                      label="Provincia residencia"
+                      value={parish}
                       {...register("parish")}
+                      onChange={handleChangeParish}
                       error={!!errors.parish}
                       helperText={errors.parish?.message}
-                      placeholder="Provincia: Pichincha"
-                    />
+                    >
+                      {provincias.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
                   </Grid>
                   <Grid item lg={3} sm={4} xs={12}>
                     <TextField
@@ -573,7 +625,7 @@ const PatientNew = ({ props }) => {
                   light
                   style={{ backgroundColor: "#60CCD9", color: "#092435" }}
                 />
-                <Modal
+                {/* <Modal
                   aria-labelledby="transition-modal-title"
                   aria-describedby="transition-modal-description"
                   className={classes.modal}
@@ -605,7 +657,7 @@ const PatientNew = ({ props }) => {
                       </Button>
                     </div>
                   </Fade>
-                </Modal>
+                </Modal> */}
               </form>
             </Container>
           </Paper>

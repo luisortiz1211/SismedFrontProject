@@ -20,6 +20,9 @@ const columns = [
   {
     id: "created_at",
     label: "Fecha registro",
+    /* type: "date",
+    dateSetting: { locale: "en-GB" },
+    format: "dd/MM/yyyy", */
     minWidth: 20,
     backgroundColor: "#BBF0E8",
     align: "center",
