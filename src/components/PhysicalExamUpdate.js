@@ -546,7 +546,6 @@ const PhysicalExamUpdate = ({ examID }) => {
               />
             </Grid>
           </Grid>
-          
           <Grid
             container
             direction="row"

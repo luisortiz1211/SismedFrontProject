@@ -71,6 +71,13 @@ function useAuthProvider() {
   async function login(data) {
     try {
       const response = await api.post("/login", data);
+      enqueueSnackbar("Bienvenido al sistema SISMED", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+      });
       handleUser(response.data.user);
       return response;
     } catch (error) {

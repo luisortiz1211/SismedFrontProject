@@ -101,13 +101,6 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const userData = await login(data);
-      enqueueSnackbar("Bienvenido al sistema SISMED", {
-        variant: "success",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
-        },
-      });
     } catch (error) {
       if (error.response) {
         enqueueSnackbar("Verifique usuario o contraseña", {
@@ -215,12 +208,13 @@ const Login = () => {
                   >
                     Ingresar
                   </Button>
+
                   <Grid container>
-                    {/*      <Grid item style={{ color: "#414A4F" }}>
+                    <Grid item style={{ color: "#414A4F" }}>
                       <Link href="/olvide-mi-clave" passHref>
                         <MuiLink>Olvido su contraseña?</MuiLink>
                       </Link>
-                    </Grid> */}
+                    </Grid>
                   </Grid>
                 </form>{" "}
                 {/*//////////*/}

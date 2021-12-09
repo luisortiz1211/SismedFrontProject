@@ -15,6 +15,37 @@ import { useForm } from "react-hook-form";
 import { Personalhistories } from "src/api/personalhistory";
 import * as yup from "yup";
 
+const years = [
+  {
+    value: "1",
+    label: "1 Año",
+  },
+  {
+    value: "2",
+    label: "2 Años",
+  },
+  {
+    value: "3",
+    label: "3 Años",
+  },
+  {
+    value: "4",
+    label: "4 Años",
+  },
+  {
+    value: "5",
+    label: "5 Años",
+  },
+  {
+    value: "10",
+    label: "Mas de 10 Años",
+  },
+  {
+    value: "15",
+    label: "Permanente",
+  },
+];
+
 const useStyles = makeStyles((theme) => ({
   root: {
     //height: "auto",
@@ -73,7 +104,7 @@ const schema = yup.object().shape({
 export default function PersonalHistoryNew({ props }) {
   const classes = useStyles();
   const router = useRouter();
-  const { id } = router.query;
+  const { patient_id, id } = router.query;
   const {
     register,
     reset,
@@ -85,6 +116,7 @@ export default function PersonalHistoryNew({ props }) {
   const [result, setResult] = useState("");
   const [userInfo, setUserInfo] = useState(null);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
+  const [yearBox, setYearBox] = useState("1");
 
   const onSubmit = async (formData) => {
     setUserInfo(null);
@@ -125,6 +157,10 @@ export default function PersonalHistoryNew({ props }) {
     }
   };
 
+  const handleChangeYear = (event) => {
+    setYearBox(event.target.value);
+  };
+
   return (
     <CssBaseline>
       <Container>
@@ -151,10 +187,11 @@ export default function PersonalHistoryNew({ props }) {
             {" "}
             <Grid item lg={6} sm={6} xs={12}>
               <TextField
-                id="id"
-                name="id"
+                id="patient_id"
+                name="patient_id"
                 label="# Historia clínica"
                 className={classes.textField}
+                //defaultValue={patient_id}
                 defaultValue={id}
                 //required
                 disabled
@@ -198,7 +235,7 @@ export default function PersonalHistoryNew({ props }) {
             }}
           >
             <Grid item lg={6} sm={6} xs={12}>
-              <FormControl
+              {/* <FormControl
                 variant="outlined"
                 label="Tiempo antecedente"
                 fullWidth
@@ -218,7 +255,22 @@ export default function PersonalHistoryNew({ props }) {
                   <MenuItem value={`15`}>Mas de 10 Años</MenuItem>
                   <MenuItem value={`20`}>Permanente</MenuItem>
                 </Select>
-              </FormControl>
+              </FormControl> */}
+              <TextField
+                id="yearCondition"
+                select
+                className={classes.textField}
+                label="Tiempo de condición"
+                value={yearBox}
+                {...register("yearCondition")}
+                onChange={handleChangeYear}
+              >
+                {years.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Grid>
             <Grid item lg={6} sm={6} xs={12}>
               <TextField

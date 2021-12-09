@@ -20,6 +20,38 @@ import { useForm } from "react-hook-form";
 import { Drugallergies } from "src/api/drugallergies";
 import * as yup from "yup";
 
+const alergies = [
+  {
+    value: "Alergia de alimentos",
+    label: "Alergia de alimentos",
+  },
+  {
+    value: "Alergia a fármacos",
+    label: "Alergia a fármacos",
+  },
+  {
+    value: "Asma alérgico",
+    label: "Asma alérgico",
+  },
+  {
+    value: "Dermatitis atópica",
+    label: "Dermatitis atópica",
+  },
+
+  {
+    value: "Poliposis Nasal",
+    label: "Poliposis Nasal",
+  },
+  {
+    value: "Rinitis alérgica",
+    label: "Rinitis alérgica",
+  },
+  {
+    value: "Urticaria crónica`",
+    label: "Urticaria crónica`",
+  },
+];
+
 const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -71,7 +103,7 @@ const schema = yup.object().shape({
 export default function DrugAllergieNew({ props }) {
   const classes = useStyles();
   const router = useRouter();
-  const { id } = router.query;
+  const { id, patient_id } = router.query;
   const {
     register,
     reset,
@@ -83,6 +115,7 @@ export default function DrugAllergieNew({ props }) {
   const [result, setResult] = useState("");
   const [userInfo, setUserInfo] = useState(null);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar("");
+  const [alergie, setAlergie] = useState("Alergia de alimentos");
 
   const onSubmit = async (formData) => {
     setUserInfo(null);
@@ -123,6 +156,9 @@ export default function DrugAllergieNew({ props }) {
       console.error(error.config);
     }
   };
+  const handleChangeAlergie = (event) => {
+    setAlergie(event.target.value);
+  };
 
   return (
     <CssBaseline>
@@ -150,10 +186,11 @@ export default function DrugAllergieNew({ props }) {
             {" "}
             <Grid item lg={6} sm={6} xs={12}>
               <TextField
-                id="id"
-                name="id"
+                id="patient_id"
+                name="patient_id"
                 label="# Historia Clínica"
                 className={classes.textField}
+                //defaultValue={patient_id}
                 defaultValue={id}
                 disabled
                 variant="outlined"
@@ -164,36 +201,21 @@ export default function DrugAllergieNew({ props }) {
               />
             </Grid>
             <Grid item lg={6} sm={6} xs={12}>
-              <FormControl
-                variant="outlined"
-                label="Tipo de alergia"
-                fullWidth
+              <TextField
+                id="drugName"
+                select
                 className={classes.textField}
+                label="Tipo de alergia"
+                value={alergie}
+                {...register("drugName")}
+                onChange={handleChangeAlergie}
               >
-                <Select
-                  id="drugName"
-                  {...register("drugName")}
-                  defaultValue="Alergia de alimentos"
-                >
-                  <MenuItem value={`Alergia de alimentos`}>
-                    Alergia de alimentos
+                {alergies.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
                   </MenuItem>
-                  <MenuItem value={`Alergia a fármacos`}>
-                    Alergia a fármacos
-                  </MenuItem>
-                  <MenuItem value={`Asma alérgico`}>Asma alérgico</MenuItem>
-                  <MenuItem value={`Dermatitis atópica`}>
-                    Dermatitis atópica
-                  </MenuItem>
-                  <MenuItem value={`Poliposis Nasal`}>Poliposis Nasal</MenuItem>
-                  <MenuItem value={`Rinitis alérgica`}>
-                    Rinitis alérgica
-                  </MenuItem>
-                  <MenuItem value={`Urticaria crónica`}>
-                    Urticaria crónica
-                  </MenuItem>
-                </Select>
-              </FormControl>
+                ))}
+              </TextField>
             </Grid>
           </Grid>{" "}
           <Divider
